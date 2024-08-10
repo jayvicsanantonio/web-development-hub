@@ -76,6 +76,7 @@ import VitestIcon from "@/components/icons/vitest";
 import TestcafeIcon from "@/components/icons/testcafe";
 import ElectronIcon from "@/components/icons/electron";
 import ReactNativeIcon from "@/components/icons/reactnative";
+import ExpoIcon from "@/components/icons/expo";
 import DevtoIcon from "@/components/icons/devto";
 import RedditIcon from "@/components/icons/reddit";
 import IcodethisIcon from "@/components/icons/icodethis";
@@ -674,6 +675,13 @@ export const SECTIONS = [
         href: "https://reactnative.dev/",
         description:
           "An open-source framework developed by Facebook for building mobile applications using JavaScript and React. It enables developers to create natively-rendered mobile apps for both iOS and Android using a single codebase. React Native bridges the gap between web and mobile development, allowing for the reuse of code across platforms while still providing a native look and feel.",
+      },
+      {
+        icon: ExpoIcon,
+        title: "Expo",
+        href: "https://expo.dev/",
+        description:
+          "A cross-platform mobile app SDK for React Native. It allows you to build native mobile apps using JavaScript and React, and package them into standalone apps for Android and iOS.",
       },
     ],
   },
