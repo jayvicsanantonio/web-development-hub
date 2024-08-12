@@ -77,6 +77,7 @@ import TestcafeIcon from "@/components/icons/testcafe";
 import ElectronIcon from "@/components/icons/electron";
 import ReactNativeIcon from "@/components/icons/reactnative";
 import ExpoIcon from "@/components/icons/expo";
+import CapacitorIcon from "@/components/icons/capacitor";
 import DevtoIcon from "@/components/icons/devto";
 import RedditIcon from "@/components/icons/reddit";
 import IcodethisIcon from "@/components/icons/icodethis";
@@ -682,6 +683,13 @@ export const SECTIONS = [
         href: "https://expo.dev/",
         description:
           "A cross-platform mobile app SDK for React Native. It allows you to build native mobile apps using JavaScript and React, and package them into standalone apps for Android and iOS.",
+      },
+      {
+        icon: CapacitorIcon,
+        title: "Capacitor",
+        href: "https://capacitorjs.com/",
+        description:
+          "An open-source native runtime developed by the Ionic team that enables developers to build cross-platform mobile apps with web technologies like HTML, CSS, and JavaScript. It serves as a bridge between web applications and native mobile features, allowing developers to write a single codebase that runs on iOS, Android, and the web.",
       },
     ],
   },
