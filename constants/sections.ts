@@ -78,6 +78,7 @@ import ElectronIcon from "@/components/icons/electron";
 import ReactNativeIcon from "@/components/icons/reactnative";
 import ExpoIcon from "@/components/icons/expo";
 import CapacitorIcon from "@/components/icons/capacitor";
+import IonicIcon from "@/components/icons/ionic";
 import DevtoIcon from "@/components/icons/devto";
 import RedditIcon from "@/components/icons/reddit";
 import IcodethisIcon from "@/components/icons/icodethis";
@@ -690,6 +691,13 @@ export const SECTIONS = [
         href: "https://capacitorjs.com/",
         description:
           "An open-source native runtime developed by the Ionic team that enables developers to build cross-platform mobile apps with web technologies like HTML, CSS, and JavaScript. It serves as a bridge between web applications and native mobile features, allowing developers to write a single codebase that runs on iOS, Android, and the web.",
+      },
+      {
+        icon: IonicIcon,
+        title: "Ionic Framework",
+        href: "https://ionicframework.com/",
+        description:
+          "An open-source UI toolkit for building high-quality, cross-platform applications using web technologies like HTML, CSS, and JavaScript. It provides a library of pre-built, customizable UI components and tools that enable developers to create mobile, desktop, and Progressive Web Apps (PWAs) from a single codebase. Ionic is designed to work with modern front-end frameworks like Angular, React, and Vue, but it can also be used with plain JavaScript or other frameworks.",
       },
     ],
   },
