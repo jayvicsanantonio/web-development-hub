@@ -79,6 +79,7 @@ import ReactNativeIcon from "@/components/icons/reactnative";
 import ExpoIcon from "@/components/icons/expo";
 import CapacitorIcon from "@/components/icons/capacitor";
 import IonicIcon from "@/components/icons/ionic";
+import QuasarIcon from "@/components/icons/quasar";
 import DevtoIcon from "@/components/icons/devto";
 import RedditIcon from "@/components/icons/reddit";
 import IcodethisIcon from "@/components/icons/icodethis";
@@ -698,6 +699,13 @@ export const SECTIONS = [
         href: "https://ionicframework.com/",
         description:
           "An open-source UI toolkit for building high-quality, cross-platform applications using web technologies like HTML, CSS, and JavaScript. It provides a library of pre-built, customizable UI components and tools that enable developers to create mobile, desktop, and Progressive Web Apps (PWAs) from a single codebase. Ionic is designed to work with modern front-end frameworks like Angular, React, and Vue, but it can also be used with plain JavaScript or other frameworks.",
+      },
+      {
+        icon: QuasarIcon,
+        title: "Quasar",
+        href: "https://quasar.dev/",
+        description:
+          "A powerful, open-source framework for building responsive, high-performance web, mobile, and desktop applications using the Vue.js framework. It provides a rich set of components, utilities, and tools that allow developers to create applications that work seamlessly across different platforms—whether it's a website, a mobile app, or a desktop application—all from a single codebase.",
       },
     ],
   },
