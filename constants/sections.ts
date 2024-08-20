@@ -80,6 +80,7 @@ import ExpoIcon from "@/components/icons/expo";
 import CapacitorIcon from "@/components/icons/capacitor";
 import IonicIcon from "@/components/icons/ionic";
 import QuasarIcon from "@/components/icons/quasar";
+import TauriIcon from "@/components/icons/tauri";
 import DevtoIcon from "@/components/icons/devto";
 import RedditIcon from "@/components/icons/reddit";
 import IcodethisIcon from "@/components/icons/icodethis";
@@ -706,6 +707,13 @@ export const SECTIONS = [
         href: "https://quasar.dev/",
         description:
           "A powerful, open-source framework for building responsive, high-performance web, mobile, and desktop applications using the Vue.js framework. It provides a rich set of components, utilities, and tools that allow developers to create applications that work seamlessly across different platforms—whether it's a website, a mobile app, or a desktop application—all from a single codebase.",
+      },
+      {
+        icon: TauriIcon,
+        title: "Tauri",
+        href: "https://tauri.app/",
+        description:
+          "An open-source framework for building lightweight, secure, and fast desktop applications using web technologies like HTML, CSS, and JavaScript. Unlike Electron, which uses Chromium for rendering the UI, Tauri uses the operating system's native webview (such as WebKit on macOS and WebView2 on Windows), resulting in smaller application sizes and lower memory consumption. Tauri is designed to integrate seamlessly with modern front-end frameworks like React, Vue, Angular, and Svelte, allowing developers to leverage their web development skills to create cross-platform desktop applications.",
       },
     ],
   },
