@@ -81,6 +81,7 @@ import CapacitorIcon from "@/components/icons/capacitor";
 import IonicIcon from "@/components/icons/ionic";
 import QuasarIcon from "@/components/icons/quasar";
 import TauriIcon from "@/components/icons/tauri";
+import NativeScriptIcon from "@/components/icons/nativescript";
 import DevtoIcon from "@/components/icons/devto";
 import RedditIcon from "@/components/icons/reddit";
 import IcodethisIcon from "@/components/icons/icodethis";
@@ -714,6 +715,13 @@ export const SECTIONS = [
         href: "https://tauri.app/",
         description:
           "An open-source framework for building lightweight, secure, and fast desktop applications using web technologies like HTML, CSS, and JavaScript. Unlike Electron, which uses Chromium for rendering the UI, Tauri uses the operating system's native webview (such as WebKit on macOS and WebView2 on Windows), resulting in smaller application sizes and lower memory consumption. Tauri is designed to integrate seamlessly with modern front-end frameworks like React, Vue, Angular, and Svelte, allowing developers to leverage their web development skills to create cross-platform desktop applications.",
+      },
+      {
+        icon: NativeScriptIcon,
+        title: "NativeScript",
+        href: "https://nativescript.org/",
+        description:
+          "An open-source framework for building truly native mobile applications using JavaScript, TypeScript, Angular, or Vue.js. Unlike hybrid frameworks that use web technologies and run inside a webview, NativeScript allows developers to write mobile apps that run directly on the device's native platform APIs, providing a fully native performance and user experience.",
       },
     ],
   },
