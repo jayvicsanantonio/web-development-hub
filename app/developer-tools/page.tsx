@@ -27,7 +27,7 @@ export default function Page() {
         {SECTIONS[1].links.map((link) => (
           <Link
             key={link.title}
-            className="group flex items-center gap-3 rounded-md bg-white p-6 shadow-sm transition-colors hover:bg-gray-50 dark:bg-gray-950 dark:hover:bg-gray-800"
+            className="group flex items-center gap-3 rounded-md bg-white p-6 shadow-xs transition-colors hover:bg-gray-50 dark:bg-gray-950 dark:hover:bg-gray-800"
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
