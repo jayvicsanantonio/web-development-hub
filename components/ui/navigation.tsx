@@ -50,7 +50,7 @@ export default function Navigation() {
           <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400" />
           <Input
             ref={searchRef}
-            className="pl-10 pr-4 py-2 rounded-md bg-white dark:bg-gray-950 dark:text-gray-50 focus:outline-none focus:ring-1 focus:ring-gray-500 dark:focus:ring-gray-300"
+            className="pl-10 pr-4 py-2 rounded-md bg-white dark:bg-gray-950 dark:text-gray-50 focus:outline-hidden focus:ring-1 focus:ring-gray-500 dark:focus:ring-gray-300"
             placeholder="Search..."
             type="search"
             value={search}
@@ -72,7 +72,7 @@ export default function Navigation() {
                     {section.links.map((link) => (
                       <Link
                         key={link.title}
-                        className="group flex items-center gap-3 rounded-md bg-white px-4 py-3 shadow-sm transition-colors hover:bg-gray-100 dark:bg-gray-950 dark:hover:bg-gray-800"
+                        className="group flex items-center gap-3 rounded-md bg-white px-4 py-3 shadow-xs transition-colors hover:bg-gray-100 dark:bg-gray-950 dark:hover:bg-gray-800"
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
