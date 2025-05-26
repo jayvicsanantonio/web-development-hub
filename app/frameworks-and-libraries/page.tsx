@@ -27,17 +27,17 @@ export default function Page() {
         {SECTIONS[2].links.map((link) => (
           <Link
             key={link.title}
-            className="group flex items-center gap-3 rounded-md bg-white p-6 shadow-xs transition-colors hover:bg-gray-50 dark:bg-gray-950 dark:hover:bg-gray-800"
+            className="group flex items-center gap-3 rounded-2xl bg-card p-4 shadow-cute-md transition-transform duration-200 ease-out hover:transform hover:-translate-y-1 hover:scale-103"
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
           >
             <link.icon width={50} height={50} />
             <div className="flex-1">
-              <p className="text-sm font-medium text-gray-900 group-hover:text-gray-900 dark:text-gray-50 dark:group-hover:text-gray-50">
+              <p className="text-sm font-heading font-semibold text-card-foreground group-hover:text-primary">
                 {link.title}
               </p>
-              <p className="text-sm text-gray-500 line-clamp-2 group-hover:text-gray-700 dark:text-gray-400 dark:group-hover:text-gray-300">
+              <p className="text-sm text-muted-foreground line-clamp-2 group-hover:text-card-foreground">
                 {link.description}
               </p>
             </div>

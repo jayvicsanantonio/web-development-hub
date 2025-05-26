@@ -56,7 +56,7 @@ export default function Navigation() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <span className="absolute top-1/2 -translate-y-1/2 right-2 hidden sm:flex items-center justify-center px-2.5 py-[3px] gap-2.5 bg-white dark:bg-gray-800 rounded-md border border-zinc-400 border-opacity-40 text-zinc-400 dark:text-neutral-200 text-sm font-medium peer-focus:hidden select-none tracking-[2.80px]">
+          <span className="absolute top-1/2 -translate-y-1/2 right-2 hidden sm:flex items-center justify-center px-2.5 py-[3px] gap-2.5 bg-muted/50 dark:bg-muted/50 rounded-lg border border-border text-muted-foreground text-sm font-medium peer-focus:hidden select-none tracking-[2.80px]">
             ⌘K
           </span>
         </form>
@@ -72,13 +72,13 @@ export default function Navigation() {
                     {section.links.map((link) => (
                       <Link
                         key={link.title}
-                        className="group flex items-center gap-3 rounded-md bg-white px-4 py-3 shadow-xs transition-colors hover:bg-gray-100 dark:bg-gray-950 dark:hover:bg-gray-800"
+                        className="group flex items-center gap-3 rounded-xl bg-card p-3 shadow-cute-xs transition-colors hover:bg-accent/20 dark:bg-card"
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <link.icon className="h-6 w-6 text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-gray-50" />
-                        <p className="text-sm font-medium text-gray-900 group-hover:text-gray-900 dark:text-gray-50 dark:group-hover:text-gray-50">
+                        <link.icon className="h-6 w-6 text-muted-foreground group-hover:text-primary dark:text-muted-foreground dark:group-hover:text-primary" />
+                        <p className="text-sm font-medium text-card-foreground group-hover:text-primary dark:text-card-foreground dark:group-hover:text-primary">
                           {link.title}
                         </p>
                       </Link>

@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="container grid items-center justify-center gap-4 text-center lg:gap-10">
       <div className="space-y-3">
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+        <h2 className="font-heading text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
           Elevate Your Web Development Journey
         </h2>
         <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
@@ -18,16 +18,16 @@ export default function Home() {
         {SECTIONS.map((section) => (
           <div
             key={section.title}
-            className="flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-xs transition-all hover:scale-105 hover:shadow-md dark:bg-gray-950 dark:hover:bg-gray-800"
+            className="flex flex-col items-center justify-center space-y-4 rounded-2xl bg-card p-6 shadow-cute-md transition-transform duration-200 ease-out hover:transform hover:-translate-y-1 hover:scale-103"
           >
-            <section.icon className="h-12 w-12 text-gray-900 dark:text-gray-50" />
-            <h3 className="text-lg font-bold">{section.title}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <section.icon className="h-12 w-12 text-primary" />
+            <h3 className="font-heading text-lg font-bold text-card-foreground">{section.title}</h3>
+            <p className="text-sm text-muted-foreground">
               {section.description}
             </p>
             <Link
               href={section.href || "#"}
-              className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow-sm transition-colors hover:bg-gray-900/90 focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow-cute-sm hover:bg-primary/90 hover:transform hover:-translate-y-0.5 hover:scale-105 active:transform active:translate-y-px active:scale-98 transition-transform duration-200 ease-out"
               prefetch={false}
             >
               Explore
