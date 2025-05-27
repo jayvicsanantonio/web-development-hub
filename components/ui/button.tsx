@@ -5,26 +5,28 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-colors focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:transform hover:-translate-y-0.5 hover:scale-105 active:transform active:translate-y-px active:scale-98 transition-transform duration-200 ease-out',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 focus-visible:ring-offset-surface disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:brightness-110 active:brightness-90',
   {
     variants: {
       variant: {
-        default:
-          'bg-primary text-primary-foreground shadow-cute-sm hover:bg-primary/90',
-        destructive:
-          'bg-destructive text-destructive-foreground shadow-cute-xs hover:bg-destructive/90',
-        outline:
-          'border border-input bg-background shadow-cute-xs hover:bg-accent hover:text-accent-foreground',
-        secondary:
-          'bg-secondary text-secondary-foreground shadow-cute-xs hover:bg-secondary/80',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
-        link: 'text-primary underline-offset-4 hover:underline',
+        default: // MD3 Filled Button
+          'bg-primary text-on-primary hover:bg-primary/[.92] disabled:bg-on-surface/10 disabled:text-on-surface/30',
+        destructive: // MD3 Filled Button - Error Colors
+          'bg-error text-on-error hover:bg-error/[.92] disabled:bg-on-surface/10 disabled:text-on-surface/30',
+        outline: // MD3 Outlined Button
+          'border border-outline text-primary hover:bg-primary/5 active:bg-primary/10 disabled:border-on-surface/10 disabled:text-on-surface/30',
+        secondary: // MD3 Tonal Button (using Secondary colors)
+          'bg-secondary-container text-on-secondary-container hover:bg-secondary-container/[.92] disabled:bg-on-surface/10 disabled:text-on-surface/30',
+        ghost: // MD3 Text Button
+          'text-primary hover:bg-primary/5 active:bg-primary/10 disabled:text-on-surface/30',
+        link: // MD3 Text Button with underline
+          'text-primary underline underline-offset-4 hover:bg-primary/5 active:bg-primary/10 disabled:text-on-surface/30',
       },
       size: {
-        default: 'h-9 px-4 py-2',
-        sm: 'h-8 rounded-md px-3 text-xs',
-        lg: 'h-10 rounded-md px-8',
-        icon: 'h-9 w-9',
+        default: 'h-10 px-6 py-2', // Approx 40dp height, 24dp side padding
+        sm: 'h-9 px-5 text-xs',    // Approx 36dp height
+        lg: 'h-12 px-7',           // Approx 48dp height
+        icon: 'h-10 w-10',         // Approx 40dp square
       },
     },
     defaultVariants: {

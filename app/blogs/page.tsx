@@ -1,43 +1,36 @@
 import Link from "next/link";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { SECTIONS } from "@/constants/sections";
 
 export default function Page() {
+  const section = SECTIONS[4]; // Blogs
+
   return (
-    <div className="container px-4 md:px-6 flex flex-col gap-10">
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/">Home</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Blogs</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+    <div className="container mx-auto px-4 md:px-6 py-8 md:py-12 lg:py-16 flex flex-col gap-10">
+      <header className="mb-8 md:mb-12 text-center">
+        <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-on-background">
+          {section.title}
+        </h1>
+        {section.description && (
+           <p className="mt-3 text-lg text-on-background/80 max-w-2xl mx-auto">
+            {section.description}
+          </p>
+        )}
+      </header>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-        {SECTIONS[4].links.map((link) => (
+        {section.links.map((link) => (
           <Link
             key={link.title}
-            className="group flex items-center gap-3 rounded-2xl bg-card p-4 shadow-cute-md transition-transform duration-200 ease-out hover:transform hover:-translate-y-1 hover:scale-103"
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
+            className="group flex flex-col items-start gap-2 rounded-lg border border-outline bg-surface text-on-surface p-4 transition-all duration-200 ease-in-out hover:shadow-md3-elevation-1 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 focus:ring-offset-surface"
           >
-            <link.icon width={50} height={50} />
-            <div className="flex-1">
-              <p className="text-sm font-heading font-semibold text-card-foreground group-hover:text-primary">
+            <link.icon width={32} height={32} className="mb-2 text-secondary" />
+            <div className="flex-1 w-full">
+              <h3 className="font-heading text-lg font-semibold text-on-surface group-hover:text-primary transition-colors">
                 {link.title}
-              </p>
-              <p className="text-sm text-muted-foreground line-clamp-2 group-hover:text-card-foreground">
+              </h3>
+              <p className="text-sm text-on-surface-variant/80 line-clamp-2 mt-1">
                 {link.description}
               </p>
             </div>

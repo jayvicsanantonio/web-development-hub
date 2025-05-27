@@ -14,7 +14,7 @@ const AccordionItem = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AccordionPrimitive.Item
     ref={ref}
-    className={cn("border-b", className)}
+    className={cn("border-b border-outline", className)}
     {...props}
   />
 ))
@@ -28,7 +28,7 @@ const AccordionTrigger = React.forwardRef<
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
-        "flex flex-1 items-center justify-between py-4 font-heading font-semibold transition-all hover:no-underline hover:bg-accent/20 [&[data-state=open]>svg]:rotate-180",
+        "flex flex-1 items-center justify-between w-full px-4 py-4 font-sans text-base font-medium text-on-surface transition-all hover:no-underline hover:bg-on-surface/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 focus-visible:ring-offset-surface [&[data-state=open]>svg]:rotate-180",
         className
       )}
       {...props}
@@ -46,10 +46,11 @@ const AccordionContent = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <AccordionPrimitive.Content
     ref={ref}
-    className="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+    className="overflow-hidden text-sm text-on-surface-variant transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down px-4 pb-4 pt-1" // Applied to the Content itself
     {...props}
   >
-    <div className={cn("pb-4 pt-0", className)}>{children}</div>
+    {/* The inner div class is removed as padding is now on AccordionPrimitive.Content */}
+    <div className={cn(className)}>{children}</div> 
   </AccordionPrimitive.Content>
 ))
 
