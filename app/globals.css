@@ -52,20 +52,20 @@
 @layer base {
     :root {
       /* MD3 Light Mode Core Roles */
-      --primary: 200 85% 45%;
-      --on-primary: 200 20% 98%;
-      --primary-container: 200 75% 90%;
-      --on-primary-container: 200 90% 25%;
+      --primary: 275 70% 50%; /* Vibrant Purple */
+      --on-primary: 275 25% 98%;
+      --primary-container: 275 80% 90%;
+      --on-primary-container: 275 70% 20%;
 
-      --secondary: 30 85% 50%;
-      --on-secondary: 30 20% 98%;
-      --secondary-container: 30 75% 92%;
-      --on-secondary-container: 30 90% 20%;
+      --secondary: 90 65% 45%; /* Bright Lime Green */
+      --on-secondary: 90 20% 98%;
+      --secondary-container: 90 75% 88%;
+      --on-secondary-container: 90 65% 18%;
 
-      --tertiary: 180 65% 40%;
-      --on-tertiary: 180 15% 98%;
-      --tertiary-container: 180 60% 90%;
-      --on-tertiary-container: 180 70% 20%;
+      --tertiary: 330 75% 65%; /* Soft Pink */
+      --on-tertiary: 330 30% 10%;
+      --tertiary-container: 330 85% 92%;
+      --on-tertiary-container: 330 70% 30%;
 
       --error: 0 70% 55%; /* Red e.g. #D32F2F */
       --on-error: 0 0% 100%; /* White */
@@ -97,20 +97,20 @@
 
     .dark {
       /* MD3 Dark Mode Core Roles */
-      --primary: 200 80% 75%;
-      --on-primary: 200 90% 15%;
-      --primary-container: 200 70% 25%;
-      --on-primary-container: 200 75% 85%;
+      --primary: 275 70% 75%; /* Vibrant Purple */
+      --on-primary: 275 70% 15%;
+      --primary-container: 275 60% 25%;
+      --on-primary-container: 275 75% 88%;
 
-      --secondary: 30 80% 78%;
-      --on-secondary: 30 90% 12%;
-      --secondary-container: 30 70% 22%;
-      --on-secondary-container: 30 75% 88%;
+      --secondary: 90 65% 70%; /* Bright Lime Green */
+      --on-secondary: 90 60% 12%;
+      --secondary-container: 90 55% 22%;
+      --on-secondary-container: 90 70% 85%;
       
-      --tertiary: 180 60% 70%;
-      --on-tertiary: 180 70% 10%;
-      --tertiary-container: 180 50% 20%;
-      --on-tertiary-container: 180 60% 80%;
+      --tertiary: 330 75% 80%; /* Soft Pink */
+      --on-tertiary: 330 70% 18%;
+      --tertiary-container: 330 65% 30%;
+      --on-tertiary-container: 330 80% 90%;
 
       --error: 0 60% 70%; /* Dark mode error red e.g. #EF9A9A */
       --on-error: 0 70% 15%; /* Dark red text */
