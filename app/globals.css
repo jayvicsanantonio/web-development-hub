@@ -52,20 +52,20 @@
 @layer base {
     :root {
       /* MD3 Light Mode Core Roles */
-      --primary: 233 35% 52%; /* Indigo e.g. #5C6BC0 */
-      --on-primary: 0 0% 100%; /* White */
-      --primary-container: 233 45% 90%; /* Light Indigo e.g. #E8EAF6 */
-      --on-primary-container: 233 35% 25%; /* Dark Indigo e.g. #303F9F */
+      --primary: 200 85% 45%;
+      --on-primary: 200 20% 98%;
+      --primary-container: 200 75% 90%;
+      --on-primary-container: 200 90% 25%;
 
-      --secondary: 174 63% 40%; /* Teal e.g. #26A69A */
-      --on-secondary: 0 0% 100%; /* White */
-      --secondary-container: 174 50% 88%; /* Light Teal e.g. #E0F2F1 */
-      --on-secondary-container: 174 60% 20%; /* Dark Teal e.g. #004D40 */
+      --secondary: 30 85% 50%;
+      --on-secondary: 30 20% 98%;
+      --secondary-container: 30 75% 92%;
+      --on-secondary-container: 30 90% 20%;
 
-      --tertiary: 36 100% 50%; /* Amber e.g. #FFC107 */
-      --on-tertiary: 0 0% 10%; /* Dark Gray/Black */
-      --tertiary-container: 36 100% 90%; /* Light Amber e.g. #FFF8E1 */
-      --on-tertiary-container: 36 80% 25%; /* Dark Amber e.g. #FF8F00 */
+      --tertiary: 180 65% 40%;
+      --on-tertiary: 180 15% 98%;
+      --tertiary-container: 180 60% 90%;
+      --on-tertiary-container: 180 70% 20%;
 
       --error: 0 70% 55%; /* Red e.g. #D32F2F */
       --on-error: 0 0% 100%; /* White */
@@ -97,20 +97,20 @@
 
     .dark {
       /* MD3 Dark Mode Core Roles */
-      --primary: 233 50% 78%; /* Lighter Indigo e.g. #9FA8DA */
-      --on-primary: 233 30% 15%; /* Dark Indigo for text e.g. #1A237E */
-      --primary-container: 233 35% 30%; /* Dark Indigo container e.g. #303F9F */
-      --on-primary-container: 233 45% 85%; /* Lighter Indigo text e.g. #C5CAE9 */
+      --primary: 200 80% 75%;
+      --on-primary: 200 90% 15%;
+      --primary-container: 200 70% 25%;
+      --on-primary-container: 200 75% 85%;
 
-      --secondary: 174 50% 70%; /* Lighter Teal e.g. #80CBC4 */
-      --on-secondary: 174 60% 15%; /* Dark Teal for text e.g. #004D40 */
-      --secondary-container: 174 60% 25%; /* Dark Teal container e.g. #00695C */
-      --on-secondary-container: 174 45% 80%; /* Lighter Teal text e.g. #B2DFDB */
+      --secondary: 30 80% 78%;
+      --on-secondary: 30 90% 12%;
+      --secondary-container: 30 70% 22%;
+      --on-secondary-container: 30 75% 88%;
       
-      --tertiary: 36 80% 70%; /* Lighter Amber e.g. #FFD54F */
-      --on-tertiary: 36 70% 15%; /* Dark Amber for text e.g. #FF8F00 */
-      --tertiary-container: 36 70% 30%; /* Dark Amber container e.g. #FFB300 */
-      --on-tertiary-container: 36 80% 85%; /* Lighter Amber text e.g. #FFF0B2 */
+      --tertiary: 180 60% 70%;
+      --on-tertiary: 180 70% 10%;
+      --tertiary-container: 180 50% 20%;
+      --on-tertiary-container: 180 60% 80%;
 
       --error: 0 60% 70%; /* Dark mode error red e.g. #EF9A9A */
       --on-error: 0 70% 15%; /* Dark red text */

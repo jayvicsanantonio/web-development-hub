@@ -15,8 +15,8 @@ const buttonVariants = cva(
           'bg-error text-on-error hover:bg-error/[.92] disabled:bg-on-surface/10 disabled:text-on-surface/30',
         outline: // MD3 Outlined Button
           'border border-outline text-primary hover:bg-primary/5 active:bg-primary/10 disabled:border-on-surface/10 disabled:text-on-surface/30',
-        secondary: // MD3 Tonal Button (using Secondary colors)
-          'bg-secondary-container text-on-secondary-container hover:bg-secondary-container/[.92] disabled:bg-on-surface/10 disabled:text-on-surface/30',
+        secondary: // MD3 Filled Button (using Secondary colors)
+          'bg-secondary text-on-secondary hover:bg-secondary/[.92] disabled:bg-on-surface/10 disabled:text-on-surface/30',
         ghost: // MD3 Text Button
           'text-primary hover:bg-primary/5 active:bg-primary/10 disabled:text-on-surface/30',
         link: // MD3 Text Button with underline
