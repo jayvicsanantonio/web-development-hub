@@ -1,0 +1,27 @@
+---
+// src/layouts/Layout.astro
+import '../styles/globals.css'; // Import global styles
+
+export interface Props {
+  title?: string;
+  description?: string; // Optional description prop
+}
+
+const { title = 'Web Development Hub - Astro', description = 'Your go-to resource for web development, now powered by Astro.' } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/x-icon" href="/icon.ico" /> {/* Assuming icon.ico is in public */}
+  <meta name="generator" content={Astro.generator} />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
+<body>
+  <main>
+    <slot /> {/* Page content will be injected here */}
+  </main>
+</body>
+</html>

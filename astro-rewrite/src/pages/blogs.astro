@@ -1,0 +1,59 @@
+---
+// src/pages/blogs.astro
+import Layout from '@/layouts/Layout.astro';
+import { SECTIONS } from '@/constants/sections';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'; // React components
+
+const blogsSection = SECTIONS.find(section => section.title === 'Blogs');
+const pageTitle = blogsSection ? blogsSection.title : 'Blogs';
+const links = blogsSection ? blogsSection.links : [];
+---
+<Layout title={pageTitle} description={`Explore various blogs related to web development.`}>
+  <div class="container px-4 py-10 md:px-6 flex flex-col gap-10">
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbPage>{pageTitle}</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+      {links.map((link) => (
+        <a
+          key={link.title}
+          class="group flex items-center gap-3 rounded-md bg-white p-6 shadow-xs transition-colors hover:bg-gray-50 dark:bg-gray-950 dark:hover:bg-gray-800"
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {/* Assuming link.icon is a React component.
+              A client:* directive might be needed if it's interactive. */}
+          <link.icon className="w-[50px] h-[50px]" /> {/* Ensure className is used if it's a React component expecting it for styling */}
+          <div class="flex-1">
+            <p class="text-sm font-medium text-gray-900 group-hover:text-gray-900 dark:text-gray-50 dark:group-hover:text-gray-50">
+              {link.title}
+            </p>
+            <p class="text-sm text-gray-500 line-clamp-2 group-hover:text-gray-700 dark:text-gray-400 dark:group-hover:text-gray-300">
+              {link.description}
+            </p>
+          </div>
+        </a>
+      ))}
+      {links.length === 0 && (
+        <p>No links found for this section.</p>
+      )}
+    </div>
+  </div>
+</Layout>
