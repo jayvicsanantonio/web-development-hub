@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://yourwebsiteurl.com/</loc>
+    <loc>https://webdevhub.link/</loc>
     <lastmod>2023-10-27</lastmod> <!-- Placeholder date, can be updated -->
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://yourwebsiteurl.com/learning-resources</loc>
+    <loc>https://webdevhub.link/learning-resources</loc>
     <lastmod>2023-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://yourwebsiteurl.com/developer-tools</loc>
+    <loc>https://webdevhub.link/developer-tools</loc>
     <lastmod>2023-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://yourwebsiteurl.com/frameworks-and-libraries</loc>
+    <loc>https://webdevhub.link/frameworks-and-libraries</loc>
     <lastmod>2023-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://yourwebsiteurl.com/communities</loc>
+    <loc>https://webdevhub.link/communities</loc>
     <lastmod>2023-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://yourwebsiteurl.com/blogs</loc>
+    <loc>https://webdevhub.link/blogs</loc>
     <lastmod>2023-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
