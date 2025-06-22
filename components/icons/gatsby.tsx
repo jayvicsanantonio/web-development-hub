@@ -1,8 +1,9 @@
-import { ComponentProps, FC } from "react";
+import { ComponentProps } from "react";
 
 export default function GatsbyIcon({
   width = 24,
   height = 24,
+  ...props // Spread remaining props
 }: ComponentProps<"svg">) {
   return (
     <svg
@@ -11,6 +12,7 @@ export default function GatsbyIcon({
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 28 28"
       focusable="false"
+      {...props}
     >
       <title>Gatsby</title>
       <path

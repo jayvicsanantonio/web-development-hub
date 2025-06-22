@@ -40,23 +40,26 @@ export default function Navigation() {
   }, []);
 
   return (
-    <nav className="w-full xl:w-1/5 bg-card dark:bg-card py-4 px-8 flex flex-row justify-between xl:flex-col xl:justify-normal gap-8 xl:h-screen xl:overflow-y-auto sticky top-0 z-10">
+    <nav aria-label="Main Navigation" className="w-full xl:w-1/5 bg-card dark:bg-card py-4 px-8 flex flex-row justify-between xl:flex-col xl:justify-normal gap-8 xl:h-screen xl:overflow-y-auto sticky top-0 z-10">
       <Link className="flex items-center gap-2" href="/">
-        <MountainIcon className="h-6 w-6" />
+        <MountainIcon aria-hidden="true" className="h-6 w-6" />
         <span className="text-lg font-bold">Web Development Hub</span>
       </Link>
       <div className="hidden xl:flex">
-        <form className="relative flex-1">
-          <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <form className="relative flex-1" onSubmit={(e) => e.preventDefault()}>
+          <label htmlFor="search-nav" className="sr-only">Search Navigation</label>
+          <SearchIcon aria-hidden="true" className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             ref={searchRef}
-            className="pl-10 pr-4 py-2 rounded-md bg-popover dark:bg-popover dark:text-popover-foreground focus:outline-hidden focus:ring-1 focus:ring-ring dark:focus:ring-ring"
+            id="search-nav"
+            className="pl-10 pr-4 py-2 rounded-md bg-popover dark:bg-popover dark:text-popover-foreground focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring dark:focus-visible:ring-ring"
             placeholder="Search..."
             type="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            aria-describedby="search-shortcut"
           />
-          <span className="absolute top-1/2 -translate-y-1/2 right-2 hidden sm:flex items-center justify-center px-2.5 py-[3px] gap-2.5 bg-muted dark:bg-muted rounded-md border border-border border-opacity-40 text-muted-foreground text-sm font-medium peer-focus:hidden select-none tracking-[2.80px]">
+          <span id="search-shortcut" className="absolute top-1/2 -translate-y-1/2 right-2 hidden sm:flex items-center justify-center px-2.5 py-[3px] gap-2.5 bg-muted dark:bg-muted rounded-md border border-border border-opacity-40 text-muted-foreground text-sm font-medium peer-focus:hidden select-none tracking-[2.80px]">
             ⌘K
           </span>
         </form>
@@ -77,7 +80,7 @@ export default function Navigation() {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <link.icon className="h-6 w-6 text-muted-foreground group-hover:text-accent-foreground" />
+                        <link.icon aria-hidden="true" className="h-6 w-6 text-muted-foreground group-hover:text-accent-foreground" />
                         <p className="text-sm font-medium text-foreground group-hover:text-accent-foreground">
                           {link.title}
                         </p>

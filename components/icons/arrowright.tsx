@@ -2,7 +2,7 @@ import { ComponentProps } from "react";
 
 export default function ArrowRightIcon(props: ComponentProps<"svg">) {
   return (
-    <svg
+    <svg {...props}
       xmlns="http://www.w3.org/2000/svg"
       width="16"
       height="16"

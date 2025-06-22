@@ -32,8 +32,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} flex xl:flex-row flex-col relative`}>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:z-50 focus:top-2 focus:left-2 focus:px-4 focus:py-2 focus:bg-background focus:text-foreground focus:border focus:border-ring focus:rounded-md"
+        >
+          Skip to main content
+        </a>
         <Navigation />
-        <main className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800 flex-1">
+        <main id="main-content" className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800 flex-1">
           {children}
           <Analytics />
         </main>

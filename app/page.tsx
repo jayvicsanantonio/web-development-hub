@@ -26,7 +26,7 @@ export default function Home() {
             key={section.title}
             className="flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-xs transition-all hover:scale-105 hover:shadow-md dark:bg-gray-950 dark:hover:bg-gray-800"
           >
-            <section.icon className="h-12 w-12 text-gray-900 dark:text-gray-50" />
+            <section.icon aria-hidden="true" className="h-12 w-12 text-gray-900 dark:text-gray-50" />
             <h3 className="text-lg font-bold">{section.title}</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {section.description}
