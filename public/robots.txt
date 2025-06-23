@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://webdevhub.link/sitemap.xml
+Sitemap: https://yourwebsiteurl.com/sitemap.xml
