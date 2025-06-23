@@ -6,19 +6,13 @@ export default function Home() {
     <div className="container grid items-center justify-center gap-4 text-center lg:gap-10">
       <div className="space-y-3">
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-          Your Ultimate Web Development Toolkit
+          Elevate Your Web Development Journey
         </h2>
         <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-          Unlock a universe of curated resources, cutting-edge tools, and vibrant communities. Everything you need to elevate your web development skills and craft exceptional digital experiences is right here. Start building the future of the web today!
+          Discover a wealth of resources, tools, and community support to
+          enhance your web development skills and build exceptional digital
+          experiences.
         </p>
-        <div className="mt-6">
-          <Link
-            href="/learning-resources"
-            className="inline-flex h-12 items-center justify-center rounded-md bg-blue-600 px-8 py-3 text-lg font-medium text-white shadow-md transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus-visible:ring-blue-400"
-          >
-            Start Learning Now
-          </Link>
-        </div>
       </div>
       <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:gap-8">
         {SECTIONS.map((section) => (
