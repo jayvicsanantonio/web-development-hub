@@ -1,5 +1,4 @@
-import { ComponentProps } from "react";
-
+import React, { ComponentProps } from "react";
 export default function FrontmatterIcon({
   width = 24,
   height = 24,

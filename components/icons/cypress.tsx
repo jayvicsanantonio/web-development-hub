@@ -1,5 +1,4 @@
-import { ComponentProps } from "react";
-
+import React, { ComponentProps } from "react";
 export default function CypressIcon({
   width = 24,
   height = 24,
@@ -69,7 +68,6 @@ export default function CypressIcon({
           fill="#1B1E2E"
           points="743.7,324 652,556.4 559.6,324 484,324 613.6,641.2 519.2,870.2 585.3,883.4 815.1,324  "
         />
-
         <linearGradient
           id="SVGID_00000098925399032608532410000009288675756932014269_"
           gradientUnits="userSpaceOnUse"

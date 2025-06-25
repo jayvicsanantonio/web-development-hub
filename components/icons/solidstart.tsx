@@ -1,5 +1,4 @@
-import { ComponentProps } from "react";
-
+import React, { ComponentProps } from "react";
 export default function SolidstartIcon({
   width = 24,
   height = 24,
@@ -183,8 +182,8 @@ export default function SolidstartIcon({
           y2="513.227"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#1593F5"></stop>
-          <stop offset="1" stop-color="#0084CE"></stop>
+          <stop stopColor="#1593F5"></stop>
+          <stop offset="1" stopColor="#0084CE"></stop>
         </linearGradient>
         <linearGradient
           id="paint1_linear_0_3"
@@ -194,8 +193,8 @@ export default function SolidstartIcon({
           y2="-113.902"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#1593F5"></stop>
-          <stop offset="1" stop-color="#0084CE"></stop>
+          <stop stopColor="#1593F5"></stop>
+          <stop offset="1" stopColor="#0084CE"></stop>
         </linearGradient>
         <linearGradient
           id="paint2_linear_0_3"
@@ -205,8 +204,8 @@ export default function SolidstartIcon({
           y2="115.271"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="white"></stop>
-          <stop offset="1" stop-color="#15ABFF"></stop>
+          <stop stopColor="white"></stop>
+          <stop offset="1" stopColor="#15ABFF"></stop>
         </linearGradient>
         <linearGradient
           id="paint3_linear_0_3"
@@ -216,8 +215,8 @@ export default function SolidstartIcon({
           y2="260.387"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="white"></stop>
-          <stop offset="1" stop-color="#79CFFF"></stop>
+          <stop stopColor="white"></stop>
+          <stop offset="1" stopColor="#79CFFF"></stop>
         </linearGradient>
         <linearGradient
           id="paint4_linear_0_3"
@@ -227,8 +226,8 @@ export default function SolidstartIcon({
           y2="427.18"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#0057E5"></stop>
-          <stop offset="1" stop-color="#0084CE"></stop>
+          <stop stopColor="#0057E5"></stop>
+          <stop offset="1" stopColor="#0084CE"></stop>
         </linearGradient>
         <linearGradient
           id="paint5_linear_0_3"
@@ -238,8 +237,8 @@ export default function SolidstartIcon({
           y2="234.049"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="white"></stop>
-          <stop offset="1" stop-color="#15ABFF"></stop>
+          <stop stopColor="white"></stop>
+          <stop offset="1" stopColor="#15ABFF"></stop>
         </linearGradient>
         <linearGradient
           id="paint6_linear_0_3"
@@ -249,8 +248,8 @@ export default function SolidstartIcon({
           y2="-179.82"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="white"></stop>
-          <stop offset="1" stop-color="#79CFFF"></stop>
+          <stop stopColor="white"></stop>
+          <stop offset="1" stopColor="#79CFFF"></stop>
         </linearGradient>
         <linearGradient
           id="paint7_linear_0_3"
@@ -260,8 +259,8 @@ export default function SolidstartIcon({
           y2="411.47"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="white"></stop>
-          <stop offset="1" stop-color="#79CFFF"></stop>
+          <stop stopColor="white"></stop>
+          <stop offset="1" stopColor="#79CFFF"></stop>
         </linearGradient>
       </defs>
     </svg>

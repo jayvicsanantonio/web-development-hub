@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from "next/link";
 import {
   Breadcrumb,
@@ -8,7 +9,6 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { SECTIONS } from "@/constants/sections";
-
 export default function Page() {
   return (
     <div className="container px-4 md:px-6 flex flex-col gap-10">

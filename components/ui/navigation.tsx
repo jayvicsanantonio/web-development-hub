@@ -1,22 +1,18 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import { Input } from "@/components/ui/input";
+import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { Input } from '@/components/ui/input';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import SearchIcon from "@/components/icons/search";
-import MountainIcon from "@/components/icons/mountain";
-import { SECTIONS } from "@/constants/sections";
-
+} from '@/components/ui/accordion';
+import SearchIcon from '@/components/icons/search';
+import MountainIcon from '@/components/icons/mountain';
+import { SECTIONS } from '@/constants/sections';
 export default function Navigation() {
   const searchRef = useRef<HTMLInputElement>(null);
-  const [search, setSearch] = useState("");
-
+  const [search, setSearch] = useState('');
   const filteredSections = SECTIONS.map((section) => {
     const filteredLinks = section.links.filter((link) =>
       link.title.toLowerCase().includes(search.toLowerCase())
@@ -26,19 +22,15 @@ export default function Navigation() {
       links: filteredLinks,
     };
   });
-
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.metaKey && event.key === "k") {
+      if (event.metaKey && event.key === 'k') {
         searchRef.current?.focus();
       }
     };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
-
   return (
     <nav className="w-full xl:w-1/5 bg-white dark:bg-gray-800 py-4 px-8 flex flex-row justify-between xl:flex-col xl:justify-normal gap-8 xl:h-screen xl:overflow-y-auto sticky top-0 z-10">
       <Link className="flex items-center gap-2" href="/">
@@ -61,11 +53,18 @@ export default function Navigation() {
           </span>
         </form>
       </div>
-      <Accordion type="single" className="hidden xl:block" collapsible>
+      <Accordion
+        type="single"
+        className="hidden xl:block"
+        collapsible
+      >
         {filteredSections.map(
           (section) =>
             section.links.length > 0 && (
-              <AccordionItem key={section.title} value={section.title}>
+              <AccordionItem
+                key={section.title}
+                value={section.title}
+              >
                 <AccordionTrigger>{section.title}</AccordionTrigger>
                 <AccordionContent>
                   <div className="grid gap-3">

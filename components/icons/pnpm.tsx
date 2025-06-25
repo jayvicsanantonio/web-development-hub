@@ -1,5 +1,4 @@
-import { ComponentProps } from "react";
-
+import React, { ComponentProps } from "react";
 export default function PnpmIcon({
   width = 24,
   height = 24,
@@ -58,7 +57,7 @@ export default function PnpmIcon({
             xlinkHref="#b2JZZcA3fT"
             opacity="1"
             fill="#ffffff"
-            fill-opacity="1"
+            fillOpacity="1"
           />
         </g>
         <g>
@@ -66,7 +65,7 @@ export default function PnpmIcon({
             xlinkHref="#bj0tb0Y8q"
             opacity="1"
             fill="#f9ad00"
-            fill-opacity="1"
+            fillOpacity="1"
           />
         </g>
         <g>
@@ -74,7 +73,7 @@ export default function PnpmIcon({
             xlinkHref="#dkDSTzPj3"
             opacity="1"
             fill="#f9ad00"
-            fill-opacity="1"
+            fillOpacity="1"
           />
         </g>
         <g>
@@ -82,7 +81,7 @@ export default function PnpmIcon({
             xlinkHref="#a4vNdcNLpF"
             opacity="1"
             fill="#f9ad00"
-            fill-opacity="1"
+            fillOpacity="1"
           />
         </g>
         <g>
@@ -90,7 +89,7 @@ export default function PnpmIcon({
             xlinkHref="#h2t4Zj1jSU"
             opacity="1"
             fill="#f9ad00"
-            fill-opacity="1"
+            fillOpacity="1"
           />
         </g>
         <g>
@@ -98,7 +97,7 @@ export default function PnpmIcon({
             xlinkHref="#b4t5pngwvT"
             opacity="1"
             fill="#4e4e4e"
-            fill-opacity="1"
+            fillOpacity="1"
           />
         </g>
         <g>
@@ -106,7 +105,7 @@ export default function PnpmIcon({
             xlinkHref="#b9s1gd5m2"
             opacity="1"
             fill="#4e4e4e"
-            fill-opacity="1"
+            fillOpacity="1"
           />
         </g>
         <g>
@@ -114,7 +113,7 @@ export default function PnpmIcon({
             xlinkHref="#cmt9WLvz7"
             opacity="1"
             fill="#4e4e4e"
-            fill-opacity="1"
+            fillOpacity="1"
           />
         </g>
         <g>
@@ -122,7 +121,7 @@ export default function PnpmIcon({
             xlinkHref="#bJUNqgFSg"
             opacity="1"
             fill="#4e4e4e"
-            fill-opacity="1"
+            fillOpacity="1"
           />
         </g>
       </g>

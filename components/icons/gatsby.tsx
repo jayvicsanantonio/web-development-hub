@@ -1,5 +1,5 @@
+import React from 'react';
 import { ComponentProps, FC } from "react";
-
 export default function GatsbyIcon({
   width = 24,
   height = 24,

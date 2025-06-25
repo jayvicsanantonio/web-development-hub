@@ -1,40 +1,109 @@
+import React from 'react';
 import Link from "next/link";
-import { SECTIONS } from "@/constants/sections";
-
+import dynamic from "next/dynamic";
+const ResourceSection = dynamic(() => import('./sections').then(mod => ({ default: mod.ResourceSection })), {
+  loading: () => (
+    <div className="container mx-auto py-12 space-y-8 animate-pulse">
+      <div className="flex flex-col space-y-2">
+        <div className="h-8 bg-background-muted rounded w-64"></div>
+        <div className="h-6 bg-background-muted rounded w-96"></div>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="rounded-lg border border-border bg-card p-6 shadow-sm space-y-3">
+            <div className="h-10 w-10 rounded-full bg-background-muted"></div>
+            <div className="space-y-2">
+              <div className="h-6 bg-background-muted rounded w-3/4"></div>
+              <div className="h-4 bg-background-muted rounded w-full"></div>
+              <div className="h-4 bg-background-muted rounded w-2/3"></div>
+            </div>
+            <div className="h-4 bg-background-muted rounded w-24"></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ),
+  ssr: true
+});
 export default function Home() {
   return (
-    <div className="container grid items-center justify-center gap-4 text-center lg:gap-10">
-      <div className="space-y-3">
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+    <div className="flex flex-col w-full space-y-24 px-4 md:px-6">
+      {}
+      <section className="container mx-auto py-12 md:py-24 flex flex-col items-center justify-center text-center space-y-6">
+        <div className="inline-block rounded-full bg-accent-neon/10 px-4 py-1.5 text-sm font-medium text-accent-neon mb-4">
+          Web Development Hub
+        </div>
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter max-w-3xl">
           Elevate Your Web Development Journey
-        </h2>
-        <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+        </h1>
+        <p className="text-lg md:text-xl text-foreground-muted max-w-[700px] mt-4">
           Discover a wealth of resources, tools, and community support to
           enhance your web development skills and build exceptional digital
           experiences.
         </p>
-      </div>
-      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:gap-8">
-        {SECTIONS.map((section) => (
-          <div
-            key={section.title}
-            className="flex flex-col items-center justify-center space-y-4 rounded-lg bg-white p-6 shadow-xs transition-all hover:scale-105 hover:shadow-md dark:bg-gray-950 dark:hover:bg-gray-800"
-          >
-            <section.icon className="h-12 w-12 text-gray-900 dark:text-gray-50" />
-            <h3 className="text-lg font-bold">{section.title}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {section.description}
-            </p>
-            <Link
-              href={section.href || "#"}
-              className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow-sm transition-colors hover:bg-gray-900/90 focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-              prefetch={false}
-            >
-              Explore
-            </Link>
+      </section>
+      {}
+      <ResourceSection 
+        title="Learning Resources" 
+        description="Start or advance your web development journey with these educational resources" 
+        category="learning" 
+        ctaText="Explore Resource" 
+        viewAllLink="/learning-resources" 
+        viewAllText="View All Resources" 
+        accentColor="neon"
+      />
+      {}
+      <ResourceSection 
+        title="Developer Tools" 
+        description="Essential tools to streamline your development workflow" 
+        category="tools" 
+        ctaText="View Tool" 
+        viewAllLink="/developer-tools" 
+        viewAllText="View All Tools" 
+        accentColor="purple"
+      />
+      {}
+      <ResourceSection 
+        title="Frameworks & Libraries" 
+        description="Popular frameworks and libraries to build modern web applications" 
+        category="frameworks" 
+        ctaText="Learn More" 
+        viewAllLink="/frameworks-and-libraries" 
+        viewAllText="View All Frameworks" 
+        accentColor="neon"
+      />
+      {}
+      <ResourceSection 
+        title="Communities" 
+        description="Connect with fellow developers in these vibrant communities" 
+        category="communities" 
+        ctaText="Join Community" 
+        viewAllLink="/communities" 
+        viewAllText="View All Communities" 
+        accentColor="purple"
+      />
+      {}
+      <ResourceSection 
+        title="Blogs" 
+        description="Stay updated with the latest trends and insights from the web development world" 
+        category="blogs" 
+        ctaText="Read Blog" 
+        viewAllLink="/blogs" 
+        viewAllText="View All Blogs" 
+        accentColor="neon"
+      />
+      {}
+      <footer className="container mx-auto py-8 border-t border-border">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-foreground-muted">
+            © {new Date().getFullYear()} Web Development Hub. All rights reserved.
+          </p>
+          <div className="flex items-center gap-4">
+            <Link href="#" className="text-sm text-foreground-muted hover:text-foreground">Privacy Policy</Link>
+            <Link href="#" className="text-sm text-foreground-muted hover:text-foreground">Terms of Service</Link>
           </div>
-        ))}
-      </div>
+        </div>
+      </footer>
     </div>
   );
 }

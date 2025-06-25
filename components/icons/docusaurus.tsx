@@ -1,5 +1,4 @@
-import { ComponentProps } from "react";
-
+import React, { ComponentProps } from "react";
 export default function DocusaurusIcon({
   width = 24,
   height = 24,
@@ -22,7 +21,7 @@ export default function DocusaurusIcon({
           id="b"
         />
       </defs>
-      <g fill="none" fill-rule="evenodd">
+      <g fill="none" fillRule="evenodd">
         <path fill="#FFF" d="M99 52h84v34H99z" />
         <path
           d="M23 163c-7.398 0-13.843-4.027-17.303-10A19.886 19.886 0 003 163c0 11.046 8.954 20 20 20h20v-20H23z"

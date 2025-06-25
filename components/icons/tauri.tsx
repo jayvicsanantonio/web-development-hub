@@ -1,5 +1,4 @@
-import { ComponentProps } from "react";
-
+import React, { ComponentProps } from "react";
 export default function TauriIcon({
   width = 24,
   height = 24,
@@ -25,8 +24,8 @@ export default function TauriIcon({
         fill="#24C8DB"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M60.82 72.98c16.83-3.4 29.48-18.16 29.48-35.83C90.3 16.95 73.78.57 53.4.57a36.89 36.89 0 0 0-35.26 25.7 43.07 43.07 0 0 1 14.12-4.1A26.02 26.02 0 0 1 53.4 11.4c14.35 0 25.98 11.53 25.98 25.75 0 11.1-7.1 20.56-17.04 24.17.4 3.93-.1 7.92-1.5 11.66Z"
         fill="#FFC131"
       />
