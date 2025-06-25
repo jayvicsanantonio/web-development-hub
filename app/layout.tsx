@@ -3,7 +3,6 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import VerticalNavigation from "@/components/ui/vertical-navigation";
-import QueryProvider from "@/lib/providers/query-provider";
 import "./globals.css";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
@@ -30,18 +29,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-background text-foreground`}>
-        <a 
-            href="#main-content" 
-            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-background focus:text-foreground focus:p-4 focus:border focus:border-accent-neon focus:rounded-md"
-          >
-            Skip to main content
-          </a>
+      <body
+        className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-background text-foreground min-h-screen overflow-x-hidden`}
+      >
+        <div className="flex h-full min-h-screen">
           <VerticalNavigation />
-          <main id="main-content" className="w-full min-h-screen pt-16 md:pt-24" tabIndex={-1}>
-            {children}
-            <Analytics />
-          </main>
+          <div className="relative flex flex-col flex-1">
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:p-2 focus:bg-accent focus:text-accent-foreground focus:z-50"
+            >
+              Skip to main content
+            </a>
+            <main id="main-content" className="flex-1">
+              {children}
+            </main>
+          </div>
+        </div>
+        <Analytics />
       </body>
     </html>
   );

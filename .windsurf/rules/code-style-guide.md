@@ -29,7 +29,7 @@ These rules define the standards and practices for the Windsurf AI project, ensu
 
 ## Styling & UI
 
-- **Tailwind CSS `v4.0`** is required for all styling. NEVER use
+- **Tailwind CSS `v4.0`** is required for all styling. NEVER use v3.
   - Configure Tailwind according to the new v4 CSS-first configuration approach.
   - Use Tailwind utility classes in JSX/TSX for styling elements.
 - **Shadcn UI (latest CLI and components)** for prebuilt UI components.

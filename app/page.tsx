@@ -34,7 +34,7 @@ const ResourceCard = ({
   const resourceId = resource.title
     .toLowerCase()
     .replace(/\s+/g, '-');
-    
+
   return (
     <a
       href={resource.href}
@@ -105,7 +105,7 @@ const ResourceSection = ({
   const sectionId = `section-${formattedTitle}`;
   const headingId = `heading-${formattedTitle}`;
   const skipLinkId = `skip-${formattedTitle}`;
-  
+
   return (
     <section
       id={sectionId}
@@ -131,9 +131,9 @@ const ResourceSection = ({
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-6"
         aria-label={`${title} list`}
       >
-        {resources.map((resource, index) => (
+        {resources.map((resource) => (
           <ResourceCard
-            key={index}
+            key={resource.href}
             resource={resource}
             accentColor={accentColor}
           />
@@ -180,70 +180,81 @@ export default function Home() {
           Elevate Your Web Development Journey
         </h1>
         <p className="text-lg md:text-xl text-foreground-muted max-w-[700px] mt-4">
-          Discover a wealth of resources, tools, and community support to
-          enhance your web development skills and build exceptional digital
-          experiences.
+          Discover a wealth of resources, tools, and community support
+          to enhance your web development skills and build exceptional
+          digital experiences.
         </p>
       </section>
 
-      <ResourceSection 
-        title="Learning Resources" 
-        description="Start or advance your web development journey with these educational resources" 
-        category="learning" 
-        ctaText="Explore Resource" 
-        viewAllLink="/learning-resources" 
-        viewAllText="View All Resources" 
+      <ResourceSection
+        title="Learning Resources"
+        description="Start or advance your web development journey with these educational resources"
+        category="learning"
+        ctaText="Explore Resource"
+        viewAllLink="/learning-resources"
+        viewAllText="View All Resources"
         accentColor="neon"
       />
 
-      <ResourceSection 
-        title="Developer Tools" 
-        description="Essential tools to streamline your development workflow" 
-        category="tools" 
-        ctaText="View Tool" 
-        viewAllLink="/developer-tools" 
-        viewAllText="View All Tools" 
+      <ResourceSection
+        title="Developer Tools"
+        description="Essential tools to streamline your development workflow"
+        category="tools"
+        ctaText="View Tool"
+        viewAllLink="/developer-tools"
+        viewAllText="View All Tools"
         accentColor="purple"
       />
 
-      <ResourceSection 
-        title="Frameworks & Libraries" 
-        description="Popular frameworks and libraries to build modern web applications" 
-        category="frameworks" 
-        ctaText="Learn More" 
-        viewAllLink="/frameworks-and-libraries" 
-        viewAllText="View All Frameworks" 
+      <ResourceSection
+        title="Frameworks & Libraries"
+        description="Popular frameworks and libraries to build modern web applications"
+        category="frameworks"
+        ctaText="Learn More"
+        viewAllLink="/frameworks-and-libraries"
+        viewAllText="View All Frameworks"
         accentColor="neon"
       />
 
-      <ResourceSection 
-        title="Communities" 
-        description="Connect with fellow developers in these vibrant communities" 
-        category="communities" 
-        ctaText="Join Community" 
-        viewAllLink="/communities" 
-        viewAllText="View All Communities" 
+      <ResourceSection
+        title="Communities"
+        description="Connect with fellow developers in these vibrant communities"
+        category="communities"
+        ctaText="Join Community"
+        viewAllLink="/communities"
+        viewAllText="View All Communities"
         accentColor="purple"
       />
 
-      <ResourceSection 
-        title="Blogs" 
-        description="Stay updated with the latest trends and insights from the web development world" 
-        category="blogs" 
-        ctaText="Read Blog" 
-        viewAllLink="/blogs" 
-        viewAllText="View All Blogs" 
+      <ResourceSection
+        title="Blogs"
+        description="Stay updated with the latest trends and insights from the web development world"
+        category="blogs"
+        ctaText="Read Blog"
+        viewAllLink="/blogs"
+        viewAllText="View All Blogs"
         accentColor="neon"
       />
 
       <footer className="container mx-auto py-8 border-t border-border">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-foreground-muted">
-            © {new Date().getFullYear()} Web Development Hub. All rights reserved.
+            © {new Date().getFullYear()} Web Development Hub. All
+            rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <Link href="#" className="text-sm text-foreground-muted hover:text-foreground">Privacy Policy</Link>
-            <Link href="#" className="text-sm text-foreground-muted hover:text-foreground">Terms of Service</Link>
+            <Link
+              href="#"
+              className="text-sm text-foreground-muted hover:text-foreground"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="#"
+              className="text-sm text-foreground-muted hover:text-foreground"
+            >
+              Terms of Service
+            </Link>
           </div>
         </div>
       </footer>
