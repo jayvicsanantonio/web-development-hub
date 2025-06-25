@@ -29,7 +29,7 @@ export default function VerticalNavigation() {
       icon: SECTIONS[1].icon,
     },
     {
-      id: 'section-frameworks-libraries',
+      id: 'section-frameworks-&-libraries',
       title: 'Frameworks & Libraries',
       icon: SECTIONS[2].icon,
     },

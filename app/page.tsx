@@ -189,7 +189,7 @@ export default function Home() {
       <ResourceSection
         title="Learning Resources"
         description="Start or advance your web development journey with these educational resources"
-        category="learning"
+        category="learning-resources"
         ctaText="Explore Resource"
         viewAllLink="/learning-resources"
         viewAllText="View All Resources"
@@ -209,7 +209,7 @@ export default function Home() {
       <ResourceSection
         title="Frameworks & Libraries"
         description="Popular frameworks and libraries to build modern web applications"
-        category="frameworks"
+        category="frameworks-and-libraries"
         ctaText="Learn More"
         viewAllLink="/frameworks-and-libraries"
         viewAllText="View All Frameworks"

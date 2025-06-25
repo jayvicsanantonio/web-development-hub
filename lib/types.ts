@@ -1,1 +1,6 @@
-export type CategoryType = 'learning' | 'tools' | 'frameworks' | 'communities' | 'blogs';
+export type CategoryType =
+  | 'learning-resources'
+  | 'tools'
+  | 'frameworks-and-libraries'
+  | 'communities'
+  | 'blogs';
