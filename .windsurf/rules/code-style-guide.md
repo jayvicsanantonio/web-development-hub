@@ -29,7 +29,7 @@ These rules define the standards and practices for the Windsurf AI project, ensu
 
 ## Styling & UI
 
-- **Tailwind CSS `v4.0`** is required for all styling.
+- **Tailwind CSS `v4.0`** is required for all styling. NEVER use
   - Configure Tailwind according to the new v4 CSS-first configuration approach.
   - Use Tailwind utility classes in JSX/TSX for styling elements.
 - **Shadcn UI (latest CLI and components)** for prebuilt UI components.
@@ -39,10 +39,8 @@ These rules define the standards and practices for the Windsurf AI project, ensu
 
 ---
 
-## Data Fetching & Forms
+## Forms
 
-- **TanStack Query (react-query) `v5.77.0`** for frontend data fetching and caching.
-  - Use hooks such as `useQuery`, `useMutation`, and `useInfiniteQuery` for all server data.
 - **React Hook Form `v7.57.0`** for form state management and validation.
   - Use the latest APIs and features for form control and error handling.
 - **Zod `v3.25.67`** for schema validation.
@@ -56,14 +54,6 @@ These rules define the standards and practices for the Windsurf AI project, ensu
 - **Use React Context** for global or shared state.
   - Avoid third-party state management libraries unless a clear need arises.
   - Keep context providers minimal and focused.
-
----
-
-## Backend & Database
-
-- **Use Prisma (latest stable)** for all database access and ORM.
-  - Define and manage your database schema with Prisma.
-  - Use Prisma Client for all database queries and mutations.
 
 ---
 
@@ -82,11 +72,9 @@ These rules define the standards and practices for the Windsurf AI project, ensu
 | Framework        | Next.js         | 15.4.0                                      |
 | Styling          | Tailwind CSS    | 4.0                                         |
 | UI Components    | Shadcn UI       | Latest CLI (Aug 2024+)                      |
-| Data Fetching    | TanStack Query  | 5.77.0                                      |
 | Forms            | React Hook Form | 7.57.0                                      |
 | Validation       | Zod             | 3.25.67                                     |
 | State Management | React Context   | (built-in)                                  |
-| Database/ORM     | Prisma          | Latest stable                               |
 
 ---
 
@@ -96,10 +84,8 @@ These rules define the standards and practices for the Windsurf AI project, ensu
 - [Next.js v15.4.0](https://nextjs.org/)
 - [Tailwind CSS v4.0](https://tailwindcss.com/)
 - [Shadcn UI](https://ui.shadcn.com/)
-- [TanStack Query v5.77.0](https://tanstack.com/query/latest)
 - [React Hook Form v7.57.0](https://react-hook-form.com/)
 - [Zod v3.25.67](https://zod.dev/)
-- [Prisma](https://www.prisma.io/)
 
 ---
 

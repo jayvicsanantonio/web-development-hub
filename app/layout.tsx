@@ -31,9 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-background text-foreground`}>
-        <QueryProvider>
-          {}
-          <a 
+        <a 
             href="#main-content" 
             className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-background focus:text-foreground focus:p-4 focus:border focus:border-accent-neon focus:rounded-md"
           >
@@ -44,7 +42,6 @@ export default function RootLayout({
             {children}
             <Analytics />
           </main>
-        </QueryProvider>
       </body>
     </html>
   );
