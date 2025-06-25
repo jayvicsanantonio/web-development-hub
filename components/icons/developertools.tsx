@@ -1,4 +1,4 @@
-import React, { ComponentProps } from "react";
+import { ComponentProps } from "react";
 export default function DeveloperToolsIcon(props: ComponentProps<"svg">) {
   return (
     <svg

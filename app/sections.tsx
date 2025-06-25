@@ -80,13 +80,22 @@ export function ResourceSection({
   viewAllText,
   accentColor,
 }: ResourceSectionProps) {
-  const sectionData = SECTIONS.find((section) => {
-    const sectionTitle = section.title
+  const normalizeString = (str: string) =>
+    str
       .toLowerCase()
       .replace(/\s+&\s+/g, ' ')
       .replace(/\s+/g, '-');
-    return sectionTitle === category || section.title === title;
+
+  const sectionData = SECTIONS.find((section) => {
+    const normalizedSectionTitle = normalizeString(section.title);
+    const normalizedCategory = normalizeString(category);
+    const normalizedTitle = normalizeString(title);
+    return (
+      normalizedSectionTitle === normalizedCategory ||
+      normalizedSectionTitle === normalizedTitle
+    );
   });
+
   const resources = sectionData?.links || [];
   const formattedTitle = title.toLowerCase().replace(/\s+/g, '-');
   const sectionId = `section-${formattedTitle}`;

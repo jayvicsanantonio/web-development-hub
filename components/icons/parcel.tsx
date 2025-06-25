@@ -1,4 +1,4 @@
-import React, { ComponentProps } from "react";
+import { ComponentProps } from "react";
 export default function RollupIcon({
   width = 24,
   height = 24,
