@@ -1,29 +1,52 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import React from 'react';
+import type { Metadata, Viewport } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
-import Navigation from "@/components/ui/navigation";
+import VerticalNavigation from "@/components/ui/vertical-navigation";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
-
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#111827",
+};
 export const metadata: Metadata = {
   title: "Web Development Hub",
-  description: "A curated list of web development resources",
+  description: "A curated list of web development resources, tools, libraries and communities for web developers",
+  metadataBase: new URL("https://web-development-hub.vercel.app"),
+  openGraph: {
+    title: "Web Development Hub",
+    description: "A curated list of web development resources, tools, libraries and communities",
+    type: "website",
+  },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} flex xl:flex-row flex-col relative`}>
-        <Navigation />
-        <main className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800 flex-1">
-          {children}
-          <Analytics />
-        </main>
+    <html lang="en" className="dark">
+      <body
+        className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-background text-foreground min-h-screen overflow-x-hidden`}
+      >
+        <div className="flex h-full min-h-screen">
+          <VerticalNavigation />
+          <div className="relative flex flex-col flex-1">
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:p-2 focus:bg-accent focus:text-accent-foreground focus:z-50"
+            >
+              Skip to main content
+            </a>
+            <main id="main-content" className="flex-1">
+              {children}
+            </main>
+          </div>
+        </div>
+        <Analytics />
       </body>
     </html>
   );

@@ -1,5 +1,4 @@
 import { ComponentProps } from "react";
-
 export default function SwcIcon({
   width = 24,
   height = 24,
@@ -22,10 +21,10 @@ export default function SwcIcon({
           y2="50.0147277%"
           id="linearGradient-1"
         >
-          <stop stop-color="#FFA588" offset="0%"></stop>
-          <stop stop-color="#FCB371" offset="27.1%"></stop>
-          <stop stop-color="#F4D837" offset="83.57%"></stop>
-          <stop stop-color="#F1E425" offset="100%"></stop>
+          <stop stopColor="#FFA588" offset="0%"></stop>
+          <stop stopColor="#FCB371" offset="27.1%"></stop>
+          <stop stopColor="#F4D837" offset="83.57%"></stop>
+          <stop stopColor="#F1E425" offset="100%"></stop>
         </linearGradient>
       </defs>
       <g>

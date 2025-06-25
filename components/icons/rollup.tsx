@@ -1,5 +1,4 @@
 import { ComponentProps } from "react";
-
 export default function RollupIcon({
   width = 24,
   height = 24,
@@ -22,11 +21,11 @@ export default function RollupIcon({
           y2="55.339338%"
           id="linearGradient-1"
         >
-          <stop stop-color="#FF6533" offset="0%" />
-          <stop stop-color="#FF5633" offset="15.7%" />
-          <stop stop-color="#FF4333" offset="43.4%" />
-          <stop stop-color="#FF3733" offset="71.4%" />
-          <stop stop-color="#FF3333" offset="100%" />
+          <stop stopColor="#FF6533" offset="0%" />
+          <stop stopColor="#FF5633" offset="15.7%" />
+          <stop stopColor="#FF4333" offset="43.4%" />
+          <stop stopColor="#FF3733" offset="71.4%" />
+          <stop stopColor="#FF3333" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="20.4503837%"
@@ -35,8 +34,8 @@ export default function RollupIcon({
           y2="80.4322382%"
           id="linearGradient-2"
         >
-          <stop stop-color="#BF3338" offset="0%" />
-          <stop stop-color="#FF3333" offset="100%" />
+          <stop stopColor="#BF3338" offset="0%" />
+          <stop stopColor="#FF3333" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="32.2926113%"
@@ -45,11 +44,11 @@ export default function RollupIcon({
           y2="48.9139013%"
           id="linearGradient-3"
         >
-          <stop stop-color="#FF6533" offset="0%" />
-          <stop stop-color="#FF5633" offset="15.7%" />
-          <stop stop-color="#FF4333" offset="43.4%" />
-          <stop stop-color="#FF3733" offset="71.4%" />
-          <stop stop-color="#FF3333" offset="100%" />
+          <stop stopColor="#FF6533" offset="0%" />
+          <stop stopColor="#FF5633" offset="15.7%" />
+          <stop stopColor="#FF4333" offset="43.4%" />
+          <stop stopColor="#FF3733" offset="71.4%" />
+          <stop stopColor="#FF3333" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="51.5641026%"
@@ -58,11 +57,11 @@ export default function RollupIcon({
           y2="41.6628279%"
           id="linearGradient-4"
         >
-          <stop stop-color="#FF6533" offset="0%" />
-          <stop stop-color="#FF5633" offset="15.7%" />
-          <stop stop-color="#FF4333" offset="43.4%" />
-          <stop stop-color="#FF3733" offset="71.4%" />
-          <stop stop-color="#FF3333" offset="100%" />
+          <stop stopColor="#FF6533" offset="0%" />
+          <stop stopColor="#FF5633" offset="15.7%" />
+          <stop stopColor="#FF4333" offset="43.4%" />
+          <stop stopColor="#FF3733" offset="71.4%" />
+          <stop stopColor="#FF3333" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="40.2012262%"
@@ -71,8 +70,8 @@ export default function RollupIcon({
           y2="54.5349876%"
           id="linearGradient-5"
         >
-          <stop stop-color="#FBB040" offset="0%" />
-          <stop stop-color="#FB8840" offset="100%" />
+          <stop stopColor="#FBB040" offset="0%" />
+          <stop stopColor="#FB8840" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="55.2222794%"
@@ -81,8 +80,8 @@ export default function RollupIcon({
           y2="128.016462%"
           id="linearGradient-6"
         >
-          <stop stop-color="#FFFFFF" offset="0%" />
-          <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%" />
+          <stop stopColor="#FFFFFF" offset="0%" />
+          <stop stopColor="#FFFFFF" stopOpacity="0" offset="100%" />
         </linearGradient>
       </defs>
       <g>

@@ -1,5 +1,4 @@
 import { ComponentProps } from "react";
-
 export default function ArrowRightIcon(props: ComponentProps<"svg">) {
   return (
     <svg

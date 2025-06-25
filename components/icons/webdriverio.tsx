@@ -1,5 +1,4 @@
 import { ComponentProps } from "react";
-
 export default function WebdriverioIcon({
   width = 24,
   height = 24,
@@ -17,9 +16,9 @@ export default function WebdriverioIcon({
       <g
         id="Logo-Regular"
         stroke="none"
-        stroke-width="1"
+        strokeWidth="1"
         fill="none"
-        fill-rule="evenodd"
+        fillRule="evenodd"
       >
         <rect
           id="Rectangle"

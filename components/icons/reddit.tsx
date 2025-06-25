@@ -1,5 +1,4 @@
 import { ComponentProps } from "react";
-
 export default function RedditIcon(props: ComponentProps<"svg">) {
   return (
     <svg

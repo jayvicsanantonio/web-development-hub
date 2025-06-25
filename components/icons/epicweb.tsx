@@ -1,5 +1,4 @@
 import { ComponentProps } from "react";
-
 export default function EpicWebIcon({
   width = 24,
   height = 24,
