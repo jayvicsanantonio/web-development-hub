@@ -14,7 +14,11 @@ export default function Page() {
   const sectionData = SECTIONS.find(
     (section) => section.title === 'Frameworks & Libraries'
   );
-  const resources = sectionData?.links || [];
+  const resources = (sectionData?.links || []).map((link) => ({
+    title: link.title,
+    href: link.href,
+    description: link.description,
+  }));
 
   return (
     <div className="container mx-auto py-12 px-4 md:px-6 flex flex-col gap-10">
