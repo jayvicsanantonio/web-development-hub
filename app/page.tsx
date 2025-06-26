@@ -1,17 +1,8 @@
 import Link from 'next/link';
-import { Icon } from '@iconify/react';
 import { SECTIONS } from '@/constants/sections';
 import { CategoryType } from '@/lib/types';
 import { cn } from '@/lib/utils';
-
-// Resource type definition
-type Resource = {
-  title: string;
-  description: string;
-  href: string;
-  iconifyIcon?: string;
-  icon?: React.FC<{ className?: string }>;
-};
+import ResourceCard from '@/components/ui/resource-card';
 
 interface ResourceSectionProps {
   title: string;
@@ -23,58 +14,6 @@ interface ResourceSectionProps {
   accentColor: 'neon' | 'purple';
 }
 
-// ResourceCard component
-const ResourceCard = ({
-  resource,
-  accentColor,
-}: {
-  resource: Resource;
-  accentColor: 'neon' | 'purple';
-}) => {
-  const resourceId = resource.title
-    .toLowerCase()
-    .replace(/\s+/g, '-');
-
-  return (
-    <a
-      href={resource.href}
-      target="_blank"
-      rel="noreferrer noopener"
-      className={cn(
-        'flex flex-col h-full rounded-lg border border-border bg-card p-6 shadow-sm transition-all hover:shadow-md hover:scale-[1.02] hover:border-accent-neon/50 space-y-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background',
-        accentColor === 'neon'
-          ? 'hover:border-accent-neon/50 focus:ring-accent-neon'
-          : 'hover:border-accent-purple/50 focus:ring-accent-purple'
-      )}
-      aria-labelledby={`resource-title-${resourceId}`}
-    >
-      <div className="flex items-center space-x-2">
-        {resource.iconifyIcon ? (
-          <Icon
-            icon={resource.iconifyIcon}
-            className="w-10 h-10"
-            aria-hidden="true"
-          />
-        ) : resource.icon ? (
-          <resource.icon className="w-10 h-10" />
-        ) : null}
-      </div>
-      <div className="space-y-2 flex-1">
-        <h3
-          id={`resource-title-${resourceId}`}
-          className="font-semibold text-lg text-foreground"
-        >
-          {resource.title}
-        </h3>
-        <p className="text-sm text-foreground-muted">
-          {resource.description}
-        </p>
-      </div>
-    </a>
-  );
-};
-
-// ResourceSection component
 const ResourceSection = ({
   title,
   description,
@@ -100,7 +39,12 @@ const ResourceSection = ({
     );
   });
 
-  const resources = sectionData?.links || [];
+  const resources = (sectionData?.links || []).map((link) => ({
+    title: link.title,
+    href: link.href,
+    description: link.description,
+  }));
+
   const formattedTitle = title.toLowerCase().replace(/\s+/g, '-');
   const sectionId = `section-${formattedTitle}`;
   const headingId = `heading-${formattedTitle}`;
@@ -128,10 +72,10 @@ const ResourceSection = ({
         <p className="text-foreground-muted">{description}</p>
       </div>
       <div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         aria-label={`${title} list`}
       >
-        {resources.map((resource) => (
+        {resources.slice(0, 6).map((resource) => (
           <ResourceCard
             key={resource.href}
             resource={resource}
