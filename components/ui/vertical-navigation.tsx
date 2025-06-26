@@ -1,22 +1,60 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { SECTIONS } from '@/constants/sections';
 import { Menu, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { useSearch } from '@/contexts/search-context';
 type NavigationItem = {
   id: string;
   title: string;
   icon: React.FC<{ className?: string }>;
 };
 export default function VerticalNavigation() {
+  const router = useRouter();
   const [activeSection, setActiveSection] =
     useState<string>('learning');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [localSearchQuery, setLocalSearchQuery] = useState('');
+  const {
+    searchQuery,
+    setSearchQuery,
+    searchResults,
+    isSearching,
+    clearSearch,
+  } = useSearch();
+
+  useEffect(() => {
+    setLocalSearchQuery(searchQuery);
+  }, [searchQuery]);
+
+  const handleSearchChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = e.target.value;
+    setLocalSearchQuery(value);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (localSearchQuery.trim()) {
+      setSearchQuery(localSearchQuery);
+      router.push(
+        `/search?q=${encodeURIComponent(localSearchQuery)}`
+      );
+      setIsMobileMenuOpen(false);
+      setIsSearchOpen(false);
+    }
+  };
+
+  const handleClearSearch = () => {
+    setLocalSearchQuery('');
+    clearSearch();
+  };
   const navItems: NavigationItem[] = [
     {
       id: 'section-learning-resources',
@@ -137,19 +175,35 @@ export default function VerticalNavigation() {
           id="mobile-search"
           role="search"
         >
-          <label htmlFor="mobile-search-input" className="sr-only">
-            Search resources
-          </label>
-          <Input
-            id="mobile-search-input"
-            type="search"
-            placeholder="Search resources..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-background-secondary"
-            aria-label="Search resources"
-            autoComplete="off"
-          />
+          <form onSubmit={handleSearchSubmit}>
+            <label htmlFor="mobile-search-input" className="sr-only">
+              Search resources
+            </label>
+            <div className="relative">
+              <Input
+                id="mobile-search-input"
+                type="search"
+                placeholder="Search resources..."
+                value={localSearchQuery}
+                onChange={handleSearchChange}
+                className="w-full pr-10 bg-background-secondary"
+                aria-label="Search resources"
+                autoComplete="off"
+                onKeyDown={(e) => {
+                  if (e.key === 'Escape') {
+                    setIsSearchOpen(false);
+                  }
+                }}
+              />
+              <button
+                type="submit"
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-accent-neon text-background"
+                aria-label="Submit search"
+              >
+                <Search className="h-4 w-4" />
+              </button>
+            </div>
+          </form>
         </div>
       )}
       {}
@@ -293,16 +347,27 @@ export default function VerticalNavigation() {
       </nav>
       {}
       <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-40 hidden md:block">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground opacity-70" />
-          <Input
-            type="search"
-            placeholder="Search resources..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-64 pl-9 py-2 bg-background-secondary rounded-full shadow-md"
-          />
-        </div>
+        <form onSubmit={handleSearchSubmit}>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground opacity-70" />
+            <Input
+              type="search"
+              placeholder="Search resources..."
+              value={localSearchQuery}
+              onChange={handleSearchChange}
+              className="w-64 pl-9 pr-10 py-2 bg-background-secondary rounded-full shadow-md"
+              aria-label="Search resources"
+              autoComplete="off"
+            />
+            <button
+              type="submit"
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-accent-neon text-background"
+              aria-label="Submit search"
+            >
+              <Search className="h-3 w-3" />
+            </button>
+          </div>
+        </form>
       </div>
     </>
   );
