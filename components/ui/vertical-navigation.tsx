@@ -37,14 +37,14 @@ export default function VerticalNavigation() {
   ) => {
     const value = e.target.value;
     setLocalSearchQuery(value);
-    // Update search query in real-time as the user types
+
     setSearchQuery(value);
   };
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (localSearchQuery.trim()) {
-      // Focus handling and mobile UI updates only
+
       setIsMobileMenuOpen(false);
       setIsSearchOpen(false);
     }
@@ -54,7 +54,7 @@ export default function VerticalNavigation() {
     setLocalSearchQuery('');
     clearSearch();
   };
-  // Build navigation items dynamically based on current sections in the DOM
+
   const [navItems, setNavItems] = useState<NavigationItem[]>([
     {
       id: 'section-learning-resources',
@@ -79,22 +79,22 @@ export default function VerticalNavigation() {
     { id: 'section-blogs', title: 'Blogs', icon: SECTIONS[4].icon },
   ]);
   
-  // Update nav items based on sections in the DOM and search results
+
   useEffect(() => {
     const updateNavItems = () => {
       const sections = document.querySelectorAll('section[id]');
       const sectionIds = Array.from(sections).map(section => section.id);
       
-      // If we're in search results mode, use only sections that have results
+
       if (isSearching) {
-        // Only include sections that actually have content
+
         const sectionsWithContent = Array.from(sections).filter(section => {
-          // Check if the section has at least one child with class 'grid'
+
           const gridContainer = section.querySelector('.grid');
           return gridContainer && gridContainer.children.length > 0;
         });
         
-        // Get IDs only from sections that have content
+
         const sectionIdsWithContent = sectionsWithContent.map(section => section.id);
         
         const searchNavItems = sectionIdsWithContent

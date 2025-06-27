@@ -116,20 +116,14 @@ const ResourceSection = ({
   );
 };
 
-// Main Home page component
 export default function Home() {
   const { searchQuery, searchResults, setCurrentCategory } = useSearch();
   
-  // Clear any category filter when on the home page
   useEffect(() => {
     setCurrentCategory(null);
-    // No cleanup needed as we want home page to always clear the category
   }, [setCurrentCategory]);
   
-  // Flag to determine if we should show search results
   const isSearching = searchQuery.trim().length > 0;
-  
-  // Group search results by category
   const groupedResults = isSearching ? 
     searchResults.reduce((groups: Record<string, any[]>, item: any) => {
       const category = item.section || 'Uncategorized';
@@ -143,7 +137,7 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full space-y-24 px-4 md:px-6">
       {isSearching ? (
-        // Show search results when searching
+
         <section className="container mx-auto py-12 md:py-12 flex flex-col gap-10">
           <div>
             <h1 className="text-3xl font-bold tracking-tight mb-2">
@@ -158,10 +152,10 @@ export default function Home() {
           </div>
           
           {searchResults.length > 0 ? (
-            // Display grouped results by category
+
             <div className="flex flex-col gap-12">
               {Object.entries(groupedResults).map(([category, items]) => {
-                // Create section ID based on category name
+
                 const sectionId = `section-${category.toLowerCase().replace(/\s+&\s+/g, '-').replace(/\s+/g, '-')}`;
                 
                 return (
@@ -187,7 +181,7 @@ export default function Home() {
           )}
         </section>
       ) : (
-        // Show normal home page content when not searching
+
         <>
           <section className="container mx-auto py-12 md:py-24 flex flex-col items-center justify-center text-center space-y-6">
             <div className="inline-block rounded-full bg-accent-neon/10 px-4 py-1.5 text-sm font-medium text-accent-neon mb-4">

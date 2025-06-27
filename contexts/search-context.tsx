@@ -52,8 +52,7 @@ export function SearchProvider({
   const [searchResults, setSearchResults] = useState<Resource[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [currentCategory, setCurrentCategory] = useState<string | null>(null);
-  // No longer need pathname since we've removed the dedicated search route
-  // and implemented in-place search on all pages
+
 
   const setSearchQuery = useCallback((query: string) => {
     setSearchQueryState(query);
@@ -75,7 +74,7 @@ export function SearchProvider({
     const query = searchQuery.toLowerCase();
     const allResources = getAllResources();
     
-    // First filter by query
+
     let results = allResources.filter(
       (resource) =>
         resource.title.toLowerCase().includes(query) ||
@@ -83,7 +82,7 @@ export function SearchProvider({
         resource.section.toLowerCase().includes(query)
     );
     
-    // Then filter by category if needed
+
     if (currentCategory) {
       results = results.filter(resource => resource.section === currentCategory);
     }
