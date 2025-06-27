@@ -1,8 +1,12 @@
+'use client';
+
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { SECTIONS } from '@/constants/sections';
 import { CategoryType } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import ResourceCard from '@/components/ui/resource-card';
+import { useSearch } from '@/contexts/search-context';
 
 interface ResourceSectionProps {
   title: string;
@@ -112,96 +116,161 @@ const ResourceSection = ({
   );
 };
 
-// Main Home page component
 export default function Home() {
+  const { searchQuery, searchResults, setCurrentCategory } = useSearch();
+  
+  useEffect(() => {
+    setCurrentCategory(null);
+  }, [setCurrentCategory]);
+  
+  const isSearching = searchQuery.trim().length > 0;
+  const groupedResults = isSearching ? 
+    searchResults.reduce((groups: Record<string, any[]>, item: any) => {
+      const category = item.section || 'Uncategorized';
+      if (!groups[category]) {
+        groups[category] = [];
+      }
+      groups[category].push(item);
+      return groups;
+    }, {}) : {};
+    
   return (
     <div className="flex flex-col w-full space-y-24 px-4 md:px-6">
-      <section className="container mx-auto py-12 md:py-24 flex flex-col items-center justify-center text-center space-y-6">
-        <div className="inline-block rounded-full bg-accent-neon/10 px-4 py-1.5 text-sm font-medium text-accent-neon mb-4">
-          Web Development Hub
-        </div>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter max-w-3xl">
-          Elevate Your Web Development Journey
-        </h1>
-        <p className="text-lg md:text-xl text-foreground-muted max-w-[700px] mt-4">
-          Discover a wealth of resources, tools, and community support
-          to enhance your web development skills and build exceptional
-          digital experiences.
-        </p>
-      </section>
+      {isSearching ? (
 
-      <ResourceSection
-        title="Learning Resources"
-        description="Start or advance your web development journey with these educational resources"
-        category="learning-resources"
-        ctaText="Explore Resource"
-        viewAllLink="/learning-resources"
-        viewAllText="View All Resources"
-        accentColor="neon"
-      />
-
-      <ResourceSection
-        title="Developer Tools"
-        description="Essential tools to streamline your development workflow"
-        category="tools"
-        ctaText="View Tool"
-        viewAllLink="/developer-tools"
-        viewAllText="View All Tools"
-        accentColor="purple"
-      />
-
-      <ResourceSection
-        title="Frameworks & Libraries"
-        description="Popular frameworks and libraries to build modern web applications"
-        category="frameworks-and-libraries"
-        ctaText="Learn More"
-        viewAllLink="/frameworks-and-libraries"
-        viewAllText="View All Frameworks"
-        accentColor="neon"
-      />
-
-      <ResourceSection
-        title="Communities"
-        description="Connect with fellow developers in these vibrant communities"
-        category="communities"
-        ctaText="Join Community"
-        viewAllLink="/communities"
-        viewAllText="View All Communities"
-        accentColor="purple"
-      />
-
-      <ResourceSection
-        title="Blogs"
-        description="Stay updated with the latest trends and insights from the web development world"
-        category="blogs"
-        ctaText="Read Blog"
-        viewAllLink="/blogs"
-        viewAllText="View All Blogs"
-        accentColor="neon"
-      />
-
-      <footer className="container mx-auto py-8 border-t border-border">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-foreground-muted">
-            © {new Date().getFullYear()} Web Development Hub. All
-            rights reserved.
-          </p>
-          <div className="flex items-center gap-4">
-            <Link
-              href="#"
-              className="text-sm text-foreground-muted hover:text-foreground"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="#"
-              className="text-sm text-foreground-muted hover:text-foreground"
-            >
-              Terms of Service
-            </Link>
+        <section className="container mx-auto py-12 md:py-12 flex flex-col gap-10">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight mb-2">
+              Search Results
+            </h1>
+            <p className="text-foreground-muted">
+              {searchResults.length > 0 
+                ? `Found ${searchResults.length} results for "${searchQuery}"` 
+                : `No results found for "${searchQuery}"`
+              }
+            </p>
           </div>
-        </div>
-      </footer>
+          
+          {searchResults.length > 0 ? (
+
+            <div className="flex flex-col gap-12">
+              {Object.entries(groupedResults).map(([category, items]) => {
+
+                const sectionId = `section-${category.toLowerCase().replace(/\s+&\s+/g, '-').replace(/\s+/g, '-')}`;
+                
+                return (
+                  <section id={sectionId} key={category} className="flex flex-col gap-6">
+                    <h2 className="text-2xl font-bold tracking-tight">{category}</h2>
+                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                      {items.map((resource: any) => (
+                        <ResourceCard
+                          key={resource.href}
+                          resource={resource}
+                          accentColor={category === 'Learning Resources' || category === 'Frameworks & Libraries' ? 'neon' : 'purple'}
+                        />
+                      ))}
+                    </div>
+                  </section>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="py-12 text-center">
+              <p>Try adjusting your search terms to find what you're looking for.</p>
+            </div>
+          )}
+        </section>
+      ) : (
+
+        <>
+          <section className="container mx-auto py-12 md:py-24 flex flex-col items-center justify-center text-center space-y-6">
+            <div className="inline-block rounded-full bg-accent-neon/10 px-4 py-1.5 text-sm font-medium text-accent-neon mb-4">
+              Web Development Hub
+            </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter max-w-3xl">
+              Elevate Your Web Development Journey
+            </h1>
+            <p className="text-lg md:text-xl text-foreground-muted max-w-[700px] mt-4">
+              Discover a wealth of resources, tools, and community support
+              to enhance your web development skills and build exceptional
+              digital experiences.
+            </p>
+          </section>
+          
+          <ResourceSection
+            title="Learning Resources"
+            description="Start or advance your web development journey with these educational resources"
+            category="learning-resources"
+            ctaText="Explore Resource"
+            viewAllLink="/learning-resources"
+            viewAllText="View All Resources"
+            accentColor="neon"
+          />
+
+          <ResourceSection
+            title="Developer Tools"
+            description="Essential tools to streamline your development workflow"
+            category="tools"
+            ctaText="View Tool"
+            viewAllLink="/developer-tools"
+            viewAllText="View All Tools"
+            accentColor="purple"
+          />
+
+          <ResourceSection
+            title="Frameworks & Libraries"
+            description="Popular frameworks and libraries to build modern web applications"
+            category="frameworks-and-libraries"
+            ctaText="Learn More"
+            viewAllLink="/frameworks-and-libraries"
+            viewAllText="View All Frameworks"
+            accentColor="neon"
+          />
+
+          <ResourceSection
+            title="Communities"
+            description="Connect with fellow developers in these vibrant communities"
+            category="communities"
+            ctaText="Join Community"
+            viewAllLink="/communities"
+            viewAllText="View All Communities"
+            accentColor="purple"
+          />
+
+          <ResourceSection
+            title="Blogs"
+            description="Stay updated with the latest trends and insights from the web development world"
+            category="blogs"
+            ctaText="Read Blog"
+            viewAllLink="/blogs"
+            viewAllText="View All Blogs"
+            accentColor="neon"
+          />
+
+          <footer className="container mx-auto py-8 border-t border-border">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <p className="text-sm text-foreground-muted">
+                © {new Date().getFullYear()} Web Development Hub. All
+                rights reserved.
+              </p>
+              <div className="flex items-center gap-4">
+                <Link
+                  href="#"
+                  className="text-sm text-foreground-muted hover:text-foreground"
+                >
+                  Privacy Policy
+                </Link>
+                <Link
+                  href="#"
+                  className="text-sm text-foreground-muted hover:text-foreground"
+                >
+                  Terms of Service
+                </Link>
+              </div>
+            </div>
+          </footer>
+        </>
+      )}
     </div>
   );
 }
