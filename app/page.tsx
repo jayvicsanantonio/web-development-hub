@@ -160,20 +160,25 @@ export default function Home() {
           {searchResults.length > 0 ? (
             // Display grouped results by category
             <div className="flex flex-col gap-12">
-              {Object.entries(groupedResults).map(([category, items]) => (
-                <div key={category} className="flex flex-col gap-6">
-                  <h2 className="text-2xl font-bold tracking-tight">{category}</h2>
-                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    {items.map((resource: any) => (
-                      <ResourceCard
-                        key={resource.href}
-                        resource={resource}
-                        accentColor={category === 'Learning Resources' || category === 'Frameworks & Libraries' ? 'neon' : 'purple'}
-                      />
-                    ))}
-                  </div>
-                </div>
-              ))}
+              {Object.entries(groupedResults).map(([category, items]) => {
+                // Create section ID based on category name
+                const sectionId = `section-${category.toLowerCase().replace(/\s+&\s+/g, '-').replace(/\s+/g, '-')}`;
+                
+                return (
+                  <section id={sectionId} key={category} className="flex flex-col gap-6">
+                    <h2 className="text-2xl font-bold tracking-tight">{category}</h2>
+                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                      {items.map((resource: any) => (
+                        <ResourceCard
+                          key={resource.href}
+                          resource={resource}
+                          accentColor={category === 'Learning Resources' || category === 'Frameworks & Libraries' ? 'neon' : 'purple'}
+                        />
+                      ))}
+                    </div>
+                  </section>
+                );
+              })}
             </div>
           ) : (
             <div className="py-12 text-center">

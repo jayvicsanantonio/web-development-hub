@@ -54,7 +54,8 @@ export default function VerticalNavigation() {
     setLocalSearchQuery('');
     clearSearch();
   };
-  const navItems: NavigationItem[] = [
+  // Build navigation items dynamically based on current sections in the DOM
+  const [navItems, setNavItems] = useState<NavigationItem[]>([
     {
       id: 'section-learning-resources',
       title: 'Learning Resources',
@@ -76,7 +77,67 @@ export default function VerticalNavigation() {
       icon: SECTIONS[3].icon,
     },
     { id: 'section-blogs', title: 'Blogs', icon: SECTIONS[4].icon },
-  ];
+  ]);
+  
+  // Update nav items based on sections in the DOM and search results
+  useEffect(() => {
+    const updateNavItems = () => {
+      const sections = document.querySelectorAll('section[id]');
+      const sectionIds = Array.from(sections).map(section => section.id);
+      
+      // If we're in search results mode, use only sections that have results
+      if (isSearching) {
+        // Only include sections that actually have content
+        const sectionsWithContent = Array.from(sections).filter(section => {
+          // Check if the section has at least one child with class 'grid'
+          const gridContainer = section.querySelector('.grid');
+          return gridContainer && gridContainer.children.length > 0;
+        });
+        
+        // Get IDs only from sections that have content
+        const sectionIdsWithContent = sectionsWithContent.map(section => section.id);
+        
+        const searchNavItems = sectionIdsWithContent
+          .filter(id => id.startsWith('section-'))
+          .map(id => {
+            // Convert section ID back to display name
+            const displayName = id
+              .replace('section-', '')
+              .split('-')
+              .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+              .join(' ')
+              .replace('And', '&');
+              
+            // Find matching section icon if available
+            const matchingSection = SECTIONS.find(section => 
+              section.title.toLowerCase() === displayName.toLowerCase() ||
+              section.title.toLowerCase().replace(' & ', ' and ') === displayName.toLowerCase()
+            );
+            
+            return {
+              id,
+              title: displayName,
+              icon: matchingSection?.icon || SECTIONS[0].icon, // Default to first icon if no match
+            };
+          });
+          
+        setNavItems(searchNavItems.length > 0 ? searchNavItems : []);
+      } else {
+        // Restore default nav items when not searching
+        setNavItems([
+          { id: 'section-learning-resources', title: 'Learning Resources', icon: SECTIONS[0].icon },
+          { id: 'section-developer-tools', title: 'Developer Tools', icon: SECTIONS[1].icon },
+          { id: 'section-frameworks-&-libraries', title: 'Frameworks & Libraries', icon: SECTIONS[2].icon },
+          { id: 'section-communities', title: 'Communities', icon: SECTIONS[3].icon },
+          { id: 'section-blogs', title: 'Blogs', icon: SECTIONS[4].icon },
+        ]);
+      }
+    };
+    
+    // Update nav items initially and when search status changes
+    updateNavItems();
+    
+  }, [isSearching, searchQuery]);
   const handleScroll = useCallback(() => {
     const sections = document.querySelectorAll('section[id]');
     let current = '';
