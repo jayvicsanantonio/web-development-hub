@@ -24,6 +24,8 @@ type SearchContextType = {
   searchResults: Resource[];
   isSearching: boolean;
   clearSearch: () => void;
+  currentCategory: string | null;
+  setCurrentCategory: (category: string | null) => void;
 };
 
 const SearchContext = createContext<SearchContextType | undefined>(
@@ -49,15 +51,9 @@ export function SearchProvider({
   const [searchQuery, setSearchQueryState] = useState('');
   const [searchResults, setSearchResults] = useState<Resource[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const pathname = usePathname();
-
-  useEffect(() => {
-    if (pathname !== '/search' && searchQuery) {
-      setSearchQueryState('');
-      setSearchResults([]);
-      setIsSearching(false);
-    }
-  }, [pathname, searchQuery]);
+  const [currentCategory, setCurrentCategory] = useState<string | null>(null);
+  // No longer need pathname since we've removed the dedicated search route
+  // and implemented in-place search on all pages
 
   const setSearchQuery = useCallback((query: string) => {
     setSearchQueryState(query);
@@ -78,16 +74,22 @@ export function SearchProvider({
     setIsSearching(true);
     const query = searchQuery.toLowerCase();
     const allResources = getAllResources();
-
-    const results = allResources.filter(
+    
+    // First filter by query
+    let results = allResources.filter(
       (resource) =>
         resource.title.toLowerCase().includes(query) ||
         resource.description.toLowerCase().includes(query) ||
         resource.section.toLowerCase().includes(query)
     );
-
+    
+    // Then filter by category if needed
+    if (currentCategory) {
+      results = results.filter(resource => resource.section === currentCategory);
+    }
+    
     setSearchResults(results);
-  }, [searchQuery]);
+  }, [searchQuery, currentCategory]);
 
   const contextValue = React.useMemo(
     () => ({
@@ -96,6 +98,8 @@ export function SearchProvider({
       searchResults,
       isSearching,
       clearSearch,
+      currentCategory,
+      setCurrentCategory,
     }),
     [
       searchQuery,
@@ -103,6 +107,8 @@ export function SearchProvider({
       isSearching,
       setSearchQuery,
       clearSearch,
+      currentCategory,
+      setCurrentCategory,
     ]
   );
 

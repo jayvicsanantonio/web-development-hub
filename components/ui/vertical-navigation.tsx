@@ -37,15 +37,14 @@ export default function VerticalNavigation() {
   ) => {
     const value = e.target.value;
     setLocalSearchQuery(value);
+    // Update search query in real-time as the user types
+    setSearchQuery(value);
   };
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (localSearchQuery.trim()) {
-      setSearchQuery(localSearchQuery);
-      router.push(
-        `/search?q=${encodeURIComponent(localSearchQuery)}`
-      );
+      // Focus handling and mobile UI updates only
       setIsMobileMenuOpen(false);
       setIsSearchOpen(false);
     }
