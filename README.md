@@ -2,16 +2,31 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+This project uses [pnpm](https://pnpm.io/) for package management and [fnm](https://github.com/Schniz/fnm) for Node.js version management:
+
+- Install pnpm: `brew install pnpm` (or visit https://pnpm.io/installation for other methods)
+- Install fnm: `brew install fnm` (or visit https://github.com/Schniz/fnm#installation for other methods)
+
+### Setup
+
+1. Use fnm to automatically select the correct Node.js version:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+fnm use
+```
+
+2. Install dependencies:
+
+```bash
+pnpm install
+```
+
+3. Run the development server:
+
+```bash
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
