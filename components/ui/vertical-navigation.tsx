@@ -415,7 +415,7 @@ export default function VerticalNavigation() {
               placeholder="Search resources..."
               value={localSearchQuery}
               onChange={handleSearchChange}
-              className="w-64 pl-9 pr-10 py-2 bg-background-secondary rounded-full shadow-md"
+              className="w-64 pl-9 pr-10 py-2 bg-background-secondary/80 backdrop-blur-md rounded-full shadow-md border border-white/20 transition-all duration-300 hover:bg-background-secondary/90"
               aria-label="Search resources"
               autoComplete="off"
             />
