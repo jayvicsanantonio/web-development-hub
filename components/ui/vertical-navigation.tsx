@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { SECTIONS } from '@/constants/sections';
-import { Menu, Search } from 'lucide-react';
+import { Menu, Search, BookmarkIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useSearch } from '@/contexts/search-context';
 type NavigationItem = {
@@ -27,6 +27,7 @@ export default function VerticalNavigation() {
     isSearching,
     clearSearch,
   } = useSearch();
+  const [isFavoritesActive, setIsFavoritesActive] = useState(false);
 
   useEffect(() => {
     setLocalSearchQuery(searchQuery);
@@ -139,6 +140,15 @@ export default function VerticalNavigation() {
     
   }, [isSearching, searchQuery]);
   const handleScroll = useCallback(() => {
+    // Check if we're on the favorites page by checking the pathname
+    // This is a client component so we can use window.location
+    const isFavoritesPage = window.location.pathname === '/favorites';
+    setIsFavoritesActive(isFavoritesPage);
+    
+    if (isFavoritesPage) {
+      return; // Don't update active section on favorites page
+    }
+    
     const sections = document.querySelectorAll('section[id]');
     let current = '';
     let nearestSection = Infinity;
@@ -203,6 +213,16 @@ export default function VerticalNavigation() {
           Web Development Hub
         </Link>
         <div className="flex gap-2">
+          <Link 
+            href="/favorites"
+            className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon flex items-center justify-center"
+            aria-label="View favorites"
+          >
+            <BookmarkIcon
+              className="h-5 w-5 text-foreground"
+              aria-hidden="true"
+            />
+          </Link>
           <button
             onClick={() => setIsSearchOpen(!isSearchOpen)}
             className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon"
@@ -277,6 +297,27 @@ export default function VerticalNavigation() {
       >
         <nav aria-label="Site sections">
           <ul className="flex flex-col gap-4 list-none m-0 p-0">
+            <li>
+              <Link
+                href="/favorites"
+                className={cn(
+                  'flex w-full items-center gap-3 p-3 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon',
+                  isFavoritesActive
+                    ? 'bg-background-secondary text-accent-neon'
+                    : 'hover:bg-background-muted'
+                )}
+                aria-current={isFavoritesActive ? 'page' : undefined}
+              >
+                <BookmarkIcon
+                  className={cn(
+                    'h-5 w-5',
+                    isFavoritesActive ? 'text-accent-neon' : 'text-foreground'
+                  )}
+                  aria-hidden="true"
+                />
+                <span className="font-medium">Favorites</span>
+              </Link>
+            </li>
             {navItems.map((item, index) => (
               <li key={item.id}>
                 <button
@@ -337,6 +378,34 @@ export default function VerticalNavigation() {
           Use up and down arrow keys to navigate between sections
         </span>
         <ul className="list-none m-0 p-0 flex flex-col items-center gap-8">
+          <li className="relative group">
+            <Link
+              href="/favorites"
+              className={cn(
+                'desktop-nav-button-link flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent-neon',
+                isFavoritesActive
+                  ? 'bg-accent-neon/10'
+                  : 'hover:bg-background-secondary'
+              )}
+              aria-label="Navigate to favorites"
+              aria-current={isFavoritesActive ? 'page' : undefined}
+            >
+              <BookmarkIcon
+                className={cn(
+                  'h-5 w-5',
+                  isFavoritesActive ? 'text-accent-neon' : 'text-foreground opacity-75 group-hover:opacity-100'
+                )}
+              />
+            </Link>
+            <div
+              className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
+              role="tooltip"
+            >
+              <div className="bg-background-secondary px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-sm">
+                Favorites
+              </div>
+            </div>
+          </li>
           {navItems.map((item, index) => (
             <li key={item.id} className="relative group">
               <button

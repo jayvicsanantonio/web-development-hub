@@ -4,6 +4,7 @@ import { Inter, JetBrains_Mono } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import VerticalNavigation from '@/components/ui/vertical-navigation';
 import { SearchProvider } from '@/contexts/search-context';
+import { FavoritesProvider } from '@/contexts/favorites-context';
 import './globals.css';
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 const jetbrainsMono = JetBrains_Mono({
@@ -39,21 +40,23 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-background text-foreground min-h-screen overflow-x-hidden`}
       >
         <SearchProvider>
-          <div className="flex h-full min-h-screen">
-            <VerticalNavigation />
-            <div className="relative flex flex-col flex-1">
-              <a
-                href="#main-content"
-                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:p-2 focus:bg-accent focus:text-accent-foreground focus:z-50"
-              >
-                Skip to main content
-              </a>
-              <main id="main-content" className="flex-1">
-                {children}
-              </main>
+          <FavoritesProvider>
+            <div className="flex h-full min-h-screen">
+              <VerticalNavigation />
+              <div className="relative flex flex-col flex-1">
+                <a
+                  href="#main-content"
+                  className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:p-2 focus:bg-accent focus:text-accent-foreground focus:z-50"
+                >
+                  Skip to main content
+                </a>
+                <main id="main-content" className="flex-1">
+                  {children}
+                </main>
+              </div>
             </div>
-          </div>
-          <Analytics />
+            <Analytics />
+          </FavoritesProvider>
         </SearchProvider>
       </body>
     </html>
