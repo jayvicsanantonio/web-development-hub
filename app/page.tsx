@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
+import { HeroBanner } from '@/components/ui/hero-banner';
 import { SECTIONS } from '@/constants/sections';
 import { CategoryType } from '@/lib/types';
 import { cn } from '@/lib/utils';
@@ -183,19 +184,10 @@ export default function Home() {
       ) : (
 
         <>
-          <section className="container mx-auto py-12 md:py-24 flex flex-col items-center justify-center text-center space-y-6">
-            <div className="inline-block rounded-full bg-accent-neon/10 px-4 py-1.5 text-sm font-medium text-accent-neon mb-4">
-              Web Development Hub
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter max-w-3xl">
-              Elevate Your Web Development Journey
-            </h1>
-            <p className="text-lg md:text-xl text-foreground-muted max-w-[700px] mt-4">
-              Discover a wealth of resources, tools, and community support
-              to enhance your web development skills and build exceptional
-              digital experiences.
-            </p>
-          </section>
+          <HeroBanner
+            title="Elevate Your Web Development Journey"
+            description="Discover a wealth of resources, tools, and community support to enhance your web development skills and build exceptional digital experiences."
+          />
           
           <ResourceSection
             title="Learning Resources"
