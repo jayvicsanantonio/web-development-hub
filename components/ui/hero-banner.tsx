@@ -1,4 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+} from 'react';
 
 interface HeroBannerProps {
   title: string;
@@ -13,25 +18,51 @@ export function HeroBanner({
 }: HeroBannerProps) {
   const [isVisible, setIsVisible] = useState(true);
   const heroRef = useRef<HTMLDivElement>(null);
+  const thresholdRef = useRef<number>(0);
+  const ticking = useRef<boolean>(false);
+  const isVisibleRef = useRef<boolean>(true);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!heroRef.current) return;
-
-      const scrollY = window.scrollY;
-      const heroHeight = heroRef.current.offsetHeight;
-      const threshold = heroHeight / 3;
-
-      if (scrollY > threshold && isVisible) {
-        setIsVisible(false);
-      } else if (scrollY <= threshold && !isVisible) {
-        setIsVisible(true);
+    const calculateThreshold = () => {
+      if (heroRef.current) {
+        thresholdRef.current = heroRef.current.offsetHeight / 3;
       }
     };
 
+    calculateThreshold();
+
+    window.addEventListener('resize', calculateThreshold);
+    return () =>
+      window.removeEventListener('resize', calculateThreshold);
+  }, []);
+
+  useEffect(() => {
+    isVisibleRef.current = isVisible;
+  }, [isVisible]);
+
+  const handleScroll = useCallback(() => {
+    if (!ticking.current) {
+      window.requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        const threshold = thresholdRef.current;
+
+        if (scrollY > threshold && isVisibleRef.current) {
+          setIsVisible(false);
+        } else if (scrollY <= threshold && !isVisibleRef.current) {
+          setIsVisible(true);
+        }
+
+        ticking.current = false;
+      });
+
+      ticking.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isVisible]);
+  }, [handleScroll]);
 
   return (
     <div
