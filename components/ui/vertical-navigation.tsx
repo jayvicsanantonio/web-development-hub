@@ -101,7 +101,6 @@ export default function VerticalNavigation() {
         const searchNavItems = sectionIdsWithContent
           .filter(id => id.startsWith('section-'))
           .map(id => {
-            // Convert section ID back to display name
             const displayName = id
               .replace('section-', '')
               .split('-')
@@ -109,7 +108,6 @@ export default function VerticalNavigation() {
               .join(' ')
               .replace('And', '&');
               
-            // Find matching section icon if available
             const matchingSection = SECTIONS.find(section => 
               section.title.toLowerCase() === displayName.toLowerCase() ||
               section.title.toLowerCase().replace(' & ', ' and ') === displayName.toLowerCase()
@@ -118,13 +116,12 @@ export default function VerticalNavigation() {
             return {
               id,
               title: displayName,
-              icon: matchingSection?.icon || SECTIONS[0].icon, // Default to first icon if no match
+              icon: matchingSection?.icon || SECTIONS[0].icon
             };
           });
           
         setNavItems(searchNavItems.length > 0 ? searchNavItems : []);
       } else {
-        // Restore default nav items when not searching
         setNavItems([
           { id: 'section-learning-resources', title: 'Learning Resources', icon: SECTIONS[0].icon },
           { id: 'section-developer-tools', title: 'Developer Tools', icon: SECTIONS[1].icon },
@@ -135,18 +132,15 @@ export default function VerticalNavigation() {
       }
     };
     
-    // Update nav items initially and when search status changes
     updateNavItems();
     
   }, [isSearching, searchQuery]);
   const handleScroll = useCallback(() => {
-    // Check if we're on the favorites page by checking the pathname
-    // This is a client component so we can use window.location
     const isFavoritesPage = window.location.pathname === '/favorites';
     setIsFavoritesActive(isFavoritesPage);
     
     if (isFavoritesPage) {
-      return; // Don't update active section on favorites page
+      return;
     }
     
     const sections = document.querySelectorAll('section[id]');

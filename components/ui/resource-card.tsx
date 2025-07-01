@@ -5,9 +5,7 @@ import { Icon } from '@iconify/react';
 import { cn } from '@/lib/utils';
 import { BookmarkButton } from '@/components/ui/bookmark-button';
 
-// Map of resource titles to iconify icon names
 const ICON_MAP: Record<string, string> = {
-  // Learning Resources
   'Frontend Masters': 'simple-icons:frontendmasters',
   'Epic Web': 'simple-icons:epicgames',
   'MDN Web Docs': 'simple-icons:mdnwebdocs',
@@ -21,7 +19,6 @@ const ICON_MAP: Record<string, string> = {
   'Build UI': 'simple-icons:uikit',
   'Great Frontend': 'simple-icons:frontendmentor',
   'Learn With Jason': 'simple-icons:twitch',
-  // Developer Tools
   'Visual Studio Code': 'simple-icons:visualstudiocode',
   GitHub: 'simple-icons:github',
   Figma: 'simple-icons:figma',
@@ -33,7 +30,6 @@ const ICON_MAP: Record<string, string> = {
   Netlify: 'simple-icons:netlify',
   ChatGPT: 'simple-icons:openai',
   'Google Gemini': 'simple-icons:google',
-  // Frameworks & Libraries
   React: 'simple-icons:react',
   'Vue.js': 'simple-icons:vuedotjs',
   Angular: 'simple-icons:angular',
@@ -44,14 +40,12 @@ const ICON_MAP: Record<string, string> = {
   htmx: 'simple-icons:html5',
   'Next.js': 'simple-icons:nextdotjs',
   Remix: 'simple-icons:remix',
-  // Communities
   'Stack Overflow': 'simple-icons:stackoverflow',
   'DEV Community': 'simple-icons:devdotto',
   'GitHub Discussions': 'simple-icons:github',
   Reddit: 'simple-icons:reddit',
   Discord: 'simple-icons:discord',
   'Twitter/X': 'simple-icons:x',
-  // Blogs
   'CSS-Tricks': 'simple-icons:css3',
   'Smashing Magazine': 'simple-icons:smashingmagazine',
   'Kent C. Dodds': 'simple-icons:hashnode',
@@ -74,7 +68,6 @@ export default function ResourceCard({
   resource,
   accentColor,
 }: ResourceCardProps) {
-  // If section is not provided, try to determine it from the context
   const resourceWithSection = {
     ...resource,
     section: resource.section || determineSection(resource.title),
@@ -83,13 +76,10 @@ export default function ResourceCard({
     .toLowerCase()
     .replace(/\s+/g, '-');
 
-  // Get the icon from the map based on resource title
   const iconName =
-    ICON_MAP[resource.title] || 'material-symbols:list'; // Default icon
+    ICON_MAP[resource.title] || 'material-symbols:list';
     
-  // Function to determine section based on resource title if not provided
   function determineSection(title: string): string {
-    // Map titles to their respective sections based on ICON_MAP categorization
     if (['Frontend Masters', 'Epic Web', 'MDN Web Docs', 'freeCodeCamp', 'Wes Bos', 'Codecademy', 'web.dev', 'JavaScript: The Good Parts', 'Testing JavaScript', 'Epic React', 'Build UI', 'Great Frontend', 'Learn With Jason'].includes(title)) {
       return 'Learning Resources';
     } else if (['Visual Studio Code', 'GitHub', 'Figma', 'Vercel', 'Turso', 'AWS', 'Google Cloud', 'Unsplash', 'Netlify', 'ChatGPT', 'Google Gemini'].includes(title)) {
