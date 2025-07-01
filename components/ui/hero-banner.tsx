@@ -20,7 +20,7 @@ export function HeroBanner({
 
       const scrollY = window.scrollY;
       const heroHeight = heroRef.current.offsetHeight;
-      const threshold = heroHeight / 2;
+      const threshold = heroHeight / 3;
 
       if (scrollY > threshold && isVisible) {
         setIsVisible(false);
