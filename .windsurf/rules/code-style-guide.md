@@ -62,6 +62,8 @@ These rules define the standards and practices for the Windsurf AI project, ensu
 - **Keep all dependencies up-to-date** with the latest stable versions, especially for critical libraries listed above.
 - **Document any deviations** from these rules with clear justification in the codebase (e.g., in a `README.md` or code comments).
 - **Write and maintain comprehensive tests** for all components, hooks, and business logic.
+- **DO NOT** add code comments.
+- **Use pnpm** as the project's package manager. **DO NOT** use npm.
 
 ---
 
