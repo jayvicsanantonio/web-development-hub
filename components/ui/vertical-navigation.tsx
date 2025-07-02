@@ -8,6 +8,8 @@ import { SECTIONS } from '@/constants/sections';
 import { Menu, Search, BookmarkIcon, HomeIcon } from 'lucide-react';
 import { useSearch } from '@/contexts/search-context';
 import { SearchInput } from '@/components/ui/search-input';
+import { ThemeSwitcher } from '@/components/ui/theme-switcher'; // Corrected import path
+
 type NavigationItem = {
   id: string;
   title: string;
@@ -326,6 +328,12 @@ export default function VerticalNavigation() {
                 </button>
               </li>
             ))}
+            {/* Theme Switcher for Mobile Menu */}
+            <li className="mt-auto pt-4 border-t border-border">
+              <div className="flex justify-center">
+                <ThemeSwitcher />
+              </div>
+            </li>
           </ul>
         </nav>
       </div>
@@ -455,6 +463,20 @@ export default function VerticalNavigation() {
               </div>
             </li>
           ))}
+          {/* Theme Switcher for Desktop Nav */}
+          <li className="relative group mt-4 pt-4 border-t border-border">
+            <div className="flex justify-center">
+              <ThemeSwitcher />
+            </div>
+            <div
+              className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
+              role="tooltip"
+            >
+              <div className="bg-background-secondary px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-sm">
+                Switch Theme
+              </div>
+            </div>
+          </li>
         </ul>
       </nav>
       {}

@@ -156,6 +156,37 @@
       --input: 215 28% 25%;
       --ring: 150 100% 50%;
     }
+
+    .light {
+      --background: 207 90% 95%;
+      --foreground: 223 63% 33%;
+
+      --card: 205 89% 88%;
+      --card-foreground: 223 63% 33%;
+
+      --popover: 205 89% 88%;
+      --popover-foreground: 223 63% 33%;
+
+      --primary: 207 98% 74%;
+      --primary-foreground: 223 63% 33%;
+
+      --secondary: 207 100% 83%;
+      --secondary-foreground: 217 91% 60%;
+
+      --muted: 213 94% 67%;
+      --muted-foreground: 213 94% 67%;
+
+      --accent: 207 98% 74%;
+      --accent-foreground: 223 63% 33%;
+
+      --destructive: 0 84.2% 60.2%; /* Reusing from :root as not specified */
+      --destructive-foreground: 0 0% 98%; /* Reusing from :root */
+
+      --border: 205 79% 76%;
+      --input: 205 89% 88%; /* Using Card/Popover background for input */
+      --ring: 207 98% 74%; /* Using Primary Accent for ring */
+      /* --radius is not theme specific, so it's inherited from :root */
+    }
   }
 
   @layer base {

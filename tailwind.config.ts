@@ -16,46 +16,50 @@ export default {
     },
     extend: {
       colors: {
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))', // Assuming --input is for input backgrounds
+        ring: 'hsl(var(--ring))',
         background: {
-          DEFAULT: "hsl(222 47% 11%)", 
-          secondary: "hsl(215 28% 17%)",
-          muted: "hsl(210 38% 15%)",
+          DEFAULT: 'hsl(var(--background))',
+          // Removed secondary and muted as they should be driven by CSS vars if needed
         },
         foreground: {
-          DEFAULT: "hsl(0 0% 98%)", 
-          muted: "hsl(0 0% 80%)",
-        },
-        accent: {
-          neon: "hsl(150 100% 50%)", 
-          purple: "hsl(280 100% 60%)", 
-        },
-        card: {
-          DEFAULT: "hsl(222 47% 14%)",
-          foreground: "hsl(0 0% 98%)",
-        },
-        popover: {
-          DEFAULT: "hsl(222 47% 14%)",
-          foreground: "hsl(0 0% 98%)",
+          DEFAULT: 'hsl(var(--foreground))',
+          // Muted foreground can be its own color or derived, mapping to --muted-foreground
         },
         primary: {
-          DEFAULT: "hsl(150 100% 50%)", 
-          foreground: "hsl(222 47% 11%)",
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
-          DEFAULT: "hsl(280 100% 60%)", 
-          foreground: "hsl(0 0% 98%)",
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
         },
         muted: {
-          DEFAULT: "hsl(215 28% 20%)",
-          foreground: "hsl(0 0% 70%)",
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
         },
-        border: "hsl(215 28% 25%)",
-        ring: "hsl(150 100% 50%)",
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
       },
       borderRadius: {
-        lg: "0.75rem", 
-        md: "0.5rem", 
-        sm: "0.25rem", 
+        lg: 'var(--radius-lg)',
+        md: 'var(--radius-md)',
+        sm: 'var(--radius-sm)',
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
