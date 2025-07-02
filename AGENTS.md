@@ -36,7 +36,12 @@ web-development-hub/
 - **Follow the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)** for all JavaScript/TypeScript code, including React components and modules
 - **React component file names must use PascalCase** (e.g., `UserCard.tsx`, not `user-card.tsx`)
 - **Prefer named exports** for all components and utilities
-- **DO NOT** add code comments
+- **Prefer self-documenting code** over comments where possible
+- **Comments should be used sparingly** and only for:
+  - Documenting complex logic that isn't self-explanatory
+  - Explaining workarounds or non-obvious solutions
+  - Documenting library version deviations or special handling
+  - API documentation (JSDoc for public interfaces)
 
 ### TypeScript
 
@@ -148,6 +153,7 @@ While specific testing frameworks are not currently visible in the package.json,
 ### PR Template
 
 PRs should include:
+
 - Description of changes
 - Issue number(s) addressed
 - Screenshots/videos for UI changes
@@ -182,6 +188,7 @@ PRs should include:
 ### Library Version Deviations
 
 If any deviations from the required library versions are needed:
+
 - Document the deviation with clear justification in code comments or README
 - Get approval before implementing any deviation
 - Update relevant documentation to reflect the change
@@ -211,7 +218,7 @@ If any deviations from the required library versions are needed:
 - Use project Node.js version: `fnm use`
 - Install specific Node.js version: `fnm install <version>`
 
-### Next.js (v15.3.4)
+### Next.js (v15.4.0)
 
 - Development server: `pnpm dev`
 - Production build: `pnpm build`
