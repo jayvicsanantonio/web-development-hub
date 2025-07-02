@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { SECTIONS } from '@/constants/sections';
 import { Menu, Search, BookmarkIcon } from 'lucide-react';
-import { Input } from '@/components/ui/input';
 import { useSearch } from '@/contexts/search-context';
+import { SearchInput } from '@/components/ui/search-input';
 type NavigationItem = {
   id: string;
   title: string;
@@ -19,41 +19,15 @@ export default function VerticalNavigation() {
     useState<string>('learning');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [localSearchQuery, setLocalSearchQuery] = useState('');
   const {
-    searchQuery,
-    setSearchQuery,
     searchResults,
     isSearching,
-    clearSearch,
   } = useSearch();
   const [isFavoritesActive, setIsFavoritesActive] = useState(false);
 
-  useEffect(() => {
-    setLocalSearchQuery(searchQuery);
-  }, [searchQuery]);
-
-  const handleSearchChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = e.target.value;
-    setLocalSearchQuery(value);
-
-    setSearchQuery(value);
-  };
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (localSearchQuery.trim()) {
-
-      setIsMobileMenuOpen(false);
-      setIsSearchOpen(false);
-    }
-  };
-
-  const handleClearSearch = () => {
-    setLocalSearchQuery('');
-    clearSearch();
+  const handleSearchComplete = () => {
+    setIsMobileMenuOpen(false);
+    setIsSearchOpen(false);
   };
 
   const [navItems, setNavItems] = useState<NavigationItem[]>([
@@ -134,7 +108,7 @@ export default function VerticalNavigation() {
     
     updateNavItems();
     
-  }, [isSearching, searchQuery]);
+  }, [isSearching]);
   const handleScroll = useCallback(() => {
     const isFavoritesPage = window.location.pathname === '/favorites';
     setIsFavoritesActive(isFavoritesPage);
@@ -249,35 +223,15 @@ export default function VerticalNavigation() {
           id="mobile-search"
           role="search"
         >
-          <form onSubmit={handleSearchSubmit}>
-            <label htmlFor="mobile-search-input" className="sr-only">
-              Search resources
-            </label>
-            <div className="relative">
-              <Input
-                id="mobile-search-input"
-                type="search"
-                placeholder="Search resources..."
-                value={localSearchQuery}
-                onChange={handleSearchChange}
-                className="w-full pr-10 bg-background-secondary"
-                aria-label="Search resources"
-                autoComplete="off"
-                onKeyDown={(e) => {
-                  if (e.key === 'Escape') {
-                    setIsSearchOpen(false);
-                  }
-                }}
-              />
-              <button
-                type="submit"
-                className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-accent-neon text-background"
-                aria-label="Submit search"
-              >
-                <Search className="h-4 w-4" />
-              </button>
-            </div>
-          </form>
+          <SearchInput 
+            isMobile={true}
+            onSubmit={handleSearchComplete}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') {
+                setIsSearchOpen(false);
+              }
+            }}
+          />
         </div>
       )}
       {}
@@ -470,27 +424,9 @@ export default function VerticalNavigation() {
       </nav>
       {}
       <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-40 hidden md:block">
-        <form onSubmit={handleSearchSubmit}>
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground opacity-70" />
-            <Input
-              type="search"
-              placeholder="Search resources..."
-              value={localSearchQuery}
-              onChange={handleSearchChange}
-              className="w-64 pl-9 pr-10 py-2 bg-background-secondary/80 backdrop-blur-md rounded-full shadow-md border border-white/20 transition-all duration-300 hover:bg-background-secondary/90"
-              aria-label="Search resources"
-              autoComplete="off"
-            />
-            <button
-              type="submit"
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-accent-neon text-background"
-              aria-label="Submit search"
-            >
-              <Search className="h-3 w-3" />
-            </button>
-          </div>
-        </form>
+        <SearchInput 
+          onSubmit={handleSearchComplete}
+        />
       </div>
     </>
   );
