@@ -1,14 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
+
 import { SECTIONS } from '@/constants/sections';
 import ResourceCard from '@/components/ui/resource-card';
 import { useSearch } from '@/contexts/search-context';
@@ -41,17 +34,7 @@ export default function Page() {
   return (
     <div className="container mx-auto py-12 px-4 md:px-6 flex flex-col gap-10">
       <div className="space-y-2">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Frameworks & Libraries</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+
 
         <h1 className="text-3xl font-bold tracking-tight">
           Frameworks & Libraries
