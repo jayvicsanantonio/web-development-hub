@@ -19,10 +19,7 @@ export default function VerticalNavigation() {
     useState<string>('learning');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const {
-    searchResults,
-    isSearching,
-  } = useSearch();
+  const { searchResults, isSearching } = useSearch();
   const [isFavoritesActive, setIsFavoritesActive] = useState(false);
 
   const handleSearchComplete = () => {
@@ -53,70 +50,97 @@ export default function VerticalNavigation() {
     },
     { id: 'section-blogs', title: 'Blogs', icon: SECTIONS[4].icon },
   ]);
-  
 
   useEffect(() => {
     const updateNavItems = () => {
       const sections = document.querySelectorAll('section[id]');
-      const sectionIds = Array.from(sections).map(section => section.id);
-      
+      const sectionIds = Array.from(sections).map(
+        (section) => section.id
+      );
 
       if (isSearching) {
+        const sectionsWithContent = Array.from(sections).filter(
+          (section) => {
+            const gridContainer = section.querySelector('.grid');
+            return gridContainer && gridContainer.children.length > 0;
+          }
+        );
 
-        const sectionsWithContent = Array.from(sections).filter(section => {
+        const sectionIdsWithContent = sectionsWithContent.map(
+          (section) => section.id
+        );
 
-          const gridContainer = section.querySelector('.grid');
-          return gridContainer && gridContainer.children.length > 0;
-        });
-        
-
-        const sectionIdsWithContent = sectionsWithContent.map(section => section.id);
-        
         const searchNavItems = sectionIdsWithContent
-          .filter(id => id.startsWith('section-'))
-          .map(id => {
+          .filter((id) => id.startsWith('section-'))
+          .map((id) => {
             const displayName = id
               .replace('section-', '')
               .split('-')
-              .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+              .map(
+                (word) => word.charAt(0).toUpperCase() + word.slice(1)
+              )
               .join(' ')
               .replace('And', '&');
-              
-            const matchingSection = SECTIONS.find(section => 
-              section.title.toLowerCase() === displayName.toLowerCase() ||
-              section.title.toLowerCase().replace(' & ', ' and ') === displayName.toLowerCase()
+
+            const matchingSection = SECTIONS.find(
+              (section) =>
+                section.title.toLowerCase() ===
+                  displayName.toLowerCase() ||
+                section.title
+                  .toLowerCase()
+                  .replace(' & ', ' and ') ===
+                  displayName.toLowerCase()
             );
-            
+
             return {
               id,
               title: displayName,
-              icon: matchingSection?.icon || SECTIONS[0].icon
+              icon: matchingSection?.icon || SECTIONS[0].icon,
             };
           });
-          
+
         setNavItems(searchNavItems.length > 0 ? searchNavItems : []);
       } else {
         setNavItems([
-          { id: 'section-learning-resources', title: 'Learning Resources', icon: SECTIONS[0].icon },
-          { id: 'section-developer-tools', title: 'Developer Tools', icon: SECTIONS[1].icon },
-          { id: 'section-frameworks-&-libraries', title: 'Frameworks & Libraries', icon: SECTIONS[2].icon },
-          { id: 'section-communities', title: 'Communities', icon: SECTIONS[3].icon },
-          { id: 'section-blogs', title: 'Blogs', icon: SECTIONS[4].icon },
+          {
+            id: 'section-learning-resources',
+            title: 'Learning Resources',
+            icon: SECTIONS[0].icon,
+          },
+          {
+            id: 'section-developer-tools',
+            title: 'Developer Tools',
+            icon: SECTIONS[1].icon,
+          },
+          {
+            id: 'section-frameworks-&-libraries',
+            title: 'Frameworks & Libraries',
+            icon: SECTIONS[2].icon,
+          },
+          {
+            id: 'section-communities',
+            title: 'Communities',
+            icon: SECTIONS[3].icon,
+          },
+          {
+            id: 'section-blogs',
+            title: 'Blogs',
+            icon: SECTIONS[4].icon,
+          },
         ]);
       }
     };
-    
+
     updateNavItems();
-    
   }, [isSearching]);
   const handleScroll = useCallback(() => {
     const isFavoritesPage = window.location.pathname === '/favorites';
     setIsFavoritesActive(isFavoritesPage);
-    
+
     if (isFavoritesPage) {
       return;
     }
-    
+
     const sections = document.querySelectorAll('section[id]');
     let current = '';
     let nearestSection = Infinity;
@@ -181,7 +205,7 @@ export default function VerticalNavigation() {
           Web Development Hub
         </Link>
         <div className="flex gap-2">
-          <Link 
+          <Link
             href="/favorites"
             className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon flex items-center justify-center"
             aria-label="View favorites"
@@ -223,7 +247,7 @@ export default function VerticalNavigation() {
           id="mobile-search"
           role="search"
         >
-          <SearchInput 
+          <SearchInput
             isMobile={true}
             onSubmit={handleSearchComplete}
             onKeyDown={(e) => {
@@ -272,7 +296,9 @@ export default function VerticalNavigation() {
                 <BookmarkIcon
                   className={cn(
                     'h-5 w-5',
-                    isFavoritesActive ? 'text-accent-neon' : 'text-foreground'
+                    isFavoritesActive
+                      ? 'text-accent-neon'
+                      : 'text-foreground'
                   )}
                   aria-hidden="true"
                 />
@@ -332,7 +358,7 @@ export default function VerticalNavigation() {
       {}
       <nav
         aria-label="Page sections navigation"
-        className="fixed right-10 top-1/2 transform -translate-y-1/2 z-30 hidden md:flex"
+        className="fixed right-10 top-1/2 transform -translate-y-1/2 z-30 hidden md:flex p-3 bg-background-secondary/70 backdrop-blur-md rounded-2xl shadow-md border border-white/10 transition-all duration-300 hover:bg-background-secondary/80"
         role="navigation"
       >
         <span id="nav-description" className="sr-only">
@@ -348,15 +374,13 @@ export default function VerticalNavigation() {
               )}
               aria-label="Return to home page"
             >
-              <HomeIcon
-                className="h-5 w-5 text-foreground opacity-75 group-hover:opacity-100"
-              />
+              <HomeIcon className="h-5 w-5 text-foreground opacity-75 group-hover:opacity-100" />
             </Link>
             <div
               className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
               role="tooltip"
             >
-              <div className="bg-background-secondary px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-sm">
+              <div className="bg-background-secondary/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
                 Home
               </div>
             </div>
@@ -376,7 +400,9 @@ export default function VerticalNavigation() {
               <BookmarkIcon
                 className={cn(
                   'h-5 w-5',
-                  isFavoritesActive ? 'text-accent-neon' : 'text-foreground opacity-75 group-hover:opacity-100'
+                  isFavoritesActive
+                    ? 'text-accent-neon'
+                    : 'text-foreground opacity-75 group-hover:opacity-100'
                 )}
               />
             </Link>
@@ -384,7 +410,7 @@ export default function VerticalNavigation() {
               className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
               role="tooltip"
             >
-              <div className="bg-background-secondary px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-sm">
+              <div className="bg-background-secondary/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
                 Favorites
               </div>
             </div>
@@ -445,11 +471,11 @@ export default function VerticalNavigation() {
               />
               {}
               <div
-                className="absolute right-8 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-200 whitespace-nowrap will-change-[opacity,transform]"
+                className="absolute right-14 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-200 whitespace-nowrap will-change-[opacity,transform]"
                 role="tooltip"
                 aria-hidden={activeSection !== item.id}
               >
-                <div className="bg-background-secondary px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-sm">
+                <div className="bg-background-secondary/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
                   {item.title}
                 </div>
               </div>
@@ -459,9 +485,7 @@ export default function VerticalNavigation() {
       </nav>
       {}
       <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-40 hidden md:block">
-        <SearchInput 
-          onSubmit={handleSearchComplete}
-        />
+        <SearchInput onSubmit={handleSearchComplete} />
       </div>
     </>
   );
