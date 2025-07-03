@@ -92,33 +92,34 @@
 
 @layer base {
     :root {
-      --background: 0 0% 100%;
-      --foreground: 0 0% 3.9%;
+      /* Pastel blue palette for light mode */
+      --background: 210 50% 98%;
+      --foreground: 215 35% 20%;
 
-      --card: 0 0% 100%;
-      --card-foreground: 0 0% 3.9%;
+      --card: 210 45% 96%;
+      --card-foreground: 215 35% 20%;
 
-      --popover: 0 0% 100%;
-      --popover-foreground: 0 0% 3.9%;
+      --popover: 210 45% 96%;
+      --popover-foreground: 215 35% 20%;
 
-      --primary: 0 0% 9%;
-      --primary-foreground: 0 0% 98%;
+      --primary: 210 85% 65%;
+      --primary-foreground: 0 0% 100%;
 
-      --secondary: 0 0% 96.1%;
-      --secondary-foreground: 0 0% 9%;
+      --secondary: 200 75% 80%;
+      --secondary-foreground: 215 35% 20%;
 
-      --muted: 0 0% 96.1%;
-      --muted-foreground: 0 0% 45.1%;
+      --muted: 210 40% 90%;
+      --muted-foreground: 215 25% 40%;
 
-      --accent: 0 0% 96.1%;
-      --accent-foreground: 0 0% 9%;
+      --accent: 200 100% 75%;
+      --accent-foreground: 215 35% 20%;
 
       --destructive: 0 84.2% 60.2%;
       --destructive-foreground: 0 0% 98%;
 
-      --border: 0 0% 89.8%;
-      --input: 0 0% 89.8%;
-      --ring: 0 0% 3.9%;
+      --border: 210 30% 85%;
+      --input: 210 30% 85%;
+      --ring: 210 85% 65%;
 
       --radius: 0.5rem;
     }

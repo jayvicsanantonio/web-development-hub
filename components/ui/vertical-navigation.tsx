@@ -5,7 +5,15 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { SECTIONS } from '@/constants/sections';
-import { Menu, Search, BookmarkIcon, HomeIcon } from 'lucide-react';
+import {
+  Menu,
+  Search,
+  BookmarkIcon,
+  HomeIcon,
+  Moon,
+  Sun,
+} from 'lucide-react';
+import { useTheme } from '@/contexts/theme-context';
 import { useSearch } from '@/contexts/search-context';
 import { SearchInput } from '@/components/ui/search-input';
 type NavigationItem = {
@@ -21,6 +29,7 @@ export default function VerticalNavigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isSearching } = useSearch();
   const [isFavoritesActive, setIsFavoritesActive] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const handleSearchComplete = () => {
     setIsMobileMenuOpen(false);
@@ -265,7 +274,7 @@ export default function VerticalNavigation() {
         aria-hidden={!isMobileMenuOpen}
       >
         <nav aria-label="Site sections">
-          <ul className="flex flex-col gap-4 list-none m-0 p-0">
+          <ul className="flex flex-col gap-4 list-none m-0 p-0 min-h-[calc(100vh-8rem)]">
             <li>
               <Link
                 href="/"
@@ -349,6 +358,37 @@ export default function VerticalNavigation() {
                 </button>
               </li>
             ))}
+
+            {/* Theme toggle at the bottom */}
+            <li className="py-2 mt-auto">
+              <div className="h-px bg-border/60 w-full my-2"></div>
+              <button
+                onClick={toggleTheme}
+                className="flex w-full items-center justify-between gap-3 p-3 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon hover:bg-background-muted"
+                aria-label={
+                  theme === 'dark'
+                    ? 'Switch to light mode'
+                    : 'Switch to dark mode'
+                }
+              >
+                <div className="flex items-center gap-3">
+                  {theme === 'dark' ? (
+                    <Sun
+                      className="h-5 w-5 text-foreground"
+                      aria-hidden="true"
+                    />
+                  ) : (
+                    <Moon
+                      className="h-5 w-5 text-foreground"
+                      aria-hidden="true"
+                    />
+                  )}
+                  <span className="font-medium">
+                    {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                  </span>
+                </div>
+              </button>
+            </li>
           </ul>
         </nav>
       </div>
@@ -412,6 +452,15 @@ export default function VerticalNavigation() {
               </div>
             </div>
           </li>
+
+          {/* Divider between navigation groups */}
+          <li className="w-full py-2">
+            <div
+              className="h-px w-6 bg-border/50 mx-auto"
+              aria-hidden="true"
+            ></div>
+          </li>
+
           {navItems.map((item, index) => (
             <li key={item.id} className="relative group">
               <button
@@ -478,6 +527,42 @@ export default function VerticalNavigation() {
               </div>
             </li>
           ))}
+
+          <li className="relative group mt-auto">
+            <div
+              className="h-px w-6 bg-border/50 mx-auto my-4"
+              aria-hidden="true"
+            ></div>
+            <button
+              onClick={toggleTheme}
+              className="cursor-pointer desktop-nav-button-link flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent-neon hover:bg-background-secondary"
+              aria-label={
+                theme === 'dark'
+                  ? 'Switch to light mode'
+                  : 'Switch to dark mode'
+              }
+            >
+              {theme === 'dark' ? (
+                <Sun
+                  className="h-5 w-5 text-foreground opacity-75 group-hover:opacity-100"
+                  aria-hidden="true"
+                />
+              ) : (
+                <Moon
+                  className="h-5 w-5 text-foreground opacity-75 group-hover:opacity-100"
+                  aria-hidden="true"
+                />
+              )}
+            </button>
+            <div
+              className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
+              role="tooltip"
+            >
+              <div className="bg-background-secondary/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
+                {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+              </div>
+            </div>
+          </li>
         </ul>
       </nav>
       {}
