@@ -124,7 +124,7 @@ export default function Home() {
     setCurrentCategory(null);
   }, [setCurrentCategory]);
   
-  const isSearching = searchQuery.trim().length > 0;
+  const isSearching = searchQuery && searchQuery.trim().length > 0;
   const groupedResults = isSearching ? 
     searchResults.reduce((groups: Record<string, any[]>, item: any) => {
       const category = item.section || 'Uncategorized';

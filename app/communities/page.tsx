@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 
 import { SECTIONS } from '@/constants/sections';
-import ResourceCard from '@/components/ui/resource-card';
+import ResourceGrid from '@/components/ui/resource-grid';
 import { useSearch } from '@/contexts/search-context';
 
 export default function Page() {
@@ -27,7 +27,7 @@ export default function Page() {
     description: link.description,
   }));
 
-  const displayedResources = searchQuery.trim()
+  const displayedResources = searchQuery && searchQuery.trim()
     ? searchResults
     : allResources;
 
@@ -42,29 +42,11 @@ export default function Page() {
         </p>
       </div>
 
-      {searchQuery && (
-        <p className="text-sm text-foreground-muted">
-          {displayedResources.length > 0
-            ? `Found ${displayedResources.length} results for "${searchQuery}"`
-            : `No results found for "${searchQuery}"`}
-        </p>
-      )}
-
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {displayedResources.map(
-          (resource: {
-            title: string;
-            href: string;
-            description: string;
-          }) => (
-            <ResourceCard
-              key={resource.href}
-              resource={resource}
-              accentColor="purple"
-            />
-          )
-        )}
-      </div>
+      <ResourceGrid
+        resources={displayedResources}
+        accentColor="purple"
+        searchQuery={searchQuery || ''}
+      />
     </div>
   );
 }

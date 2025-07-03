@@ -22,7 +22,6 @@ type SearchContextType = {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   searchResults: Resource[];
-  isSearching: boolean;
   clearSearch: () => void;
   currentCategory: string | null;
   setCurrentCategory: (category: string | null) => void;
@@ -50,7 +49,6 @@ export function SearchProvider({
 }) {
   const [searchQuery, setSearchQueryState] = useState('');
   const [searchResults, setSearchResults] = useState<Resource[]>([]);
-  const [isSearching, setIsSearching] = useState(false);
   const [currentCategory, setCurrentCategory] = useState<string | null>(null);
 
 
@@ -60,17 +58,14 @@ export function SearchProvider({
   const clearSearch = useCallback(() => {
     setSearchQueryState('');
     setSearchResults([]);
-    setIsSearching(false);
   }, []);
 
   useEffect(() => {
-    if (searchQuery.trim() === '') {
+    if (!searchQuery || searchQuery.trim() === '') {
       setSearchResults([]);
-      setIsSearching(false);
       return;
     }
 
-    setIsSearching(true);
     const query = searchQuery.toLowerCase();
     const allResources = getAllResources();
     
@@ -95,7 +90,6 @@ export function SearchProvider({
       searchQuery,
       setSearchQuery,
       searchResults,
-      isSearching,
       clearSearch,
       currentCategory,
       setCurrentCategory,
@@ -103,7 +97,6 @@ export function SearchProvider({
     [
       searchQuery,
       searchResults,
-      isSearching,
       setSearchQuery,
       clearSearch,
       currentCategory,
