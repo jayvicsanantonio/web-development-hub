@@ -234,26 +234,24 @@ export default function VerticalNavigation() {
           </Link>
           <button
             onClick={toggleTheme}
-            className="flex w-full items-center justify-between gap-3 p-3 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon hover:bg-background-muted cursor-pointer"
+            className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon cursor-pointer"
             aria-label={
               theme === 'dark'
                 ? 'Switch to light mode'
                 : 'Switch to dark mode'
             }
           >
-            <div className="flex items-center gap-3">
-              {theme === 'dark' ? (
-                <Sun
-                  className="h-5 w-5 text-foreground"
-                  aria-hidden="true"
-                />
-              ) : (
-                <Moon
-                  className="h-5 w-5 text-foreground"
-                  aria-hidden="true"
-                />
-              )}
-            </div>
+            {theme === 'dark' ? (
+              <Sun
+                className="h-5 w-5 text-foreground"
+                aria-hidden="true"
+              />
+            ) : (
+              <Moon
+                className="h-5 w-5 text-foreground"
+                aria-hidden="true"
+              />
+            )}
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
