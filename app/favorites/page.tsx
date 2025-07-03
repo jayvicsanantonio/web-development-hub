@@ -35,7 +35,7 @@ export default function FavoritesPage() {
   }, {} as Record<string, typeof favorites>);
 
   return (
-    <div className="container mx-auto py-12 space-y-12">
+    <div className="container mx-auto md:mt-20 mt-8 py-12 space-y-12">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-4xl font-bold tracking-tight mb-2">
@@ -51,7 +51,10 @@ export default function FavoritesPage() {
         </div>
 
         {favorites.length > 0 && (
-          <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <AlertDialog
+            open={isDialogOpen}
+            onOpenChange={setIsDialogOpen}
+          >
             <AlertDialogTrigger asChild>
               <button
                 className="px-4 py-2 rounded-md border border-border text-foreground-muted hover:bg-background-secondary transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon"
@@ -62,9 +65,12 @@ export default function FavoritesPage() {
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Clear All Favorites</AlertDialogTitle>
+                <AlertDialogTitle>
+                  Clear All Favorites
+                </AlertDialogTitle>
                 <AlertDialogDescription>
-                  Are you sure you want to clear all your favorites? This action cannot be undone.
+                  Are you sure you want to clear all your favorites?
+                  This action cannot be undone.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
