@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/react';
 import VerticalNavigation from '@/components/ui/vertical-navigation';
 import { SearchProvider } from '@/contexts/search-context';
 import { FavoritesProvider } from '@/contexts/favorites-context';
+import { ThemeProvider } from '@/contexts/theme-context';
 import './globals.css';
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 const jetbrainsMono = JetBrains_Mono({
@@ -35,12 +36,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-background text-foreground min-h-screen overflow-x-hidden`}
       >
-        <SearchProvider>
-          <FavoritesProvider>
+        <ThemeProvider>
+          <SearchProvider>
+            <FavoritesProvider>
             <div className="flex h-full min-h-screen">
               <VerticalNavigation />
               <div className="relative flex flex-col flex-1">
@@ -56,8 +58,9 @@ export default function RootLayout({
               </div>
             </div>
             <Analytics />
-          </FavoritesProvider>
-        </SearchProvider>
+            </FavoritesProvider>
+          </SearchProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
