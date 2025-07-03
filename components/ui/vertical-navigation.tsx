@@ -19,7 +19,7 @@ export default function VerticalNavigation() {
     useState<string>('learning');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { searchResults, isSearching } = useSearch();
+  const { isSearching } = useSearch();
   const [isFavoritesActive, setIsFavoritesActive] = useState(false);
 
   const handleSearchComplete = () => {
@@ -54,9 +54,6 @@ export default function VerticalNavigation() {
   useEffect(() => {
     const updateNavItems = () => {
       const sections = document.querySelectorAll('section[id]');
-      const sectionIds = Array.from(sections).map(
-        (section) => section.id
-      );
 
       if (isSearching) {
         const sectionsWithContent = Array.from(sections).filter(
@@ -80,7 +77,7 @@ export default function VerticalNavigation() {
                 (word) => word.charAt(0).toUpperCase() + word.slice(1)
               )
               .join(' ')
-              .replace('And', '&');
+              .replace(/\b[aA][nN][dD]\b/g, '&');
 
             const matchingSection = SECTIONS.find(
               (section) =>
@@ -420,7 +417,7 @@ export default function VerticalNavigation() {
               <button
                 onClick={() => scrollToSection(item.id)}
                 className={cn(
-                  'desktop-nav-button w-3 h-3 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent-neon focus:ring-offset-2',
+                  'cursor-pointer desktop-nav-button w-3 h-3 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent-neon focus:ring-offset-2',
                   activeSection === item.id
                     ? 'bg-accent-neon shadow-[0_0_10px_rgba(0,255,127,0.8)]'
                     : 'bg-foreground opacity-75 group-hover:opacity-100 hover:scale-125'
