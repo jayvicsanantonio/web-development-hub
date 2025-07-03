@@ -49,7 +49,7 @@ export function SearchInput({
     <form onSubmit={handleSearchSubmit}>
       <div className="relative">
         {!isMobile && (
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground opacity-70" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground opacity-70 z-10 pointer-events-none" />
         )}
         <Input
           id={isMobile ? "mobile-search-input" : "desktop-search-input"}
@@ -62,13 +62,15 @@ export function SearchInput({
           autoComplete="off"
           onKeyDown={onKeyDown}
         />
-        <button
-          type="submit"
-          className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-accent-neon text-background"
-          aria-label="Submit search"
-        >
-          <Search className={isMobile ? "h-4 w-4" : "h-3 w-3"} />
-        </button>
+        {isMobile && (
+          <button
+            type="submit"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-accent-neon text-background"
+            aria-label="Submit search"
+          >
+            <Search className="h-4 w-4" />
+          </button>
+        )}
       </div>
     </form>
   );
