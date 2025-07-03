@@ -19,7 +19,7 @@ export default function VerticalNavigation() {
     useState<string>('learning');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { isSearching } = useSearch();
+  const { searchQuery } = useSearch();
   const [isFavoritesActive, setIsFavoritesActive] = useState(false);
 
   const handleSearchComplete = () => {
@@ -55,7 +55,7 @@ export default function VerticalNavigation() {
     const updateNavItems = () => {
       const sections = document.querySelectorAll('section[id]');
 
-      if (isSearching) {
+      if (searchQuery && searchQuery.trim().length > 0) {
         const sectionsWithContent = Array.from(sections).filter(
           (section) => {
             const gridContainer = section.querySelector('.grid');
@@ -129,7 +129,7 @@ export default function VerticalNavigation() {
     };
 
     updateNavItems();
-  }, [isSearching]);
+  }, [searchQuery]);
   const handleScroll = useCallback(() => {
     const isFavoritesPage = window.location.pathname === '/favorites';
     setIsFavoritesActive(isFavoritesPage);
