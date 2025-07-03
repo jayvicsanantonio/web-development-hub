@@ -211,6 +211,17 @@ export default function VerticalNavigation() {
           Web Development Hub
         </Link>
         <div className="flex gap-2">
+          <button
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+            className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon cursor-pointer"
+            aria-expanded={isSearchOpen}
+            aria-label="Search resources"
+          >
+            <Search
+              className="h-5 w-5 text-foreground"
+              aria-hidden="true"
+            />
+          </button>
           <Link
             href="/favorites"
             className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon flex items-center justify-center"
@@ -222,19 +233,29 @@ export default function VerticalNavigation() {
             />
           </Link>
           <button
-            onClick={() => setIsSearchOpen(!isSearchOpen)}
-            className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon"
-            aria-expanded={isSearchOpen}
-            aria-label="Search resources"
+            onClick={toggleTheme}
+            className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon cursor-pointer"
+            aria-label={
+              theme === 'dark'
+                ? 'Switch to light mode'
+                : 'Switch to dark mode'
+            }
           >
-            <Search
-              className="h-5 w-5 text-foreground"
-              aria-hidden="true"
-            />
+            {theme === 'dark' ? (
+              <Sun
+                className="h-5 w-5 text-foreground"
+                aria-hidden="true"
+              />
+            ) : (
+              <Moon
+                className="h-5 w-5 text-foreground"
+                aria-hidden="true"
+              />
+            )}
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon"
+            className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon cursor-pointer"
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
             aria-label="Main menu"
@@ -358,37 +379,6 @@ export default function VerticalNavigation() {
                 </button>
               </li>
             ))}
-
-            {/* Theme toggle at the bottom */}
-            <li className="py-2 mt-auto">
-              <div className="h-px bg-border/60 w-full my-2"></div>
-              <button
-                onClick={toggleTheme}
-                className="flex w-full items-center justify-between gap-3 p-3 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon hover:bg-background-muted"
-                aria-label={
-                  theme === 'dark'
-                    ? 'Switch to light mode'
-                    : 'Switch to dark mode'
-                }
-              >
-                <div className="flex items-center gap-3">
-                  {theme === 'dark' ? (
-                    <Sun
-                      className="h-5 w-5 text-foreground"
-                      aria-hidden="true"
-                    />
-                  ) : (
-                    <Moon
-                      className="h-5 w-5 text-foreground"
-                      aria-hidden="true"
-                    />
-                  )}
-                  <span className="font-medium">
-                    {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-                  </span>
-                </div>
-              </button>
-            </li>
           </ul>
         </nav>
       </div>
@@ -417,7 +407,7 @@ export default function VerticalNavigation() {
               className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
               role="tooltip"
             >
-              <div className="bg-background-secondary/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
+              <div className="dark:bg-black/90 bg-white/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
                 Home
               </div>
             </div>
@@ -447,14 +437,13 @@ export default function VerticalNavigation() {
               className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
               role="tooltip"
             >
-              <div className="bg-background-secondary/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
+              <div className="dark:bg-black/90 bg-white/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
                 Favorites
               </div>
             </div>
           </li>
 
-          {/* Divider between navigation groups */}
-          <li className="w-full py-2">
+          <li className="w-full">
             <div
               className="h-px w-6 bg-border/50 mx-auto"
               aria-hidden="true"
@@ -521,18 +510,21 @@ export default function VerticalNavigation() {
                 role="tooltip"
                 aria-hidden={activeSection !== item.id}
               >
-                <div className="bg-background-secondary/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
+                <div className="dark:bg-black/90 bg-white/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
                   {item.title}
                 </div>
               </div>
             </li>
           ))}
 
-          <li className="relative group mt-auto">
+          <li className="w-full">
             <div
-              className="h-px w-6 bg-border/50 mx-auto my-4"
+              className="h-px w-6 bg-border/50 mx-auto"
               aria-hidden="true"
             ></div>
+          </li>
+
+          <li className="relative group">
             <button
               onClick={toggleTheme}
               className="cursor-pointer desktop-nav-button-link flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent-neon hover:bg-background-secondary"
@@ -558,7 +550,7 @@ export default function VerticalNavigation() {
               className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
               role="tooltip"
             >
-              <div className="bg-background-secondary/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
+              <div className="dark:bg-black/90 bg-white/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
                 {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
               </div>
             </div>
