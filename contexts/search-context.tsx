@@ -42,6 +42,31 @@ const getAllResources = (): Resource[] => {
   );
 };
 
+const getFavoritesFromStorage = (): Resource[] => {
+  try {
+    const storedFavorites = localStorage.getItem(
+      'web-dev-hub-favorites'
+    );
+    if (storedFavorites) {
+      const parsedFavorites = JSON.parse(storedFavorites);
+      if (Array.isArray(parsedFavorites)) {
+        return parsedFavorites.filter((fav: any) => {
+          return (
+            fav &&
+            typeof fav.title === 'string' &&
+            typeof fav.href === 'string' &&
+            typeof fav.description === 'string' &&
+            typeof fav.section === 'string'
+          );
+        });
+      }
+    }
+  } catch (error) {
+    console.error('Error loading favorites:', error);
+  }
+  return [];
+};
+
 export function SearchProvider({
   children,
 }: {
@@ -49,8 +74,10 @@ export function SearchProvider({
 }) {
   const [searchQuery, setSearchQueryState] = useState('');
   const [searchResults, setSearchResults] = useState<Resource[]>([]);
-  const [currentCategory, setCurrentCategory] = useState<string | null>(null);
-
+  const [currentCategory, setCurrentCategory] = useState<
+    string | null
+  >(null);
+  const pathname = usePathname();
 
   const setSearchQuery = useCallback((query: string) => {
     setSearchQueryState(query);
@@ -67,23 +94,44 @@ export function SearchProvider({
     }
 
     const query = searchQuery.toLowerCase();
-    const allResources = getAllResources();
-    
 
-    let results = allResources.filter(
+    // Use favorites as the search source when on /favorites page
+    const searchSource =
+      pathname === '/favorites'
+        ? getFavoritesFromStorage()
+        : getAllResources();
+
+    let results = searchSource.filter(
       (resource) =>
         resource.title.toLowerCase().includes(query) ||
         resource.description.toLowerCase().includes(query) ||
         resource.section.toLowerCase().includes(query)
     );
-    
 
     if (currentCategory) {
-      results = results.filter(resource => resource.section === currentCategory);
+      results = results.filter(
+        (resource) => resource.section === currentCategory
+      );
     }
-    
+
     setSearchResults(results);
-  }, [searchQuery, currentCategory]);
+  }, [searchQuery, currentCategory, pathname]);
+
+  // Set default search results to favorites when on /favorites page
+  useEffect(() => {
+    if (
+      pathname === '/favorites' &&
+      (!searchQuery || searchQuery.trim() === '')
+    ) {
+      const favorites = getFavoritesFromStorage();
+      setSearchResults(favorites);
+    } else if (pathname !== '/favorites') {
+      // Clear search results when not on favorites page and no search query
+      if (!searchQuery || searchQuery.trim() === '') {
+        setSearchResults([]);
+      }
+    }
+  }, [pathname, searchQuery]);
 
   const contextValue = React.useMemo(
     () => ({

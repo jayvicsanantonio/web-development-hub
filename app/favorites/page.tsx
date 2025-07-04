@@ -19,20 +19,27 @@ import {
 
 export default function FavoritesPage() {
   const { favorites, clearFavorites } = useFavorites();
-  const { setCurrentCategory } = useSearch();
+  const { searchQuery, searchResults, setCurrentCategory } =
+    useSearch();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
     setCurrentCategory(null);
   }, [setCurrentCategory]);
 
-  const groupedFavorites = favorites.reduce((acc, favorite) => {
-    if (!acc[favorite.section]) {
-      acc[favorite.section] = [];
-    }
-    acc[favorite.section].push(favorite);
-    return acc;
-  }, {} as Record<string, typeof favorites>);
+  const displayedFavorites =
+    searchQuery && searchQuery.trim() ? searchResults : favorites;
+
+  const groupedFavorites = displayedFavorites.reduce(
+    (acc, favorite) => {
+      if (!acc[favorite.section]) {
+        acc[favorite.section] = [];
+      }
+      acc[favorite.section].push(favorite);
+      return acc;
+    },
+    {} as Record<string, typeof displayedFavorites>
+  );
 
   return (
     <div className="container mx-auto md:mt-20 mt-8 py-12 space-y-12">
@@ -42,7 +49,13 @@ export default function FavoritesPage() {
             My Favorites
           </h1>
           <p className="text-foreground-muted">
-            {favorites.length === 0
+            {searchQuery && searchQuery.trim()
+              ? displayedFavorites.length === 0
+                ? `No favorites found for "${searchQuery}"`
+                : `Found ${displayedFavorites.length} favorite${
+                    displayedFavorites.length === 1 ? '' : 's'
+                  } for "${searchQuery}"`
+              : favorites.length === 0
               ? "You haven't added any favorites yet."
               : `You have ${favorites.length} favorite resource${
                   favorites.length === 1 ? '' : 's'
@@ -87,10 +100,12 @@ export default function FavoritesPage() {
         )}
       </div>
 
-      {favorites.length === 0 ? (
+      {displayedFavorites.length === 0 ? (
         <div className="py-12 text-center">
           <p className="text-lg mb-6">
-            Bookmark resources to add them to your favorites list.
+            {searchQuery && searchQuery.trim()
+              ? "Try adjusting your search terms to find what you're looking for."
+              : 'Bookmark resources to add them to your favorites list.'}
           </p>
           <Link
             href="/"
