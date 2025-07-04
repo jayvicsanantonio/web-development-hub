@@ -15,7 +15,7 @@ export const useIntersectionObserver = (
 
   const {
     rootMargin = '-20% 0px -20% 0px',
-    threshold = 0.1,
+    threshold = 0.4,
     root = null,
   } = options;
 
