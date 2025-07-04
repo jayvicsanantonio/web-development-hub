@@ -409,10 +409,7 @@ export default function VerticalNavigation() {
           <li className="relative group">
             <Link
               href="/"
-              className={cn(
-                'desktop-nav-button-link flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent-neon',
-                'hover:bg-background-secondary'
-              )}
+              className="desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
               aria-label="Return to home page"
             >
               <HomeIcon className="h-5 w-5 text-foreground opacity-75 group-hover:opacity-100" />
@@ -429,12 +426,7 @@ export default function VerticalNavigation() {
           <li className="relative group">
             <Link
               href="/favorites"
-              className={cn(
-                'desktop-nav-button-link flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent-neon',
-                isFavoritesActive
-                  ? 'bg-background-secondary/80 ring-2 ring-foreground/20'
-                  : 'hover:bg-background-secondary'
-              )}
+              className="desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
               aria-label="Navigate to favorites"
               aria-current={isFavoritesActive ? 'page' : undefined}
             >
@@ -541,7 +533,7 @@ export default function VerticalNavigation() {
           <li className="relative group">
             <button
               onClick={toggleTheme}
-              className="cursor-pointer desktop-nav-button-link flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent-neon hover:bg-background-secondary"
+              className="cursor-pointer desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
               aria-label={
                 theme === 'dark'
                   ? 'Switch to light mode'
