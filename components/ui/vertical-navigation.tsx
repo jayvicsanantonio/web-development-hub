@@ -33,6 +33,7 @@ export default function VerticalNavigation() {
     <>
       <MobileNavigation
         navItems={navItems}
+        activeSection={activeSection}
         onScrollToSection={handleScrollToSection}
       />
       <DesktopNavigation

@@ -10,11 +10,13 @@ import { type NavigationItem as NavigationItemType } from '@/lib/utils/navigatio
 
 interface MobileNavigationProps {
   navItems: NavigationItemType[];
+  activeSection: string;
   onScrollToSection: (id: string) => void;
 }
 
 export function MobileNavigation({
   navItems,
+  activeSection,
   onScrollToSection,
 }: MobileNavigationProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -130,7 +132,7 @@ export function MobileNavigation({
               <li key={item.id}>
                 <NavigationItem
                   item={item}
-                  isActive={false}
+                  isActive={item.id === activeSection}
                   onClick={() => handleScrollToSection(item.id)}
                   variant="mobile"
                   index={index}
