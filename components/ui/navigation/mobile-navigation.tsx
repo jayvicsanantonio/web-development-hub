@@ -2,15 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
-import {
-  Menu,
-  Search,
-  BookmarkIcon,
-  HomeIcon,
-  Moon,
-  Sun,
-} from 'lucide-react';
+import { Menu, Search, BookmarkIcon, Moon, Sun } from 'lucide-react';
 import { useTheme } from '@/contexts/theme-context';
 import { SearchInput } from '@/components/ui/search-input';
 import { NavigationItem } from '@/components/ui/navigation-item';
@@ -18,17 +10,11 @@ import { type NavigationItem as NavigationItemType } from '@/lib/utils/navigatio
 
 interface MobileNavigationProps {
   navItems: NavigationItemType[];
-  activeSection: string;
-  isHomeActive: boolean;
-  isFavoritesActive: boolean;
   onScrollToSection: (id: string) => void;
 }
 
 export function MobileNavigation({
   navItems,
-  activeSection,
-  isHomeActive,
-  isFavoritesActive,
   onScrollToSection,
 }: MobileNavigationProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -140,53 +126,11 @@ export function MobileNavigation({
       >
         <nav aria-label="Site sections">
           <ul className="flex flex-col gap-4 list-none m-0 p-0 min-h-[calc(100vh-8rem)]">
-            <li>
-              <Link
-                href="/"
-                className="flex w-full items-center gap-3 p-3 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon hover:bg-background-muted"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <HomeIcon
-                  className="h-5 w-5 text-foreground"
-                  aria-hidden="true"
-                />
-                <span className="font-medium">Home</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/favorites"
-                className={cn(
-                  'flex w-full items-center gap-3 p-3 rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-neon',
-                  isFavoritesActive
-                    ? 'bg-background-muted/50 border-l-2 border-foreground/60 text-foreground'
-                    : 'hover:bg-background-muted/30 border-l-2 border-transparent'
-                )}
-                aria-current={isFavoritesActive ? 'page' : undefined}
-              >
-                <BookmarkIcon
-                  className={cn(
-                    'h-5 w-5',
-                    isFavoritesActive
-                      ? 'text-foreground opacity-90'
-                      : 'text-foreground opacity-70'
-                  )}
-                  aria-hidden="true"
-                />
-                <span
-                  className={cn(
-                    isFavoritesActive ? 'font-medium' : 'font-normal'
-                  )}
-                >
-                  Favorites
-                </span>
-              </Link>
-            </li>
             {navItems.map((item, index) => (
               <li key={item.id}>
                 <NavigationItem
                   item={item}
-                  isActive={activeSection === item.id}
+                  isActive={false}
                   onClick={() => handleScrollToSection(item.id)}
                   variant="mobile"
                   index={index}

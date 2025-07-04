@@ -80,9 +80,7 @@ export function createSearchNavItems(
       };
     });
 
-  return searchNavItems.length > 0
-    ? searchNavItems
-    : DEFAULT_NAV_ITEMS;
+  return searchNavItems;
 }
 
 export function scrollToSection(id: string, onComplete?: () => void) {
