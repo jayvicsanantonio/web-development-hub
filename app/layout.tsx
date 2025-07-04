@@ -2,6 +2,7 @@ import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import VerticalNavigation from '@/components/ui/vertical-navigation';
+import Footer from '@/components/ui/footer';
 import { SearchProvider } from '@/contexts/search-context';
 import { FavoritesProvider } from '@/contexts/favorites-context';
 import { ThemeProvider } from '@/contexts/theme-context';
@@ -54,6 +55,7 @@ export default function RootLayout({
                   <main id="main-content" className="flex-1">
                     {children}
                   </main>
+                  <Footer />
                 </div>
               </div>
             </SearchProvider>
