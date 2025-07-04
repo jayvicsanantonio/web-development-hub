@@ -10,6 +10,7 @@ import React, {
 } from 'react';
 import { usePathname } from 'next/navigation';
 import { SECTIONS } from '@/constants/sections';
+import { useFavorites } from './favorites-context';
 
 type Resource = {
   title: string;
@@ -49,41 +50,57 @@ export function SearchProvider({
 }) {
   const [searchQuery, setSearchQueryState] = useState('');
   const [searchResults, setSearchResults] = useState<Resource[]>([]);
-  const [currentCategory, setCurrentCategory] = useState<string | null>(null);
-
+  const [currentCategory, setCurrentCategory] = useState<
+    string | null
+  >(null);
+  const pathname = usePathname();
+  const { favorites } = useFavorites();
 
   const setSearchQuery = useCallback((query: string) => {
     setSearchQueryState(query);
   }, []);
+
   const clearSearch = useCallback(() => {
     setSearchQueryState('');
     setSearchResults([]);
   }, []);
 
   useEffect(() => {
+    // Handle search logic and default display logic in a single effect
     if (!searchQuery || searchQuery.trim() === '') {
-      setSearchResults([]);
+      // No search query - show appropriate default results
+      if (pathname === '/favorites') {
+        // On favorites page, show all favorites when no search
+        setSearchResults(favorites);
+      } else {
+        // On other pages, show no results when no search
+        setSearchResults([]);
+      }
       return;
     }
 
+    // There is a search query - perform search
     const query = searchQuery.toLowerCase();
-    const allResources = getAllResources();
-    
 
-    let results = allResources.filter(
+    // Use favorites as the search source when on /favorites page
+    const searchSource =
+      pathname === '/favorites' ? favorites : getAllResources();
+
+    let results = searchSource.filter(
       (resource) =>
         resource.title.toLowerCase().includes(query) ||
         resource.description.toLowerCase().includes(query) ||
         resource.section.toLowerCase().includes(query)
     );
-    
 
     if (currentCategory) {
-      results = results.filter(resource => resource.section === currentCategory);
+      results = results.filter(
+        (resource) => resource.section === currentCategory
+      );
     }
-    
+
     setSearchResults(results);
-  }, [searchQuery, currentCategory]);
+  }, [searchQuery, currentCategory, pathname, favorites]);
 
   const contextValue = React.useMemo(
     () => ({
