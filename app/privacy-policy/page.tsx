@@ -36,20 +36,34 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">Information We Collect</h2>
             <div className="space-y-4">
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">Information You Provide</h3>
+                <h3 className="text-xl font-medium text-accent-purple mb-2">Information You Provide Directly</h3>
                 <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
-                  <li>Search queries and preferences when using our resource discovery features</li>
-                  <li>Bookmarks and favorites when you save resources</li>
-                  <li>Feedback and communications when you contact us</li>
+                  <li>Feedback and communications when you contact us via email or other means</li>
                 </ul>
               </div>
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">Automatically Collected Information</h3>
+                <h3 className="text-xl font-medium text-accent-purple mb-2">Anonymous Analytics Data (via Vercel Analytics)</h3>
+                <p className="text-foreground-muted leading-relaxed mb-3">
+                  We use Vercel Analytics to understand how our platform is used. This service collects only anonymous, aggregated data and does not track individual users:
+                </p>
                 <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
-                  <li>Device information (browser type, operating system, screen resolution)</li>
-                  <li>Usage data (pages visited, time spent, click patterns)</li>
-                  <li>Log data (IP address, access times, referring URLs)</li>
-                  <li>Cookies and similar tracking technologies</li>
+                  <li>Page views and navigation patterns (anonymized)</li>
+                  <li>Referring websites (where visitors came from)</li>
+                  <li>General location (country and city level only)</li>
+                  <li>Device type and browser information (anonymized)</li>
+                  <li>No cookies are used and data is automatically discarded after 24 hours</li>
+                  <li>No cross-site tracking or personal identification is possible</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xl font-medium text-accent-purple mb-2">Server Logs (via Cloudflare Hosting)</h3>
+                <p className="text-foreground-muted leading-relaxed mb-3">
+                  Our hosting provider (Cloudflare) automatically generates server logs for security and performance purposes:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+                  <li>Basic server request information (automatically deleted within 4 hours)</li>
+                  <li>Error logs for troubleshooting (automatically deleted within 1 week)</li>
+                  <li>No personal information is retained in these technical logs</li>
                 </ul>
               </div>
             </div>
@@ -57,27 +71,41 @@ export default function PrivacyPolicyPage() {
 
           <div className="bg-card rounded-lg p-6 border border-border">
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">How We Use Your Information</h2>
-            <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
-              <li>Provide and maintain our web development resource discovery platform</li>
-              <li>Personalize your experience and improve our content recommendations</li>
-              <li>Analyze usage patterns to enhance our service offerings</li>
-              <li>Communicate with you about updates, new resources, and support</li>
-              <li>Ensure security and prevent fraud or abuse</li>
-              <li>Comply with legal obligations and protect our rights</li>
-            </ul>
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-xl font-medium text-accent-purple mb-2">Communications</h3>
+                <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+                  <li>Respond to your feedback, questions, and support requests</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xl font-medium text-accent-purple mb-2">Anonymous Analytics</h3>
+                <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+                  <li>Understand which resources are most helpful to developers</li>
+                  <li>Improve the platform's performance and user experience</li>
+                  <li>Identify technical issues and optimize our service</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xl font-medium text-accent-purple mb-2">Legal Compliance</h3>
+                <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+                  <li>Comply with applicable laws and legal obligations</li>
+                  <li>Protect the security and integrity of our platform</li>
+                </ul>
+              </div>
+            </div>
           </div>
 
           <div className="bg-card rounded-lg p-6 border border-border">
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">Information Sharing and Disclosure</h2>
             <div className="space-y-4">
               <p className="text-foreground-muted leading-relaxed">
-                We do not sell, trade, or rent your personal information to third parties. We may share information in the following circumstances:
+                <strong>We do not sell, trade, or rent any personal information.</strong> Since we collect minimal data, there is very little to share. We may share information only in these specific circumstances:
               </p>
               <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
-                <li><strong>Service Providers:</strong> With trusted third-party vendors who assist in operating our platform (analytics, hosting, etc.)</li>
-                <li><strong>Legal Requirements:</strong> When required by law, legal process, or to protect rights and safety</li>
-                <li><strong>Business Transfers:</strong> In connection with mergers, acquisitions, or asset sales</li>
-                <li><strong>Consent:</strong> When you explicitly agree to share information</li>
+                <li><strong>Service Providers:</strong> Anonymous analytics data is processed by Vercel Analytics and server logs by Cloudflare (our hosting provider) - both services have their own privacy policies and data protection measures</li>
+                <li><strong>Legal Requirements:</strong> If required by law, legal process, or to protect rights and safety (though we have minimal data to provide)</li>
+                <li><strong>Your Communications:</strong> When you contact us directly, we may use that communication to respond to you</li>
               </ul>
             </div>
           </div>
@@ -118,15 +146,15 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">Cookies and Tracking</h2>
             <div className="space-y-4">
               <p className="text-foreground-muted leading-relaxed">
-                We use cookies and similar technologies to enhance your experience. These include:
+                <strong>We do not use cookies for tracking or analytics.</strong> Our analytics solution (Vercel Analytics) is cookie-free and privacy-focused.
               </p>
               <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
-                <li><strong>Essential Cookies:</strong> Required for basic site functionality</li>
-                <li><strong>Analytics Cookies:</strong> Help us understand how you use our platform</li>
-                <li><strong>Preference Cookies:</strong> Remember your settings and preferences</li>
+                <li><strong>No Analytics Cookies:</strong> Our analytics system uses request-based hashing instead of cookies</li>
+                <li><strong>No Tracking Cookies:</strong> We do not track users across websites or store personal identifiers</li>
+                <li><strong>Third-Party Services:</strong> Our hosting provider (Cloudflare) may use technical cookies for security and performance purposes</li>
               </ul>
               <p className="text-foreground-muted leading-relaxed">
-                You can control cookies through your browser settings, though disabling certain cookies may affect site functionality.
+                Since we don't use tracking cookies, there are no cookie settings to manage for analytics purposes.
               </p>
             </div>
           </div>
@@ -148,11 +176,13 @@ export default function PrivacyPolicyPage() {
           <div className="bg-card rounded-lg p-6 border border-border">
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">Contact Us</h2>
             <p className="text-foreground-muted leading-relaxed mb-4">
-              If you have questions about this Privacy Policy or our data practices, please contact us:
+              If you have questions about this Privacy Policy or wish to contact us about your data, please reach out:
             </p>
             <div className="space-y-2 text-foreground-muted">
-              <p><strong>Email:</strong> privacy@webdevhub.com</p>
               <p><strong>Website:</strong> <Link href="/" className="text-accent-neon hover:text-accent-neon/80">Web Development Hub</Link></p>
+              <p className="text-sm">
+                You can contact us through our website or any available contact methods. Since we collect minimal personal data, most privacy requests can be addressed quickly.
+              </p>
             </div>
           </div>
         </div>
