@@ -78,17 +78,78 @@ export default function ResourceCard({
 
   const iconName =
     ICON_MAP[resource.title] || 'material-symbols:list';
-    
+
   function determineSection(title: string): string {
-    if (['Frontend Masters', 'Epic Web', 'MDN Web Docs', 'freeCodeCamp', 'Wes Bos', 'Codecademy', 'web.dev', 'JavaScript: The Good Parts', 'Testing JavaScript', 'Epic React', 'Build UI', 'Great Frontend', 'Learn With Jason'].includes(title)) {
+    if (
+      [
+        'Frontend Masters',
+        'Epic Web',
+        'MDN Web Docs',
+        'freeCodeCamp',
+        'Wes Bos',
+        'Codecademy',
+        'web.dev',
+        'JavaScript: The Good Parts',
+        'Testing JavaScript',
+        'Epic React',
+        'Build UI',
+        'Great Frontend',
+        'Learn With Jason',
+      ].includes(title)
+    ) {
       return 'Learning Resources';
-    } else if (['Visual Studio Code', 'GitHub', 'Figma', 'Vercel', 'Turso', 'AWS', 'Google Cloud', 'Unsplash', 'Netlify', 'ChatGPT', 'Google Gemini'].includes(title)) {
+    } else if (
+      [
+        'Visual Studio Code',
+        'GitHub',
+        'Figma',
+        'Vercel',
+        'Turso',
+        'AWS',
+        'Google Cloud',
+        'Unsplash',
+        'Netlify',
+        'ChatGPT',
+        'Google Gemini',
+      ].includes(title)
+    ) {
       return 'Developer Tools';
-    } else if (['React', 'Vue.js', 'Angular', 'Svelte', 'Qwik', 'Alpine.js', 'Lit', 'htmx', 'Next.js', 'Remix'].includes(title)) {
-      return 'Frameworks & Libraries';
-    } else if (['Stack Overflow', 'DEV Community', 'GitHub Discussions', 'Reddit', 'Discord', 'Twitter/X'].includes(title)) {
+    } else if (
+      [
+        'React',
+        'Vue.js',
+        'Angular',
+        'Svelte',
+        'Qwik',
+        'Alpine.js',
+        'Lit',
+        'htmx',
+        'Next.js',
+        'Remix',
+      ].includes(title)
+    ) {
+      return 'Frameworks and Libraries';
+    } else if (
+      [
+        'Stack Overflow',
+        'DEV Community',
+        'GitHub Discussions',
+        'Reddit',
+        'Discord',
+        'Twitter/X',
+      ].includes(title)
+    ) {
       return 'Communities';
-    } else if (['CSS-Tricks', 'Smashing Magazine', 'Kent C. Dodds', 'Josh W. Comeau', 'Lee Robinson', 'Tao of Node'].includes(title)) {
+    } else if (
+      [
+        'CSS-Tricks',
+        'Smashing Magazine',
+        'Kent C. Dodds',
+        'Josh W. Comeau',
+        'Lee Robinson',
+        'Tao of Node',
+      ].includes(title)
+    ) {
       return 'Blogs';
     }
     return 'Other';
@@ -128,9 +189,9 @@ export default function ResourceCard({
             {resource.title}
           </h3>
         </div>
-        <BookmarkButton 
-          resource={resourceWithSection} 
-          size="md" 
+        <BookmarkButton
+          resource={resourceWithSection}
+          size="md"
           className="z-10"
         />
       </div>

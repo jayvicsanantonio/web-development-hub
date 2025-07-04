@@ -9,7 +9,7 @@ This document outlines the requirements for a significant overhaul of the Web De
 - **Enhance User Experience:** Provide a visually appealing, intuitive, and efficient interface for developers to access web development resources.
 - **Modernize Aesthetics:** Implement a developer-centric design with a high-contrast dark theme and distinct visual elements.
 - **Improve Navigation:** Introduce a novel, sleek, and highly accessible navigation system that is both user-friendly and engaging.
-- **Optimize Discoverability:** Ensure users can quickly and easily find learning resources, developer tools, frameworks & libraries, communities, and blogs.
+- **Optimize Discoverability:** Ensure users can quickly and easily find learning resources, developer tools, Frameworks and Libraries, communities, and blogs.
 - **Ensure Accessibility:** Adhere to best practices for web accessibility to make the hub usable by all.
 
 ## 3. User Stories
@@ -37,7 +37,7 @@ As a developer, I want to...
   - Text colors: High contrast against backgrounds, typically light grays or whites.
   - Vibrant Accent Colors: Strategic use of neon green or electric purple for interactive elements (buttons, links, highlights), active states, and small decorative elements.
 - **Content Grouping:**
-  - Clear visual separation for "Learning Resources," "Developer Tools," "Frameworks & Libraries," "Communities," and "Blogs."
+  - Clear visual separation for "Learning Resources," "Developer Tools," "Frameworks and Libraries," "Communities," and "Blogs."
 
 ### 4.2. Navigation Revamp
 
