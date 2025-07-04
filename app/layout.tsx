@@ -40,24 +40,24 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-background text-foreground min-h-screen overflow-x-hidden`}
       >
         <ThemeProvider>
-          <SearchProvider>
-            <FavoritesProvider>
-            <div className="flex h-full min-h-screen">
-              <VerticalNavigation />
-              <div className="relative flex flex-col flex-1">
-                <a
-                  href="#main-content"
-                  className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:p-2 focus:bg-accent focus:text-accent-foreground focus:z-50"
-                >
-                  Skip to main content
-                </a>
-                <main id="main-content" className="flex-1">
-                  {children}
-                </main>
+          <FavoritesProvider>
+            <SearchProvider>
+              <div className="flex h-full min-h-screen">
+                <VerticalNavigation />
+                <div className="relative flex flex-col flex-1">
+                  <a
+                    href="#main-content"
+                    className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:p-2 focus:bg-accent focus:text-accent-foreground focus:z-50"
+                  >
+                    Skip to main content
+                  </a>
+                  <main id="main-content" className="flex-1">
+                    {children}
+                  </main>
+                </div>
               </div>
-            </div>
-            </FavoritesProvider>
-          </SearchProvider>
+            </SearchProvider>
+          </FavoritesProvider>
         </ThemeProvider>
       </body>
     </html>

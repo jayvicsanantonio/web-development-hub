@@ -10,6 +10,7 @@ import React, {
 } from 'react';
 import { usePathname } from 'next/navigation';
 import { SECTIONS } from '@/constants/sections';
+import { useFavorites } from './favorites-context';
 
 type Resource = {
   title: string;
@@ -42,31 +43,6 @@ const getAllResources = (): Resource[] => {
   );
 };
 
-const getFavoritesFromStorage = (): Resource[] => {
-  try {
-    const storedFavorites = localStorage.getItem(
-      'web-dev-hub-favorites'
-    );
-    if (storedFavorites) {
-      const parsedFavorites = JSON.parse(storedFavorites);
-      if (Array.isArray(parsedFavorites)) {
-        return parsedFavorites.filter((fav: any) => {
-          return (
-            fav &&
-            typeof fav.title === 'string' &&
-            typeof fav.href === 'string' &&
-            typeof fav.description === 'string' &&
-            typeof fav.section === 'string'
-          );
-        });
-      }
-    }
-  } catch (error) {
-    console.error('Error loading favorites:', error);
-  }
-  return [];
-};
-
 export function SearchProvider({
   children,
 }: {
@@ -78,28 +54,37 @@ export function SearchProvider({
     string | null
   >(null);
   const pathname = usePathname();
+  const { favorites } = useFavorites();
 
   const setSearchQuery = useCallback((query: string) => {
     setSearchQueryState(query);
   }, []);
+
   const clearSearch = useCallback(() => {
     setSearchQueryState('');
     setSearchResults([]);
   }, []);
 
   useEffect(() => {
+    // Handle search logic and default display logic in a single effect
     if (!searchQuery || searchQuery.trim() === '') {
-      setSearchResults([]);
+      // No search query - show appropriate default results
+      if (pathname === '/favorites') {
+        // On favorites page, show all favorites when no search
+        setSearchResults(favorites);
+      } else {
+        // On other pages, show no results when no search
+        setSearchResults([]);
+      }
       return;
     }
 
+    // There is a search query - perform search
     const query = searchQuery.toLowerCase();
 
     // Use favorites as the search source when on /favorites page
     const searchSource =
-      pathname === '/favorites'
-        ? getFavoritesFromStorage()
-        : getAllResources();
+      pathname === '/favorites' ? favorites : getAllResources();
 
     let results = searchSource.filter(
       (resource) =>
@@ -115,23 +100,7 @@ export function SearchProvider({
     }
 
     setSearchResults(results);
-  }, [searchQuery, currentCategory, pathname]);
-
-  // Set default search results to favorites when on /favorites page
-  useEffect(() => {
-    if (
-      pathname === '/favorites' &&
-      (!searchQuery || searchQuery.trim() === '')
-    ) {
-      const favorites = getFavoritesFromStorage();
-      setSearchResults(favorites);
-    } else if (pathname !== '/favorites') {
-      // Clear search results when not on favorites page and no search query
-      if (!searchQuery || searchQuery.trim() === '') {
-        setSearchResults([]);
-      }
-    }
-  }, [pathname, searchQuery]);
+  }, [searchQuery, currentCategory, pathname, favorites]);
 
   const contextValue = React.useMemo(
     () => ({
