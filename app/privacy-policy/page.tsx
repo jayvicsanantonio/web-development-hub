@@ -42,27 +42,30 @@ export default function PrivacyPolicyPage() {
                 </ul>
               </div>
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">Anonymous Analytics Data (via Vercel Analytics)</h3>
+                <h3 className="text-xl font-medium text-accent-purple mb-2">Privacy-First Web Analytics (via Cloudflare)</h3>
                 <p className="text-foreground-muted leading-relaxed mb-3">
-                  We use Vercel Analytics to understand how our platform is used. This service collects only anonymous, aggregated data and does not track individual users:
+                  We use Cloudflare Web Analytics to understand how our platform is used. This service is designed with privacy as the primary focus:
                 </p>
                 <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
-                  <li>Page views and navigation patterns (anonymized)</li>
-                  <li>Referring websites (where visitors came from)</li>
-                  <li>General location (country and city level only)</li>
-                  <li>Device type and browser information (anonymized)</li>
-                  <li>No cookies are used and data is automatically discarded after 24 hours</li>
-                  <li>No cross-site tracking or personal identification is possible</li>
+                  <li><strong>No individual user tracking</strong> - we cannot identify or track specific users</li>
+                  <li><strong>No cookies used</strong> - no client-side state (cookies or localStorage) for tracking</li>
+                  <li><strong>No fingerprinting</strong> - we don't track users via IP addresses, User Agent strings, or device characteristics</li>
+                  <li>Page views and "visits" (defined as page views from external referrers)</li>
+                  <li>General location data (country and region level only)</li>
+                  <li>Referring websites and popular pages on our platform</li>
+                  <li>Automated bot traffic is filtered out for accuracy</li>
                 </ul>
               </div>
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">Server Logs (via Cloudflare Hosting)</h3>
+                <h3 className="text-xl font-medium text-accent-purple mb-2">Cloudflare Infrastructure Data</h3>
                 <p className="text-foreground-muted leading-relaxed mb-3">
-                  Our hosting provider (Cloudflare) automatically generates server logs for security and performance purposes:
+                  As our hosting and CDN provider, Cloudflare processes technical data for security, performance, and analytics:
                 </p>
                 <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
-                  <li>Basic server request information (automatically deleted within 4 hours)</li>
-                  <li>Error logs for troubleshooting (automatically deleted within 1 week)</li>
+                  <li><strong>Analytics and Logs:</strong> Request data for Web Analytics (privacy-first, no user tracking)</li>
+                  <li><strong>Security Analytics:</strong> Threat detection and DDoS protection (automated security filtering)</li>
+                  <li><strong>Server Logs:</strong> Basic server request information (automatically deleted within 4 hours)</li>
+                  <li><strong>Error Logs:</strong> Troubleshooting data (automatically deleted within 1 week)</li>
                   <li>No personal information is retained in these technical logs</li>
                 </ul>
               </div>
@@ -79,11 +82,12 @@ export default function PrivacyPolicyPage() {
                 </ul>
               </div>
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">Anonymous Analytics</h3>
+                <h3 className="text-xl font-medium text-accent-purple mb-2">Privacy-First Analytics</h3>
                 <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
-                  <li>Understand which resources are most helpful to developers</li>
+                  <li>Understand which resources are most helpful to developers (without tracking individuals)</li>
                   <li>Improve the platform's performance and user experience</li>
-                  <li>Identify technical issues and optimize our service</li>
+                  <li>Identify popular content and optimize our resource recommendations</li>
+                  <li>Monitor for security threats and performance issues</li>
                 </ul>
               </div>
               <div>
@@ -103,7 +107,7 @@ export default function PrivacyPolicyPage() {
                 <strong>We do not sell, trade, or rent any personal information.</strong> Since we collect minimal data, there is very little to share. We may share information only in these specific circumstances:
               </p>
               <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
-                <li><strong>Service Providers:</strong> Anonymous analytics data is processed by Vercel Analytics and server logs by Cloudflare (our hosting provider) - both services have their own privacy policies and data protection measures</li>
+                <li><strong>Cloudflare Services:</strong> Privacy-first analytics, security analytics, and server logs are processed by Cloudflare (our hosting and analytics provider) - they have comprehensive privacy policies and data protection measures</li>
                 <li><strong>Legal Requirements:</strong> If required by law, legal process, or to protect rights and safety (though we have minimal data to provide)</li>
                 <li><strong>Your Communications:</strong> When you contact us directly, we may use that communication to respond to you</li>
               </ul>
@@ -146,15 +150,15 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">Cookies and Tracking</h2>
             <div className="space-y-4">
               <p className="text-foreground-muted leading-relaxed">
-                <strong>We do not use cookies for tracking or analytics.</strong> Our analytics solution (Vercel Analytics) is cookie-free and privacy-focused.
+                <strong>We do not use cookies for tracking or analytics.</strong> Our analytics solution (Cloudflare Web Analytics) is completely cookie-free and privacy-focused.
               </p>
               <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
-                <li><strong>No Analytics Cookies:</strong> Our analytics system uses request-based hashing instead of cookies</li>
+                <li><strong>No Analytics Cookies:</strong> Cloudflare Web Analytics doesn't use any client-side state (no cookies or localStorage)</li>
                 <li><strong>No Tracking Cookies:</strong> We do not track users across websites or store personal identifiers</li>
-                <li><strong>Third-Party Services:</strong> Our hosting provider (Cloudflare) may use technical cookies for security and performance purposes</li>
+                <li><strong>Technical Cookies:</strong> Cloudflare may use minimal technical cookies for security and performance purposes (CDN functionality)</li>
               </ul>
               <p className="text-foreground-muted leading-relaxed">
-                Since we don't use tracking cookies, there are no cookie settings to manage for analytics purposes.
+                Since we don't use tracking cookies, there are no cookie consent banners or analytics cookie settings to manage.
               </p>
             </div>
           </div>
