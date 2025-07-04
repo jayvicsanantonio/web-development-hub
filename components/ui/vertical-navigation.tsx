@@ -313,10 +313,10 @@ export default function VerticalNavigation() {
               <Link
                 href="/favorites"
                 className={cn(
-                  'flex w-full items-center gap-3 p-3 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon',
+                  'flex w-full items-center gap-3 p-3 rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-neon',
                   isFavoritesActive
-                    ? 'bg-background-secondary text-accent-neon'
-                    : 'hover:bg-background-muted'
+                    ? 'bg-background-muted/50 border-l-2 border-foreground/60 text-foreground'
+                    : 'hover:bg-background-muted/30 border-l-2 border-transparent'
                 )}
                 aria-current={isFavoritesActive ? 'page' : undefined}
               >
@@ -324,12 +324,18 @@ export default function VerticalNavigation() {
                   className={cn(
                     'h-5 w-5',
                     isFavoritesActive
-                      ? 'text-accent-neon'
-                      : 'text-foreground'
+                      ? 'text-foreground opacity-90'
+                      : 'text-foreground opacity-70'
                   )}
                   aria-hidden="true"
                 />
-                <span className="font-medium">Favorites</span>
+                <span
+                  className={cn(
+                    isFavoritesActive ? 'font-medium' : 'font-normal'
+                  )}
+                >
+                  Favorites
+                </span>
               </Link>
             </li>
             {navItems.map((item, index) => (
@@ -337,10 +343,10 @@ export default function VerticalNavigation() {
                 <button
                   onClick={() => scrollToSection(item.id)}
                   className={cn(
-                    'flex w-full items-center gap-3 p-3 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon',
+                    'flex w-full items-center gap-3 p-3 rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-neon',
                     activeSection === item.id
-                      ? 'bg-background-secondary text-accent-neon'
-                      : 'hover:bg-background-muted'
+                      ? 'bg-background-muted/50 border-l-2 border-foreground/60 text-foreground font-medium'
+                      : 'hover:bg-background-muted/30 border-l-2 border-transparent'
                   )}
                   aria-current={
                     activeSection === item.id ? 'page' : undefined
@@ -370,12 +376,20 @@ export default function VerticalNavigation() {
                     className={cn(
                       'h-5 w-5',
                       activeSection === item.id
-                        ? 'text-accent-neon'
-                        : 'text-foreground'
+                        ? 'text-foreground opacity-90'
+                        : 'text-foreground opacity-70'
                     )}
                     aria-hidden="true"
                   />
-                  <span className="font-medium">{item.title}</span>
+                  <span
+                    className={cn(
+                      activeSection === item.id
+                        ? 'font-medium'
+                        : 'font-normal'
+                    )}
+                  >
+                    {item.title}
+                  </span>
                 </button>
               </li>
             ))}
@@ -395,10 +409,7 @@ export default function VerticalNavigation() {
           <li className="relative group">
             <Link
               href="/"
-              className={cn(
-                'desktop-nav-button-link flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent-neon',
-                'hover:bg-background-secondary'
-              )}
+              className="desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
               aria-label="Return to home page"
             >
               <HomeIcon className="h-5 w-5 text-foreground opacity-75 group-hover:opacity-100" />
@@ -415,12 +426,7 @@ export default function VerticalNavigation() {
           <li className="relative group">
             <Link
               href="/favorites"
-              className={cn(
-                'desktop-nav-button-link flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent-neon',
-                isFavoritesActive
-                  ? 'bg-accent-neon/10'
-                  : 'hover:bg-background-secondary'
-              )}
+              className="desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
               aria-label="Navigate to favorites"
               aria-current={isFavoritesActive ? 'page' : undefined}
             >
@@ -428,7 +434,7 @@ export default function VerticalNavigation() {
                 className={cn(
                   'h-5 w-5',
                   isFavoritesActive
-                    ? 'text-accent-neon'
+                    ? 'text-foreground opacity-100'
                     : 'text-foreground opacity-75 group-hover:opacity-100'
                 )}
               />
@@ -457,8 +463,8 @@ export default function VerticalNavigation() {
                 className={cn(
                   'cursor-pointer desktop-nav-button w-3 h-3 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent-neon focus:ring-offset-2',
                   activeSection === item.id
-                    ? 'bg-accent-neon shadow-[0_0_10px_rgba(0,255,127,0.8)]'
-                    : 'bg-foreground opacity-75 group-hover:opacity-100 hover:scale-125'
+                    ? 'bg-foreground shadow-sm ring-2 ring-foreground/20'
+                    : 'bg-foreground/40 group-hover:bg-foreground/60 hover:scale-110'
                 )}
                 aria-label={`Navigate to ${item.title} section`}
                 aria-current={
@@ -527,7 +533,7 @@ export default function VerticalNavigation() {
           <li className="relative group">
             <button
               onClick={toggleTheme}
-              className="cursor-pointer desktop-nav-button-link flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent-neon hover:bg-background-secondary"
+              className="cursor-pointer desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
               aria-label={
                 theme === 'dark'
                   ? 'Switch to light mode'
