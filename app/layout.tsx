@@ -1,7 +1,6 @@
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
-import { Analytics } from '@vercel/analytics/react';
 import VerticalNavigation from '@/components/ui/vertical-navigation';
 import { SearchProvider } from '@/contexts/search-context';
 import { FavoritesProvider } from '@/contexts/favorites-context';
@@ -57,7 +56,6 @@ export default function RootLayout({
                 </main>
               </div>
             </div>
-            <Analytics />
             </FavoritesProvider>
           </SearchProvider>
         </ThemeProvider>

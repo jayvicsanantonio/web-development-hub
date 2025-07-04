@@ -247,13 +247,13 @@ export default function Home() {
               </p>
               <div className="flex items-center gap-4">
                 <Link
-                  href="#"
+                  href="/privacy-policy"
                   className="text-sm text-foreground-muted hover:text-foreground"
                 >
                   Privacy Policy
                 </Link>
                 <Link
-                  href="#"
+                  href="/terms-of-service"
                   className="text-sm text-foreground-muted hover:text-foreground"
                 >
                   Terms of Service
