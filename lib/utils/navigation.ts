@@ -37,6 +37,10 @@ export function createSearchNavItems(
     return DEFAULT_NAV_ITEMS;
   }
 
+  if (typeof document === 'undefined') {
+    return DEFAULT_NAV_ITEMS;
+  }
+
   const sections = document.querySelectorAll('section[id]');
   const sectionsWithContent = Array.from(sections).filter(
     (section) => {

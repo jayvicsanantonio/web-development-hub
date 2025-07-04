@@ -1,11 +1,11 @@
 'use client';
 
-import { useMemo, useCallback } from 'react';
+import { useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { useSearch } from '@/contexts/search-context';
 import { useIntersectionObserver } from '@/lib/hooks/use-intersection-observer';
+import { useSearchNavItems } from '@/lib/hooks/use-search-nav-items';
 import {
-  createSearchNavItems,
   scrollToSection,
   type NavigationItem as NavigationItemType,
 } from '@/lib/utils/navigation';
@@ -20,9 +20,7 @@ export default function VerticalNavigation() {
   const isHomeActive = pathname === '/';
   const isFavoritesActive = pathname === '/favorites';
 
-  const navItems = useMemo(() => {
-    return createSearchNavItems(searchQuery || '');
-  }, [searchQuery]);
+  const navItems = useSearchNavItems(searchQuery || '');
 
   const sectionIds = navItems.map((item) => item.id);
   const activeSection = useIntersectionObserver(sectionIds);
@@ -35,9 +33,6 @@ export default function VerticalNavigation() {
     <>
       <MobileNavigation
         navItems={navItems}
-        activeSection={activeSection}
-        isHomeActive={isHomeActive}
-        isFavoritesActive={isFavoritesActive}
         onScrollToSection={handleScrollToSection}
       />
       <DesktopNavigation
