@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { SECTIONS } from '@/constants/sections';
@@ -23,13 +23,17 @@ type NavigationItem = {
 };
 export default function VerticalNavigation() {
   const router = useRouter();
+  const pathname = usePathname();
   const [activeSection, setActiveSection] =
     useState<string>('learning');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { searchQuery } = useSearch();
-  const [isFavoritesActive, setIsFavoritesActive] = useState(false);
   const { theme, toggleTheme } = useTheme();
+
+  // Determine active states based on pathname
+  const isHomeActive = pathname === '/';
+  const isFavoritesActive = pathname === '/favorites';
 
   const handleSearchComplete = () => {
     setIsMobileMenuOpen(false);
@@ -140,10 +144,8 @@ export default function VerticalNavigation() {
     updateNavItems();
   }, [searchQuery]);
   const handleScroll = useCallback(() => {
-    const isFavoritesPage = window.location.pathname === '/favorites';
-    setIsFavoritesActive(isFavoritesPage);
-
-    if (isFavoritesPage) {
+    // Don't handle scroll on favorites page
+    if (isFavoritesActive) {
       return;
     }
 
@@ -172,7 +174,7 @@ export default function VerticalNavigation() {
     if (current && current !== activeSection) {
       setActiveSection(current);
     }
-  }, [activeSection]);
+  }, [activeSection, isFavoritesActive]);
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -411,8 +413,16 @@ export default function VerticalNavigation() {
               href="/"
               className="desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
               aria-label="Return to home page"
+              aria-current={isHomeActive ? 'page' : undefined}
             >
-              <HomeIcon className="h-5 w-5 text-foreground opacity-75 group-hover:opacity-100" />
+              <HomeIcon
+                className={cn(
+                  'h-5 w-5',
+                  isHomeActive
+                    ? 'text-foreground opacity-100 stroke-[3]'
+                    : 'text-foreground opacity-75 group-hover:opacity-100'
+                )}
+              />
             </Link>
             <div
               className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
@@ -434,7 +444,7 @@ export default function VerticalNavigation() {
                 className={cn(
                   'h-5 w-5',
                   isFavoritesActive
-                    ? 'text-foreground opacity-100'
+                    ? 'text-foreground opacity-100 stroke-[3]'
                     : 'text-foreground opacity-75 group-hover:opacity-100'
                 )}
               />
