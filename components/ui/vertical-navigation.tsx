@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useCallback } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useSearch } from '@/contexts/search-context';
 import { useIntersectionObserver } from '@/lib/hooks/use-intersection-observer';
 import {
@@ -14,16 +14,11 @@ import { DesktopNavigation } from '@/components/ui/navigation/desktop-navigation
 import { DesktopSearch } from '@/components/ui/navigation/desktop-search';
 
 export default function VerticalNavigation() {
-  const router = useRouter();
   const pathname = usePathname();
   const { searchQuery } = useSearch();
 
   const isHomeActive = pathname === '/';
   const isFavoritesActive = pathname === '/favorites';
-
-  const handleSearchComplete = () => {
-    // Handle search completion
-  };
 
   const navItems = useMemo(() => {
     return createSearchNavItems(searchQuery || '');
@@ -44,7 +39,6 @@ export default function VerticalNavigation() {
         isHomeActive={isHomeActive}
         isFavoritesActive={isFavoritesActive}
         onScrollToSection={handleScrollToSection}
-        onSearchComplete={handleSearchComplete}
       />
       <DesktopNavigation
         navItems={navItems}
@@ -53,7 +47,7 @@ export default function VerticalNavigation() {
         isFavoritesActive={isFavoritesActive}
         onScrollToSection={handleScrollToSection}
       />
-      <DesktopSearch onSearchComplete={handleSearchComplete} />
+      <DesktopSearch />
     </>
   );
 }

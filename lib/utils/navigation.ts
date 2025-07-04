@@ -18,8 +18,8 @@ export const DEFAULT_NAV_ITEMS: NavigationItem[] = [
     icon: SECTIONS[1].icon,
   },
   {
-    id: 'section-frameworks-&-libraries',
-    title: 'Frameworks & Libraries',
+    id: 'section-frameworks-and-libraries',
+    title: 'Frameworks and Libraries',
     icon: SECTIONS[2].icon,
   },
   {
@@ -52,12 +52,19 @@ export function createSearchNavItems(
   const searchNavItems = sectionIdsWithContent
     .filter((id) => id.startsWith('section-'))
     .map((id) => {
-      const displayName = id
+      let displayName = id
         .replace('section-', '')
         .split('-')
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ')
-        .replace(/\b[aA][nN][dD]\b/g, '&');
+        .join(' ');
+
+      // Handle special case for "Frameworks and Libraries"
+      if (displayName === 'Frameworks And Libraries') {
+        displayName = 'Frameworks and Libraries';
+      } else {
+        // Convert other "and" instances to "&"
+        displayName = displayName.replace(/\b[aA][nN][dD]\b/g, '&');
+      }
 
       const matchingSection = SECTIONS.find(
         (section) =>

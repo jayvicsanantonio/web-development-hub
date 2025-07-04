@@ -359,7 +359,6 @@ interface MobileNavigationProps {
   isHomeActive: boolean;
   isFavoritesActive: boolean;
   onScrollToSection: (id: string) => void;
-  onSearchComplete: () => void;
 }
 
 // DesktopNavigation Props
@@ -372,9 +371,7 @@ interface DesktopNavigationProps {
 }
 
 // DesktopSearch Props
-interface DesktopSearchProps {
-  onSearchComplete: () => void;
-}
+// No props needed - uses search context directly
 ```
 
 #### State Management
@@ -403,6 +400,78 @@ The code splitting implementation provides a solid foundation for:
 3. **Performance Optimization**: Components can be optimized independently
 4. **Feature Addition**: New features can be added to specific components without affecting others
 5. **Code Reuse**: Components can be reused in other parts of the application
+
+## ID Compatibility Fix
+
+### Problem Identified
+
+The section ID `section-frameworks-&-libraries` contained an ampersand (`&`) which caused multiple compatibility issues:
+
+- **CSS Selector Problems**: Ampersands need to be escaped in CSS selectors (`#section-frameworks-\&-libraries`)
+- **JavaScript getElementById**: Can cause issues with DOM queries and selector parsing
+- **URL Fragments**: Ampersands have special meaning in URLs and require encoding
+- **Accessibility**: Screen readers may not handle ampersands well in IDs
+- **HTML Standards**: Not recommended for ID attributes according to HTML specifications
+
+### Solution Implemented
+
+**ID Change:**
+
+```typescript
+// Before
+id: 'section-frameworks-&-libraries'; // ❌ Problematic
+
+// After
+id: 'section-frameworks-and-libraries'; // ✅ Standards-compliant
+```
+
+**Navigation Utility Update:**
+
+```typescript
+// Special case handling for display name
+let displayName = id
+  .replace('section-', '')
+  .split('-')
+  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+  .join(' ');
+
+// Handle special case for "Frameworks and Libraries"
+if (displayName === 'Frameworks And Libraries') {
+  displayName = 'Frameworks and Libraries';
+} else {
+  // Convert other "and" instances to "&"
+  displayName = displayName.replace(/\b[aA][nN][dD]\b/g, '&');
+}
+```
+
+### Benefits Achieved
+
+- **Better Compatibility**: IDs now follow HTML standards and best practices
+- **Improved Accessibility**: Screen readers handle IDs more reliably
+- **Easier CSS Targeting**: No need to escape special characters in selectors
+- **Cleaner URLs**: URL fragments work without encoding issues
+- **JavaScript Compatibility**: `getElementById()` works without issues
+- **Future-Proof**: Follows web standards for better long-term compatibility
+
+### Implementation Details
+
+**Files Modified:**
+
+- `lib/utils/navigation.ts`: Updated ID and display name handling logic
+- `constants/sections.ts`: Already had correct URL path (`/frameworks-and-libraries`)
+
+**Backward Compatibility:**
+
+- Maintained existing section matching logic
+- Preserved display name "Frameworks and Libraries" for user-facing text
+- No breaking changes to existing functionality
+
+**Testing Considerations:**
+
+- Verify CSS selectors work without escaping
+- Confirm `getElementById()` calls function properly
+- Test URL fragment navigation
+- Validate accessibility tools compatibility
 
 ## Recommendations for Further Optimization
 

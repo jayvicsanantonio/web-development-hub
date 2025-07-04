@@ -22,7 +22,6 @@ interface MobileNavigationProps {
   isHomeActive: boolean;
   isFavoritesActive: boolean;
   onScrollToSection: (id: string) => void;
-  onSearchComplete: () => void;
 }
 
 export function MobileNavigation({
@@ -31,7 +30,6 @@ export function MobileNavigation({
   isHomeActive,
   isFavoritesActive,
   onScrollToSection,
-  onSearchComplete,
 }: MobileNavigationProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -40,7 +38,6 @@ export function MobileNavigation({
   const handleSearchComplete = () => {
     setIsMobileMenuOpen(false);
     setIsSearchOpen(false);
-    onSearchComplete();
   };
 
   const handleScrollToSection = (id: string) => {

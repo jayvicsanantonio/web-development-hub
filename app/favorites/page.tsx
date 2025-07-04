@@ -114,7 +114,7 @@ export default function FavoritesPage() {
                       resource={favorite}
                       accentColor={
                         section === 'Learning Resources' ||
-                        section === 'Frameworks & Libraries' ||
+                        section === 'Frameworks and Libraries' ||
                         section === 'Blogs'
                           ? 'neon'
                           : 'purple'
