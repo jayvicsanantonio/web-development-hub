@@ -7,10 +7,11 @@ import React, {
   useEffect,
   ReactNode,
   useCallback,
+  useMemo,
 } from 'react';
 import { SECTIONS } from '@/constants/sections';
 
-type Resource = {
+export type Resource = {
   title: string;
   href: string;
   description: string;
@@ -27,43 +28,53 @@ type FavoritesContextType = {
   isLoading: boolean;
 };
 
+const LOCAL_STORAGE_KEY = 'web-dev-hub-favorites';
+
+const createResourceMap = (): Map<
+  string,
+  Map<string, React.FC<{ className?: string }>>
+> => {
+  const resourceMap = new Map();
+
+  SECTIONS.forEach((section) => {
+    const sectionMap = new Map<
+      string,
+      React.FC<{ className?: string }>
+    >();
+
+    section.links.forEach((link) => {
+      if (link.href && link.icon) {
+        sectionMap.set(link.href, link.icon);
+      }
+    });
+
+    if (sectionMap.size > 0) {
+      resourceMap.set(section.title, sectionMap);
+    }
+  });
+
+  return resourceMap;
+};
+
+const validateResource = (resource: any): resource is Resource => {
+  return (
+    resource &&
+    typeof resource.title === 'string' &&
+    typeof resource.href === 'string' &&
+    typeof resource.description === 'string' &&
+    typeof resource.section === 'string'
+  );
+};
+
+const getSerializableFavorites = (
+  favorites: Resource[]
+): Omit<Resource, 'icon'>[] => {
+  return favorites.map(({ icon, ...rest }) => rest);
+};
+
 const FavoritesContext = createContext<
   FavoritesContextType | undefined
 >(undefined);
-
-const LOCAL_STORAGE_KEY = 'web-dev-hub-favorites';
-
-type ResourceMap = Map<
-  string,
-  Map<string, React.FC<{ className?: string }>>
->;
-
-function createResourceMap(): ResourceMap {
-  const resourceMap: ResourceMap = new Map();
-
-  try {
-    SECTIONS.forEach((section) => {
-      const sectionMap = new Map<
-        string,
-        React.FC<{ className?: string }>
-      >();
-
-      section.links.forEach((link) => {
-        if (link.href && link.icon) {
-          sectionMap.set(link.href, link.icon);
-        }
-      });
-
-      if (sectionMap.size > 0) {
-        resourceMap.set(section.title, sectionMap);
-      }
-    });
-  } catch (error) {
-    console.error('Error creating resource map:', error);
-  }
-
-  return resourceMap;
-}
 
 export function FavoritesProvider({
   children,
@@ -73,20 +84,15 @@ export function FavoritesProvider({
   const [favorites, setFavorites] = useState<Resource[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const resourceMap = React.useMemo(() => createResourceMap(), []);
+  const resourceMap = useMemo(() => createResourceMap(), []);
 
   const restoreIcons = useCallback(
     (favItems: Resource[]): Resource[] => {
       return favItems.map((fav) => {
         const sectionMap = resourceMap.get(fav.section);
-        if (sectionMap) {
-          const icon = sectionMap.get(fav.href);
-          if (icon) {
-            return { ...fav, icon };
-          }
-        }
+        const icon = sectionMap?.get(fav.href);
 
-        return fav;
+        return icon ? { ...fav, icon } : fav;
       });
     },
     [resourceMap]
@@ -100,39 +106,29 @@ export function FavoritesProvider({
         const storedFavorites =
           localStorage.getItem(LOCAL_STORAGE_KEY);
 
-        if (storedFavorites) {
-          try {
-            const parsedFavorites = JSON.parse(storedFavorites);
-
-            if (!Array.isArray(parsedFavorites)) {
-              console.error(
-                'Stored favorites is not an array:',
-                parsedFavorites
-              );
-              setFavorites([]);
-            } else {
-              const validFavorites = parsedFavorites.filter(
-                (fav: any) => {
-                  return (
-                    fav &&
-                    typeof fav.title === 'string' &&
-                    typeof fav.href === 'string' &&
-                    typeof fav.description === 'string' &&
-                    typeof fav.section === 'string'
-                  );
-                }
-              );
-
-              const favoritesWithIcons = restoreIcons(validFavorites);
-              setFavorites(favoritesWithIcons);
-            }
-          } catch (parseError) {
-            console.error('Failed to parse favorites:', parseError);
-            setFavorites([]);
-          }
+        if (!storedFavorites) {
+          setFavorites([]);
+          return;
         }
-      } catch (storageError) {
-        console.error('Error accessing localStorage:', storageError);
+
+        const parsedFavorites = JSON.parse(storedFavorites);
+
+        if (!Array.isArray(parsedFavorites)) {
+          console.error(
+            'Stored favorites is not an array:',
+            parsedFavorites
+          );
+          setFavorites([]);
+          return;
+        }
+
+        const validFavorites =
+          parsedFavorites.filter(validateResource);
+        const favoritesWithIcons = restoreIcons(validFavorites);
+
+        setFavorites(favoritesWithIcons);
+      } catch (error) {
+        console.error('Error loading favorites:', error);
         setFavorites([]);
       } finally {
         setIsLoading(false);
@@ -146,9 +142,8 @@ export function FavoritesProvider({
     if (isLoading) return;
 
     try {
-      const serializableFavorites = favorites.map(
-        ({ icon, ...rest }) => rest
-      );
+      const serializableFavorites =
+        getSerializableFavorites(favorites);
       localStorage.setItem(
         LOCAL_STORAGE_KEY,
         JSON.stringify(serializableFavorites)
@@ -163,10 +158,8 @@ export function FavoritesProvider({
 
   const addFavorite = useCallback((resource: Resource) => {
     setFavorites((prev) => {
-      if (prev.some((fav) => fav.href === resource.href)) {
-        return prev;
-      }
-      return [...prev, resource];
+      const exists = prev.some((fav) => fav.href === resource.href);
+      return exists ? prev : [...prev, resource];
     });
   }, []);
 
@@ -175,9 +168,7 @@ export function FavoritesProvider({
   }, []);
 
   const isFavorite = useCallback(
-    (href: string) => {
-      return favorites.some((fav) => fav.href === href);
-    },
+    (href: string) => favorites.some((fav) => fav.href === href),
     [favorites]
   );
 
@@ -185,7 +176,7 @@ export function FavoritesProvider({
     setFavorites([]);
   }, []);
 
-  const contextValue = React.useMemo(
+  const contextValue = useMemo(
     () => ({
       favorites,
       addFavorite,
@@ -213,12 +204,12 @@ export function FavoritesProvider({
 
 export function useFavorites() {
   const context = useContext(FavoritesContext);
+
   if (context === undefined) {
     throw new Error(
       'useFavorites must be used within a FavoritesProvider'
     );
   }
+
   return context;
 }
-
-export type { Resource };
