@@ -27,27 +27,33 @@ type FavoritesContextType = {
   isLoading: boolean;
 };
 
-const FavoritesContext = createContext<FavoritesContextType | undefined>(
-  undefined
-);
+const FavoritesContext = createContext<
+  FavoritesContextType | undefined
+>(undefined);
 
 const LOCAL_STORAGE_KEY = 'web-dev-hub-favorites';
 
-type ResourceMap = Map<string, Map<string, React.FC<{ className?: string }>>>;
+type ResourceMap = Map<
+  string,
+  Map<string, React.FC<{ className?: string }>>
+>;
 
 function createResourceMap(): ResourceMap {
   const resourceMap: ResourceMap = new Map();
-  
+
   try {
     SECTIONS.forEach((section) => {
-      const sectionMap = new Map<string, React.FC<{ className?: string }>>();
-      
+      const sectionMap = new Map<
+        string,
+        React.FC<{ className?: string }>
+      >();
+
       section.links.forEach((link) => {
         if (link.href && link.icon) {
           sectionMap.set(link.href, link.icon);
         }
       });
-      
+
       if (sectionMap.size > 0) {
         resourceMap.set(section.title, sectionMap);
       }
@@ -55,7 +61,7 @@ function createResourceMap(): ResourceMap {
   } catch (error) {
     console.error('Error creating resource map:', error);
   }
-  
+
   return resourceMap;
 }
 
@@ -66,48 +72,57 @@ export function FavoritesProvider({
 }) {
   const [favorites, setFavorites] = useState<Resource[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  
+
   const resourceMap = React.useMemo(() => createResourceMap(), []);
-  
-  const restoreIcons = useCallback((favItems: Resource[]): Resource[] => {
-    return favItems.map((fav) => {
-      const sectionMap = resourceMap.get(fav.section);
-      if (sectionMap) {
-        const icon = sectionMap.get(fav.href);
-        if (icon) {
-          return { ...fav, icon };
+
+  const restoreIcons = useCallback(
+    (favItems: Resource[]): Resource[] => {
+      return favItems.map((fav) => {
+        const sectionMap = resourceMap.get(fav.section);
+        if (sectionMap) {
+          const icon = sectionMap.get(fav.href);
+          if (icon) {
+            return { ...fav, icon };
+          }
         }
-      }
-      
-      return fav;
-    });
-  }, [resourceMap]);
+
+        return fav;
+      });
+    },
+    [resourceMap]
+  );
 
   useEffect(() => {
     const loadFavorites = async () => {
       setIsLoading(true);
-      
+
       try {
-        const storedFavorites = localStorage.getItem(LOCAL_STORAGE_KEY);
-        
+        const storedFavorites =
+          localStorage.getItem(LOCAL_STORAGE_KEY);
+
         if (storedFavorites) {
           try {
             const parsedFavorites = JSON.parse(storedFavorites);
-            
+
             if (!Array.isArray(parsedFavorites)) {
-              console.error('Stored favorites is not an array:', parsedFavorites);
+              console.error(
+                'Stored favorites is not an array:',
+                parsedFavorites
+              );
               setFavorites([]);
             } else {
-              const validFavorites = parsedFavorites.filter((fav: any) => {
-                return (
-                  fav && 
-                  typeof fav.title === 'string' &&
-                  typeof fav.href === 'string' && 
-                  typeof fav.description === 'string' &&
-                  typeof fav.section === 'string'
-                );
-              });
-              
+              const validFavorites = parsedFavorites.filter(
+                (fav: any) => {
+                  return (
+                    fav &&
+                    typeof fav.title === 'string' &&
+                    typeof fav.href === 'string' &&
+                    typeof fav.description === 'string' &&
+                    typeof fav.section === 'string'
+                  );
+                }
+              );
+
               const favoritesWithIcons = restoreIcons(validFavorites);
               setFavorites(favoritesWithIcons);
             }
@@ -123,18 +138,26 @@ export function FavoritesProvider({
         setIsLoading(false);
       }
     };
-    
+
     loadFavorites();
   }, [restoreIcons]);
 
   useEffect(() => {
     if (isLoading) return;
-    
+
     try {
-      const serializableFavorites = favorites.map(({ icon, ...rest }) => rest);
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(serializableFavorites));
+      const serializableFavorites = favorites.map(
+        ({ icon, ...rest }) => rest
+      );
+      localStorage.setItem(
+        LOCAL_STORAGE_KEY,
+        JSON.stringify(serializableFavorites)
+      );
     } catch (error) {
-      console.error('Failed to save favorites to localStorage:', error);
+      console.error(
+        'Failed to save favorites to localStorage:',
+        error
+      );
     }
   }, [favorites, isLoading]);
 
@@ -151,9 +174,12 @@ export function FavoritesProvider({
     setFavorites((prev) => prev.filter((fav) => fav.href !== href));
   }, []);
 
-  const isFavorite = useCallback((href: string) => {
-    return favorites.some((fav) => fav.href === href);
-  }, [favorites]);
+  const isFavorite = useCallback(
+    (href: string) => {
+      return favorites.some((fav) => fav.href === href);
+    },
+    [favorites]
+  );
 
   const clearFavorites = useCallback(() => {
     setFavorites([]);
@@ -168,7 +194,14 @@ export function FavoritesProvider({
       clearFavorites,
       isLoading,
     }),
-    [favorites, addFavorite, removeFavorite, isFavorite, clearFavorites, isLoading]
+    [
+      favorites,
+      addFavorite,
+      removeFavorite,
+      isFavorite,
+      clearFavorites,
+      isLoading,
+    ]
   );
 
   return (
@@ -181,10 +214,11 @@ export function FavoritesProvider({
 export function useFavorites() {
   const context = useContext(FavoritesContext);
   if (context === undefined) {
-    throw new Error('useFavorites must be used within a FavoritesProvider');
+    throw new Error(
+      'useFavorites must be used within a FavoritesProvider'
+    );
   }
   return context;
 }
 
-// Export the Resource type for use in other components
 export type { Resource };

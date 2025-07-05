@@ -41,6 +41,14 @@ export default function FavoritesPage() {
     {} as Record<string, typeof displayedFavorites>
   );
 
+  const sectionOrder = [
+    'Learning Resources',
+    'Developer Tools',
+    'Frameworks and Libraries',
+    'Communities',
+    'Blogs',
+  ];
+
   return (
     <div className="container mx-auto md:mt-20 mt-8 py-12 space-y-12">
       <div className="flex items-center justify-between">
@@ -116,14 +124,21 @@ export default function FavoritesPage() {
         </div>
       ) : (
         <div className="space-y-16">
-          {Object.entries(groupedFavorites).map(
-            ([section, sectionFavorites]) => (
-              <section key={section} className="space-y-6">
+          {sectionOrder
+            .filter((section) => groupedFavorites[section])
+            .map((section) => (
+              <section
+                id={`section-${section
+                  .toLowerCase()
+                  .replace(/\s+/g, '-')}`}
+                key={section}
+                className="space-y-6"
+              >
                 <h2 className="text-2xl font-bold tracking-tight">
                   {section}
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {sectionFavorites.map((favorite) => (
+                  {groupedFavorites[section].map((favorite) => (
                     <ResourceCard
                       key={favorite.href}
                       resource={favorite}
@@ -138,8 +153,7 @@ export default function FavoritesPage() {
                   ))}
                 </div>
               </section>
-            )
-          )}
+            ))}
         </div>
       )}
     </div>
