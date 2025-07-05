@@ -4,55 +4,15 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import { cn } from '@/lib/utils';
 import { BookmarkButton } from '@/components/ui/bookmark-button';
-
-const ICON_MAP: Record<string, string> = {
-  'Frontend Masters': 'simple-icons:frontendmasters',
-  'Epic Web': 'simple-icons:epicgames',
-  'MDN Web Docs': 'simple-icons:mdnwebdocs',
-  freeCodeCamp: 'simple-icons:freecodecamp',
-  'Wes Bos': 'simple-icons:wesbos',
-  Codecademy: 'simple-icons:codecademy',
-  'web.dev': 'simple-icons:google',
-  'JavaScript: The Good Parts': 'simple-icons:javascript',
-  'Testing JavaScript': 'simple-icons:testinglibrary',
-  'Epic React': 'simple-icons:react',
-  'Build UI': 'simple-icons:uikit',
-  'Great Frontend': 'simple-icons:frontendmentor',
-  'Learn With Jason': 'simple-icons:twitch',
-  'Visual Studio Code': 'simple-icons:visualstudiocode',
-  GitHub: 'simple-icons:github',
-  Figma: 'simple-icons:figma',
-  Vercel: 'simple-icons:vercel',
-  Turso: 'simple-icons:sqlite',
-  AWS: 'simple-icons:amazonaws',
-  'Google Cloud': 'simple-icons:googlecloud',
-  Unsplash: 'simple-icons:unsplash',
-  Netlify: 'simple-icons:netlify',
-  ChatGPT: 'simple-icons:openai',
-  'Google Gemini': 'simple-icons:google',
-  React: 'simple-icons:react',
-  'Vue.js': 'simple-icons:vuedotjs',
-  Angular: 'simple-icons:angular',
-  Svelte: 'simple-icons:svelte',
-  Qwik: 'simple-icons:qwik',
-  'Alpine.js': 'simple-icons:alpinedotjs',
-  Lit: 'simple-icons:lit',
-  htmx: 'simple-icons:html5',
-  'Next.js': 'simple-icons:nextdotjs',
-  Remix: 'simple-icons:remix',
-  'Stack Overflow': 'simple-icons:stackoverflow',
-  'DEV Community': 'simple-icons:devdotto',
-  'GitHub Discussions': 'simple-icons:github',
-  Reddit: 'simple-icons:reddit',
-  Discord: 'simple-icons:discord',
-  'Twitter/X': 'simple-icons:x',
-  'CSS-Tricks': 'simple-icons:css3',
-  'Smashing Magazine': 'simple-icons:smashingmagazine',
-  'Kent C. Dodds': 'simple-icons:hashnode',
-  'Josh W. Comeau': 'simple-icons:hashnode',
-  'Lee Robinson': 'simple-icons:vercel',
-  'Tao of Node': 'simple-icons:nodedotjs',
-};
+import {
+  determineSection,
+  getResourceIcon,
+} from '@/lib/data/resource-mappings';
+import {
+  generateResourceId,
+  getCardClassName,
+  getAccentColorClasses,
+} from '@/lib/utils/resource-card';
 
 type ResourceCardProps = {
   resource: {
@@ -72,102 +32,15 @@ export default function ResourceCard({
     ...resource,
     section: resource.section || determineSection(resource.title),
   };
-  const resourceId = resource.title
-    .toLowerCase()
-    .replace(/\s+/g, '-');
-
-  const iconName =
-    ICON_MAP[resource.title] || 'material-symbols:list';
-
-  function determineSection(title: string): string {
-    if (
-      [
-        'Frontend Masters',
-        'Epic Web',
-        'MDN Web Docs',
-        'freeCodeCamp',
-        'Wes Bos',
-        'Codecademy',
-        'web.dev',
-        'JavaScript: The Good Parts',
-        'Testing JavaScript',
-        'Epic React',
-        'Build UI',
-        'Great Frontend',
-        'Learn With Jason',
-      ].includes(title)
-    ) {
-      return 'Learning Resources';
-    } else if (
-      [
-        'Visual Studio Code',
-        'GitHub',
-        'Figma',
-        'Vercel',
-        'Turso',
-        'AWS',
-        'Google Cloud',
-        'Unsplash',
-        'Netlify',
-        'ChatGPT',
-        'Google Gemini',
-      ].includes(title)
-    ) {
-      return 'Developer Tools';
-    } else if (
-      [
-        'React',
-        'Vue.js',
-        'Angular',
-        'Svelte',
-        'Qwik',
-        'Alpine.js',
-        'Lit',
-        'htmx',
-        'Next.js',
-        'Remix',
-      ].includes(title)
-    ) {
-      return 'Frameworks and Libraries';
-    } else if (
-      [
-        'Stack Overflow',
-        'DEV Community',
-        'GitHub Discussions',
-        'Reddit',
-        'Discord',
-        'Twitter/X',
-      ].includes(title)
-    ) {
-      return 'Communities';
-    } else if (
-      [
-        'CSS-Tricks',
-        'Smashing Magazine',
-        'Kent C. Dodds',
-        'Josh W. Comeau',
-        'Lee Robinson',
-        'Tao of Node',
-      ].includes(title)
-    ) {
-      return 'Blogs';
-    }
-    return 'Other';
-  }
+  const resourceId = generateResourceId(resource.title);
+  const iconName = getResourceIcon(resource.title);
 
   return (
     <a
       href={resource.href}
       target="_blank"
       rel="noopener noreferrer"
-      className={cn(
-        'relative flex flex-col h-full rounded-lg transition-all',
-        'bg-card border border-border',
-        'hover:shadow-lg hover:scale-[1.01]',
-        accentColor === 'neon'
-          ? 'hover:border-neon hover:shadow-neon/10'
-          : 'hover:border-purple hover:shadow-purple/10'
-      )}
+      className={getCardClassName(accentColor)}
       key={resourceId}
       id={resourceId}
       aria-labelledby={`title-${resourceId}`}
@@ -178,7 +51,7 @@ export default function ResourceCard({
             icon={iconName}
             className={cn(
               'h-8 w-8',
-              accentColor === 'neon' ? 'text-neon' : 'text-purple'
+              getAccentColorClasses(accentColor).icon
             )}
             aria-hidden="true"
           />
