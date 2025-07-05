@@ -204,8 +204,8 @@ export default function Home() {
       ) : (
         <>
           <HeroBanner
-            title="Elevate Your Web Development Journey"
-            description="Discover a wealth of resources, tools, and community support to enhance your web development skills and build exceptional digital experiences."
+            title="Your Essential Web Dev Links, Simplified"
+            description="Access a curated collection of must-have resources and quick links, designed to keep everything you need right at your fingertips."
           />
 
           <ResourceSection
