@@ -6,7 +6,29 @@ export default function TermsOfServicePage() {
   return (
     <div className="container mx-auto py-12 px-4 md:px-6 max-w-4xl">
       <div className="space-y-8">
-        {/* Header */}
+        <div className="mb-6">
+          <Link
+            href="/"
+            className="inline-flex items-center text-sm text-foreground-muted hover:text-foreground transition-colors"
+          >
+            <svg
+              className="w-4 h-4 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            Back to Home
+          </Link>
+        </div>
+
         <div className="space-y-4">
           <h1 className="text-4xl font-bold tracking-tight">
             Terms of Service
@@ -16,7 +38,6 @@ export default function TermsOfServicePage() {
           </p>
         </div>
 
-        {/* Content */}
         <div className="prose prose-invert max-w-none space-y-8">
           <div className="bg-card rounded-lg p-6 border border-border">
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">
