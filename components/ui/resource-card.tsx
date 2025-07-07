@@ -34,7 +34,7 @@ export default function ResourceCard({
   };
   const resourceId = generateResourceId(resource.title);
   const iconName = getResourceIcon(resource.title);
-  
+
   // For debugging icon issues
   React.useEffect(() => {
     console.log(`Resource: ${resource.title}, Icon: ${iconName}`);
@@ -61,9 +61,6 @@ export default function ResourceCard({
                   'h-8 w-8',
                   getAccentColorClasses(accentColor).icon
                 )}
-                onError={() => {
-                  console.error(`Icon failed to load: ${iconName} for ${resource.title}`);
-                }}
                 aria-hidden="true"
               />
             ) : (
