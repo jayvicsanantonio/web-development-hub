@@ -10,13 +10,15 @@ import React, {
   useMemo,
 } from 'react';
 import { SECTIONS } from '@/constants/sections';
+import { Icon } from '@iconify/react';
+import { getResourceIcon } from '@/lib/data/resource-mappings';
 
 export type Resource = {
   title: string;
   href: string;
   description: string;
   section: string;
-  icon?: React.FC<{ className?: string }>;
+  iconName?: string;
 };
 
 type FavoritesContextType = {
@@ -32,19 +34,19 @@ const LOCAL_STORAGE_KEY = 'web-dev-hub-favorites';
 
 const createResourceMap = (): Map<
   string,
-  Map<string, React.FC<{ className?: string }>>
+  Map<string, string>
 > => {
   const resourceMap = new Map();
 
   SECTIONS.forEach((section) => {
     const sectionMap = new Map<
       string,
-      React.FC<{ className?: string }>
+      string
     >();
 
     section.links.forEach((link) => {
-      if (link.href && link.icon) {
-        sectionMap.set(link.href, link.icon);
+      if (link.href && link.title) {
+        sectionMap.set(link.href, getResourceIcon(link.title));
       }
     });
 
@@ -68,8 +70,8 @@ const validateResource = (resource: any): resource is Resource => {
 
 const getSerializableFavorites = (
   favorites: Resource[]
-): Omit<Resource, 'icon'>[] => {
-  return favorites.map(({ icon, ...rest }) => rest);
+): Omit<Resource, 'iconName'>[] => {
+  return favorites.map(({ iconName, ...rest }) => rest);
 };
 
 const FavoritesContext = createContext<

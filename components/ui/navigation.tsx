@@ -10,6 +10,8 @@ import {
 import SearchIcon from '@/components/icons/search';
 import MountainIcon from '@/components/icons/mountain';
 import { SECTIONS } from '@/constants/sections';
+import { Icon } from '@iconify/react';
+import { getResourceIcon } from '@/lib/data/resource-mappings';
 export default function Navigation() {
   const searchRef = useRef<HTMLInputElement>(null);
   const [search, setSearch] = useState('');
@@ -76,7 +78,10 @@ export default function Navigation() {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <link.icon className="h-6 w-6 text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-gray-50" />
+                        <Icon 
+                          icon={getResourceIcon(link.title)} 
+                          className="h-6 w-6 text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-gray-50" 
+                        />
                         <p className="text-sm font-medium text-gray-900 group-hover:text-gray-900 dark:text-gray-50 dark:group-hover:text-gray-50">
                           {link.title}
                         </p>
