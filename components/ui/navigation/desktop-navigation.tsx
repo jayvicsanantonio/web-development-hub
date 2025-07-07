@@ -6,6 +6,7 @@ import { BookmarkIcon, HomeIcon, Moon, Sun } from 'lucide-react';
 import { useTheme } from '@/contexts/theme-context';
 import { NavigationItem } from '@/components/ui/navigation-item';
 import { type NavigationItem as NavigationItemType } from '@/lib/utils/navigation';
+import { useState, useEffect } from 'react';
 
 interface DesktopNavigationProps {
   navItems: NavigationItemType[];
@@ -23,6 +24,19 @@ export function DesktopNavigation({
   onScrollToSection,
 }: DesktopNavigationProps) {
   const { theme, toggleTheme } = useTheme();
+  const [hiddenTooltip, setHiddenTooltip] = useState<string | null>(
+    null
+  );
+
+  useEffect(() => {
+    if (hiddenTooltip) {
+      const timer = setTimeout(() => {
+        setHiddenTooltip(null);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [hiddenTooltip]);
 
   return (
     <nav
@@ -40,6 +54,7 @@ export function DesktopNavigation({
             className="desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
             aria-label="Return to home page"
             aria-current={isHomeActive ? 'page' : undefined}
+            onClick={() => setHiddenTooltip('home')}
           >
             <HomeIcon
               className={cn(
@@ -51,7 +66,12 @@ export function DesktopNavigation({
             />
           </Link>
           <div
-            className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none"
+            className={cn(
+              'absolute right-12 top-1/2 transform -translate-y-1/2 transition-opacity duration-200 whitespace-nowrap pointer-events-none',
+              hiddenTooltip === 'home'
+                ? 'opacity-0'
+                : 'opacity-0 group-hover:opacity-100'
+            )}
             role="tooltip"
           >
             <div className="dark:bg-black/90 bg-white/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
@@ -65,6 +85,7 @@ export function DesktopNavigation({
             className="desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
             aria-label="Navigate to favorites"
             aria-current={isFavoritesActive ? 'page' : undefined}
+            onClick={() => setHiddenTooltip('favorites')}
           >
             <BookmarkIcon
               className={cn(
@@ -76,7 +97,12 @@ export function DesktopNavigation({
             />
           </Link>
           <div
-            className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none"
+            className={cn(
+              'absolute right-12 top-1/2 transform -translate-y-1/2 transition-opacity duration-200 whitespace-nowrap pointer-events-none',
+              hiddenTooltip === 'favorites'
+                ? 'opacity-0'
+                : 'opacity-0 group-hover:opacity-100'
+            )}
             role="tooltip"
           >
             <div className="dark:bg-black/90 bg-white/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
@@ -97,7 +123,10 @@ export function DesktopNavigation({
             <NavigationItem
               item={item}
               isActive={activeSection === item.id}
-              onClick={() => onScrollToSection(item.id)}
+              onClick={() => {
+                onScrollToSection(item.id);
+                setHiddenTooltip(item.id);
+              }}
               variant="desktop"
               index={index}
               totalItems={navItems.length}
@@ -142,7 +171,12 @@ export function DesktopNavigation({
               }}
             />
             <div
-              className="absolute right-14 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-200 whitespace-nowrap will-change-[opacity,transform] pointer-events-none"
+              className={cn(
+                'absolute right-14 top-1/2 transform -translate-y-1/2 transition-opacity duration-200 whitespace-nowrap will-change-[opacity,transform] pointer-events-none',
+                hiddenTooltip === item.id
+                  ? 'opacity-0'
+                  : 'opacity-0 group-hover:opacity-100 group-focus-within:opacity-100'
+              )}
               role="tooltip"
               aria-hidden={activeSection !== item.id}
             >
@@ -162,7 +196,10 @@ export function DesktopNavigation({
 
         <li className="relative group">
           <button
-            onClick={toggleTheme}
+            onClick={() => {
+              toggleTheme();
+              setHiddenTooltip('theme');
+            }}
             className="cursor-pointer desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
             aria-label={
               theme === 'dark'
@@ -183,7 +220,12 @@ export function DesktopNavigation({
             )}
           </button>
           <div
-            className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none"
+            className={cn(
+              'absolute right-12 top-1/2 transform -translate-y-1/2 transition-opacity duration-200 whitespace-nowrap pointer-events-none',
+              hiddenTooltip === 'theme'
+                ? 'opacity-0'
+                : 'opacity-0 group-hover:opacity-100'
+            )}
             role="tooltip"
           >
             <div className="dark:bg-black/90 bg-white/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
