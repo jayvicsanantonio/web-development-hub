@@ -701,6 +701,192 @@ export const SECTIONS = [
         description:
           'Personal blog covering React, Next.js, TypeScript, and modern web development stack experiences.',
       },
+      {
+        title: 'Dan Abramov',
+        href: 'https://overreacted.io/',
+        description:
+          'Personal blog of React core team member sharing deep insights on React, JavaScript, and software development.',
+      },
+      {
+        title: 'Kent C. Dodds',
+        href: 'https://kentcdodds.com/blog',
+        description:
+          'Thoughtful articles on React, testing, TypeScript, and modern web development from a testing and React expert.',
+      },
+      {
+        title: 'Sarah Drasner',
+        href: 'https://sarah.dev/',
+        description:
+          'Personal blog covering CSS, animations, Vue.js, and creative web development techniques.',
+      },
+      {
+        title: 'Addy Osmani',
+        href: 'https://addyosmani.com/',
+        description:
+          'Performance and web development insights from Google Chrome team member and web performance expert.',
+      },
+      {
+        title: 'Chris Coyier',
+        href: 'https://chriscoyier.net/',
+        description:
+          'Personal blog of CSS-Tricks founder sharing insights on CSS, web design, and front-end development.',
+      },
+      {
+        title: 'Wes Bos',
+        href: 'https://wesbos.com/blog',
+        description:
+          'JavaScript and React tutorials, tips, and insights from a popular web development educator.',
+      },
+      {
+        title: 'Eric Elliott',
+        href: 'https://ericelliottjs.com/',
+        description:
+          'Advanced JavaScript concepts, functional programming, and software architecture insights.',
+      },
+      {
+        title: 'Adam Wathan',
+        href: 'https://adamwathan.me/',
+        description:
+          'Personal blog of Tailwind CSS creator sharing thoughts on CSS, design systems, and web development.',
+      },
+      {
+        title: 'Surma',
+        href: 'https://surma.dev/',
+        description:
+          'Deep technical articles on web performance, WebAssembly, and modern web technologies.',
+      },
+      {
+        title: 'Jake Archibald',
+        href: 'https://jakearchibald.com/',
+        description:
+          'Personal blog covering service workers, web performance, and modern web platform features.',
+      },
+      {
+        title: 'Una Kravets',
+        href: 'https://una.im/',
+        description:
+          'CSS, web design, and developer experience insights from a web platform advocate.',
+      },
+      {
+        title: 'Phil Hawksworth',
+        href: 'https://www.hawksworx.com/blog/',
+        description:
+          'JAMstack, performance, and modern web development insights from Netlify developer advocate.',
+      },
+      {
+        title: 'Rich Harris',
+        href: 'https://svelte.dev/blog',
+        description:
+          'Personal blog of Svelte creator sharing thoughts on web frameworks and modern development.',
+      },
+      {
+        title: 'Evan You',
+        href: 'https://blog.evanyou.me/',
+        description:
+          'Personal blog of Vue.js creator sharing insights on framework design and web development.',
+      },
+      {
+        title: 'Guillermo Rauch',
+        href: 'https://rauchg.com/',
+        description:
+          'Personal blog of Vercel CEO and Next.js creator sharing thoughts on modern web development.',
+      },
+      {
+        title: 'Mark Erikson',
+        href: 'https://blog.isquaredsoftware.com/',
+        description:
+          'Redux maintainer sharing insights on state management, React, and modern front-end architecture.',
+      },
+      {
+        title: 'Michelle Barker',
+        href: 'https://css-irl.info/',
+        description:
+          'CSS expert sharing creative techniques, modern CSS features, and web design insights.',
+      },
+      {
+        title: 'Max Stoiber',
+        href: 'https://mxstbr.com/',
+        description:
+          'Personal blog of styled-components creator sharing insights on React, CSS-in-JS, and modern styling.',
+      },
+      {
+        title: 'Kyle Simpson',
+        href: 'https://me.getify.com/',
+        description:
+          "You Don't Know JS author sharing deep insights on JavaScript, programming patterns, and web development.",
+      },
+      {
+        title: 'Lea Verou',
+        href: 'https://lea.verou.me/',
+        description:
+          'CSS expert and web standards advocate sharing creative CSS techniques and modern web development insights.',
+      },
+      {
+        title: 'Paul Irish',
+        href: 'https://paulirish.com/',
+        description:
+          'Chrome team member sharing insights on web performance, developer tools, and modern web platform.',
+      },
+      {
+        title: 'David Walsh',
+        href: 'https://davidwalsh.name/',
+        description:
+          'Mozilla developer sharing JavaScript tips, web development tutorials, and modern browser features.',
+      },
+      {
+        title: 'Sara Soueidan',
+        href: 'https://www.sarasoueidan.com/blog/',
+        description:
+          'CSS and SVG expert sharing insights on web graphics, animations, and modern CSS techniques.',
+      },
+      {
+        title: 'Harry Roberts',
+        href: 'https://csswizardry.com/',
+        description:
+          'CSS architecture expert sharing insights on scalable CSS, performance, and front-end architecture.',
+      },
+      {
+        title: 'Robin Rendle',
+        href: 'https://www.robinrendle.com/',
+        description:
+          'CSS and design systems expert sharing thoughts on web design, typography, and modern CSS.',
+      },
+      {
+        title: 'Ben Frain',
+        href: 'https://benfrain.com/',
+        description:
+          'Front-end development expert sharing insights on responsive design, CSS, and modern web techniques.',
+      },
+      {
+        title: 'Jeremy Keith',
+        href: 'https://adactio.com/journal/',
+        description:
+          'Web standards advocate and author sharing insights on progressive enhancement and modern web development.',
+      },
+      {
+        title: 'Rachel Andrew',
+        href: 'https://rachelandrew.co.uk/blog/',
+        description:
+          'CSS Grid expert and web standards advocate sharing insights on modern CSS and web layout.',
+      },
+      {
+        title: 'Jen Simmons',
+        href: 'https://jensimmons.com/',
+        description:
+          'CSS Grid and layout expert sharing insights on modern web design and CSS techniques.',
+      },
+      {
+        title: 'Val Head',
+        href: 'https://valhead.com/',
+        description:
+          'Web animation expert sharing insights on CSS animations, motion design, and user experience.',
+      },
+      {
+        title: 'Dudley Storey',
+        href: 'https://demosthenes.info/',
+        description:
+          'CSS and web development expert sharing creative techniques and modern web design insights.',
+      },
     ],
   },
 ];

@@ -194,11 +194,6 @@ export const ICON_MAP: Record<string, string> = {
   iCodeThis: 'simple-icons:icodethis',
   'CSS-Tricks': 'simple-icons:css3',
   'Smashing Magazine': 'simple-icons:smashingmagazine',
-  'Josh W Comeau': 'simple-icons:hashnode',
-  'Lee Robinson': 'simple-icons:vercel',
-  'Tao of Node': 'simple-icons:nodedotjs',
-  'Rafael Camargo': 'simple-icons:hashnode',
-  'Nico Prananta': 'simple-icons:hashnode',
   'Frontend At Scale': 'simple-icons:frontendatscale',
 };
 
