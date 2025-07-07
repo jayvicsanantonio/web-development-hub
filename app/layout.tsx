@@ -1,11 +1,10 @@
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
-import VerticalNavigation from '@/components/ui/vertical-navigation';
 import Footer from '@/components/ui/footer';
-import { SearchProvider } from '@/contexts/search-context';
 import { FavoritesProvider } from '@/contexts/favorites-context';
 import { ThemeProvider } from '@/contexts/theme-context';
+import LayoutWrapper from '@/components/ui/layout-wrapper';
 import './globals.css';
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 const jetbrainsMono = JetBrains_Mono({
@@ -42,23 +41,8 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <FavoritesProvider>
-            <SearchProvider>
-              <div className="flex h-full min-h-screen">
-                <VerticalNavigation />
-                <div className="relative flex flex-col flex-1">
-                  <a
-                    href="#main-content"
-                    className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:p-2 focus:bg-accent focus:text-accent-foreground focus:z-50"
-                  >
-                    Skip to main content
-                  </a>
-                  <main id="main-content" className="flex-1">
-                    {children}
-                  </main>
-                  <Footer />
-                </div>
-              </div>
-            </SearchProvider>
+            <LayoutWrapper>{children}</LayoutWrapper>
+            <Footer />
           </FavoritesProvider>
         </ThemeProvider>
       </body>
