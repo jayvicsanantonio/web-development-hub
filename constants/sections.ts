@@ -166,28 +166,22 @@ export const SECTIONS = [
       {
         icon: TestingJavaScriptIcon,
         title: 'Testing JavaScript',
-        href: 'https://testingjavascript.com/',
+        href: 'https://www.testingjavascript.com/',
         description:
           'Comprehensive testing strategies and patterns for JavaScript applications with Kent C. Dodds.',
       },
       {
         icon: EpicReactIcon,
         title: 'Epic React',
-        href: 'https://epicreact.dev/',
+        href: 'https://www.epicreact.dev/',
         description:
           'Advanced React patterns, hooks, performance optimization, and testing strategies for production applications.',
       },
-      {
-        icon: BuildUIIcon,
-        title: 'Build UI',
-        href: 'https://buildui.dev/',
-        description:
-          'Learn to build modern, accessible user interfaces with practical examples and real-world patterns.',
-      },
+
       {
         icon: GreatFrontendIcon,
         title: 'Great Frontend',
-        href: 'https://greatfrontend.com/',
+        href: 'https://www.greatfrontend.com/',
         description:
           'Comprehensive front-end interview preparation with 200+ practice questions from ex-FAANG interviewers.',
       },
@@ -201,7 +195,7 @@ export const SECTIONS = [
       {
         icon: LearnWithJasonIcon,
         title: 'Learn With Jason',
-        href: 'https://learnwithjason.dev/',
+        href: 'https://www.learnwithjason.dev/',
         description:
           'Live coding sessions with web development experts, building real projects and sharing practical knowledge.',
       },
@@ -444,6 +438,85 @@ export const SECTIONS = [
         href: 'https://nx.dev/',
         description:
           'Powerful build system and monorepo tool with intelligent caching, affected commands, and code generation.',
+      },
+      {
+        icon: ChatGPTIcon,
+        title: 'ChatGPT',
+        href: 'https://chatgpt.com/',
+        description:
+          'Advanced AI assistant for code generation, debugging, documentation, and learning web development concepts.',
+      },
+      {
+        icon: GoogleGeminiIcon,
+        title: 'Google Gemini',
+        href: 'https://gemini.google.com/',
+        description:
+          "Google's AI assistant for coding assistance, problem-solving, and learning web development technologies.",
+      },
+      {
+        icon: SupermavenIcon,
+        title: 'Supermaven',
+        href: 'https://supermaven.com/',
+        description:
+          'AI-powered code completion tool with 300K token context window for high-quality, context-aware suggestions.',
+      },
+      {
+        icon: GitHubIcon,
+        title: 'GitHub Copilot',
+        href: 'https://github.com/features/copilot',
+        description:
+          'AI pair programmer that helps write code faster with less effort, available in popular IDEs and editors.',
+      },
+      {
+        icon: VSCodeIcon,
+        title: 'Cursor',
+        href: 'https://cursor.sh/',
+        description:
+          'AI-first code editor built on VS Code with advanced AI capabilities for code generation and editing.',
+      },
+      {
+        icon: FigmaIcon,
+        title: 'Figma AI',
+        href: 'https://www.figma.com/ai',
+        description:
+          'AI-powered design tools for generating UI components, layouts, and design variations in Figma.',
+      },
+      {
+        icon: AdobeExpressIcon,
+        title: 'Adobe Firefly',
+        href: 'https://www.adobe.com/products/firefly.html',
+        description:
+          'Generative AI for creating images, vectors, and 3D content for web design and development projects.',
+      },
+
+      {
+        icon: VercelIcon,
+        title: 'Vercel AI SDK',
+        href: 'https://ai-sdk.dev/',
+        description:
+          'Open-source library for building AI-powered applications with streaming, edge functions, and React components.',
+      },
+      {
+        icon: AWSIcon,
+        title: 'Amazon Bedrock',
+        href: 'https://aws.amazon.com/bedrock/',
+        description:
+          'Fully managed service for building and scaling generative AI applications with foundation models.',
+      },
+      {
+        icon: GoogleCloudIcon,
+        title: 'Google AI Studio',
+        href: 'https://aistudio.google.com/',
+        description:
+          "Platform for building AI applications with Google's latest models and development tools.",
+      },
+
+      {
+        icon: CloudinaryIcon,
+        title: 'Cloudinary AI',
+        href: 'https://cloudinary.com/products/cloudinary_ai',
+        description:
+          'AI-powered image and video analysis, tagging, and optimization for web content management.',
       },
     ],
   },
@@ -715,113 +788,7 @@ export const SECTIONS = [
       },
     ],
   },
-  {
-    icon: ChatGPTIcon,
-    title: 'AI Tools',
-    href: '/ai-tools',
-    description:
-      'Artificial intelligence tools and services that enhance web development workflows, from code generation to design assistance.',
-    links: [
-      {
-        icon: ChatGPTIcon,
-        title: 'ChatGPT',
-        href: 'https://chatgpt.com/',
-        description:
-          'Advanced AI assistant for code generation, debugging, documentation, and learning web development concepts.',
-      },
-      {
-        icon: GoogleGeminiIcon,
-        title: 'Google Gemini',
-        href: 'https://gemini.google.com/',
-        description:
-          "Google's AI assistant for coding assistance, problem-solving, and learning web development technologies.",
-      },
-      {
-        icon: SupermavenIcon,
-        title: 'Supermaven',
-        href: 'https://supermaven.com/',
-        description:
-          'AI-powered code completion tool with 300K token context window for high-quality, context-aware suggestions.',
-      },
-      {
-        icon: GitHubIcon,
-        title: 'GitHub Copilot',
-        href: 'https://github.com/features/copilot',
-        description:
-          'AI pair programmer that helps write code faster with less effort, available in popular IDEs and editors.',
-      },
-      {
-        icon: VSCodeIcon,
-        title: 'Cursor',
-        href: 'https://cursor.sh/',
-        description:
-          'AI-first code editor built on VS Code with advanced AI capabilities for code generation and editing.',
-      },
-      {
-        icon: FigmaIcon,
-        title: 'Figma AI',
-        href: 'https://www.figma.com/ai',
-        description:
-          'AI-powered design tools for generating UI components, layouts, and design variations in Figma.',
-      },
-      {
-        icon: AdobeExpressIcon,
-        title: 'Adobe Firefly',
-        href: 'https://www.adobe.com/products/firefly.html',
-        description:
-          'Generative AI for creating images, vectors, and 3D content for web design and development projects.',
-      },
-      {
-        icon: UnsplashIcon,
-        title: 'Midjourney',
-        href: 'https://www.midjourney.com/',
-        description:
-          'AI image generation tool for creating custom visuals, illustrations, and graphics for web projects.',
-      },
-      {
-        icon: VercelIcon,
-        title: 'Vercel AI SDK',
-        href: 'https://sdk.vercel.ai/',
-        description:
-          'Open-source library for building AI-powered applications with streaming, edge functions, and React components.',
-      },
-      {
-        icon: AWSIcon,
-        title: 'Amazon Bedrock',
-        href: 'https://aws.amazon.com/bedrock/',
-        description:
-          'Fully managed service for building and scaling generative AI applications with foundation models.',
-      },
-      {
-        icon: GoogleCloudIcon,
-        title: 'Google AI Studio',
-        href: 'https://aistudio.google.com/',
-        description:
-          "Platform for building AI applications with Google's latest models and development tools.",
-      },
-      {
-        icon: SanityIcon,
-        title: 'Sanity AI',
-        href: 'https://www.sanity.io/ai',
-        description:
-          'AI-powered content generation and management tools integrated with Sanity CMS for web applications.',
-      },
-      {
-        icon: CloudinaryIcon,
-        title: 'Cloudinary AI',
-        href: 'https://cloudinary.com/ai',
-        description:
-          'AI-powered image and video analysis, tagging, and optimization for web content management.',
-      },
-      {
-        icon: ClerkIcon,
-        title: 'Clerk AI',
-        href: 'https://clerk.com/ai',
-        description:
-          'AI-powered user authentication and management with intelligent user behavior analysis and security.',
-      },
-    ],
-  },
+
   {
     icon: CommunitiesIcon,
     title: 'Communities',
