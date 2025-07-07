@@ -34,6 +34,11 @@ export default function ResourceCard({
   };
   const resourceId = generateResourceId(resource.title);
   const iconName = getResourceIcon(resource.title);
+  
+  // For debugging icon issues
+  React.useEffect(() => {
+    console.log(`Resource: ${resource.title}, Icon: ${iconName}`);
+  }, [resource.title, iconName]);
 
   return (
     <a
@@ -47,14 +52,32 @@ export default function ResourceCard({
     >
       <div className="flex items-center justify-between p-6 border-b border-border">
         <div className="flex items-center gap-3">
-          <Icon
-            icon={iconName}
-            className={cn(
-              'h-8 w-8',
-              getAccentColorClasses(accentColor).icon
+          {/* Add fallback rendering with error handling */}
+          <div className="relative">
+            {iconName ? (
+              <Icon
+                icon={iconName}
+                className={cn(
+                  'h-8 w-8',
+                  getAccentColorClasses(accentColor).icon
+                )}
+                onError={() => {
+                  console.error(`Icon failed to load: ${iconName} for ${resource.title}`);
+                }}
+                aria-hidden="true"
+              />
+            ) : (
+              <div
+                className={cn(
+                  'h-8 w-8 flex items-center justify-center rounded-full bg-muted',
+                  getAccentColorClasses(accentColor).icon
+                )}
+                aria-hidden="true"
+              >
+                {resource.title.charAt(0).toUpperCase()}
+              </div>
             )}
-            aria-hidden="true"
-          />
+          </div>
           <h3
             id={`title-${resourceId}`}
             className="text-lg font-semibold"
