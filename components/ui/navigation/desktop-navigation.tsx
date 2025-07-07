@@ -111,7 +111,7 @@ export function DesktopNavigation({
           </div>
         </li>
 
-        {isHomeActive && (
+        {(isHomeActive || isFavoritesActive) && (
           <li className="w-full">
             <div
               className="h-px w-6 bg-border/50 mx-auto"
@@ -120,7 +120,7 @@ export function DesktopNavigation({
           </li>
         )}
 
-        {isHomeActive &&
+        {(isHomeActive || isFavoritesActive) &&
           navItems.map((item, index) => (
             <li key={item.id} className="relative group">
               <NavigationItem

@@ -13,12 +13,10 @@ export default function LayoutWrapper({
 }: LayoutWrapperProps) {
   const pathname = usePathname();
 
-  const excludedRoutes = ['/privacy-policy', '/terms-of-service'];
-  const shouldExcludeNavigation = excludedRoutes.includes(pathname);
-
-  if (shouldExcludeNavigation) {
-    return (
+  return (
+    <SearchProvider>
       <div className="flex h-full min-h-screen">
+        <VerticalNavigation />
         <div className="relative flex flex-col flex-1">
           <a
             href="#main-content"
@@ -31,8 +29,8 @@ export default function LayoutWrapper({
           </main>
         </div>
       </div>
-    );
-  }
+    </SearchProvider>
+  );
 
   return (
     <SearchProvider>

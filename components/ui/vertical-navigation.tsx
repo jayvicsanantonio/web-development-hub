@@ -20,6 +20,10 @@ export default function VerticalNavigation() {
   const isHomeActive = pathname === '/';
   const isFavoritesActive = pathname === '/favorites';
 
+  // Hide search functionality for privacy policy and terms of service pages
+  const excludedRoutes = ['/privacy-policy', '/terms-of-service'];
+  const shouldHideSearch = excludedRoutes.includes(pathname);
+
   const navItems = useSearchNavItems(searchQuery || '');
 
   const sectionIds = navItems.map((item) => item.id);
@@ -35,6 +39,7 @@ export default function VerticalNavigation() {
         navItems={navItems}
         activeSection={activeSection}
         onScrollToSection={handleScrollToSection}
+        hideSearch={shouldHideSearch}
       />
       <DesktopNavigation
         navItems={navItems}
@@ -43,7 +48,7 @@ export default function VerticalNavigation() {
         isFavoritesActive={isFavoritesActive}
         onScrollToSection={handleScrollToSection}
       />
-      <DesktopSearch />
+      {!shouldHideSearch && <DesktopSearch />}
     </>
   );
 }
