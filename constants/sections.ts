@@ -105,105 +105,126 @@ export const SECTIONS = [
     title: 'Learning Resources',
     href: '/learning-resources',
     description:
-      'Comprehensive tutorials and courses to master the fundamentals and advanced topics in web development.',
+      'Comprehensive tutorials, courses, and educational content to master web development fundamentals and advanced concepts.',
     links: [
       {
         icon: FrontendMastersIcon,
         title: 'Frontend Masters',
         href: 'https://frontendmasters.com/',
         description:
-          'A leading brand that offers in-depth and modern JavaScript and front-end engineering courses to help developers advance their skills. ',
+          'Premium in-depth courses on modern JavaScript, React, Vue, and front-end engineering taught by industry experts.',
       },
       {
         icon: EpicWebIcon,
         title: 'Epic Web',
         href: 'https://epicweb.dev/',
         description:
-          'Learn full-stack web development with Kent C. Dodds and the Epic Web instructors. Learn TypeScript, React, Node.js, and more through hands-on workshops.',
+          'Full-stack web development workshops with Kent C. Dodds covering TypeScript, React, Node.js, and modern web patterns.',
       },
       {
         icon: MdnDocsIcon,
         title: 'MDN Web Docs',
         href: 'https://developer.mozilla.org/',
         description:
-          'Provides information about Open Web technologies including HTML, CSS, and APIs for both Web sites and progressive web apps.',
+          'The definitive resource for web technologies including HTML, CSS, JavaScript APIs, and progressive web app development.',
       },
       {
         icon: FreeCodeCampIcon,
         title: 'FreeCodeCamp',
         href: 'https://www.freecodecamp.org/',
         description:
-          'Learn to code for free. Build projects. Earn certifications.',
+          'Free interactive coding lessons with hands-on projects and industry-recognized certifications.',
       },
       {
         icon: WesBosIcon,
         title: 'Wes Bos',
         href: 'https://wesbos.com/',
         description:
-          'Wes Bos creates and shares tutorials, courses, and articles on web development. He also does a tri-weekly podcast called Syntax',
+          'Practical web development courses and tutorials from JavaScript to React, with the popular Syntax podcast.',
       },
       {
         icon: CodeAcademyIcon,
         title: 'Codecademy',
         href: 'https://www.codecademy.com/',
         description:
-          'Interactive coding lessons and projects to build your skills.',
+          'Interactive coding lessons and projects to build real-world skills in web development and programming.',
       },
       {
         icon: WebDevIcon,
         title: 'web.dev',
-        href: 'https://webdev.to/',
+        href: 'https://web.dev/',
         description:
-          'A curated list of web development resources, tutorials, and courses.',
+          "Google's comprehensive resource for modern web development, performance optimization, and best practices.",
       },
       {
         icon: EricelliottJsIcon,
         title: 'EricElliottJS',
         href: 'https://ericelliottjs.com/',
         description:
-          "Learn JavaScript with Eric Elliott. Don't just learn JavaScript; learn how to change the world.",
+          'Advanced JavaScript training focusing on functional programming, composition, and real-world application patterns.',
       },
       {
         icon: TestingJavaScriptIcon,
         title: 'Testing JavaScript',
         href: 'https://testingjavascript.com/',
         description:
-          'Learn the smart, efficient way to test any JavaScript application.',
+          'Comprehensive testing strategies and patterns for JavaScript applications with Kent C. Dodds.',
       },
       {
         icon: EpicReactIcon,
         title: 'Epic React',
         href: 'https://epicreact.dev/',
         description:
-          'Strap in and take your React applications to the next level.',
+          'Advanced React patterns, hooks, performance optimization, and testing strategies for production applications.',
       },
       {
         icon: BuildUIIcon,
         title: 'Build UI',
         href: 'https://buildui.dev/',
         description:
-          'Learn how to build modern user interfaces for the web.',
+          'Learn to build modern, accessible user interfaces with practical examples and real-world patterns.',
       },
       {
         icon: GreatFrontendIcon,
         title: 'Great Frontend',
         href: 'https://greatfrontend.com/',
         description:
-          'The complete preparation platform for front end interviews. 200+ practice questions (with answers) across system design, UI and more. By ex-FAANG interviewers.',
+          'Comprehensive front-end interview preparation with 200+ practice questions from ex-FAANG interviewers.',
       },
       {
         icon: DesignGurusIcon,
         title: 'Design Gurus',
         href: 'https://designgurus.com/',
         description:
-          'Prepare for tech interviews with specialized training from Design Gurus. Learn from experts and start grokking now.',
+          'Specialized training for technical interviews with system design, algorithms, and front-end engineering focus.',
       },
       {
         icon: LearnWithJasonIcon,
         title: 'Learn With Jason',
         href: 'https://learnwithjason.dev/',
         description:
-          'Learn from the web’s leading experts. Build something new. Grow your career. Let’s do it together.',
+          'Live coding sessions with web development experts, building real projects and sharing practical knowledge.',
+      },
+      {
+        icon: CssTricksIcon,
+        title: 'CSS-Tricks',
+        href: 'https://css-tricks.com/',
+        description:
+          'Daily articles about CSS, HTML, JavaScript, and web design with practical examples and tutorials.',
+      },
+      {
+        icon: SmashingMagazineIcon,
+        title: 'Smashing Magazine',
+        href: 'https://www.smashingmagazine.com/',
+        description:
+          'Leading online magazine for professional web designers and developers with in-depth articles and case studies.',
+      },
+      {
+        icon: FrontendatscaleIcon,
+        title: 'Frontend At Scale',
+        href: 'https://frontendatscale.com/',
+        description:
+          'Articles and insights on software design and architecture specifically tailored for frontend engineers.',
       },
     ],
   },
@@ -212,238 +233,217 @@ export const SECTIONS = [
     title: 'Developer Tools',
     href: '/developer-tools',
     description:
-      'Essential tools and software to streamline your web development workflow and enhance productivity.',
+      'Essential software, services, and utilities to enhance your development workflow and boost productivity.',
     links: [
       {
         icon: VSCodeIcon,
         title: 'Visual Studio Code',
         href: 'https://code.visualstudio.com/',
         description:
-          'A code editor redefined and optimized for building and debugging modern web and cloud applications.',
+          'The most popular code editor with extensive extensions, debugging tools, and integrated terminal for modern development.',
       },
       {
         icon: GitHubIcon,
         title: 'GitHub',
         href: 'https://github.com/',
         description:
-          'Where people build software. More than 100 million people use it to discover, fork, and contribute to over 420 million projects.',
+          "The world's leading platform for version control, collaboration, and open-source development with 100M+ developers.",
       },
       {
         icon: FigmaIcon,
         title: 'Figma',
         href: 'https://www.figma.com/',
         description:
-          'A collaborative design tool for building meaningful products. Seamlessly design, prototype, develop, and collect feedback in a single platform.',
+          'Collaborative design platform for creating, prototyping, and sharing design systems and user interfaces.',
       },
       {
         icon: VercelIcon,
         title: 'Vercel',
         href: 'https://vercel.com/',
         description:
-          'A platform for building and deploying modern web applications.',
+          'Platform for deploying and hosting modern web applications with automatic scaling and global CDN.',
       },
       {
         icon: ProjectIdxIcon,
         title: 'Project IDX',
         href: 'https://developers.google.com/idx',
         description:
-          'An AI-assisted workspace for full-stack, multiplatform app development in the cloud.',
+          "Google's AI-assisted cloud development environment for full-stack, multiplatform application development.",
       },
       {
         icon: AWSIcon,
-        title: 'Amazon Web Services (AWS)',
+        title: 'Amazon Web Services',
         href: 'https://aws.amazon.com/',
         description:
-          'Amazon Web Services (AWS) is a collection of cloud computing services that you can use to build and run applications in the cloud.',
+          'Comprehensive cloud computing platform offering 200+ services for building scalable web applications.',
       },
       {
         icon: GoogleCloudIcon,
         title: 'Google Cloud',
         href: 'https://cloud.google.com/',
         description:
-          'Google Cloud provides flexible infrastructure, end-to-end security, and intelligent insights engineered to help your business thrive.',
+          'Enterprise-grade cloud platform with AI/ML services, serverless computing, and global infrastructure.',
       },
       {
         icon: UnsplashIcon,
         title: 'Unsplash',
         href: 'https://unsplash.com/',
         description:
-          'Unsplash is a free stock photo website that provides high-quality images for commercial and personal use.',
+          'High-quality stock photography platform with free images for commercial and personal web projects.',
       },
       {
         icon: TursoIcon,
         title: 'Turso',
         href: 'https://turso.tech/',
         description:
-          'Turso is SQLite for production: great developer experience and efficiency with essential quality of life improvements for modern applications.',
+          'Edge database built on SQLite with global distribution, perfect for modern web applications requiring low latency.',
       },
       {
         icon: NetlifyIcon,
         title: 'Netlify',
         href: 'https://netlify.com/',
         description:
-          'Realize the speed, agility and performance of a scalable, composable web architecture with Netlify. Explore the composable web platform now!',
-      },
-      {
-        icon: SupermavenIcon,
-        title: 'Supermaven',
-        href: 'https://supermaven.com/',
-        description:
-          'The fastest copilot. Supermaven uses a 300,000 token context window to provide the highest quality code completions.',
-      },
-      {
-        icon: ChatGPTIcon,
-        title: 'ChatGPT',
-        href: 'https://chatgpt.com/',
-        description:
-          'A chatbot that can converse with you in natural language. It can answer questions, provide information, and even have a conversation.',
-      },
-      {
-        icon: GoogleGeminiIcon,
-        title: 'Google Gemini',
-        href: 'https://gemini.google.com/',
-        description:
-          'Bard is now Gemini. Get help with writing, planning, learning, and more from Google AI.',
+          'All-in-one platform for building, deploying, and managing modern web applications with serverless functions.',
       },
       {
         icon: ClerkIcon,
         title: 'Clerk',
         href: 'https://clerk.com/',
         description:
-          'The easiest way to add authentication and user management to your application. Purpose-built for React, Next.js, Remix, and “The Modern Web”.',
+          'Complete authentication and user management solution with pre-built components for React, Next.js, and modern web.',
       },
       {
         icon: CloudinaryIcon,
         title: 'Cloudinary',
         href: 'https://cloudinary.com/',
         description:
-          'Cloudinary is a cloud-based image and video management platform that provides a simple, powerful API for developers to upload, transform, and deliver images and videos to customers.',
+          'Cloud-based media management platform with AI-powered image optimization, transformation, and delivery APIs.',
       },
       {
         icon: SanityIcon,
         title: 'Sanity',
         href: 'https://sanity.io/',
         description:
-          "Sanity is a headless CMS that makes it easy to build a content-focused application. It's built on top of the Sanity API and the Sanity Studio.",
+          'Headless CMS with real-time collaboration, customizable content studio, and powerful querying capabilities.',
       },
       {
         icon: FrontmatterIcon,
         title: 'Frontmatter',
         href: 'https://frontmatter.codes/',
         description:
-          'Headless CMS running in Visual Studio Code that helps managing your static sites. Supports Hugo, Jekyll, Docusaurus, NextJs, Gatsby, and more.Headless CMS running in Visual Studio Code that helps managing your static sites. Supports Hugo, Jekyll, Docusaurus, NextJs, Gatsby, and more.',
+          'Visual Studio Code extension for managing static site content with support for Hugo, Jekyll, and modern frameworks.',
       },
       {
         icon: AdobeExpressIcon,
         title: 'Adobe Express',
         href: 'https://www.adobe.com/express/',
         description:
-          'An all-in-one design, photo, and video tool to make content creation easy. Quickly and easily make stunning social content, videos, logos, and more to stand out on social and beyond.',
+          'All-in-one design tool for creating graphics, videos, and web content with AI-powered templates and assets.',
       },
       {
         icon: TurborepoIcon,
         title: 'Turborepo',
         href: 'https://turbo.build/repo',
         description:
-          'A high-performance build system for JavaScript and TypeScript codebases. It is designed for scaling monorepos and also makes workflows in single-package workspaces faster, too.',
+          'High-performance build system for JavaScript monorepos with intelligent caching and parallel execution.',
       },
       {
         icon: WebpackIcon,
         title: 'Webpack',
         href: 'https://webpack.js.org/',
         description:
-          'A powerful and popular module bundler for JavaScript applications. It takes modules with dependencies and generates static assets representing those modules. Webpack is highly configurable and extensible, making it a versatile tool for managing and optimizing the assets and dependencies of modern web applications.',
+          'Powerful module bundler for JavaScript applications with extensive plugin ecosystem and optimization features.',
       },
       {
         icon: RollupIcon,
         title: 'Rollup',
         href: 'https://rollupjs.org/',
         description:
-          'A module bundler for JavaScript that is designed to be more focused on simplicity and performance compared to other bundlers like Webpack. It is particularly well-suited for bundling libraries and packages rather than entire applications. Rollup uses the new standardized format for code modules included in the ES6 revision of JavaScript, offering a more efficient and streamlined way to bundle JavaScript.',
+          'Efficient JavaScript module bundler optimized for libraries with tree-shaking and ES module output.',
       },
       {
         icon: ParcelIcon,
         title: 'Parcel',
         href: 'https://parceljs.org/',
         description:
-          'A fast, zero-configuration web application bundler that aims to simplify the process of building and bundling web applications. It provides an easy-to-use development experience by automatically handling many of the complexities associated with modern web development. Parcel is known for its out-of-the-box support for many file types, quick setup, and efficient build process.',
+          'Zero-configuration web application bundler with automatic asset optimization and fast development builds.',
       },
       {
         icon: SwcIcon,
         title: 'SWC',
         href: 'https://swc.rs/',
         description:
-          'A modern, blazing-fast, and zero-configuration JavaScript compiler. It is designed to be a drop-in replacement for Babel, enabling developers to write modern JavaScript code without sacrificing performance. SWC is known for its speed, efficiency, and compatibility with modern JavaScript features.',
+          'Blazing-fast JavaScript/TypeScript compiler written in Rust, designed as a drop-in Babel replacement.',
       },
       {
         icon: EsbuildIcon,
         title: 'Esbuild',
         href: 'https://esbuild.github.io/',
         description:
-          'An extremely fast JavaScript bundler and minifier written in Go. It is designed to be highly efficient and to handle large codebases quickly, making it a popular choice for modern web development. esbuild prioritizes speed and simplicity, offering a powerful yet straightforward tool for bundling, transforming, and optimizing JavaScript, TypeScript, and other web assets.',
+          'Extremely fast JavaScript bundler and minifier written in Go, optimized for large codebases and CI/CD.',
       },
       {
         icon: ViteIcon,
         title: 'Vite',
         href: 'https://vitejs.dev/',
         description:
-          'A next generation front-end build tool that provides a fast, powerful, and flexible development experience. It is designed to be a lightweight alternative to traditional build tools like webpack and Gulp, offering a seamless integration with modern JavaScript ecosystems. Vite is known for its fast build times, optimized bundling, and seamless integration with popular frameworks like React and Vue.',
+          'Next-generation front-end build tool with instant hot module replacement and optimized production builds.',
       },
       {
         icon: TurbopackIcon,
         title: 'Turbopack',
         href: 'https://turbo.build/pack',
         description:
-          'A next-generation bundler for JavaScript and TypeScript, developed by the creators of Vercel and Next.js. It is designed to be extremely fast, leveraging Rust for performance and parallel processing. Turbopack aims to be the successor to Webpack, offering modern features and optimizations that cater to the needs of contemporary web development.',
+          'Incremental bundler optimized for JavaScript and TypeScript, built by Vercel for Next.js applications.',
       },
       {
         icon: BiomeIcon,
         title: 'Biome',
         href: 'https://biomejs.dev/',
         description:
-          'Formerly known as Rome, is an all-in-one toolchain for JavaScript and TypeScript development. It aims to provide a comprehensive solution for various aspects of the development workflow, including linting, formatting, bundling, compiling, and testing. The goal of Biome is to reduce the number of tools required in a typical development setup by integrating these functionalities into a single, cohesive toolchain.',
+          'All-in-one toolchain for JavaScript and TypeScript with linting, formatting, and bundling capabilities.',
       },
       {
         icon: RushIcon,
         title: 'Rush',
         href: 'https://rushjs.io/',
         description:
-          'A monorepo management tool developed by Microsoft. It is designed to manage large-scale monorepos with many projects, providing tools and workflows to streamline the development process, manage dependencies, and optimize builds. Rush is part of the Rush Stack, a collection of tools for managing monorepos, and is particularly well-suited for enterprise environments and large teams.',
+          "Microsoft's monorepo management tool for large-scale projects with efficient dependency management and builds.",
       },
       {
         icon: YarnIcon,
-        title: 'Yarn Workspaces',
-        href: 'https://yarnpkg.com/features/workspaces',
+        title: 'Yarn',
+        href: 'https://yarnpkg.com/',
         description:
-          'Yarn Workspaces is a feature of Yarn that allows you to define multiple packages in a single repository. It enables you to manage dependencies across multiple projects, making it easier to share code and collaborate with others. Yarn Workspaces is particularly useful for large-scale projects with multiple teams or repositories.',
+          'Fast, reliable, and secure package manager with workspaces support for monorepo development.',
       },
       {
         icon: LernaIcon,
         title: 'Lerna',
         href: 'https://lerna.js.org/',
         description:
-          'A tool for managing JavaScript projects with multiple packages. It provides a command-line interface (CLI) and a JavaScript API for automating tasks such as publishing, versioning, and running scripts across multiple packages. Lerna is particularly well-suited for large-scale projects with multiple packages and teams.',
+          'Tool for managing JavaScript projects with multiple packages, automating versioning and publishing workflows.',
       },
       {
         icon: NpmIcon,
         title: 'NPM',
         href: 'https://www.npmjs.com/',
         description:
-          'A package manager for JavaScript. It is the default package manager for Node.js and is used by many JavaScript developers to manage dependencies and build applications. NPM is known for its speed, reliability, and ease of use, making it a popular choice for developers who want to manage and distribute their JavaScript projects.',
+          "World's largest software registry with package management tools for JavaScript and Node.js development.",
       },
       {
         icon: PnpmIcon,
         title: 'PNPM',
         href: 'https://pnpm.io/',
         description:
-          'An advanced package manager for JavaScript and TypeScript that offers several improvements over traditional NPM and Yarn. It is designed to be fast, efficient, and disk space-saving, particularly for monorepos and large-scale projects. PNPM addresses some of the shortcomings of other package managers by providing a unique approach to dependency management.',
+          'Fast, disk space efficient package manager with strict dependency resolution and monorepo support.',
       },
       {
         icon: NxIcon,
         title: 'Nx',
         href: 'https://nx.dev/',
         description:
-          "A powerful build system and monorepo management tool that helps developers manage complex projects with multiple applications and libraries. It is designed to improve developer productivity, optimize build performance, and facilitate the management of large codebases. Nx was created by the team at Nrwl and provides tools and practices inspired by Google's internal development tools.",
+          'Powerful build system and monorepo tool with intelligent caching, affected commands, and code generation.',
       },
     ],
   },
@@ -452,273 +452,373 @@ export const SECTIONS = [
     title: 'Frameworks and Libraries',
     href: '/frameworks-and-libraries',
     description:
-      'Popular frameworks and libraries to help you build robust and scalable web applications efficiently.',
+      'Modern frameworks, libraries, and tools for building robust, scalable web applications with optimal performance.',
     links: [
       {
         icon: ReactIcon,
         title: 'React',
         href: 'https://react.dev/',
         description:
-          'A popular JavaScript library for building user interfaces, particularly single-page applications where you need a fast, interactive user experience. It was developed by Facebook and is maintained as an open-source project.',
+          'Popular JavaScript library for building user interfaces with component-based architecture and virtual DOM.',
       },
       {
         icon: VueIcon,
         title: 'Vue.js',
         href: 'https://vuejs.org/',
         description:
-          'A progressive JavaScript framework used for building user interfaces and single-page applications. It was created by Evan You and is designed to be incrementally adoptable, meaning you can use as much or as little of Vue as you need, making it flexible for a wide range of projects.',
+          'Progressive JavaScript framework with gentle learning curve, excellent documentation, and powerful ecosystem.',
       },
       {
         icon: SvelteIcon,
         title: 'Svelte',
         href: 'https://svelte.dev/',
         description:
-          'A modern JavaScript framework for building user interfaces. It differs from traditional frameworks like React and Vue in that it shifts much of the work to compile time rather than runtime. This means Svelte applications can be faster and more efficient because the framework compiles your components into highly optimized JavaScript code that updates the DOM directly.',
+          'Modern framework that compiles to vanilla JavaScript, offering smaller bundles and better runtime performance.',
       },
       {
         icon: AngularIcon,
         title: 'Angular',
         href: 'https://angular.dev/',
         description:
-          'A robust, comprehensive JavaScript framework developed and maintained by Google for building dynamic, single-page web applications (SPAs). It is a complete rewrite of AngularJS and provides a highly opinionated, structured approach to application development.',
+          'Comprehensive framework by Google with TypeScript-first approach, dependency injection, and enterprise features.',
       },
       {
         icon: PreactIcon,
         title: 'Preact',
         href: 'https://preactjs.com/',
         description:
-          'A fast, lightweight alternative to React, designed for building user interfaces with a small footprint. It provides the same modern API as React but is much smaller in size, making it ideal for performance-critical applications where bundle size is a concern.',
+          'Lightweight alternative to React with the same API, perfect for performance-critical applications.',
       },
       {
         icon: SolidIcon,
-        title: 'Solid',
+        title: 'SolidJS',
         href: 'https://www.solidjs.com/',
         description:
-          'A declarative JavaScript library for building user interfaces, similar to React and Vue. It focuses on performance and simplicity by using a fine-grained reactivity model. Unlike virtual DOM-based frameworks, SolidJS compiles its templates to real DOM nodes and updates only the parts of the DOM that need to change, resulting in highly efficient and fast updates.',
+          'Declarative JavaScript library with fine-grained reactivity and compilation to real DOM nodes.',
       },
       {
         icon: QwikIcon,
         title: 'Qwik',
         href: 'https://qwik.builder.io/',
         description:
-          'A modern JavaScript framework designed to deliver instant loading web applications by prioritizing performance and optimizing for fast, interactive experiences. It introduces innovative concepts to reduce the time to interactive (TTI) and improve the overall user experience, focusing on minimizing JavaScript execution and maximizing static content.',
+          'Framework focused on instant loading with resumability and minimal JavaScript execution.',
       },
       {
         icon: AlpineIcon,
         title: 'Alpine.js',
         href: 'https://alpinejs.dev/',
         description:
-          'A lightweight, declarative JavaScript framework designed for adding interactivity to web pages without the complexity and overhead of larger frameworks like React or Vue. It is particularly well-suited for projects that require simple, reactive behavior directly in the HTML markup, making it an excellent choice for enhancing static websites with interactive elements.',
+          'Lightweight framework for adding interactivity to HTML with declarative syntax and minimal overhead.',
       },
       {
         icon: LitIcon,
         title: 'Lit',
         href: 'https://lit.dev/',
         description:
-          'A library for building fast, lightweight web components. It is part of the Polymer Project and is designed to leverage the web standards for creating reusable and encapsulated components. Lit focuses on simplicity and performance, making it easy to create components that can be used across different frameworks and libraries.',
+          'Library for building fast, lightweight web components with simple APIs and excellent performance.',
       },
       {
         icon: HtmxIcon,
-        title: 'htmx',
+        title: 'HTMX',
         href: 'https://htmx.org/',
         description:
-          'A lightweight JavaScript library that allows you to add dynamic behavior to your web pages using HTML attributes. It enhances the capabilities of HTML by enabling declarative handling of AJAX requests, CSS transitions, WebSockets, and server-sent events (SSE) directly within HTML. This approach promotes a more straightforward and maintainable way to create interactive web applications without relying heavily on JavaScript.',
+          'Modern approach to dynamic web applications using HTML attributes for AJAX, CSS transitions, and WebSockets.',
       },
       {
         icon: NextjsIcon,
         title: 'Next.js',
         href: 'https://nextjs.org/',
         description:
-          'A powerful React framework developed and maintained by Vercel (formerly Zeit) that enables developers to build server-rendered React applications with ease. It extends the capabilities of React by providing additional features and optimizations that enhance performance, SEO, and developer experience.',
+          'Full-featured React framework with server-side rendering, static generation, and optimized performance.',
       },
       {
         icon: RemixIcon,
         title: 'Remix',
         href: 'https://remix.run/',
         description:
-          'A modern JavaScript framework for building web applications. It focuses on performance, user experience, and the seamless integration of server and client-side code. Remix aims to provide an optimized development and deployment experience by leveraging the latest web standards and technologies.',
+          'Full-stack web framework focused on web standards, performance, and excellent user experience.',
       },
       {
         icon: NuxtIcon,
         title: 'Nuxt',
         href: 'https://nuxt.com/',
         description:
-          'A powerful framework built on top of Vue.js that enables developers to create server-rendered applications, static websites, and progressive web apps (PWAs) with ease. It provides a robust set of features and conventions to streamline the development process and improve performance and SEO.',
+          'Vue.js framework for building modern applications with server-side rendering and static site generation.',
       },
       {
         icon: GatsbyIcon,
         title: 'Gatsby',
         href: 'https://www.gatsbyjs.com/',
         description:
-          'A modern framework for building fast, secure, and scalable websites and web applications using React. It leverages the power of static site generation (SSG) to deliver pre-built HTML, CSS, and JavaScript to clients, resulting in quick load times and excellent performance. Gatsby is particularly well-suited for creating static websites, blogs, and documentation sites.',
+          'React-based static site generator with GraphQL data layer and extensive plugin ecosystem.',
       },
       {
         icon: AstroIcon,
         title: 'Astro',
         href: 'https://astro.build/',
         description:
-          'A modern static site generator designed to build fast, optimized websites. It focuses on delivering highly performant, minimal JavaScript pages by default, while still allowing the integration of JavaScript frameworks for dynamic functionality when needed. Astro aims to make it easy to create static websites that load quickly and are SEO-friendly.',
+          'Static site generator that delivers zero JavaScript by default, with component islands architecture.',
       },
       {
         icon: DenofreshIcon,
         title: 'Deno Fresh',
         href: 'https://fresh.deno.dev/',
         description:
-          "A modern web framework designed for building web applications using Deno, a secure runtime for JavaScript and TypeScript. Fresh emphasizes simplicity, speed, and developer productivity, leveraging Deno's capabilities to provide a streamlined development experience.",
+          'Modern web framework for Deno with server-side rendering, islands architecture, and TypeScript support.',
       },
       {
         icon: DocusaurusIcon,
         title: 'Docusaurus',
         href: 'https://docusaurus.io/',
         description:
-          'An open-source static site generator designed primarily for creating documentation websites. It is built by Facebook and leverages React to provide a flexible and modern approach to building and maintaining documentation sites, blogs, and other content-driven websites.',
+          'React-based static site generator optimized for documentation websites and technical content.',
       },
       {
         icon: SolidstartIcon,
         title: 'SolidStart',
         href: 'https://start.solidjs.com/',
         description:
-          'The official meta-framework for SolidJS, designed to facilitate building modern web applications with SolidJS. SolidJS is a declarative JavaScript library for creating user interfaces, known for its fine-grained reactivity and performance. SolidStart builds on SolidJS by providing essential features and tools needed for developing full-fledged web applications, including routing, server-side rendering (SSR), and more.',
+          'Full-stack meta-framework for SolidJS with server-side rendering, routing, and modern web features.',
       },
       {
         icon: EleventyIcon,
         title: 'Eleventy',
         href: 'https://www.11ty.dev/',
         description:
-          'A simple and flexible static site generator (SSG) for creating fast and modern websites. It focuses on developer simplicity, flexibility, and performance by allowing developers to use their preferred templating languages and workflows. Eleventy is designed to be a lightweight and unopinionated tool, making it highly customizable to suit a wide range of projects.',
-      },
-      {
-        icon: SvelteIcon,
-        title: 'SvelteKit',
-        href: 'https://kit.svelte.dev/',
-        description:
-          'A framework for building modern web applications with Svelte, a JavaScript framework known for its simplicity and efficiency. SvelteKit enhances Svelte by providing a robust set of tools and features for server-side rendering (SSR), static site generation (SSG), and client-side routing, making it easier to build fully-featured, high-performance web applications.',
+          'Simple static site generator with flexible templating and excellent performance for content-focused sites.',
       },
       {
         icon: JestIcon,
         title: 'Jest',
         href: 'https://jestjs.io/',
         description:
-          'A JavaScript testing framework maintained by Facebook, designed primarily for testing React applications but also widely used for testing JavaScript code in general. It provides a comprehensive set of features for writing and running tests, making it a popular choice among developers for its ease of use, powerful functionality, and integration with modern JavaScript ecosystems.',
+          'Delightful JavaScript testing framework with zero configuration and comprehensive testing utilities.',
       },
       {
         icon: MochaIcon,
         title: 'Mocha',
         href: 'https://mochajs.org/',
         description:
-          'A flexible and feature-rich JavaScript testing framework running on Node.js, designed for testing both synchronous and asynchronous code. It is known for its simplicity, modularity, and extensive configurability, making it a popular choice for writing unit and integration tests for Node.js and browser-based applications.',
+          'Flexible JavaScript testing framework for Node.js and browser environments with extensive configurability.',
       },
       {
         icon: StorybookIcon,
         title: 'Storybook',
         href: 'https://storybook.js.org/',
         description:
-          'An open-source tool for developing, testing, and documenting UI components in isolation. It provides a visual playground for building and showcasing components independently from the main application, which enhances component-driven development and makes it easier to create, test, and maintain UI components.',
+          'Open-source tool for developing UI components in isolation with interactive documentation and testing.',
       },
       {
         icon: CypressIcon,
         title: 'Cypress',
         href: 'https://www.cypress.io/',
         description:
-          'An end-to-end testing framework designed to test web applications. It is known for its developer-friendly features, fast setup, and comprehensive testing capabilities. Unlike traditional testing tools that run outside the browser, Cypress runs directly inside the browser, providing a more accurate and reliable testing environment.',
+          'End-to-end testing framework that runs in the browser with real-time reload and comprehensive debugging.',
       },
       {
         icon: PuppeteerIcon,
         title: 'Puppeteer',
         href: 'https://pptr.dev/',
         description:
-          'A Node.js library for controlling headless Chrome or Chromium over the DevTools Protocol. It allows you to automate interactions with web pages, take screenshots, and more, all from Node.js. Puppeteer is a powerful tool for automating web testing and debugging, and is widely used in the industry for tasks such as end-to-end testing, web scraping, and browser automation.',
+          'Node.js library for controlling Chrome/Chromium with powerful automation and testing capabilities.',
       },
       {
         icon: TestingLibraryIcon,
         title: 'Testing Library',
         href: 'https://testing-library.com/',
         description:
-          'A library for writing tests for React, React Native, and web applications. It provides a set of utilities for testing React components, including functions for rendering components, simulating user interactions, and asserting on component state and behavior. Testing Library is designed to be easy to use and integrate with existing testing frameworks, making it a popular choice for developers who want to write more comprehensive and reliable tests for their React applications.',
+          'Simple and complete testing utilities for React, Vue, and web applications with user-centric testing.',
       },
       {
         icon: PlaywrightIcon,
         title: 'Playwright',
         href: 'https://playwright.dev/',
         description:
-          'A tool for automating Chromium, Firefox, WebKit, and WebAssembly with a single API. It provides a high-level API for writing end-to-end tests in a browser-based environment, allowing you to automate web applications and web services with ease. Playwright is designed to be fast, reliable, and easy to use, making it a popular choice for developers who want to write automated tests for their web applications.',
+          'Cross-browser automation library for reliable end-to-end testing across Chromium, Firefox, and WebKit.',
       },
       {
         icon: WebdriverioIcon,
         title: 'WebdriverIO',
         href: 'https://webdriver.io/',
         description:
-          'A JavaScript test automation framework for browsers and Node.js. It provides a simple and intuitive API for writing tests that can be run in a variety of environments, including headless browsers, real browsers, and Node.js. WebdriverIO is designed to be easy to use and integrate with existing testing frameworks, making it a popular choice for developers who want to write more comprehensive and reliable tests for their web applications.',
+          'Next-gen browser and mobile automation test framework for Node.js with comprehensive testing capabilities.',
       },
       {
         icon: VitestIcon,
         title: 'Vitest',
         href: 'https://vitest.dev/',
         description:
-          "A fast and modern unit testing framework built on top of Vite, a front-end build tool. Designed with the same principles of speed and efficiency, Vitest aims to provide a seamless testing experience, particularly for projects already using Vite. It is optimized for performance and developer experience, leveraging Vite's capabilities to enable instant feedback and rapid test runs.",
+          'Fast unit testing framework built on Vite with native TypeScript support and excellent developer experience.',
       },
       {
         icon: TestcafeIcon,
         title: 'TestCafé',
         href: 'https://testcafe.io/',
         description:
-          'A cross-browser testing framework that allows you to write tests in a simple, intuitive syntax. It provides a powerful set of tools for automating web applications, including support for multiple browsers, page objects, and custom assertions. TestCafé is designed to be easy to use and integrate with existing testing frameworks, making it a popular choice for developers who want to write more comprehensive and reliable tests for their web applications.',
+          'Cross-browser testing framework with simple syntax and powerful automation capabilities for web applications.',
       },
       {
         icon: ElectronIcon,
         title: 'Electron',
         href: 'https://www.electronjs.org/',
         description:
-          'A framework for building cross-platform desktop applications using web technologies. It allows you to create desktop applications with JavaScript, HTML, and CSS, and package them into standalone executables for Windows, macOS, and Linux. Electron is a popular choice for developers who want to build desktop applications using web technologies.',
+          'Framework for building cross-platform desktop applications using web technologies like HTML, CSS, and JavaScript.',
       },
       {
         icon: ReactNativeIcon,
         title: 'React Native',
         href: 'https://reactnative.dev/',
         description:
-          'An open-source framework developed by Facebook for building mobile applications using JavaScript and React. It enables developers to create natively-rendered mobile apps for both iOS and Android using a single codebase. React Native bridges the gap between web and mobile development, allowing for the reuse of code across platforms while still providing a native look and feel.',
+          'Framework for building native mobile applications using React and JavaScript with platform-specific optimizations.',
       },
       {
         icon: ExpoIcon,
         title: 'Expo',
         href: 'https://expo.dev/',
         description:
-          'A cross-platform mobile app SDK for React Native. It allows you to build native mobile apps using JavaScript and React, and package them into standalone apps for Android and iOS.',
+          'Platform for React Native development with managed workflow, pre-built components, and easy deployment.',
       },
       {
         icon: CapacitorIcon,
         title: 'Capacitor',
         href: 'https://capacitorjs.com/',
         description:
-          'An open-source native runtime developed by the Ionic team that enables developers to build cross-platform mobile apps with web technologies like HTML, CSS, and JavaScript. It serves as a bridge between web applications and native mobile features, allowing developers to write a single codebase that runs on iOS, Android, and the web.',
+          'Cross-platform native runtime for web apps with access to native device features and APIs.',
       },
       {
         icon: IonicIcon,
         title: 'Ionic Framework',
         href: 'https://ionicframework.com/',
         description:
-          'An open-source UI toolkit for building high-quality, cross-platform applications using web technologies like HTML, CSS, and JavaScript. It provides a library of pre-built, customizable UI components and tools that enable developers to create mobile, desktop, and Progressive Web Apps (PWAs) from a single codebase. Ionic is designed to work with modern front-end frameworks like Angular, React, and Vue, but it can also be used with plain JavaScript or other frameworks.',
+          'Open-source UI toolkit for building cross-platform applications with web technologies and native performance.',
       },
       {
         icon: QuasarIcon,
         title: 'Quasar',
         href: 'https://quasar.dev/',
         description:
-          "A powerful, open-source framework for building responsive, high-performance web, mobile, and desktop applications using the Vue.js framework. It provides a rich set of components, utilities, and tools that allow developers to create applications that work seamlessly across different platforms—whether it's a website, a mobile app, or a desktop application—all from a single codebase.",
+          'Vue.js framework for building responsive web, mobile, and desktop applications from a single codebase.',
       },
       {
         icon: TauriIcon,
         title: 'Tauri',
         href: 'https://tauri.app/',
         description:
-          "An open-source framework for building lightweight, secure, and fast desktop applications using web technologies like HTML, CSS, and JavaScript. Unlike Electron, which uses Chromium for rendering the UI, Tauri uses the operating system's native webview (such as WebKit on macOS and WebView2 on Windows), resulting in smaller application sizes and lower memory consumption. Tauri is designed to integrate seamlessly with modern front-end frameworks like React, Vue, Angular, and Svelte, allowing developers to leverage their web development skills to create cross-platform desktop applications.",
+          'Framework for building tiny, blazingly fast binaries for all major desktop platforms using web technologies.',
       },
       {
         icon: NativeScriptIcon,
         title: 'NativeScript',
         href: 'https://nativescript.org/',
         description:
-          "An open-source framework for building truly native mobile applications using JavaScript, TypeScript, Angular, or Vue.js. Unlike hybrid frameworks that use web technologies and run inside a webview, NativeScript allows developers to write mobile apps that run directly on the device's native platform APIs, providing a fully native performance and user experience.",
+          'Framework for building truly native mobile applications using JavaScript, TypeScript, Angular, or Vue.',
+      },
+    ],
+  },
+  {
+    icon: ChatGPTIcon,
+    title: 'AI Tools',
+    href: '/ai-tools',
+    description:
+      'Artificial intelligence tools and services that enhance web development workflows, from code generation to design assistance.',
+    links: [
+      {
+        icon: ChatGPTIcon,
+        title: 'ChatGPT',
+        href: 'https://chatgpt.com/',
+        description:
+          'Advanced AI assistant for code generation, debugging, documentation, and learning web development concepts.',
+      },
+      {
+        icon: GoogleGeminiIcon,
+        title: 'Google Gemini',
+        href: 'https://gemini.google.com/',
+        description:
+          "Google's AI assistant for coding assistance, problem-solving, and learning web development technologies.",
+      },
+      {
+        icon: SupermavenIcon,
+        title: 'Supermaven',
+        href: 'https://supermaven.com/',
+        description:
+          'AI-powered code completion tool with 300K token context window for high-quality, context-aware suggestions.',
+      },
+      {
+        icon: GitHubIcon,
+        title: 'GitHub Copilot',
+        href: 'https://github.com/features/copilot',
+        description:
+          'AI pair programmer that helps write code faster with less effort, available in popular IDEs and editors.',
+      },
+      {
+        icon: VSCodeIcon,
+        title: 'Cursor',
+        href: 'https://cursor.sh/',
+        description:
+          'AI-first code editor built on VS Code with advanced AI capabilities for code generation and editing.',
+      },
+      {
+        icon: FigmaIcon,
+        title: 'Figma AI',
+        href: 'https://www.figma.com/ai',
+        description:
+          'AI-powered design tools for generating UI components, layouts, and design variations in Figma.',
+      },
+      {
+        icon: AdobeExpressIcon,
+        title: 'Adobe Firefly',
+        href: 'https://www.adobe.com/products/firefly.html',
+        description:
+          'Generative AI for creating images, vectors, and 3D content for web design and development projects.',
+      },
+      {
+        icon: UnsplashIcon,
+        title: 'Midjourney',
+        href: 'https://www.midjourney.com/',
+        description:
+          'AI image generation tool for creating custom visuals, illustrations, and graphics for web projects.',
+      },
+      {
+        icon: VercelIcon,
+        title: 'Vercel AI SDK',
+        href: 'https://sdk.vercel.ai/',
+        description:
+          'Open-source library for building AI-powered applications with streaming, edge functions, and React components.',
+      },
+      {
+        icon: AWSIcon,
+        title: 'Amazon Bedrock',
+        href: 'https://aws.amazon.com/bedrock/',
+        description:
+          'Fully managed service for building and scaling generative AI applications with foundation models.',
+      },
+      {
+        icon: GoogleCloudIcon,
+        title: 'Google AI Studio',
+        href: 'https://aistudio.google.com/',
+        description:
+          "Platform for building AI applications with Google's latest models and development tools.",
+      },
+      {
+        icon: SanityIcon,
+        title: 'Sanity AI',
+        href: 'https://www.sanity.io/ai',
+        description:
+          'AI-powered content generation and management tools integrated with Sanity CMS for web applications.',
+      },
+      {
+        icon: CloudinaryIcon,
+        title: 'Cloudinary AI',
+        href: 'https://cloudinary.com/ai',
+        description:
+          'AI-powered image and video analysis, tagging, and optimization for web content management.',
+      },
+      {
+        icon: ClerkIcon,
+        title: 'Clerk AI',
+        href: 'https://clerk.com/ai',
+        description:
+          'AI-powered user authentication and management with intelligent user behavior analysis and security.',
       },
     ],
   },
@@ -727,28 +827,28 @@ export const SECTIONS = [
     title: 'Communities',
     href: '/communities',
     description:
-      'Engaging forums and groups where you can connect with fellow developers, share knowledge, and collaborate on projects.',
+      'Vibrant communities and platforms where developers connect, share knowledge, and collaborate on web development projects.',
     links: [
       {
         icon: DevtoIcon,
         title: 'Dev.to',
         href: 'https://dev.to/',
         description:
-          'A constructive and inclusive social network for software developers. With you every step of your journey.',
+          'Inclusive social network for software developers with articles, discussions, and community-driven content.',
       },
       {
         icon: RedditIcon,
         title: 'r/webdev',
         href: 'https://www.reddit.com/r/webdev/',
         description:
-          'The largest web development community on Reddit. Discuss everything from web development to programming.',
+          'Largest web development community on Reddit with discussions, resources, and industry insights.',
       },
       {
         icon: IcodethisIcon,
         title: 'iCodeThis',
         href: 'https://icodethis.com/',
         description:
-          'A helpful community for web developers that encourages growth in a playful yet competitive way.',
+          'Daily coding challenges and community for web developers to practice and improve their skills.',
       },
     ],
   },
@@ -757,63 +857,42 @@ export const SECTIONS = [
     title: 'Blogs',
     href: '/blogs',
     description:
-      'Insightful articles and updates from industry experts to keep you informed about the latest trends and best practices in web development.',
+      'Personal blogs and insights from individual web developers sharing their experiences, learnings, and perspectives.',
     links: [
-      {
-        icon: CssTricksIcon,
-        title: 'CSS-Tricks',
-        href: 'https://css-tricks.com/',
-        description:
-          'Daily articles about CSS, HTML, JavaScript, and all things related to web design and development.',
-      },
-      {
-        icon: SmashingMagazineIcon,
-        title: 'Smashing Magazine',
-        href: 'https://www.smashingmagazine.com/',
-        description:
-          'A leading online magazine for professional web designers and developers.',
-      },
       {
         icon: JoshWComeauIcon,
         title: 'Josh W Comeau',
         href: 'https://www.joshwcomeau.com/',
         description:
-          'Friendly tutorials for developers. Focus on React, CSS, Animation, and more!',
+          'Friendly tutorials focusing on React, CSS animations, and modern web development techniques.',
       },
       {
         icon: LeerobinsonIcon,
         title: 'Lee Robinson',
         href: 'https://leerob.io/',
         description:
-          'Lee Robinson shares tutorials, tips, and insights on building modern web applications, optimizing performance, and improving developer experience. His content is designed to educate and inspire both new and experienced developers.',
+          "Insights on building modern web applications, performance optimization, and developer experience from Vercel's CEO.",
       },
       {
         icon: TaoofnodeIcon,
-        title: 'Tao of Node',
-        href: 'https://alexkondov.com/tao-of-node/',
+        title: 'Alex Kondov',
+        href: 'https://alexkondov.com/',
         description:
-          'One of the main benefits of JavaScript is that it runs both in the browser and the server. As an engineer you need to master a single language and your skills',
+          'Software engineer and writer sharing insights on JavaScript, React, software design, and architecture with 10+ years of experience.',
       },
       {
         icon: RafaelCamargoIcon,
         title: 'Rafael Camargo',
         href: 'https://www.cmrg.me/',
         description:
-          'Rafael Rakochinski Camargo is a software engineer who specializes in building fast, high-converting digital products and experiences at scale.',
+          'Software engineering insights on building scalable digital products and high-converting user experiences.',
       },
       {
         icon: NicopranantaIcon,
         title: 'Nico Prananta',
         href: 'https://www.nico.fyi/',
         description:
-          'Nico Prananta is a software developer from Indonesia, currently residing in Zürich, Switzerland. His present tech stack includes React (with Next.js or Remix), TypeScript, Tailwind CSS, Prisma, PostgreSQL, and Node.js.',
-      },
-      {
-        icon: FrontendatscaleIcon,
-        title: 'Frontend At Scale',
-        href: 'https://frontendatscale.com/',
-        description:
-          'Get the latest articles, talks, case studies, and insights from the world of software design and architecture—tailored specifically to frontend engineers.',
+          'Personal blog covering React, Next.js, TypeScript, and modern web development stack experiences.',
       },
     ],
   },
