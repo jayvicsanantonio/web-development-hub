@@ -111,81 +111,84 @@ export function DesktopNavigation({
           </div>
         </li>
 
-        <li className="w-full">
-          <div
-            className="h-px w-6 bg-border/50 mx-auto"
-            aria-hidden="true"
-          ></div>
-        </li>
-
-        {navItems.map((item, index) => (
-          <li key={item.id} className="relative group">
-            <NavigationItem
-              item={item}
-              isActive={activeSection === item.id}
-              onClick={() => {
-                onScrollToSection(item.id);
-                setHiddenTooltip(item.id);
-              }}
-              variant="desktop"
-              index={index}
-              totalItems={navItems.length}
-              aria-describedby="nav-description"
-              onKeyDown={(e) => {
-                switch (e.key) {
-                  case 'ArrowUp':
-                    e.preventDefault();
-                    if (index > 0) {
-                      const prevButton = document.querySelector(
-                        `.desktop-nav-button:nth-of-type(${index})`
-                      ) as HTMLElement;
-                      prevButton?.focus();
-                    }
-                    break;
-                  case 'ArrowDown':
-                    e.preventDefault();
-                    if (index < navItems.length - 1) {
-                      const nextButton = document.querySelector(
-                        `.desktop-nav-button:nth-of-type(${
-                          index + 2
-                        })`
-                      ) as HTMLElement;
-                      nextButton?.focus();
-                    }
-                    break;
-                  case 'Home':
-                    e.preventDefault();
-                    const firstButton = document.querySelector(
-                      `.desktop-nav-button:nth-of-type(1)`
-                    ) as HTMLElement;
-                    firstButton?.focus();
-                    break;
-                  case 'End':
-                    e.preventDefault();
-                    const lastButton = document.querySelector(
-                      `.desktop-nav-button:nth-of-type(${navItems.length})`
-                    ) as HTMLElement;
-                    lastButton?.focus();
-                    break;
-                }
-              }}
-            />
+        {isHomeActive && (
+          <li className="w-full">
             <div
-              className={cn(
-                'absolute right-14 top-1/2 transform -translate-y-1/2 transition-opacity duration-200 whitespace-nowrap will-change-[opacity,transform] pointer-events-none',
-                hiddenTooltip === item.id
-                  ? 'opacity-0'
-                  : 'opacity-0 group-hover:opacity-100 group-focus-within:opacity-100'
-              )}
-              role="tooltip"
-              aria-hidden={activeSection !== item.id}
-            >
-              <div className="dark:bg-black/90 bg-white/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
-                {item.title}
-              </div>
-            </div>
+              className="h-px w-6 bg-border/50 mx-auto"
+              aria-hidden="true"
+            ></div>
           </li>
-        ))}
+        )}
+
+        {isHomeActive &&
+          navItems.map((item, index) => (
+            <li key={item.id} className="relative group">
+              <NavigationItem
+                item={item}
+                isActive={activeSection === item.id}
+                onClick={() => {
+                  onScrollToSection(item.id);
+                  setHiddenTooltip(item.id);
+                }}
+                variant="desktop"
+                index={index}
+                totalItems={navItems.length}
+                aria-describedby="nav-description"
+                onKeyDown={(e) => {
+                  switch (e.key) {
+                    case 'ArrowUp':
+                      e.preventDefault();
+                      if (index > 0) {
+                        const prevButton = document.querySelector(
+                          `.desktop-nav-button:nth-of-type(${index})`
+                        ) as HTMLElement;
+                        prevButton?.focus();
+                      }
+                      break;
+                    case 'ArrowDown':
+                      e.preventDefault();
+                      if (index < navItems.length - 1) {
+                        const nextButton = document.querySelector(
+                          `.desktop-nav-button:nth-of-type(${
+                            index + 2
+                          })`
+                        ) as HTMLElement;
+                        nextButton?.focus();
+                      }
+                      break;
+                    case 'Home':
+                      e.preventDefault();
+                      const firstButton = document.querySelector(
+                        `.desktop-nav-button:nth-of-type(1)`
+                      ) as HTMLElement;
+                      firstButton?.focus();
+                      break;
+                    case 'End':
+                      e.preventDefault();
+                      const lastButton = document.querySelector(
+                        `.desktop-nav-button:nth-of-type(${navItems.length})`
+                      ) as HTMLElement;
+                      lastButton?.focus();
+                      break;
+                  }
+                }}
+              />
+              <div
+                className={cn(
+                  'absolute right-14 top-1/2 transform -translate-y-1/2 transition-opacity duration-200 whitespace-nowrap will-change-[opacity,transform] pointer-events-none',
+                  hiddenTooltip === item.id
+                    ? 'opacity-0'
+                    : 'opacity-0 group-hover:opacity-100 group-focus-within:opacity-100'
+                )}
+                role="tooltip"
+                aria-hidden={activeSection !== item.id}
+              >
+                <div className="dark:bg-black/90 bg-white/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
+                  {item.title}
+                </div>
+              </div>
+            </li>
+          ))}
 
         <li className="w-full">
           <div
