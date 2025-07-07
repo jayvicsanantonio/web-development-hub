@@ -881,12 +881,6 @@ export const SECTIONS = [
         description:
           'Web animation expert sharing insights on CSS animations, motion design, and user experience.',
       },
-      {
-        title: 'Dudley Storey',
-        href: 'https://demosthenes.info/',
-        description:
-          'CSS and web development expert sharing creative techniques and modern web design insights.',
-      },
     ],
   },
 ];
