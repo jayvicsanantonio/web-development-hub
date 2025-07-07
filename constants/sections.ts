@@ -951,6 +951,68 @@ export const SECTIONS = [
         description:
           'Professional network and personalized news feed for developers to stay up to date and connect with the community.',
       },
+      {
+        title: 'Frontend Mentor',
+        href: 'https://www.frontendmentor.io/',
+        description:
+          'Platform offering realistic coding challenges and community feedback to improve frontend skills.',
+      },
+      {
+        title: 'CSS-Tricks Forums',
+        href: 'https://css-tricks.com/forums/',
+        description:
+          'Discussion forum for CSS techniques, troubleshooting, and web development best practices.',
+      },
+      {
+        title: 'freeCodeCamp Forum',
+        href: 'https://forum.freecodecamp.org/',
+        description:
+          'Supportive community forum for learners and professionals to discuss programming and career development.',
+      },
+      {
+        title: 'The Coding Den',
+        href: 'https://discord.com/invite/code',
+        description:
+          'Active Discord community providing programming help, project feedback, and mentorship.',
+      },
+      {
+        title: 'Reactiflux',
+        href: 'https://www.reactiflux.com/',
+        description:
+          'The largest React Discord community with channels for React, Next.js, and other related technologies.',
+      },
+
+      {
+        title: 'Hacker News',
+        href: 'https://news.ycombinator.com/',
+        description:
+          'Social news website focusing on computer science, entrepreneurship, and technology discussion.',
+      },
+      {
+        title: 'Lobsters',
+        href: 'https://lobste.rs/',
+        description:
+          'Computing-focused community with high-quality technical discussions and a strong focus on programming.',
+      },
+      {
+        title: 'Product Hunt',
+        href: 'https://www.producthunt.com/',
+        description:
+          'Platform for discovering and launching new tech products with an engaged community of makers and early adopters.',
+      },
+      {
+        title: 'CodeNewbie',
+        href: 'https://www.codenewbie.org/',
+        description:
+          'Supportive community of programmers and people learning to code with podcasts, Twitter chats, and resources.',
+      },
+      {
+        title: 'Web Accessibility Initiative',
+        href: 'https://www.w3.org/WAI/about/participating/',
+        description:
+          'W3C community working to improve web accessibility through guidelines, tools, education, and research.',
+      },
+
     ],
   },
   {

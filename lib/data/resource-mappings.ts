@@ -291,6 +291,15 @@ export const ICON_MAP: Record<string, string> = {
   'daily.dev': 'simple-icons:dailydotdev',
   'CodeProject': 'mdi:code-array',
   Hashnode: 'simple-icons:hashnode',
+  'CSS-Tricks Forums': 'simple-icons:css3',
+  'freeCodeCamp Forum': 'simple-icons:freecodecamp',
+  'The Coding Den': 'simple-icons:discord',
+  Reactiflux: 'simple-icons:react',
+  'Hacker News': 'simple-icons:ycombinator',
+  Lobsters: 'mdi:lobster',
+  'Product Hunt': 'simple-icons:producthunt',
+  CodeNewbie: 'mdi:account-school',
+  'Web Accessibility Initiative': 'simple-icons:w3c',
   
   // Blogs and People
   'Josh W Comeau': 'mdi:account',
