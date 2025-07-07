@@ -36,6 +36,18 @@ export function MobileNavigation({
     setIsMobileMenuOpen(false);
   };
 
+  const urlMap: Record<string, string> = {
+    'section-learning-resources': '/learning-resources',
+    'section-developer-tools': '/developer-tools',
+    'section-frameworks-and-libraries': '/frameworks-and-libraries',
+    'section-communities': '/communities',
+    'section-blogs': '/blogs',
+  };
+
+  const getPageUrl = (sectionId: string) => {
+    return urlMap[sectionId] || '/';
+  };
+
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 bg-background md:hidden">
@@ -158,18 +170,6 @@ export function MobileNavigation({
               />
             </li>
             {navItems.map((item, index) => {
-              const getPageUrl = (sectionId: string) => {
-                const urlMap: Record<string, string> = {
-                  'section-learning-resources': '/learning-resources',
-                  'section-developer-tools': '/developer-tools',
-                  'section-frameworks-and-libraries':
-                    '/frameworks-and-libraries',
-                  'section-communities': '/communities',
-                  'section-blogs': '/blogs',
-                };
-                return urlMap[sectionId] || '/';
-              };
-
               const pageUrl = getPageUrl(item.id);
               const isActive = pathname === pageUrl;
 
