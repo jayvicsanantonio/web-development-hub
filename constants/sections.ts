@@ -30,12 +30,6 @@ export const SECTIONS = [
           'Free interactive coding lessons with hands-on projects and industry-recognized certifications.',
       },
       {
-        title: 'Wes Bos',
-        href: 'https://wesbos.com/',
-        description:
-          'Practical web development courses and tutorials from JavaScript to React, with the popular Syntax podcast.',
-      },
-      {
         title: 'Codecademy',
         href: 'https://www.codecademy.com/',
         description:
@@ -46,12 +40,6 @@ export const SECTIONS = [
         href: 'https://web.dev/',
         description:
           "Google's comprehensive resource for modern web development, performance optimization, and best practices.",
-      },
-      {
-        title: 'EricElliottJS',
-        href: 'https://ericelliottjs.com/',
-        description:
-          'Advanced JavaScript training focusing on functional programming, composition, and real-world application patterns.',
       },
       {
         title: 'Testing JavaScript',
@@ -101,6 +89,114 @@ export const SECTIONS = [
         href: 'https://frontendatscale.com/',
         description:
           'Articles and insights on software design and architecture specifically tailored for frontend engineers.',
+      },
+      {
+        title: 'Frontend Interview Handbook',
+        href: 'https://www.frontendinterviewhandbook.com/',
+        description:
+          'Comprehensive guide for frontend interview preparation with JavaScript, React, CSS, and system design questions.',
+      },
+      {
+        title: 'LeetCode',
+        href: 'https://leetcode.com/',
+        description:
+          'Platform for practicing coding problems and preparing for technical interviews with 2000+ programming challenges.',
+      },
+      {
+        title: 'AlgoExpert',
+        href: 'https://www.algoexpert.io/',
+        description:
+          'Comprehensive platform for learning algorithms and data structures with video explanations and practice problems.',
+      },
+      {
+        title: 'System Design Primer',
+        href: 'https://github.com/donnemartin/system-design-primer',
+        description:
+          'Open-source collection of resources for learning large-scale system design and architecture patterns.',
+      },
+      {
+        title: 'JavaScript.info',
+        href: 'https://javascript.info/',
+        description:
+          'Modern JavaScript tutorial covering from basics to advanced topics with detailed explanations and examples.',
+      },
+      {
+        title: 'React Tutorial',
+        href: 'https://react.dev/learn',
+        description:
+          'Official React tutorial with interactive examples and comprehensive guides for building modern UIs.',
+      },
+      {
+        title: 'TypeScript Handbook',
+        href: 'https://www.typescriptlang.org/docs/',
+        description:
+          'Official TypeScript documentation with tutorials, reference materials, and examples for type-safe JavaScript.',
+      },
+      {
+        title: 'CSS Reference',
+        href: 'https://cssreference.io/',
+        description:
+          'Visual guide to CSS properties with examples, browser support, and interactive demonstrations.',
+      },
+      {
+        title: 'HTML Reference',
+        href: 'https://htmlreference.io/',
+        description:
+          'Visual guide to HTML elements with examples, attributes, and browser compatibility information.',
+      },
+      {
+        title: 'Web.dev Learn',
+        href: 'https://web.dev/learn/',
+        description:
+          'Structured learning paths for modern web development covering HTML, CSS, JavaScript, and performance.',
+      },
+      {
+        title: 'Frontend Mentor',
+        href: 'https://www.frontendmentor.io/',
+        description:
+          'Real-world frontend challenges with designs to practice HTML, CSS, and JavaScript skills.',
+      },
+      {
+        title: 'Codewars',
+        href: 'https://www.codewars.com/',
+        description:
+          'Platform for improving coding skills through kata challenges in JavaScript, Python, and other languages.',
+      },
+      {
+        title: 'Exercism',
+        href: 'https://exercism.org/',
+        description:
+          'Free platform for learning programming languages through exercises and mentorship from experienced developers.',
+      },
+      {
+        title: 'The Odin Project',
+        href: 'https://www.theodinproject.com/',
+        description:
+          'Free full-stack curriculum with projects and community support for learning web development from scratch.',
+      },
+      {
+        title: 'Full Stack Open',
+        href: 'https://fullstackopen.com/',
+        description:
+          'Modern web application development course covering React, Redux, Node.js, MongoDB, and GraphQL.',
+      },
+      {
+        title: 'JavaScript30',
+        href: 'https://javascript30.com/',
+        description:
+          '30-day vanilla JavaScript coding challenge with video tutorials and real-world projects.',
+      },
+      {
+        title: 'CSS Grid Garden',
+        href: 'https://cssgridgarden.com/',
+        description:
+          'Interactive game for learning CSS Grid layout with visual feedback and progressive difficulty.',
+      },
+      {
+        title: 'Flexbox Froggy',
+        href: 'https://flexboxfroggy.com/',
+        description:
+          'Interactive game for learning CSS Flexbox with visual feedback and progressive difficulty levels.',
       },
     ],
   },
