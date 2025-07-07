@@ -804,6 +804,78 @@ export const SECTIONS = [
         description:
           'Framework for building truly native mobile applications using JavaScript, TypeScript, Angular, or Vue.',
       },
+      {
+        title: 'Tailwind CSS',
+        href: 'https://tailwindcss.com/',
+        description:
+          'Utility-first CSS framework for rapidly building custom designs with composable classes and minimal CSS.',
+      },
+      {
+        title: 'shadcn/ui',
+        href: 'https://ui.shadcn.com/',
+        description:
+          'Collection of beautifully designed, accessible components that you can copy and paste into your apps.',
+      },
+      {
+        title: 'Redux',
+        href: 'https://redux.js.org/',
+        description:
+          'Predictable state container for JavaScript apps with centralized store and unidirectional data flow.',
+      },
+      {
+        title: 'Zustand',
+        href: 'https://zustand-demo.pmnd.rs/',
+        description:
+          'Small, fast, and scalable state management solution for React with simplified API and minimal boilerplate.',
+      },
+      {
+        title: 'Jotai',
+        href: 'https://jotai.org/',
+        description:
+          'Primitive and flexible state management for React with atomic approach and excellent TypeScript support.',
+      },
+      {
+        title: 'XState',
+        href: 'https://xstate.js.org/',
+        description:
+          'State machines and statecharts for the modern web, enabling robust, visual state management.',
+      },
+      {
+        title: 'TanStack Query',
+        href: 'https://tanstack.com/query/',
+        description:
+          'Powerful data fetching and caching library for React, Vue, and Svelte with automatic cache management.',
+      },
+      {
+        title: 'Framer Motion',
+        href: 'https://www.framer.com/motion/',
+        description:
+          'Production-ready animation library for React with declarative syntax and performant transitions.',
+      },
+      {
+        title: 'Three.js',
+        href: 'https://threejs.org/',
+        description:
+          'JavaScript 3D library for creating and displaying animated 3D computer graphics in a web browser.',
+      },
+      {
+        title: 'D3.js',
+        href: 'https://d3js.org/',
+        description:
+          'JavaScript library for producing dynamic, interactive data visualizations using SVG, HTML, and CSS.',
+      },
+      {
+        title: 'Chakra UI',
+        href: 'https://chakra-ui.com/',
+        description:
+          'Simple, modular, and accessible component library for React applications with excellent developer experience.',
+      },
+      {
+        title: 'MUI',
+        href: 'https://mui.com/',
+        description:
+          'Comprehensive suite of UI tools and React components implementing Google Material Design principles.',
+      },
     ],
   },
 

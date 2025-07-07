@@ -268,6 +268,18 @@ export const ICON_MAP: Record<string, string> = {
   Quasar: 'simple-icons:quasar',
   Tauri: 'simple-icons:tauri',
   NativeScript: 'simple-icons:nativescript',
+  'Tailwind CSS': 'simple-icons:tailwindcss',
+  'shadcn/ui': 'simple-icons:shadcnui',
+  Redux: 'simple-icons:redux',
+  Zustand: 'simple-icons:react',
+  Jotai: 'simple-icons:react',
+  XState: 'simple-icons:xstate',
+  'TanStack Query': 'simple-icons:reactquery',
+  'Framer Motion': 'simple-icons:framer',
+  'Three.js': 'simple-icons:threedotjs',
+  'D3.js': 'simple-icons:d3dotjs',
+  'Chakra UI': 'simple-icons:chakraui',
+  MUI: 'simple-icons:mui',
   
   // Communities
   'Dev.to': 'simple-icons:devdotto',
