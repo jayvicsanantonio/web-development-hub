@@ -150,7 +150,7 @@ export function MobileNavigation({
                   if (e.key === 'ArrowDown') {
                     e.preventDefault();
                     const nextButton = document.querySelector(
-                      '#mobile-menu button:nth-of-type(2)'
+                      '#mobile-menu .mobile-nav-item:nth-of-type(2)'
                     ) as HTMLElement;
                     nextButton?.focus();
                   }
@@ -190,7 +190,7 @@ export function MobileNavigation({
                       ) {
                         e.preventDefault();
                         const nextButton = document.querySelector(
-                          `#mobile-menu button:nth-of-type(${
+                          `#mobile-menu .mobile-nav-item:nth-of-type(${
                             index + 3
                           })`
                         ) as HTMLElement;
@@ -198,7 +198,7 @@ export function MobileNavigation({
                       } else if (e.key === 'ArrowUp' && index > 0) {
                         e.preventDefault();
                         const prevButton = document.querySelector(
-                          `#mobile-menu button:nth-of-type(${
+                          `#mobile-menu .mobile-nav-item:nth-of-type(${
                             index + 1
                           })`
                         ) as HTMLElement;
@@ -206,7 +206,7 @@ export function MobileNavigation({
                       } else if (e.key === 'ArrowUp' && index === 0) {
                         e.preventDefault();
                         const homeButton = document.querySelector(
-                          '#mobile-menu button:nth-of-type(1)'
+                          '#mobile-menu .mobile-nav-item:nth-of-type(1)'
                         ) as HTMLElement;
                         homeButton?.focus();
                       }
