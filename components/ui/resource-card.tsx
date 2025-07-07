@@ -35,11 +35,6 @@ export default function ResourceCard({
   const resourceId = generateResourceId(resource.title);
   const iconName = getResourceIcon(resource.title);
 
-  // For debugging icon issues
-  React.useEffect(() => {
-    console.log(`Resource: ${resource.title}, Icon: ${iconName}`);
-  }, [resource.title, iconName]);
-
   return (
     <a
       href={resource.href}
