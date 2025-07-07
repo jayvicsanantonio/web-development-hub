@@ -4,7 +4,7 @@ interface NavigationItemProps {
   item: {
     id: string;
     title: string;
-    icon: React.FC<{ className?: string }>;
+    icon?: React.FC<{ className?: string }>;
   };
   isActive: boolean;
   onClick: () => void;
@@ -40,15 +40,17 @@ export function NavigationItem({
         aria-current={isActive ? 'page' : undefined}
         onKeyDown={onKeyDown}
       >
-        <Icon
-          className={cn(
-            'h-5 w-5',
-            isActive
-              ? 'text-foreground opacity-90'
-              : 'text-foreground opacity-70'
-          )}
-          aria-hidden="true"
-        />
+        {Icon && (
+          <Icon
+            className={cn(
+              'h-5 w-5',
+              isActive
+                ? 'text-foreground opacity-90'
+                : 'text-foreground opacity-70'
+            )}
+            aria-hidden="true"
+          />
+        )}
         <span
           className={cn(isActive ? 'font-medium' : 'font-normal')}
         >
