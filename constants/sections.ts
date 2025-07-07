@@ -447,6 +447,126 @@ export const SECTIONS = [
         description:
           "Platform for building AI applications with Google's latest models and development tools.",
       },
+      {
+        title: 'Docker',
+        href: 'https://www.docker.com/',
+        description:
+          'Platform for developing, shipping, and running applications in containers for consistent environments across machines.',
+      },
+      {
+        title: 'Kubernetes',
+        href: 'https://kubernetes.io/',
+        description:
+          'Container orchestration system for automating application deployment, scaling, and management in production.',
+      },
+      {
+        title: 'GitLab',
+        href: 'https://gitlab.com/',
+        description:
+          'Complete DevOps platform with Git repository, CI/CD, security scanning, and project management tools.',
+      },
+      {
+        title: 'Bitbucket',
+        href: 'https://bitbucket.org/',
+        description:
+          'Git repository management solution with built-in CI/CD and Jira integration for software teams.',
+      },
+      {
+        title: 'CodeSandbox',
+        href: 'https://codesandbox.io/',
+        description:
+          'Online code editor for rapid web development with instant previews and collaborative features.',
+      },
+      {
+        title: 'StackBlitz',
+        href: 'https://stackblitz.com/',
+        description:
+          'Online IDE for web development with instant startup, real-time collaboration, and fast preview.',
+      },
+      {
+        title: 'Replit',
+        href: 'https://replit.com/',
+        description:
+          'Collaborative, in-browser IDE for coding, hosting and deploying applications in 50+ programming languages.',
+      },
+      {
+        title: 'Glitch',
+        href: 'https://glitch.com/',
+        description:
+          'Collaborative platform for building, remixing, and deploying full-stack web apps with instant hosting.',
+      },
+      {
+        title: 'Postman',
+        href: 'https://www.postman.com/',
+        description:
+          'API platform for building, testing, and documenting APIs with collaboration features for development teams.',
+      },
+      {
+        title: 'Insomnia',
+        href: 'https://insomnia.rest/',
+        description:
+          'Open-source API client for designing, debugging, and testing REST, GraphQL, and gRPC APIs.',
+      },
+      {
+        title: 'MongoDB Atlas',
+        href: 'https://www.mongodb.com/atlas/database',
+        description:
+          'Multi-cloud developer data platform with fully managed MongoDB database services and built-in search.',
+      },
+      {
+        title: 'Supabase',
+        href: 'https://supabase.com/',
+        description:
+          'Open-source Firebase alternative with PostgreSQL database, authentication, real-time subscriptions, and storage.',
+      },
+      {
+        title: 'PlanetScale',
+        href: 'https://planetscale.com/',
+        description:
+          'MySQL-compatible serverless database platform built on Vitess with branching, non-blocking schema changes.',
+      },
+      {
+        title: 'Firebase',
+        href: 'https://firebase.google.com/',
+        description:
+          'App development platform with real-time database, authentication, hosting, and serverless functions.',
+      },
+      {
+        title: 'Auth0',
+        href: 'https://auth0.com/',
+        description:
+          'Identity platform for adding authentication and authorization to web, mobile, and legacy applications.',
+      },
+      {
+        title: 'Stripe',
+        href: 'https://stripe.com/',
+        description:
+          'Payment processing platform for internet businesses with APIs for online payments and subscriptions.',
+      },
+      {
+        title: 'Datadog',
+        href: 'https://www.datadoghq.com/',
+        description:
+          'Monitoring and security platform for cloud applications with real-time observability and analytics.',
+      },
+      {
+        title: 'Sentry',
+        href: 'https://sentry.io/',
+        description:
+          'Application monitoring platform that helps identify, fix, and optimize the performance of code.',
+      },
+      {
+        title: 'New Relic',
+        href: 'https://newrelic.com/',
+        description:
+          'Observability platform for monitoring application performance, infrastructure metrics, and user experience.',
+      },
+      {
+        title: 'Lighthouse',
+        href: 'https://developers.google.com/web/tools/lighthouse',
+        description:
+          'Open-source tool for auditing web pages and applications for performance, accessibility, and SEO.',
+      },
 
       {
         title: 'Cloudinary AI',
