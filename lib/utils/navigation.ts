@@ -1,33 +1,34 @@
 import { SECTIONS } from '@/constants/sections';
+import { getResourceIcon } from '@/lib/data/resource-mappings';
 
 export interface NavigationItem {
   id: string;
   title: string;
-  icon: React.FC<{ className?: string }>;
+  iconName: string;
 }
 
 export const DEFAULT_NAV_ITEMS: NavigationItem[] = [
   {
     id: 'section-learning-resources',
     title: 'Learning Resources',
-    icon: SECTIONS[0].icon,
+    iconName: getResourceIcon('Learning Resources'),
   },
   {
     id: 'section-developer-tools',
     title: 'Developer Tools',
-    icon: SECTIONS[1].icon,
+    iconName: getResourceIcon('Developer Tools'),
   },
   {
     id: 'section-frameworks-and-libraries',
     title: 'Frameworks and Libraries',
-    icon: SECTIONS[2].icon,
+    iconName: getResourceIcon('Frameworks and Libraries'),
   },
   {
     id: 'section-communities',
     title: 'Communities',
-    icon: SECTIONS[3].icon,
+    iconName: getResourceIcon('Communities'),
   },
-  { id: 'section-blogs', title: 'Blogs', icon: SECTIONS[4].icon },
+  { id: 'section-blogs', title: 'Blogs', iconName: getResourceIcon('Blogs') },
 ];
 
 export function createSearchNavItems(
@@ -80,7 +81,7 @@ export function createSearchNavItems(
       return {
         id,
         title: displayName,
-        icon: matchingSection?.icon || SECTIONS[0].icon,
+        iconName: getResourceIcon(displayName),
       };
     });
 
