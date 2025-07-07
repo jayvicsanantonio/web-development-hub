@@ -51,7 +51,7 @@ export function DesktopNavigation({
             />
           </Link>
           <div
-            className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
+            className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none"
             role="tooltip"
           >
             <div className="dark:bg-black/90 bg-white/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
@@ -76,7 +76,7 @@ export function DesktopNavigation({
             />
           </Link>
           <div
-            className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
+            className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none"
             role="tooltip"
           >
             <div className="dark:bg-black/90 bg-white/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
@@ -142,7 +142,7 @@ export function DesktopNavigation({
               }}
             />
             <div
-              className="absolute right-14 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-200 whitespace-nowrap will-change-[opacity,transform]"
+              className="absolute right-14 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-200 whitespace-nowrap will-change-[opacity,transform] pointer-events-none"
               role="tooltip"
               aria-hidden={activeSection !== item.id}
             >
@@ -183,7 +183,7 @@ export function DesktopNavigation({
             )}
           </button>
           <div
-            className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
+            className="absolute right-12 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none"
             role="tooltip"
           >
             <div className="dark:bg-black/90 bg-white/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
