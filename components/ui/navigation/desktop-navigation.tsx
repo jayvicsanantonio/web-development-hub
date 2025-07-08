@@ -136,15 +136,15 @@ export function DesktopNavigation({
           </div>
         </li>
 
-        {(isHomeActive && filteredNavItems.length > 0) ||
-          (isFavoritesActive && filteredNavItems.length > 0 && (
-            <li className="w-full">
-              <div
-                className="h-px w-6 bg-border/50 mx-auto"
-                aria-hidden="true"
-              ></div>
-            </li>
-          ))}
+        {((isHomeActive && filteredNavItems.length > 0) ||
+          (isFavoritesActive && filteredNavItems.length > 0)) && (
+          <li className="w-full">
+            <div
+              className="h-px w-6 bg-border/50 mx-auto"
+              aria-hidden="true"
+            ></div>
+          </li>
+        )}
 
         {(isHomeActive || isFavoritesActive) &&
           filteredNavItems.map((item, index) => (
