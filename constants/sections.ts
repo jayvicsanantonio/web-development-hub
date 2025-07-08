@@ -1419,6 +1419,7 @@ export const SECTIONS = [
         href: 'https://valhead.com/',
         description:
           'Web animation expert sharing insights on CSS animations, motion design, and user experience.',
+        tags: ['css', 'design', 'animation', 'blog', 'free', 'tutorial', 'advanced'],
       },
     ],
   },
