@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, Search, BookmarkIcon, Moon, Sun } from 'lucide-react';
@@ -27,6 +27,11 @@ export function MobileNavigation({
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
 
+  // Create refs for each navigation item
+  const navItemRefs = useRef<
+    (HTMLAnchorElement | HTMLButtonElement | null)[]
+  >([]);
+
   const handleSearchComplete = () => {
     setIsMobileMenuOpen(false);
     setIsSearchOpen(false);
@@ -47,6 +52,33 @@ export function MobileNavigation({
   const getPageUrl = (sectionId: string) => {
     return urlMap[sectionId] || '/';
   };
+
+  const focusNextItem = useCallback((currentIndex: number) => {
+    const nextIndex = currentIndex + 1;
+    if (nextIndex < navItemRefs.current.length) {
+      navItemRefs.current[nextIndex]?.focus();
+    }
+  }, []);
+
+  const focusPreviousItem = useCallback((currentIndex: number) => {
+    const prevIndex = currentIndex - 1;
+    if (prevIndex >= 0) {
+      navItemRefs.current[prevIndex]?.focus();
+    }
+  }, []);
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent, index: number) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        focusNextItem(index);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        focusPreviousItem(index);
+      }
+    },
+    [focusNextItem, focusPreviousItem]
+  );
 
   return (
     <>
@@ -158,20 +190,16 @@ export function MobileNavigation({
                 variant="mobile"
                 index={0}
                 totalItems={navItems.length + 1}
-                onKeyDown={(e) => {
-                  if (e.key === 'ArrowDown') {
-                    e.preventDefault();
-                    const nextButton = document.querySelector(
-                      '#mobile-menu .mobile-nav-item:nth-of-type(2)'
-                    ) as HTMLElement;
-                    nextButton?.focus();
-                  }
+                onKeyDown={(e) => handleKeyDown(e, 0)}
+                ref={(el) => {
+                  navItemRefs.current[0] = el;
                 }}
               />
             </li>
             {navItems.map((item, index) => {
               const pageUrl = getPageUrl(item.id);
               const isActive = pathname === pageUrl;
+              const itemIndex = index + 1;
 
               return (
                 <li key={item.id}>
@@ -181,35 +209,11 @@ export function MobileNavigation({
                     href={pageUrl}
                     onClick={handleNavigationClick}
                     variant="mobile"
-                    index={index + 1}
+                    index={itemIndex}
                     totalItems={navItems.length + 1}
-                    onKeyDown={(e) => {
-                      if (
-                        e.key === 'ArrowDown' &&
-                        index < navItems.length - 1
-                      ) {
-                        e.preventDefault();
-                        const nextButton = document.querySelector(
-                          `#mobile-menu .mobile-nav-item:nth-of-type(${
-                            index + 3
-                          })`
-                        ) as HTMLElement;
-                        nextButton?.focus();
-                      } else if (e.key === 'ArrowUp' && index > 0) {
-                        e.preventDefault();
-                        const prevButton = document.querySelector(
-                          `#mobile-menu .mobile-nav-item:nth-of-type(${
-                            index + 1
-                          })`
-                        ) as HTMLElement;
-                        prevButton?.focus();
-                      } else if (e.key === 'ArrowUp' && index === 0) {
-                        e.preventDefault();
-                        const homeButton = document.querySelector(
-                          '#mobile-menu .mobile-nav-item:nth-of-type(1)'
-                        ) as HTMLElement;
-                        homeButton?.focus();
-                      }
+                    onKeyDown={(e) => handleKeyDown(e, itemIndex)}
+                    ref={(el) => {
+                      navItemRefs.current[itemIndex] = el;
                     }}
                   />
                 </li>
