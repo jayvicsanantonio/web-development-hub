@@ -952,12 +952,6 @@ export const SECTIONS = [
           'Professional network and personalized news feed for developers to stay up to date and connect with the community.',
       },
       {
-        title: 'Frontend Mentor',
-        href: 'https://www.frontendmentor.io/',
-        description:
-          'Platform offering realistic coding challenges and community feedback to improve frontend skills.',
-      },
-      {
         title: 'CSS-Tricks Forums',
         href: 'https://css-tricks.com/forums/',
         description:
@@ -1012,7 +1006,6 @@ export const SECTIONS = [
         description:
           'W3C community working to improve web accessibility through guidelines, tools, education, and research.',
       },
-
     ],
   },
   {

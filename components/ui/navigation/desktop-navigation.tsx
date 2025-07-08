@@ -6,7 +6,8 @@ import { BookmarkIcon, HomeIcon, Moon, Sun } from 'lucide-react';
 import { useTheme } from '@/contexts/theme-context';
 import { NavigationItem } from '@/components/ui/navigation-item';
 import { type NavigationItem as NavigationItemType } from '@/lib/utils/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { useFavorites } from '@/contexts/favorites-context';
 
 interface DesktopNavigationProps {
   navItems: NavigationItemType[];
@@ -27,6 +28,30 @@ export function DesktopNavigation({
   const [hiddenTooltip, setHiddenTooltip] = useState<string | null>(
     null
   );
+
+  const { favorites } = useFavorites();
+
+  const favoritedSections = useMemo(() => {
+    const sections = new Set<string>();
+    favorites.forEach((favorite) => {
+      sections.add(favorite.section);
+    });
+    return sections;
+  }, [favorites]);
+
+  const filteredNavItems = useMemo(() => {
+    if (isHomeActive) {
+      return navItems;
+    }
+
+    if (isFavoritesActive) {
+      return navItems.filter((item) =>
+        favoritedSections.has(item.title)
+      );
+    }
+
+    return navItems;
+  }, [navItems, favoritedSections, isHomeActive, isFavoritesActive]);
 
   useEffect(() => {
     if (hiddenTooltip) {
@@ -121,7 +146,7 @@ export function DesktopNavigation({
         )}
 
         {(isHomeActive || isFavoritesActive) &&
-          navItems.map((item, index) => (
+          filteredNavItems.map((item, index) => (
             <li key={item.id} className="relative group">
               <NavigationItem
                 item={item}
@@ -132,7 +157,7 @@ export function DesktopNavigation({
                 }}
                 variant="desktop"
                 index={index}
-                totalItems={navItems.length}
+                totalItems={filteredNavItems.length}
                 aria-describedby="nav-description"
                 onKeyDown={(e) => {
                   switch (e.key) {
@@ -147,7 +172,7 @@ export function DesktopNavigation({
                       break;
                     case 'ArrowDown':
                       e.preventDefault();
-                      if (index < navItems.length - 1) {
+                      if (index < filteredNavItems.length - 1) {
                         const nextButton = document.querySelector(
                           `.desktop-nav-button:nth-of-type(${
                             index + 2
@@ -166,7 +191,7 @@ export function DesktopNavigation({
                     case 'End':
                       e.preventDefault();
                       const lastButton = document.querySelector(
-                        `.desktop-nav-button:nth-of-type(${navItems.length})`
+                        `.desktop-nav-button:nth-of-type(${filteredNavItems.length})`
                       ) as HTMLElement;
                       lastButton?.focus();
                       break;
