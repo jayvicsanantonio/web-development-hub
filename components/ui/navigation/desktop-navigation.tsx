@@ -29,10 +29,8 @@ export function DesktopNavigation({
     null
   );
 
-  // Get favorites from context
   const { favorites } = useFavorites();
 
-  // Get unique sections from favorites
   const favoritedSections = useMemo(() => {
     const sections = new Set<string>();
     favorites.forEach((favorite) => {
@@ -41,18 +39,19 @@ export function DesktopNavigation({
     return sections;
   }, [favorites]);
 
-  // Filter navItems based on which sections have favorites
   const filteredNavItems = useMemo(() => {
-    // If on home page, show all nav items
     if (isHomeActive) {
       return navItems;
     }
 
-    // If on favorites page, only show sections that have favorites
-    return navItems.filter((item) =>
-      favoritedSections.has(item.title)
-    );
-  }, [navItems, favoritedSections, isHomeActive]);
+    if (isFavoritesActive) {
+      return navItems.filter((item) =>
+        favoritedSections.has(item.title)
+      );
+    }
+
+    return navItems;
+  }, [navItems, favoritedSections, isHomeActive, isFavoritesActive]);
 
   useEffect(() => {
     if (hiddenTooltip) {
