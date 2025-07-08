@@ -23,11 +23,9 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
           className={`
             relative cursor-pointer h-10 w-10 rounded-full 
             bg-background-secondary/80 backdrop-blur-md 
-            border border-white/20 
-            shadow-md transition-all duration-300 
+            md:border border-white/20 
+            md:shadow-md transition-all duration-300 
             hover:bg-background-secondary/90 hover:border-white/30
-            focus:outline-none focus:ring-2 focus:ring-accent-neon/50
-            ${hasFilters ? 'ring-2 ring-accent-neon/40' : ''}
             ${className}
           `}
           aria-label={`Filter resources${
@@ -35,12 +33,12 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
           }`}
           aria-expanded={isFilterOpen}
         >
-          <Filter className="h-4 w-4 text-foreground opacity-70 mx-auto" />
+          <Filter className="h-5 w-5 md:h-4 md:w-4 text-foreground mx-auto" />
 
           {/* Active filter indicator */}
-          {hasFilters && (
-            <div className="absolute -top-1 -right-1 h-4 w-4 bg-accent-neon rounded-full flex items-center justify-center">
-              <span className="text-xs font-medium text-background">
+          {hasFilters && isFilterOpen && (
+            <div className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center">
+              <span className="text-xs font-medium text-white">
                 {selectedTags.length}
               </span>
             </div>
@@ -52,15 +50,14 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
           <button
             onClick={clearFilters}
             className="
-              absolute -top-2 -right-2 h-5 w-5 cursor-pointer
+              absolute -top-1 -right-1 h-4 w-4 cursor-pointer
               bg-red-500 hover:bg-red-600 
               rounded-full flex items-center justify-center
               transition-colors duration-200
-              focus:outline-none focus:ring-2 focus:ring-red-500/50
             "
             aria-label="Clear all filters"
           >
-            <X className="h-3 w-3 text-white" />
+            <X className="h-4 w-4 md:h-3 md:w-3 text-white" />
           </button>
         )}
       </div>

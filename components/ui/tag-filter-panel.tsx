@@ -151,90 +151,78 @@ export function TagFilterPanel({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 px-4">
-      {/* Backdrop - no blur */}
-      <div
-        className="absolute inset-0 bg-black/20"
-        onClick={onClose}
-      />
-
-      {/* Panel - glass-like style matching search input */}
+    <div className="fixed inset-0 z-50 flex items-start justify-center md:absolute md:inset-auto md:top-14 md:left-1/2 md:-translate-x-1/2">
+      {/* Panel - responsive design */}
       <div
         ref={panelRef}
         className="
-          relative w-full max-w-2xl
-          bg-background-secondary/80 backdrop-blur-md
+          w-full max-h-[90vh] md:max-h-[75vh] overflow-y-auto
+          md:w-auto md:min-w-[80vw] lg:min-w-[70vw] xl:min-w-[60vw]
+          bg-white/80 dark:bg-[#0F172A]/80 backdrop-blur-md
           border border-white/20 rounded-2xl
-          shadow-md
-          p-6 max-h-[80vh] overflow-y-auto
-          animate-in slide-in-from-top-4 duration-300
+          shadow-lg
+          p-4 md:p-6
+          animate-in slide-in-from-top-2 duration-200
         "
       >
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h3 className="text-lg font-semibold text-foreground">
-              Filter by Tags
-            </h3>
-            <p className="text-sm text-foreground/70 mt-1">
-              Select tags to filter resources. Multiple tags will show
-              resources containing any of the selected tags.
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            {selectedTags.length > 0 && (
+        <div className="flex items-center justify-between mb-4 md:mb-6">
+          <h2 className="text-lg md:text-xl font-semibold text-foreground">
+            Filter by Tags
+          </h2>
+          <button
+            onClick={onClose}
+            className="
+              p-1.5 md:p-2 rounded-lg hover:bg-background-primary/60
+              transition-colors duration-200
+              text-muted-foreground hover:text-foreground
+            "
+            aria-label="Close filter panel"
+          >
+            <X className="h-4 w-4 md:h-5 md:w-5" />
+          </button>
+        </div>
+
+        {/* Active Filters */}
+        {selectedTags.length > 0 && (
+          <div className="mb-4 md:mb-5">
+            <div className="flex items-center justify-between mb-1.5 md:mb-2">
+              <span className="text-xs md:text-sm font-medium text-foreground">
+                Active Filters ({selectedTags.length})
+              </span>
               <button
                 onClick={clearFilters}
                 className="
-                  px-3 py-1.5 text-sm rounded-lg
-                  bg-red-500/10 text-red-500 
-                  hover:bg-red-500/20 transition-colors
-                  focus:outline-none focus:ring-2 focus:ring-red-500/50
+                  px-1.5 md:px-2 py-0.5 md:py-1 text-xs rounded-md
+                  text-muted-foreground hover:text-foreground
+                  hover:bg-background-primary/60 transition-colors
+                  cursor-pointer
                 "
               >
                 Clear All
               </button>
-            )}
-            <button
-              onClick={onClose}
-              className="
-                p-2 rounded-lg 
-                hover:bg-foreground/10 transition-colors
-                focus:outline-none focus:ring-2 focus:ring-accent-neon/50
-              "
-              aria-label="Close filter panel"
-            >
-              <X className="h-5 w-5 text-foreground/70" />
-            </button>
-          </div>
-        </div>
-
-        {/* Selected tags summary */}
-        {selectedTags.length > 0 && (
-          <div className="mb-6 p-4 bg-accent-neon/5 rounded-xl border border-accent-neon/20">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-sm font-medium text-foreground">
-                Active Filters ({selectedTags.length})
-              </span>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1 md:gap-1.5">
               {selectedTags.map((tag) => (
                 <span
                   key={tag}
                   className="
-                    inline-flex items-center gap-1.5 px-3 py-1.5
-                    bg-accent-neon/20 text-accent-neon text-sm rounded-lg
-                    border border-accent-neon/30
+                    inline-flex items-center gap-0.5 md:gap-1 px-1.5 md:px-2 py-0.5 md:py-1
+                    bg-accent-neon/5 text-accent-neon text-[10px] md:text-xs rounded-md
+                    border border-accent-neon/20
                   "
                 >
-                  {PRIORITY_TAGS.includes(tag) && getTagIcon(tag)}
-                  {formatTagDisplay(tag)}
+                  {getTagIcon(tag)}
+                  {tag.replace('-', ' ')}
                   <button
                     onClick={() => toggleTag(tag)}
-                    className="hover:bg-accent-neon/30 rounded p-0.5 transition-colors"
+                    className="
+                      ml-0.5 hover:bg-accent-neon/20 rounded-full p-0.5
+                      transition-colors duration-200
+                    "
                     aria-label={`Remove ${tag} filter`}
                   >
-                    <X className="h-3 w-3" />
+                    <X className="h-2.5 w-2.5" />
                   </button>
                 </span>
               ))}
@@ -242,45 +230,47 @@ export function TagFilterPanel({
           </div>
         )}
 
-        {/* Tag grid */}
-        <div className="space-y-6">
-          {/* Priority Tags */}
+        {/* Tag sections */}
+        <div className="space-y-4 md:space-y-6">
+          {/* Featured Tags */}
           <div>
-            <h4 className="text-sm font-medium text-foreground/80 mb-3 flex items-center gap-2">
-              <Star className="h-4 w-4" />
-              Featured Tags
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {PRIORITY_TAGS.map((tag) => (
-                <button
-                  key={tag}
-                  onClick={() => toggleTag(tag)}
-                  className={`
-                    inline-flex items-center gap-1.5 px-3 py-2
-                    rounded-lg border transition-all duration-200
-                    focus:outline-none focus:ring-2 focus:ring-accent-neon/50
-                    ${
-                      selectedTags.includes(tag)
-                        ? 'bg-accent-neon/20 text-accent-neon border-accent-neon/40 ring-2 ring-accent-neon/30'
-                        : 'bg-foreground/5 text-foreground/80 border-foreground/20 hover:bg-foreground/10 hover:border-foreground/30'
-                    }
-                  `}
-                >
-                  {getTagIcon(tag)}
-                  <span className="text-sm font-medium">
-                    {formatTagDisplay(tag)}
-                  </span>
-                </button>
-              ))}
+            <div className="flex items-center gap-1.5 md:gap-2 mb-2 md:mb-4">
+              <Star className="h-3.5 w-3.5 md:h-4 md:w-4 text-accent-purple" />
+              <span className="text-sm md:text-base font-semibold text-foreground">
+                Featured Tags
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-1.5 md:gap-2">
+              {PRIORITY_TAGS.map((tag) => {
+                const isSelected = selectedTags.includes(tag);
+                return (
+                  <button
+                    key={tag}
+                    onClick={() => toggleTag(tag)}
+                    className={`
+                      inline-flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 md:py-1.5 rounded-full text-[10px] md:text-xs font-medium
+                      transition-all duration-200 border hover:scale-105
+                      ${
+                        isSelected
+                          ? 'bg-accent-neon/20 text-accent-neon border-accent-neon/40 ring-1 md:ring-2 ring-accent-neon/30 shadow-md md:shadow-lg'
+                          : 'bg-background-primary/40 text-foreground/80 border-border/40 hover:bg-background-primary/60 hover:border-border/60 hover:shadow-md'
+                      }
+                    `}
+                  >
+                    {getTagIcon(tag)}
+                    <span>{tag.replace('-', ' ')}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          {/* All Other Tags */}
+          {/* All Tags */}
           <div>
-            <h4 className="text-sm font-medium text-foreground/80 mb-3">
+            <span className="text-sm md:text-base font-semibold text-foreground mb-2 md:mb-4 block">
               All Tags
-            </h4>
-            <div className="flex flex-wrap gap-2">
+            </span>
+            <div className="flex flex-wrap gap-1.5 md:gap-2">
               {ALL_TAGS.filter(
                 (tag) => !PRIORITY_TAGS.includes(tag)
               ).map((tag) => (
@@ -288,29 +278,27 @@ export function TagFilterPanel({
                   key={tag}
                   onClick={() => toggleTag(tag)}
                   className={`
-                    px-3 py-1.5 text-sm rounded-lg border
-                    transition-all duration-200
-                    focus:outline-none focus:ring-2 focus:ring-accent-neon/50
+                    inline-flex items-center px-2 md:px-2.5 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-medium border
+                    transition-all duration-200 hover:scale-105
+                    focus:outline-none focus:ring-1 focus:ring-accent-neon/50
                     ${
                       selectedTags.includes(tag)
-                        ? 'bg-accent-neon/15 text-accent-neon border-accent-neon/30'
-                        : 'bg-foreground/5 text-foreground/70 border-foreground/15 hover:bg-foreground/10 hover:border-foreground/25'
+                        ? 'bg-accent-neon/20 text-accent-neon border-accent-neon/40 ring-1 ring-accent-neon/30 shadow-md'
+                        : 'bg-background-primary/40 text-foreground/70 border-border/40 hover:bg-background-primary/60 hover:border-border/60 hover:shadow-sm'
                     }
                   `}
                 >
-                  {formatTagDisplay(tag)}
+                  {tag.replace('-', ' ')}
                 </button>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="mt-6 pt-4 border-t border-foreground/10 flex justify-between items-center text-xs text-foreground/60">
+        {/* Panel footer */}
+        <div className="flex items-center justify-between text-[10px] md:text-xs text-muted-foreground pt-2 border-t border-border/20">
           <span>Click tags to add or remove filters</span>
-          <span>
-            {selectedTags.length} of {ALL_TAGS.length} tags selected
-          </span>
+          <span>{selectedTags.length} of {ALL_TAGS.length} tags selected</span>
         </div>
       </div>
     </div>
