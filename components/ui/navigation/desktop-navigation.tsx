@@ -187,7 +187,7 @@ export function DesktopNavigation({
                     case 'Home':
                       e.preventDefault();
                       const firstButton = document.querySelector(
-                        `.desktop-nav-button:nth-of-type(2)`
+                        `.desktop-nav-button:nth-of-type(3)`
                       ) as HTMLElement;
                       firstButton?.focus();
                       break;
@@ -195,7 +195,7 @@ export function DesktopNavigation({
                       e.preventDefault();
                       const lastButton = document.querySelector(
                         `.desktop-nav-button:nth-of-type(${
-                          filteredNavItems.length + 1
+                          filteredNavItems.length + 2
                         })`
                       ) as HTMLElement;
                       lastButton?.focus();
