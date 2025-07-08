@@ -28,33 +28,31 @@ export function DesktopNavigation({
   const [hiddenTooltip, setHiddenTooltip] = useState<string | null>(
     null
   );
-  
+
   // Get favorites from context
   const { favorites } = useFavorites();
-  
+
   // Get unique sections from favorites
   const favoritedSections = useMemo(() => {
     const sections = new Set<string>();
-    favorites.forEach(favorite => {
+    favorites.forEach((favorite) => {
       sections.add(favorite.section);
     });
     return sections;
   }, [favorites]);
-  
+
   // Filter navItems based on which sections have favorites
   const filteredNavItems = useMemo(() => {
     // If on home page, show all nav items
     if (isHomeActive) {
       return navItems;
     }
-    
-    // If on favorites page, only show sections that have favorites
-    return navItems.filter(item => {
-      const sectionTitle = item.title.replace(' & ', ' and ');
-      return favoritedSections.has(sectionTitle);
-    });
-  }, [navItems, favoritedSections, isHomeActive]);
 
+    // If on favorites page, only show sections that have favorites
+    return navItems.filter((item) =>
+      favoritedSections.has(item.title)
+    );
+  }, [navItems, favoritedSections, isHomeActive]);
 
   useEffect(() => {
     if (hiddenTooltip) {
@@ -148,7 +146,7 @@ export function DesktopNavigation({
           </li>
         )}
 
-        {(isHomeActive || isFavoritesActive) && 
+        {(isHomeActive || isFavoritesActive) &&
           filteredNavItems.map((item, index) => (
             <li key={item.id} className="relative group">
               <NavigationItem
@@ -160,7 +158,7 @@ export function DesktopNavigation({
                 }}
                 variant="desktop"
                 index={index}
-                totalItems={navItems.length}
+                totalItems={filteredNavItems.length}
                 aria-describedby="nav-description"
                 onKeyDown={(e) => {
                   switch (e.key) {
@@ -168,17 +166,19 @@ export function DesktopNavigation({
                       e.preventDefault();
                       if (index > 0) {
                         const prevButton = document.querySelector(
-                          `.desktop-nav-button:nth-of-type(${index})`
+                          `.desktop-nav-button:nth-of-type(${
+                            index + 2
+                          })`
                         ) as HTMLElement;
                         prevButton?.focus();
                       }
                       break;
                     case 'ArrowDown':
                       e.preventDefault();
-                      if (index < navItems.length - 1) {
+                      if (index < filteredNavItems.length - 1) {
                         const nextButton = document.querySelector(
                           `.desktop-nav-button:nth-of-type(${
-                            index + 2
+                            index + 4
                           })`
                         ) as HTMLElement;
                         nextButton?.focus();
@@ -187,14 +187,16 @@ export function DesktopNavigation({
                     case 'Home':
                       e.preventDefault();
                       const firstButton = document.querySelector(
-                        `.desktop-nav-button:nth-of-type(1)`
+                        `.desktop-nav-button:nth-of-type(2)`
                       ) as HTMLElement;
                       firstButton?.focus();
                       break;
                     case 'End':
                       e.preventDefault();
                       const lastButton = document.querySelector(
-                        `.desktop-nav-button:nth-of-type(${navItems.length})`
+                        `.desktop-nav-button:nth-of-type(${
+                          filteredNavItems.length + 1
+                        })`
                       ) as HTMLElement;
                       lastButton?.focus();
                       break;
@@ -216,8 +218,7 @@ export function DesktopNavigation({
                 </div>
               </div>
             </li>
-          ))        
-        }
+          ))}
 
         <li className="w-full">
           <div
