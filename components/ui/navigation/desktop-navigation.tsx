@@ -6,7 +6,8 @@ import { BookmarkIcon, HomeIcon, Moon, Sun } from 'lucide-react';
 import { useTheme } from '@/contexts/theme-context';
 import { NavigationItem } from '@/components/ui/navigation-item';
 import { type NavigationItem as NavigationItemType } from '@/lib/utils/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { useFavorites } from '@/contexts/favorites-context';
 
 interface DesktopNavigationProps {
   navItems: NavigationItemType[];
@@ -27,6 +28,33 @@ export function DesktopNavigation({
   const [hiddenTooltip, setHiddenTooltip] = useState<string | null>(
     null
   );
+  
+  // Get favorites from context
+  const { favorites } = useFavorites();
+  
+  // Get unique sections from favorites
+  const favoritedSections = useMemo(() => {
+    const sections = new Set<string>();
+    favorites.forEach(favorite => {
+      sections.add(favorite.section);
+    });
+    return sections;
+  }, [favorites]);
+  
+  // Filter navItems based on which sections have favorites
+  const filteredNavItems = useMemo(() => {
+    // If on home page, show all nav items
+    if (isHomeActive) {
+      return navItems;
+    }
+    
+    // If on favorites page, only show sections that have favorites
+    return navItems.filter(item => {
+      const sectionTitle = item.title.replace(' & ', ' and ');
+      return favoritedSections.has(sectionTitle);
+    });
+  }, [navItems, favoritedSections, isHomeActive]);
+
 
   useEffect(() => {
     if (hiddenTooltip) {
@@ -120,8 +148,8 @@ export function DesktopNavigation({
           </li>
         )}
 
-        {(isHomeActive || isFavoritesActive) &&
-          navItems.map((item, index) => (
+        {(isHomeActive || isFavoritesActive) && 
+          filteredNavItems.map((item, index) => (
             <li key={item.id} className="relative group">
               <NavigationItem
                 item={item}
@@ -188,7 +216,8 @@ export function DesktopNavigation({
                 </div>
               </div>
             </li>
-          ))}
+          ))        
+        }
 
         <li className="w-full">
           <div
