@@ -27,6 +27,9 @@ type SearchContextType = {
   clearSearch: () => void;
   currentCategory: string | null;
   setCurrentCategory: (category: string | null) => void;
+  selectedTags: string[];
+  setSelectedTags: (tags: string[]) => void;
+  clearFilters: () => void;
 };
 
 const SearchContext = createContext<SearchContextType | undefined>(
@@ -55,6 +58,7 @@ export function SearchProvider({
   const [currentCategory, setCurrentCategory] = useState<
     string | null
   >(null);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const pathname = usePathname();
   const { favorites } = useFavorites();
 
@@ -65,6 +69,10 @@ export function SearchProvider({
   const clearSearch = useCallback(() => {
     setSearchQueryState('');
     setSearchResults([]);
+  }, []);
+
+  const clearFilters = useCallback(() => {
+    setSelectedTags([]);
   }, []);
 
   // Reset search query when pathname (route) changes
@@ -106,8 +114,19 @@ export function SearchProvider({
       );
     }
 
+    // Apply tag filters
+    if (selectedTags.length > 0) {
+      results = results.filter(
+        (resource) => {
+          const resourceTags = (resource as any).tags;
+          return resourceTags && Array.isArray(resourceTags) && 
+                 selectedTags.some(tag => resourceTags.includes(tag));
+        }
+      );
+    }
+
     setSearchResults(results);
-  }, [searchQuery, currentCategory, pathname, favorites]);
+  }, [searchQuery, currentCategory, pathname, favorites, selectedTags]);
 
   const contextValue = React.useMemo(
     () => ({
@@ -117,6 +136,9 @@ export function SearchProvider({
       clearSearch,
       currentCategory,
       setCurrentCategory,
+      selectedTags,
+      setSelectedTags,
+      clearFilters,
     }),
     [
       searchQuery,
@@ -125,6 +147,9 @@ export function SearchProvider({
       clearSearch,
       currentCategory,
       setCurrentCategory,
+      selectedTags,
+      setSelectedTags,
+      clearFilters,
     ]
   );
 
