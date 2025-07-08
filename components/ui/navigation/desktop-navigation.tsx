@@ -166,9 +166,7 @@ export function DesktopNavigation({
                       e.preventDefault();
                       if (index > 0) {
                         const prevButton = document.querySelector(
-                          `.desktop-nav-button:nth-of-type(${
-                            index + 2
-                          })`
+                          `.desktop-nav-button:nth-of-type(${index})`
                         ) as HTMLElement;
                         prevButton?.focus();
                       }
@@ -178,7 +176,7 @@ export function DesktopNavigation({
                       if (index < filteredNavItems.length - 1) {
                         const nextButton = document.querySelector(
                           `.desktop-nav-button:nth-of-type(${
-                            index + 4
+                            index + 2
                           })`
                         ) as HTMLElement;
                         nextButton?.focus();
@@ -187,16 +185,14 @@ export function DesktopNavigation({
                     case 'Home':
                       e.preventDefault();
                       const firstButton = document.querySelector(
-                        `.desktop-nav-button:nth-of-type(3)`
+                        `.desktop-nav-button:nth-of-type(1)`
                       ) as HTMLElement;
                       firstButton?.focus();
                       break;
                     case 'End':
                       e.preventDefault();
                       const lastButton = document.querySelector(
-                        `.desktop-nav-button:nth-of-type(${
-                          filteredNavItems.length + 2
-                        })`
+                        `.desktop-nav-button:nth-of-type(${filteredNavItems.length})`
                       ) as HTMLElement;
                       lastButton?.focus();
                       break;
