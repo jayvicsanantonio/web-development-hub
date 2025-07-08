@@ -6,6 +6,7 @@ import React, {
   useState,
   useCallback,
   useEffect,
+  useMemo,
   ReactNode,
 } from 'react';
 import { usePathname } from 'next/navigation';
@@ -92,66 +93,103 @@ export function SearchProvider({
     clearSearch();
   }, [pathname, clearSearch]);
 
-  useEffect(() => {
-    // Handle search logic and default display logic in a single effect
-    if (!searchQuery || searchQuery.trim() === '') {
-      // No search query - show appropriate default results
-      let results;
+  // Optimized search with debouncing and memoization
+  const searchIndex = useMemo(() => {
+    const allResources = getAllResources();
+    return allResources.map(resource => ({
+      ...resource,
+      searchString: `${resource.title} ${resource.description} ${resource.section} ${resource.tags?.join(' ') || ''}`.toLowerCase()
+    }));
+  }, []);
 
-      // Determine data source based on pathname
-      if (pathname === '/favorites') {
-        // On favorites page, use favorites as source
-        results = favorites;
-      } else if (selectedTags.length > 0) {
-        // If tags are selected but no search query, show all resources
-        results = getAllResources();
-      } else {
-        // No search query, no tags, not on favorites - show no results
-        setSearchResults([]);
+  const performOptimizedSearch = useCallback((query: string, resources: Resource[]): Resource[] => {
+    if (!query.trim()) return [];
+    
+    const lowerQuery = query.toLowerCase();
+    
+    return resources
+      .filter(resource => {
+        const searchString = `${resource.title} ${resource.description} ${resource.section} ${resource.tags?.join(' ') || ''}`.toLowerCase();
+        return searchString.includes(lowerQuery);
+      })
+      .map(resource => {
+        // Calculate relevance score
+        let score = 0;
+        const title = resource.title.toLowerCase();
+        const description = resource.description.toLowerCase();
+        const section = resource.section.toLowerCase();
+        
+        if (title.includes(lowerQuery)) {
+          score += 10;
+          if (title.startsWith(lowerQuery)) score += 5;
+        }
+        if (description.includes(lowerQuery)) score += 5;
+        if (section.includes(lowerQuery)) score += 2;
+        if (resource.tags?.some(tag => tag.toLowerCase().includes(lowerQuery))) score += 3;
+        
+        return { ...resource, relevanceScore: score } as Resource & { relevanceScore: number };
+      })
+      .sort((a, b) => (b as any).relevanceScore - (a as any).relevanceScore)
+      .slice(0, 50); // Limit results for performance
+  }, []);
+
+  useEffect(() => {
+    // Debounce search to avoid excessive re-renders
+    const timeoutId = setTimeout(() => {
+      // Handle search logic and default display logic in a single effect
+      if (!searchQuery || searchQuery.trim() === '') {
+        // No search query - show appropriate default results
+        let results;
+
+        // Determine data source based on pathname
+        if (pathname === '/favorites') {
+          // On favorites page, use favorites as source
+          results = favorites;
+        } else if (selectedTags.length > 0) {
+          // If tags are selected but no search query, show all resources
+          results = getAllResources();
+        } else {
+          // No search query, no tags, not on favorites - show no results
+          setSearchResults([]);
+          return;
+        }
+
+        // Apply tag filters if any tags are selected
+        if (selectedTags.length > 0) {
+          results = filterResourcesByTags(results);
+        }
+
+        setSearchResults(results);
         return;
       }
 
-      // Apply tag filters if any tags are selected
+      // There is a search query - perform optimized search
+      const searchSource = pathname === '/favorites' ? favorites : getAllResources();
+      let results = performOptimizedSearch(searchQuery, searchSource);
+
+      if (currentCategory) {
+        results = results.filter(
+          (resource) => resource.section === currentCategory
+        );
+      }
+
+      // Apply tag filters using our filter hook's logic
       if (selectedTags.length > 0) {
         results = filterResourcesByTags(results);
       }
 
       setSearchResults(results);
-      return;
-    }
+    }, 300); // 300ms debounce
 
-    // There is a search query - perform search
-    const query = searchQuery.toLowerCase();
-
-    // Use favorites as the search source when on /favorites page
-    const searchSource =
-      pathname === '/favorites' ? favorites : getAllResources();
-
-    let results = searchSource.filter(
-      (resource) =>
-        resource.title.toLowerCase().includes(query) ||
-        resource.description.toLowerCase().includes(query) ||
-        resource.section.toLowerCase().includes(query)
-    );
-
-    if (currentCategory) {
-      results = results.filter(
-        (resource) => resource.section === currentCategory
-      );
-    }
-
-    // Apply tag filters using our filter hook's logic
-    if (selectedTags.length > 0) {
-      results = filterResourcesByTags(results);
-    }
-
-    setSearchResults(results);
+    return () => clearTimeout(timeoutId);
   }, [
     searchQuery,
     currentCategory,
     pathname,
     favorites,
     selectedTags,
+    performOptimizedSearch,
+    filterResourcesByTags,
   ]);
 
   const contextValue = React.useMemo(
