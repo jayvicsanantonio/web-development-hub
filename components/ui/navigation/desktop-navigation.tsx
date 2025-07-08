@@ -136,7 +136,8 @@ export function DesktopNavigation({
           </div>
         </li>
 
-        {(isHomeActive || isFavoritesActive) && (
+        {((isHomeActive && filteredNavItems.length > 0) ||
+          (isFavoritesActive && filteredNavItems.length > 0)) && (
           <li className="w-full">
             <div
               className="h-px w-6 bg-border/50 mx-auto"
