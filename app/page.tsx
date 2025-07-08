@@ -48,6 +48,7 @@ const ResourceSection = ({
     title: link.title,
     href: link.href,
     description: link.description,
+    tags: link.tags,
   }));
 
   const formattedTitle = title.toLowerCase().replace(/\s+/g, '-');

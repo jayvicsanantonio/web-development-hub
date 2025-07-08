@@ -25,11 +25,11 @@ export default function Page() {
     title: link.title,
     href: link.href,
     description: link.description,
+    tags: link.tags,
   }));
 
-  const displayedResources = searchQuery && searchQuery.trim()
-    ? searchResults
-    : allResources;
+  const displayedResources =
+    searchQuery && searchQuery.trim() ? searchResults : allResources;
 
   return (
     <div className="container mx-auto md:mt-20 mt-8 py-12 px-4 md:px-6 flex flex-col gap-10">

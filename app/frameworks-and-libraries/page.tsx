@@ -25,6 +25,7 @@ export default function Page() {
     title: link.title,
     href: link.href,
     description: link.description,
+    tags: link.tags,
   }));
 
   const displayedResources =
