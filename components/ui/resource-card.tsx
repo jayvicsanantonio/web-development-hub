@@ -13,6 +13,7 @@ import {
   getCardClassName,
   getAccentColorClasses,
 } from '@/lib/utils/resource-card';
+import { getTagIconName } from '@/lib/utils/tag-icons';
 
 type ResourceCardProps = {
   resource: {
@@ -103,41 +104,16 @@ export default function ResourceCard({
                 )}
                 title={`Filter by ${tag}`}
               >
-                {tag === 'ai' && (
-                  <Icon
-                    icon="mdi:robot"
-                    className="w-3 h-3 mr-1.5"
-                    aria-hidden="true"
-                  />
-                )}
-                {tag === 'interview-prep' && (
-                  <Icon
-                    icon="mdi:account-tie"
-                    className="w-3 h-3 mr-1.5"
-                    aria-hidden="true"
-                  />
-                )}
-                {tag === 'free' && (
-                  <Icon
-                    icon="mdi:gift"
-                    className="w-3 h-3 mr-1.5"
-                    aria-hidden="true"
-                  />
-                )}
-                {tag === 'beginner-friendly' && (
-                  <Icon
-                    icon="mdi:school"
-                    className="w-3 h-3 mr-1.5"
-                    aria-hidden="true"
-                  />
-                )}
-                {tag === 'trending' && (
-                  <Icon
-                    icon="mdi:trending-up"
-                    className="w-3 h-3 mr-1.5"
-                    aria-hidden="true"
-                  />
-                )}
+                {(() => {
+                  const iconName = getTagIconName(tag);
+                  return iconName ? (
+                    <Icon
+                      icon={iconName}
+                      className="w-3 h-3 mr-1.5"
+                      aria-hidden="true"
+                    />
+                  ) : null;
+                })()}
                 {tag.replace('-', ' ')}
               </span>
             ))}

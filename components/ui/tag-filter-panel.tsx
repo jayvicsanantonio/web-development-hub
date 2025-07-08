@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { useSearch } from '@/contexts/search-context';
 import { X, Star } from 'lucide-react';
 import { Icon } from '@iconify/react';
+import { getTagIconName } from '@/lib/utils/tag-icons';
 
 // All available tags from the memory - comprehensive tag system
 const ALL_TAGS = [
@@ -74,29 +75,20 @@ interface TagFilterPanelProps {
   onClose: () => void;
 }
 
-// Get icon for specific priority tags - using same icons as resource card
+// Get icon for specific priority tags using shared utility
 const getTagIcon = (tag: string) => {
-  switch (tag) {
-    case 'ai':
-      return <Icon icon="mdi:robot" className="h-3 w-3" />;
-    case 'interview-prep':
-      return <Icon icon="mdi:account-tie" className="h-3 w-3" />;
-    case 'free':
-      return <Icon icon="mdi:gift" className="h-3 w-3" />;
-    case 'beginner-friendly':
-      return <Icon icon="mdi:school" className="h-3 w-3" />;
-    case 'trending':
-      return <Icon icon="mdi:trending-up" className="h-3 w-3" />;
-    default:
-      return null;
-  }
+  const iconName = getTagIconName(tag);
+  return iconName ? (
+    <Icon icon={iconName} className="h-3 w-3" />
+  ) : null;
 };
 
 export function TagFilterPanel({
   isOpen,
   onClose,
 }: TagFilterPanelProps) {
-  const { selectedTags, toggleTag, isTagSelected, clearFilters } = useSearch();
+  const { selectedTags, toggleTag, isTagSelected, clearFilters } =
+    useSearch();
   const panelRef = useRef<HTMLDivElement>(null);
 
   // Close panel when clicking outside
@@ -135,12 +127,6 @@ export function TagFilterPanel({
       document.removeEventListener('keydown', handleEscape);
     };
   }, [isOpen, onClose]);
-
-  // The toggleTag function is now provided directly from the useSearch context
-
-  const formatTagDisplay = (tag: string) => {
-    return tag.replace(/-/g, ' ');
-  };
 
   if (!isOpen) return null;
 
@@ -244,9 +230,10 @@ export function TagFilterPanel({
                     className={`
                       inline-flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 md:py-1.5 rounded-full text-[10px] md:text-xs font-medium
                       transition-all duration-200 border hover:scale-105
-                      ${isSelected
-                        ? 'bg-accent-neon/20 text-accent-neon border-accent-neon/40 ring-1 md:ring-2 ring-accent-neon/30 shadow-md md:shadow-lg'
-                        : 'bg-background-primary/40 text-foreground/80 border-border/40 hover:bg-background-primary/60 hover:border-border/60 hover:shadow-md'
+                      ${
+                        isSelected
+                          ? 'bg-accent-neon/20 text-accent-neon border-accent-neon/40 ring-1 md:ring-2 ring-accent-neon/30 shadow-md md:shadow-lg'
+                          : 'bg-background-primary/40 text-foreground/80 border-border/40 hover:bg-background-primary/60 hover:border-border/60 hover:shadow-md'
                       }
                     `}
                   >
@@ -291,7 +278,9 @@ export function TagFilterPanel({
         {/* Panel footer */}
         <div className="flex items-center justify-between text-[10px] md:text-xs text-muted-foreground pt-2 border-t border-border/20">
           <span>Click tags to add or remove filters</span>
-          <span>{selectedTags.length} of {ALL_TAGS.length} tags selected</span>
+          <span>
+            {selectedTags.length} of {ALL_TAGS.length} tags selected
+          </span>
         </div>
       </div>
     </div>
