@@ -96,7 +96,7 @@ export function TagFilterPanel({
   isOpen,
   onClose,
 }: TagFilterPanelProps) {
-  const { selectedTags, setSelectedTags, clearFilters } = useSearch();
+  const { selectedTags, toggleTag, isTagSelected, clearFilters } = useSearch();
   const panelRef = useRef<HTMLDivElement>(null);
 
   // Close panel when clicking outside
@@ -136,13 +136,7 @@ export function TagFilterPanel({
     };
   }, [isOpen, onClose]);
 
-  const toggleTag = (tag: string) => {
-    if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter((t) => t !== tag));
-    } else {
-      setSelectedTags([...selectedTags, tag]);
-    }
-  };
+  // The toggleTag function is now provided directly from the useSearch context
 
   const formatTagDisplay = (tag: string) => {
     return tag.replace(/-/g, ' ');
@@ -242,7 +236,7 @@ export function TagFilterPanel({
             </div>
             <div className="flex flex-wrap gap-1.5 md:gap-2">
               {PRIORITY_TAGS.map((tag) => {
-                const isSelected = selectedTags.includes(tag);
+                const isSelected = isTagSelected(tag);
                 return (
                   <button
                     key={tag}
@@ -250,10 +244,9 @@ export function TagFilterPanel({
                     className={`
                       inline-flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 md:py-1.5 rounded-full text-[10px] md:text-xs font-medium
                       transition-all duration-200 border hover:scale-105
-                      ${
-                        isSelected
-                          ? 'bg-accent-neon/20 text-accent-neon border-accent-neon/40 ring-1 md:ring-2 ring-accent-neon/30 shadow-md md:shadow-lg'
-                          : 'bg-background-primary/40 text-foreground/80 border-border/40 hover:bg-background-primary/60 hover:border-border/60 hover:shadow-md'
+                      ${isSelected
+                        ? 'bg-accent-neon/20 text-accent-neon border-accent-neon/40 ring-1 md:ring-2 ring-accent-neon/30 shadow-md md:shadow-lg'
+                        : 'bg-background-primary/40 text-foreground/80 border-border/40 hover:bg-background-primary/60 hover:border-border/60 hover:shadow-md'
                       }
                     `}
                   >
@@ -282,7 +275,7 @@ export function TagFilterPanel({
                     transition-all duration-200 hover:scale-105
                     focus:outline-none focus:ring-1 focus:ring-accent-neon/50
                     ${
-                      selectedTags.includes(tag)
+                      isTagSelected(tag)
                         ? 'bg-accent-neon/20 text-accent-neon border-accent-neon/40 ring-1 ring-accent-neon/30 shadow-md'
                         : 'bg-background-primary/40 text-foreground/70 border-border/40 hover:bg-background-primary/60 hover:border-border/60 hover:shadow-sm'
                     }

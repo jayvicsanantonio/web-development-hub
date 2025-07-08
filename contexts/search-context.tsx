@@ -11,6 +11,7 @@ import React, {
 import { usePathname } from 'next/navigation';
 import { SECTIONS } from '@/constants/sections';
 import { useFavorites } from './favorites-context';
+import { useFilter } from '@/hooks/useFilter';
 
 type Resource = {
   title: string;
@@ -27,9 +28,14 @@ type SearchContextType = {
   clearSearch: () => void;
   currentCategory: string | null;
   setCurrentCategory: (category: string | null) => void;
+
+  // Tag filtering methods from useFilter hook
   selectedTags: string[];
-  setSelectedTags: (tags: string[]) => void;
+  toggleTag: (tag: string) => void;
+  isTagSelected: (tag: string) => boolean;
   clearFilters: () => void;
+  hasSelectedTags: boolean;
+  selectedTagCount: number;
 };
 
 const SearchContext = createContext<SearchContextType | undefined>(
@@ -58,9 +64,18 @@ export function SearchProvider({
   const [currentCategory, setCurrentCategory] = useState<
     string | null
   >(null);
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const pathname = usePathname();
   const { favorites } = useFavorites();
+
+  // Use the filter hook for tag filtering logic
+  const {
+    selectedTags,
+    toggleTag,
+    isTagSelected,
+    clearAllTags: clearFilters,
+    hasSelectedTags,
+    selectedTagCount,
+  } = useFilter({});
 
   const setSearchQuery = useCallback((query: string) => {
     setSearchQueryState(query);
@@ -69,10 +84,6 @@ export function SearchProvider({
   const clearSearch = useCallback(() => {
     setSearchQueryState('');
     setSearchResults([]);
-  }, []);
-
-  const clearFilters = useCallback(() => {
-    setSelectedTags([]);
   }, []);
 
   // Reset search query when pathname (route) changes
@@ -84,13 +95,35 @@ export function SearchProvider({
     // Handle search logic and default display logic in a single effect
     if (!searchQuery || searchQuery.trim() === '') {
       // No search query - show appropriate default results
+      let results;
+      
+      // Determine data source based on pathname
       if (pathname === '/favorites') {
-        // On favorites page, show all favorites when no search
-        setSearchResults(favorites);
+        // On favorites page, use favorites as source
+        results = favorites;
+      } else if (selectedTags.length > 0) {
+        // If tags are selected but no search query, show all resources
+        results = getAllResources();
       } else {
-        // On other pages, show no results when no search
+        // No search query, no tags, not on favorites - show no results
         setSearchResults([]);
+        return;
       }
+      
+      // Apply tag filters if any tags are selected
+      if (selectedTags.length > 0) {
+        results = results.filter((resource) => {
+          const resourceTags = (resource as any).tags;
+          
+          return (
+            resourceTags &&
+            Array.isArray(resourceTags) &&
+            selectedTags.every((tag) => resourceTags.includes(tag))
+          );
+        });
+      }
+      
+      setSearchResults(results);
       return;
     }
 
@@ -114,19 +147,26 @@ export function SearchProvider({
       );
     }
 
-    // Apply tag filters
+    // Apply tag filters using our filter hook's logic
     if (selectedTags.length > 0) {
-      results = results.filter(
-        (resource) => {
-          const resourceTags = (resource as any).tags;
-          return resourceTags && Array.isArray(resourceTags) && 
-                 selectedTags.some(tag => resourceTags.includes(tag));
-        }
-      );
+      results = results.filter((resource) => {
+        const resourceTags = (resource as any).tags;
+        return (
+          resourceTags &&
+          Array.isArray(resourceTags) &&
+          selectedTags.every((tag) => resourceTags.includes(tag))
+        );
+      });
     }
 
     setSearchResults(results);
-  }, [searchQuery, currentCategory, pathname, favorites, selectedTags]);
+  }, [
+    searchQuery,
+    currentCategory,
+    pathname,
+    favorites,
+    selectedTags,
+  ]);
 
   const contextValue = React.useMemo(
     () => ({
@@ -136,9 +176,13 @@ export function SearchProvider({
       clearSearch,
       currentCategory,
       setCurrentCategory,
+      // Tag filter related props from useFilter hook
       selectedTags,
-      setSelectedTags,
+      toggleTag,
+      isTagSelected,
       clearFilters,
+      hasSelectedTags,
+      selectedTagCount,
     }),
     [
       searchQuery,
@@ -147,9 +191,13 @@ export function SearchProvider({
       clearSearch,
       currentCategory,
       setCurrentCategory,
+      // Tag filter related dependencies
       selectedTags,
-      setSelectedTags,
+      toggleTag,
+      isTagSelected,
       clearFilters,
+      hasSelectedTags,
+      selectedTagCount,
     ]
   );
 

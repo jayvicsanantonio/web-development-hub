@@ -119,14 +119,15 @@ const ResourceSection = ({
 };
 
 export default function Home() {
-  const { searchQuery, searchResults, setCurrentCategory } =
+  const { searchQuery, searchResults, selectedTags, setCurrentCategory } =
     useSearch();
 
   useEffect(() => {
     setCurrentCategory(null);
   }, [setCurrentCategory]);
 
-  const isSearching = searchQuery && searchQuery.trim().length > 0;
+  // Show search results when there's a search query OR when tags are selected
+  const isSearching = (searchQuery && searchQuery.trim().length > 0) || selectedTags.length > 0;
   const groupedResults = isSearching
     ? searchResults.reduce(
         (groups: Record<string, any[]>, item: any) => {

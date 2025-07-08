@@ -167,7 +167,7 @@ const FavoritesSection = ({
 // Main component
 export default function FavoritesPage() {
   const { favorites, clearFavorites } = useFavorites();
-  const { searchQuery, searchResults, setCurrentCategory } =
+  const { searchQuery, searchResults, selectedTags, setCurrentCategory } =
     useSearch();
 
   useEffect(() => {
@@ -175,10 +175,11 @@ export default function FavoritesPage() {
   }, [setCurrentCategory]);
 
   const displayedFavorites = useMemo(() => {
-    return searchQuery && searchQuery.trim()
+    // Show searchResults when there's a search query OR when tags are selected
+    return (searchQuery && searchQuery.trim()) || selectedTags.length > 0
       ? searchResults
       : favorites;
-  }, [searchQuery, searchResults, favorites]);
+  }, [searchQuery, searchResults, favorites, selectedTags]);
 
   const groupedFavorites = useMemo(() => {
     return displayedFavorites.reduce((acc, favorite) => {
