@@ -1,16 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { BackLink } from '@/components/ui/back-link';
 
 export default function TermsOfServicePage() {
   return (
     <div className="container mx-auto py-12 px-4 md:px-6 max-w-4xl">
       <div className="space-y-8">
-        <div className="mb-6">
-          <BackLink />
-        </div>
-
         <div className="space-y-4">
           <h1 className="text-4xl font-bold tracking-tight">
             Terms of Service

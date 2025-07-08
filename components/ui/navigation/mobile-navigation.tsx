@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, Search, BookmarkIcon, Moon, Sun } from 'lucide-react';
 import { useTheme } from '@/contexts/theme-context';
 import { SearchInput } from '@/components/ui/search-input';
@@ -12,26 +13,72 @@ interface MobileNavigationProps {
   navItems: NavigationItemType[];
   activeSection: string;
   onScrollToSection: (id: string) => void;
+  hideSearch?: boolean;
 }
 
 export function MobileNavigation({
   navItems,
   activeSection,
   onScrollToSection,
+  hideSearch = false,
 }: MobileNavigationProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname();
+
+  // Create refs for each navigation item
+  const navItemRefs = useRef<
+    (HTMLAnchorElement | HTMLButtonElement | null)[]
+  >([]);
 
   const handleSearchComplete = () => {
     setIsMobileMenuOpen(false);
     setIsSearchOpen(false);
   };
 
-  const handleScrollToSection = (id: string) => {
-    onScrollToSection(id);
+  const handleNavigationClick = () => {
     setIsMobileMenuOpen(false);
   };
+
+  const urlMap: Record<string, string> = {
+    'section-learning-resources': '/learning-resources',
+    'section-developer-tools': '/developer-tools',
+    'section-frameworks-and-libraries': '/frameworks-and-libraries',
+    'section-communities': '/communities',
+    'section-blogs': '/blogs',
+  };
+
+  const getPageUrl = (sectionId: string) => {
+    return urlMap[sectionId] || '/';
+  };
+
+  const focusNextItem = useCallback((currentIndex: number) => {
+    const nextIndex = currentIndex + 1;
+    if (nextIndex < navItemRefs.current.length) {
+      navItemRefs.current[nextIndex]?.focus();
+    }
+  }, []);
+
+  const focusPreviousItem = useCallback((currentIndex: number) => {
+    const prevIndex = currentIndex - 1;
+    if (prevIndex >= 0) {
+      navItemRefs.current[prevIndex]?.focus();
+    }
+  }, []);
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent, index: number) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        focusNextItem(index);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        focusPreviousItem(index);
+      }
+    },
+    [focusNextItem, focusPreviousItem]
+  );
 
   return (
     <>
@@ -43,17 +90,19 @@ export function MobileNavigation({
           Web Development Hub
         </Link>
         <div className="flex gap-2">
-          <button
-            onClick={() => setIsSearchOpen(!isSearchOpen)}
-            className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon cursor-pointer"
-            aria-expanded={isSearchOpen}
-            aria-label="Search resources"
-          >
-            <Search
-              className="h-5 w-5 text-foreground"
-              aria-hidden="true"
-            />
-          </button>
+          {!hideSearch && (
+            <button
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon cursor-pointer"
+              aria-expanded={isSearchOpen}
+              aria-label="Search resources"
+            >
+              <Search
+                className="h-5 w-5 text-foreground"
+                aria-hidden="true"
+              />
+            </button>
+          )}
           <Link
             href="/favorites"
             className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon flex items-center justify-center"
@@ -100,7 +149,7 @@ export function MobileNavigation({
         </div>
       </header>
 
-      {isSearchOpen && (
+      {!hideSearch && isSearchOpen && (
         <div
           className="fixed top-16 left-0 right-0 z-50 p-4 bg-background md:hidden"
           id="mobile-search"
@@ -128,38 +177,48 @@ export function MobileNavigation({
       >
         <nav aria-label="Site sections">
           <ul className="flex flex-col gap-4 list-none m-0 p-0 min-h-[calc(100vh-8rem)]">
-            {navItems.map((item, index) => (
-              <li key={item.id}>
-                <NavigationItem
-                  item={item}
-                  isActive={item.id === activeSection}
-                  onClick={() => handleScrollToSection(item.id)}
-                  variant="mobile"
-                  index={index}
-                  totalItems={navItems.length}
-                  onKeyDown={(e) => {
-                    if (
-                      e.key === 'ArrowDown' &&
-                      index < navItems.length - 1
-                    ) {
-                      e.preventDefault();
-                      const nextButton = document.querySelector(
-                        `#mobile-menu button:nth-of-type(${
-                          index + 2
-                        })`
-                      ) as HTMLElement;
-                      nextButton?.focus();
-                    } else if (e.key === 'ArrowUp' && index > 0) {
-                      e.preventDefault();
-                      const prevButton = document.querySelector(
-                        `#mobile-menu button:nth-of-type(${index})`
-                      ) as HTMLElement;
-                      prevButton?.focus();
-                    }
-                  }}
-                />
-              </li>
-            ))}
+            <li>
+              <NavigationItem
+                item={{
+                  id: 'home',
+                  title: 'Home',
+                  icon: undefined,
+                }}
+                isActive={pathname === '/'}
+                href="/"
+                onClick={handleNavigationClick}
+                variant="mobile"
+                index={0}
+                totalItems={navItems.length + 1}
+                onKeyDown={(e) => handleKeyDown(e, 0)}
+                ref={(el) => {
+                  navItemRefs.current[0] = el;
+                }}
+              />
+            </li>
+            {navItems.map((item, index) => {
+              const pageUrl = getPageUrl(item.id);
+              const isActive = pathname === pageUrl;
+              const itemIndex = index + 1;
+
+              return (
+                <li key={item.id}>
+                  <NavigationItem
+                    item={item}
+                    isActive={isActive}
+                    href={pageUrl}
+                    onClick={handleNavigationClick}
+                    variant="mobile"
+                    index={itemIndex}
+                    totalItems={navItems.length + 1}
+                    onKeyDown={(e) => handleKeyDown(e, itemIndex)}
+                    ref={(el) => {
+                      navItemRefs.current[itemIndex] = el;
+                    }}
+                  />
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </div>
