@@ -65,6 +65,11 @@ export function SearchProvider({
     setSearchResults([]);
   }, []);
 
+  // Reset search query when pathname (route) changes
+  useEffect(() => {
+    clearSearch();
+  }, [pathname, clearSearch]);
+
   useEffect(() => {
     // Handle search logic and default display logic in a single effect
     if (!searchQuery || searchQuery.trim() === '') {
