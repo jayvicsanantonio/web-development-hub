@@ -75,6 +75,7 @@ export function SearchProvider({
     clearAllTags: clearFilters,
     hasSelectedTags,
     selectedTagCount,
+    filterResourcesByTags,
   } = useFilter({});
 
   const setSearchQuery = useCallback((query: string) => {
@@ -96,7 +97,7 @@ export function SearchProvider({
     if (!searchQuery || searchQuery.trim() === '') {
       // No search query - show appropriate default results
       let results;
-      
+
       // Determine data source based on pathname
       if (pathname === '/favorites') {
         // On favorites page, use favorites as source
@@ -109,20 +110,12 @@ export function SearchProvider({
         setSearchResults([]);
         return;
       }
-      
+
       // Apply tag filters if any tags are selected
       if (selectedTags.length > 0) {
-        results = results.filter((resource) => {
-          const resourceTags = (resource as any).tags;
-          
-          return (
-            resourceTags &&
-            Array.isArray(resourceTags) &&
-            selectedTags.every((tag) => resourceTags.includes(tag))
-          );
-        });
+        results = filterResourcesByTags(results);
       }
-      
+
       setSearchResults(results);
       return;
     }
@@ -149,14 +142,7 @@ export function SearchProvider({
 
     // Apply tag filters using our filter hook's logic
     if (selectedTags.length > 0) {
-      results = results.filter((resource) => {
-        const resourceTags = (resource as any).tags;
-        return (
-          resourceTags &&
-          Array.isArray(resourceTags) &&
-          selectedTags.every((tag) => resourceTags.includes(tag))
-        );
-      });
+      results = filterResourcesByTags(results);
     }
 
     setSearchResults(results);
