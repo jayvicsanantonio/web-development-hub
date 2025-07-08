@@ -15,7 +15,7 @@ export default function LayoutWrapper({
 
   return (
     <SearchProvider>
-      <div className="flex h-full min-h-screen">
+      <div className="flex h-full min-h-screen relative">
         <VerticalNavigation />
         <div className="relative flex flex-col flex-1">
           <a

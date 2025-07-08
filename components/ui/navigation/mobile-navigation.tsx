@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Menu, Search, BookmarkIcon, Moon, Sun } from 'lucide-react';
 import { useTheme } from '@/contexts/theme-context';
 import { SearchInput } from '@/components/ui/search-input';
+import { FilterButton } from '@/components/ui/filter-button';
 import { NavigationItem } from '@/components/ui/navigation-item';
 import { type NavigationItem as NavigationItemType } from '@/lib/utils/navigation';
 
@@ -91,17 +92,20 @@ export function MobileNavigation({
         </Link>
         <div className="flex gap-2">
           {!hideSearch && (
-            <button
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon cursor-pointer"
-              aria-expanded={isSearchOpen}
-              aria-label="Search resources"
-            >
-              <Search
-                className="h-5 w-5 text-foreground"
-                aria-hidden="true"
-              />
-            </button>
+            <>
+              <button
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon cursor-pointer"
+                aria-expanded={isSearchOpen}
+                aria-label="Search resources"
+              >
+                <Search
+                  className="h-5 w-5 text-foreground"
+                  aria-hidden="true"
+                />
+              </button>
+              <FilterButton />
+            </>
           )}
           <Link
             href="/favorites"
