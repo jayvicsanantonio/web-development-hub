@@ -20,6 +20,7 @@ type ResourceCardProps = {
     href: string;
     description: string;
     section?: string;
+    tags?: string[];
   };
   accentColor: 'neon' | 'purple';
 };
@@ -83,10 +84,30 @@ export default function ResourceCard({
           className="z-10"
         />
       </div>
-      <div className="p-6 flex-grow">
+      <div className="p-6 flex-grow space-y-4">
         <p className="text-foreground-muted">
           {resource.description}
         </p>
+
+        {/* Tags Section */}
+        {resource.tags && resource.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 pt-2">
+            {resource.tags.map((tag, index) => (
+              <span
+                key={`${resourceId}-tag-${index}`}
+                className={cn(
+                  'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium',
+                  'transition-colors duration-200 ease-in-out',
+                  'border border-border/50',
+                  'bg-purple-50 text-purple-700 border-purple-200/60 hover:bg-purple-100 dark:bg-purple-950/30 dark:text-purple-300 dark:border-purple-800/40 dark:hover:bg-purple-900/40'
+                )}
+                title={`Filter by ${tag}`}
+              >
+                {tag.replace('-', ' ')}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </a>
   );

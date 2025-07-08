@@ -17,6 +17,7 @@ type Resource = {
   href: string;
   description: string;
   section: string;
+  tags?: string[];
 };
 
 type SearchContextType = {
@@ -39,6 +40,7 @@ const getAllResources = (): Resource[] => {
       href: link.href,
       description: link.description,
       section: section.title,
+      tags: link.tags,
     }))
   );
 };
