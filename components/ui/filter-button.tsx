@@ -22,10 +22,11 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
           onClick={() => setIsFilterOpen(!isFilterOpen)}
           className={`
             relative cursor-pointer h-10 w-10 rounded-full 
-            bg-background-secondary/80 backdrop-blur-md 
-            md:border border-white/20 
+            bg-background-secondary/80 backdrop-blur-optimized
+            md:border border-border/20 
             md:shadow-md transition-all duration-300 
-            hover:bg-background-secondary/90 hover:border-white/30
+            hover:bg-background-secondary/90 hover:border-border/30
+            transform-gpu
             ${className}
           `}
           aria-label={`Filter resources${
@@ -37,8 +38,8 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
 
           {/* Active filter indicator */}
           {hasFilters && isFilterOpen && (
-            <div className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center">
-              <span className="text-xs font-medium text-white">
+            <div className="absolute -top-1 -right-1 h-4 w-4 bg-destructive rounded-full flex items-center justify-center animate-scale-in">
+              <span className="text-xs font-medium text-destructive-foreground">
                 {selectedTags.length}
               </span>
             </div>
@@ -51,13 +52,15 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
             onClick={clearFilters}
             className="
               absolute -top-1 -right-1 h-4 w-4 cursor-pointer
-              bg-red-500 hover:bg-red-600 
+              bg-destructive hover:bg-destructive/90
               rounded-full flex items-center justify-center
               transition-colors duration-200
+              animate-scale-in
+              transform-gpu
             "
             aria-label="Clear all filters"
           >
-            <X className="h-4 w-4 md:h-3 md:w-3 text-white" />
+            <X className="h-4 w-4 md:h-3 md:w-3 text-destructive-foreground" />
           </button>
         )}
       </div>

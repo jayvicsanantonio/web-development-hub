@@ -91,7 +91,6 @@ export function TagFilterPanel({
     useSearch();
   const panelRef = useRef<HTMLDivElement>(null);
 
-  // Close panel when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -102,29 +101,22 @@ export function TagFilterPanel({
       }
     };
 
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen, onClose]);
-
-  // Close on escape key
-  useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
+    const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         onClose();
       }
     };
 
     if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscapeKey);
+      document.body.style.overflow = 'hidden';
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscapeKey);
+      document.body.style.overflow = 'unset';
     };
   }, [isOpen, onClose]);
 
@@ -132,17 +124,18 @@ export function TagFilterPanel({
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center md:absolute md:inset-auto md:top-14 md:left-1/2 md:-translate-x-1/2">
-      {/* Panel - responsive design */}
+      {/* Panel - optimized with v4 patterns */}
       <div
         ref={panelRef}
         className="
           w-full max-h-[90vh] md:max-h-[75vh] overflow-y-auto
           md:w-auto md:min-w-[80vw] lg:min-w-[70vw] xl:min-w-[60vw]
-          bg-white/80 dark:bg-[#0F172A]/80 backdrop-blur-md
-          border border-white/20 rounded-2xl
+          bg-card/80 backdrop-blur-optimized
+          border border-border/20 rounded-2xl
           shadow-lg
           p-4 md:p-6
-          animate-in slide-in-from-top-2 duration-200
+          animate-optimized animate-scale-in
+          transform-gpu
         "
       >
         {/* Header */}
@@ -153,7 +146,7 @@ export function TagFilterPanel({
           <button
             onClick={onClose}
             className="
-              p-1.5 md:p-2 rounded-lg hover:bg-background-primary/60
+              p-1.5 md:p-2 rounded-lg hover:bg-muted/60
               transition-colors duration-200
               text-muted-foreground hover:text-foreground
             "
@@ -175,7 +168,7 @@ export function TagFilterPanel({
                 className="
                   px-1.5 md:px-2 py-0.5 md:py-1 text-xs rounded-md
                   text-muted-foreground hover:text-foreground
-                  hover:bg-background-primary/60 transition-colors
+                  hover:bg-muted/60 transition-colors
                   cursor-pointer
                 "
               >
@@ -233,7 +226,7 @@ export function TagFilterPanel({
                       ${
                         isSelected
                           ? 'bg-accent-neon/20 text-accent-neon border-accent-neon/40 ring-1 md:ring-2 ring-accent-neon/30 shadow-md md:shadow-lg'
-                          : 'bg-background-primary/40 text-foreground/80 border-border/40 hover:bg-background-primary/60 hover:border-border/60 hover:shadow-md'
+                          : 'bg-muted/40 text-foreground/80 border-border/40 hover:bg-muted/60 hover:border-border/60 hover:shadow-md'
                       }
                     `}
                   >
@@ -264,7 +257,7 @@ export function TagFilterPanel({
                     ${
                       isTagSelected(tag)
                         ? 'bg-accent-neon/20 text-accent-neon border-accent-neon/40 ring-1 ring-accent-neon/30 shadow-md'
-                        : 'bg-background-primary/40 text-foreground/70 border-border/40 hover:bg-background-primary/60 hover:border-border/60 hover:shadow-sm'
+                        : 'bg-muted/40 text-foreground/70 border-border/40 hover:bg-muted/60 hover:border-border/60 hover:shadow-sm'
                     }
                   `}
                 >
