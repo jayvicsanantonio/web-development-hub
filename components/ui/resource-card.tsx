@@ -26,7 +26,7 @@ type ResourceCardProps = {
   accentColor: 'neon' | 'purple';
 };
 
-export default function ResourceCard({
+const ResourceCard = React.memo(function ResourceCard({
   resource,
   accentColor,
 }: ResourceCardProps) {
@@ -122,4 +122,6 @@ export default function ResourceCard({
       </div>
     </a>
   );
-}
+});
+
+export default ResourceCard;

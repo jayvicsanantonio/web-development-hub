@@ -31,8 +31,17 @@ export function SearchInput({
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const value = e.target.value;
-    setLocalSearchQuery(value);
-    setSearchQuery(value);
+    
+    // Sanitize input to prevent XSS attacks
+    const sanitizedValue = value
+      .trim()
+      .replace(/[<>]/g, '') // Remove potential HTML tags
+      .replace(/['"]/g, '') // Remove quotes
+      .replace(/javascript:/gi, '') // Remove javascript: protocol
+      .substring(0, 100); // Limit length
+    
+    setLocalSearchQuery(sanitizedValue);
+    setSearchQuery(sanitizedValue);
   };
 
   const handleSearchSubmit = (e: React.FormEvent) => {

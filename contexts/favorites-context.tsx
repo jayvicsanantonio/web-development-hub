@@ -116,10 +116,12 @@ export function FavoritesProvider({
         const parsedFavorites = JSON.parse(storedFavorites);
 
         if (!Array.isArray(parsedFavorites)) {
+                  if (process.env.NODE_ENV === 'development') {
           console.error(
             'Stored favorites is not an array:',
             parsedFavorites
           );
+        }
           setFavorites([]);
           return;
         }
@@ -130,7 +132,9 @@ export function FavoritesProvider({
 
         setFavorites(favoritesWithIcons);
       } catch (error) {
-        console.error('Error loading favorites:', error);
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Error loading favorites:', error);
+        }
         setFavorites([]);
       } finally {
         setIsLoading(false);
@@ -151,10 +155,12 @@ export function FavoritesProvider({
         JSON.stringify(serializableFavorites)
       );
     } catch (error) {
-      console.error(
-        'Failed to save favorites to localStorage:',
-        error
-      );
+      if (process.env.NODE_ENV === 'development') {
+        console.error(
+          'Failed to save favorites to localStorage:',
+          error
+        );
+      }
     }
   }, [favorites, isLoading]);
 
