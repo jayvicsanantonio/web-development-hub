@@ -66,7 +66,7 @@ export function DesktopNavigation({
   return (
     <nav
       aria-label="Page sections navigation"
-      className="fixed right-10 top-1/2 transform -translate-y-1/2 z-30 hidden md:flex p-3 bg-background-secondary/70 backdrop-blur-md rounded-2xl shadow-md border border-white/10 transition-all duration-300 hover:bg-background-secondary/80"
+      className="fixed right-10 top-1/2 transform -translate-y-1/2 z-30 hidden md:flex p-3 bg-background-secondary/70 backdrop-blur-optimized rounded-2xl shadow-md border border-border/10 transition-all duration-300 hover:bg-background-secondary/80 transform-gpu"
       role="navigation"
     >
       <span id="nav-description" className="sr-only">
@@ -99,7 +99,7 @@ export function DesktopNavigation({
             )}
             role="tooltip"
           >
-            <div className="dark:bg-black/90 bg-white/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
+            <div className="bg-popover/90 backdrop-blur-optimized px-3 py-2 rounded-md text-sm font-medium text-popover-foreground flex items-center border border-border shadow-md transform-gpu">
               Home
             </div>
           </div>
@@ -130,7 +130,7 @@ export function DesktopNavigation({
             )}
             role="tooltip"
           >
-            <div className="dark:bg-black/90 bg-white/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
+            <div className="bg-popover/90 backdrop-blur-optimized px-3 py-2 rounded-md text-sm font-medium text-popover-foreground flex items-center border border-border shadow-md transform-gpu">
               Favorites
             </div>
           </div>
@@ -209,7 +209,7 @@ export function DesktopNavigation({
                 role="tooltip"
                 aria-hidden={activeSection !== item.id}
               >
-                <div className="dark:bg-black/90 bg-white/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
+                <div className="bg-popover/90 backdrop-blur-optimized px-3 py-2 rounded-md text-sm font-medium text-popover-foreground flex items-center border border-border shadow-md transform-gpu">
                   {item.title}
                 </div>
               </div>
@@ -257,7 +257,7 @@ export function DesktopNavigation({
             )}
             role="tooltip"
           >
-            <div className="dark:bg-black/90 bg-white/90 backdrop-blur-md px-3 py-2 rounded-md text-sm font-medium text-foreground flex items-center border border-border shadow-md">
+            <div className="bg-popover/90 backdrop-blur-optimized px-3 py-2 rounded-md text-sm font-medium text-popover-foreground flex items-center border border-border shadow-md transform-gpu">
               {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
             </div>
           </div>

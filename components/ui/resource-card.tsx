@@ -98,9 +98,10 @@ export default function ResourceCard({
                 key={`${resourceId}-tag-${index}`}
                 className={cn(
                   'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium',
-                  'transition-colors duration-200 ease-in-out',
+                  'transition-colors duration-200 ease-in-out transform-gpu',
                   'border border-border/50',
-                  'bg-purple-50 text-purple-700 border-purple-200/60 hover:bg-purple-100 dark:bg-purple-950/30 dark:text-purple-300 dark:border-purple-800/40 dark:hover:bg-purple-900/40'
+                  'bg-secondary/20 text-secondary-foreground border-secondary/30 hover:bg-secondary/30',
+                  'dark:bg-secondary/10 dark:text-secondary-foreground dark:border-secondary/20 dark:hover:bg-secondary/20'
                 )}
                 title={`Filter by ${tag}`}
               >

@@ -26,7 +26,7 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
             md:border border-border/20 
             md:shadow-md transition-all duration-300 
             hover:bg-background-secondary/90 hover:border-border/30
-            transform-gpu
+            transform-gpu animate-optimized
             ${className}
           `}
           aria-label={`Filter resources${
