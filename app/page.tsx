@@ -177,12 +177,6 @@ export default function Home() {
                           <ResourceCard
                             key={resource.href}
                             resource={resource}
-                            accentColor={
-                              category === 'Learning Resources' ||
-                              category === 'Frameworks and Libraries'
-                                ? 'neon'
-                                : 'purple'
-                            }
                           />
                         ))}
                       </div>

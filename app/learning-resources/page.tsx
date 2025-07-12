@@ -45,7 +45,6 @@ export default function Page() {
 
       <ResourceGrid
         resources={displayedResources}
-        accentColor="neon"
         searchQuery={searchQuery || ''}
       />
     </div>

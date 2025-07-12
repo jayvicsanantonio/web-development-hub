@@ -11,14 +11,12 @@ export type Resource = {
 
 interface ResourceGridProps {
   resources: Resource[];
-  accentColor: 'purple' | 'neon';
   searchQuery?: string;
 }
 
-export default function ResourceGrid({ 
-  resources, 
-  accentColor, 
-  searchQuery 
+export default function ResourceGrid({
+  resources,
+  searchQuery,
 }: ResourceGridProps) {
   return (
     <>
@@ -32,11 +30,7 @@ export default function ResourceGrid({
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {resources.map((resource: Resource) => (
-          <ResourceCard
-            key={resource.href}
-            resource={resource}
-            accentColor={accentColor}
-          />
+          <ResourceCard key={resource.href} resource={resource} />
         ))}
       </div>
     </>
