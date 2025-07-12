@@ -63,11 +63,11 @@ export function createSearchNavItems(
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
 
-      // Handle special case for "Frameworks and Libraries"
+
       if (displayName === 'Frameworks And Libraries') {
         displayName = 'Frameworks and Libraries';
       } else {
-        // Convert other "and" instances to "&"
+
         displayName = displayName.replace(/\b[aA][nN][dD]\b/g, '&');
       }
 

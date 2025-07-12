@@ -29,7 +29,7 @@ type SearchContextType = {
   currentCategory: string | null;
   setCurrentCategory: (category: string | null) => void;
 
-  // Tag filtering methods from useFilter hook
+
   selectedTags: string[];
   toggleTag: (tag: string) => void;
   isTagSelected: (tag: string) => boolean;
@@ -67,7 +67,7 @@ export function SearchProvider({
   const pathname = usePathname();
   const { favorites } = useFavorites();
 
-  // Use the filter hook for tag filtering logic
+
   const {
     selectedTags,
     toggleTag,
@@ -87,31 +87,31 @@ export function SearchProvider({
     setSearchResults([]);
   }, []);
 
-  // Reset search query when pathname (route) changes
+
   useEffect(() => {
     clearSearch();
   }, [pathname, clearSearch]);
 
   useEffect(() => {
-    // Handle search logic and default display logic in a single effect
+
     if (!searchQuery || searchQuery.trim() === '') {
-      // No search query - show appropriate default results
+
       let results;
 
-      // Determine data source based on pathname
+
       if (pathname === '/favorites') {
-        // On favorites page, use favorites as source
+
         results = favorites;
       } else if (selectedTags.length > 0) {
-        // If tags are selected but no search query, show all resources
+
         results = getAllResources();
       } else {
-        // No search query, no tags, not on favorites - show no results
+
         setSearchResults([]);
         return;
       }
 
-      // Apply tag filters if any tags are selected
+
       if (selectedTags.length > 0) {
         results = filterResourcesByTags(results);
       }
@@ -120,10 +120,10 @@ export function SearchProvider({
       return;
     }
 
-    // There is a search query - perform search
+
     const query = searchQuery.toLowerCase();
 
-    // Use favorites as the search source when on /favorites page
+
     const searchSource =
       pathname === '/favorites' ? favorites : getAllResources();
 
@@ -140,7 +140,7 @@ export function SearchProvider({
       );
     }
 
-    // Apply tag filters using our filter hook's logic
+
     if (selectedTags.length > 0) {
       results = filterResourcesByTags(results);
     }
@@ -162,7 +162,7 @@ export function SearchProvider({
       clearSearch,
       currentCategory,
       setCurrentCategory,
-      // Tag filter related props from useFilter hook
+
       selectedTags,
       toggleTag,
       isTagSelected,
@@ -177,7 +177,7 @@ export function SearchProvider({
       clearSearch,
       currentCategory,
       setCurrentCategory,
-      // Tag filter related dependencies
+
       selectedTags,
       toggleTag,
       isTagSelected,

@@ -36,7 +36,7 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
         >
           <Filter className="h-5 w-5 md:h-4 md:w-4 text-foreground mx-auto" />
 
-          {/* Active filter indicator */}
+          {}
           {hasFilters && isFilterOpen && (
             <div className="absolute -top-1 -right-1 h-4 w-4 bg-destructive rounded-full flex items-center justify-center animate-scale-in">
               <span className="text-xs font-medium text-destructive-foreground">
@@ -46,7 +46,7 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
           )}
         </button>
 
-        {/* Clear filters button when filters are active */}
+        {}
         {hasFilters && !isFilterOpen && (
           <button
             onClick={clearFilters}
@@ -65,7 +65,7 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
         )}
       </div>
 
-      {/* Filter Panel */}
+      {}
       <TagFilterPanel
         isOpen={isFilterOpen}
         onClose={() => setIsFilterOpen(false)}

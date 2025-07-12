@@ -17,7 +17,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 
-// Constants
+
 const SECTION_ORDER = [
   'Learning Resources',
   'Developer Tools',
@@ -32,7 +32,7 @@ const ACCENT_COLORS = {
   Blogs: 'neon',
 } as const;
 
-// Utility functions
+
 const getAccentColor = (section: string): 'neon' | 'purple' => {
   return (
     (ACCENT_COLORS as Record<string, 'neon' | 'purple'>)[section] ||
@@ -52,7 +52,7 @@ const createSectionId = (section: string): string => {
   return `section-${section.toLowerCase().replace(/\s+/g, '-')}`;
 };
 
-// Components
+
 const FavoritesHeader = ({
   searchQuery,
   displayedFavorites,
@@ -164,7 +164,7 @@ const FavoritesSection = ({
   </section>
 );
 
-// Main component
+
 export default function FavoritesPage() {
   const { favorites, clearFavorites } = useFavorites();
   const { searchQuery, searchResults, selectedTags, setCurrentCategory } =
@@ -175,7 +175,7 @@ export default function FavoritesPage() {
   }, [setCurrentCategory]);
 
   const displayedFavorites = useMemo(() => {
-    // Show searchResults when there's a search query OR when tags are selected
+
     return (searchQuery && searchQuery.trim()) || selectedTags.length > 0
       ? searchResults
       : favorites;

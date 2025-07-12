@@ -49,7 +49,7 @@ export default function ResourceCard({
     >
       <div className="flex items-center justify-between p-6 border-b border-border">
         <div className="flex items-center gap-3">
-          {/* Add fallback rendering with error handling */}
+          {}
           <div className="relative">
             {iconName ? (
               <Icon
@@ -90,7 +90,7 @@ export default function ResourceCard({
           {resource.description}
         </p>
 
-        {/* Tags Section */}
+        {}
         {resource.tags && resource.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 pt-2">
             {resource.tags.map((tag, index) => (

@@ -83,7 +83,7 @@ export function SearchInput({
           )}
         </div>
 
-        {/* Filter Button - only show on desktop */}
+        {}
         {!isMobile && <FilterButton />}
       </div>
     </form>

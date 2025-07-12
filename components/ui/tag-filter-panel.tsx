@@ -6,9 +6,9 @@ import { X, Star } from 'lucide-react';
 import { Icon } from '@iconify/react';
 import { getTagIconName } from '@/lib/utils/tag-icons';
 
-// All available tags from the memory - comprehensive tag system
+
 const ALL_TAGS = [
-  // Technology-specific
+
   'javascript',
   'typescript',
   'react',
@@ -18,7 +18,7 @@ const ALL_TAGS = [
   'nodejs',
   'python',
 
-  // Purpose/use case
+
   'ai',
   'interview-prep',
   'coding-challenges',
@@ -30,12 +30,12 @@ const ALL_TAGS = [
   'accessibility',
   'authentication',
 
-  // Learning level
+
   'beginner-friendly',
   'advanced',
   'interactive',
 
-  // Resource type
+
   'documentation',
   'tutorial',
   'course',
@@ -44,14 +44,14 @@ const ALL_TAGS = [
   'tool',
   'platform',
 
-  // Content format
+
   'free',
   'paid',
   'open-source',
   'video-based',
   'hands-on',
 
-  // Special categories
+
   'trending',
   'career-focused',
   'full-stack',
@@ -61,7 +61,7 @@ const ALL_TAGS = [
   'cms',
 ];
 
-// Priority tags that get special styling
+
 const PRIORITY_TAGS = [
   'ai',
   'interview-prep',
@@ -75,7 +75,7 @@ interface TagFilterPanelProps {
   onClose: () => void;
 }
 
-// Get icon for specific priority tags using shared utility
+
 const getTagIcon = (tag: string) => {
   const iconName = getTagIconName(tag);
   return iconName ? (
@@ -124,7 +124,7 @@ export function TagFilterPanel({
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center md:absolute md:inset-auto md:top-14 md:left-1/2 md:-translate-x-1/2">
-      {/* Panel - optimized with v4 patterns */}
+      {}
       <div
         ref={panelRef}
         className="
@@ -138,7 +138,7 @@ export function TagFilterPanel({
           transform-gpu
         "
       >
-        {/* Header */}
+        {}
         <div className="flex items-center justify-between mb-4 md:mb-6">
           <h2 className="text-lg md:text-xl font-semibold text-foreground">
             Filter by Tags
@@ -156,7 +156,7 @@ export function TagFilterPanel({
           </button>
         </div>
 
-        {/* Active Filters */}
+        {}
         {selectedTags.length > 0 && (
           <div className="mb-4 md:mb-5">
             <div className="flex items-center justify-between mb-1.5 md:mb-2">
@@ -203,9 +203,9 @@ export function TagFilterPanel({
           </div>
         )}
 
-        {/* Tag sections */}
+        {}
         <div className="space-y-4 md:space-y-6">
-          {/* Featured Tags */}
+          {}
           <div>
             <div className="flex items-center gap-1.5 md:gap-2 mb-2 md:mb-4">
               <Star className="h-3.5 w-3.5 md:h-4 md:w-4 text-accent-purple" />
@@ -238,7 +238,7 @@ export function TagFilterPanel({
             </div>
           </div>
 
-          {/* All Tags */}
+          {}
           <div>
             <span className="text-sm md:text-base font-semibold text-foreground mb-2 md:mb-4 block">
               All Tags
@@ -268,7 +268,7 @@ export function TagFilterPanel({
           </div>
         </div>
 
-        {/* Panel footer */}
+        {}
         <div className="flex items-center justify-between text-[10px] md:text-xs text-muted-foreground pt-2 border-t border-border/20">
           <span>Click tags to add or remove filters</span>
           <span>

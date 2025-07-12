@@ -28,7 +28,7 @@ export function MobileNavigation({
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
 
-  // Create refs for each navigation item
+
   const navItemRefs = useRef<
     (HTMLAnchorElement | HTMLButtonElement | null)[]
   >([]);

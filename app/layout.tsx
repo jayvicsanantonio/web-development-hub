@@ -15,7 +15,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: 'hsl(222 47% 11%)', // Using dark theme background color
+  themeColor: 'hsl(222 47% 11%)',
 };
 export const metadata: Metadata = {
   title: 'Web Development Hub',

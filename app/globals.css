@@ -3,7 +3,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  /* Color system - consolidated from config and CSS */
+  
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
@@ -37,31 +37,31 @@
   --color-chart-4: hsl(var(--chart-4));
   --color-chart-5: hsl(var(--chart-5));
 
-  /* Custom accent colors from original config */
+  
   --color-accent-neon: hsl(150 100% 50%);
   --color-accent-purple: hsl(280 100% 60%);
   
-  /* Background variations from original config */
+  
   --color-background-secondary: hsl(215 28% 17%);
   --color-background-muted: hsl(210 38% 15%);
   --color-background-primary: hsl(222 47% 14%);
   
-  /* Foreground variations from original config */
+  
   --color-foreground-muted: hsl(0 0% 80%);
 
-  /* Border radius system - consolidated from config */
+  
   --radius-lg: 0.75rem;
   --radius-md: 0.5rem;
   --radius-sm: 0.25rem;
 
-  /* Container configuration - moved from config */
+  
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
 
-  /* Animation system - consolidated from config with v4 optimizations */
+  
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
   --animate-dot-bounce: dot-bounce 0.5s ease-in-out;
@@ -69,7 +69,7 @@
   --animate-slide-in-from-top: slide-in-from-top 0.2s ease-out;
   --animate-scale-in: scale-in 0.15s ease-out;
 
-  /* Keyframes - consolidated from config with enhancements */
+  
   @keyframes accordion-down {
     from {
       height: 0;
@@ -129,7 +129,7 @@
   }
 }
 
-/* Enhanced container utility with v4 optimizations */
+
 @utility container {
   margin-inline: auto;
   padding-inline: 2rem;
@@ -155,7 +155,7 @@
   }
 }
 
-/* Container query utilities for v4 */
+
 @utility responsive-grid {
   display: grid;
   gap: 1.5rem;
@@ -173,17 +173,17 @@
   }
 }
 
-/* Logical properties utilities for better i18n support */
+
 @utility logical-spacing {
   padding-inline: 1rem;
   padding-block: 0.5rem;
   margin-inline: auto;
 }
 
-/* Base layer with v4 optimizations */
+
 @layer base {
   :root {
-    /* Light mode palette - pastel blue */
+    
     --background: 210 50% 98%;
     --foreground: 215 35% 20%;
 
@@ -216,7 +216,7 @@
   }
 
   .dark {
-    /* Dark mode palette - deep desaturated blue with neon accents */
+    
     --background: 222 47% 11%;
     --foreground: 0 0% 98%;
 
@@ -226,18 +226,18 @@
     --popover: 222 47% 14%;
     --popover-foreground: 0 0% 98%;
 
-    /* Neon green as primary */
+    
     --primary: 150 100% 50%;
     --primary-foreground: 222 47% 11%;
 
-    /* Electric purple as secondary */
+    
     --secondary: 280 100% 60%;
     --secondary-foreground: 0 0% 98%;
 
     --muted: 215 28% 22%;
     --muted-foreground: 0 0% 80%;
 
-    /* Accent colors consistent with theme */
+    
     --accent: 150 100% 50%;
     --accent-foreground: 222 47% 11%;
 
@@ -249,7 +249,7 @@
     --ring: 150 100% 50%;
   }
 
-  /* v4 optimized base styles - removed @apply usage */
+  
   * {
     border-color: var(--color-border);
   }
@@ -259,14 +259,14 @@
     color: var(--color-foreground);
   }
   
-  /* Enhanced focus states for better accessibility */
+  
   :focus-visible {
     outline: 2px solid var(--color-ring);
     outline-offset: 2px;
   }
 }
 
-/* Performance optimizations */
+
 @layer utilities {
   .backdrop-blur-optimized {
     backdrop-filter: blur(12px);
