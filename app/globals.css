@@ -3,7 +3,6 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
@@ -37,31 +36,25 @@
   --color-chart-4: hsl(var(--chart-4));
   --color-chart-5: hsl(var(--chart-5));
 
-  
   --color-accent-neon: hsl(150 100% 50%);
   --color-accent-purple: hsl(280 100% 60%);
-  
-  
+
   --color-background-secondary: hsl(215 28% 17%);
   --color-background-muted: hsl(210 38% 15%);
   --color-background-primary: hsl(222 47% 14%);
-  
-  
+
   --color-foreground-muted: hsl(0 0% 80%);
 
-  
   --radius-lg: 0.75rem;
   --radius-md: 0.5rem;
   --radius-sm: 0.25rem;
 
-  
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
 
-  
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
   --animate-dot-bounce: dot-bounce 0.5s ease-in-out;
@@ -69,7 +62,6 @@
   --animate-slide-in-from-top: slide-in-from-top 0.2s ease-out;
   --animate-scale-in: scale-in 0.15s ease-out;
 
-  
   @keyframes accordion-down {
     from {
       height: 0;
@@ -78,7 +70,7 @@
       height: var(--radix-accordion-content-height);
     }
   }
-  
+
   @keyframes accordion-up {
     from {
       height: var(--radix-accordion-content-height);
@@ -87,16 +79,17 @@
       height: 0;
     }
   }
-  
+
   @keyframes dot-bounce {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateY(0);
     }
     50% {
       transform: translateY(-4px);
     }
   }
-  
+
   @keyframes fade-in {
     0% {
       opacity: 0;
@@ -105,7 +98,7 @@
       opacity: 1;
     }
   }
-  
+
   @keyframes slide-in-from-top {
     0% {
       transform: translateY(-8px);
@@ -116,7 +109,7 @@
       opacity: 1;
     }
   }
-  
+
   @keyframes scale-in {
     0% {
       transform: scale(0.95);
@@ -129,50 +122,47 @@
   }
 }
 
-
 @utility container {
   margin-inline: auto;
   padding-inline: 2rem;
-  
+
   @media (width >= 640px) {
     max-width: 640px;
   }
-  
+
   @media (width >= 768px) {
     max-width: 768px;
   }
-  
+
   @media (width >= 1024px) {
     max-width: 1024px;
   }
-  
+
   @media (width >= 1280px) {
     max-width: 1280px;
   }
-  
+
   @media (width >= 1400px) {
     max-width: 1400px;
   }
 }
 
-
 @utility responsive-grid {
   display: grid;
   gap: 1.5rem;
-  
+
   @container (width >= 320px) {
     grid-template-columns: 1fr;
   }
-  
+
   @container (width >= 640px) {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   @container (width >= 1024px) {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-
 
 @utility logical-spacing {
   padding-inline: 1rem;
@@ -180,10 +170,8 @@
   margin-inline: auto;
 }
 
-
 @layer base {
   :root {
-    
     --background: 210 50% 98%;
     --foreground: 215 35% 20%;
 
@@ -216,7 +204,6 @@
   }
 
   .dark {
-    
     --background: 222 47% 11%;
     --foreground: 0 0% 98%;
 
@@ -226,18 +213,14 @@
     --popover: 222 47% 14%;
     --popover-foreground: 0 0% 98%;
 
-    
     --primary: 150 100% 50%;
     --primary-foreground: 222 47% 11%;
 
-    
-    --secondary: 280 100% 60%;
-    --secondary-foreground: 0 0% 98%;
-
+    --secondary: 274.32 94% 21%;
+    --secondary-foreground: 271.08 100% 85%;
     --muted: 215 28% 22%;
     --muted-foreground: 0 0% 80%;
 
-    
     --accent: 150 100% 50%;
     --accent-foreground: 222 47% 11%;
 
@@ -249,35 +232,32 @@
     --ring: 150 100% 50%;
   }
 
-  
   * {
     border-color: var(--color-border);
   }
-  
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
   }
-  
-  
+
   :focus-visible {
     outline: 2px solid var(--color-ring);
     outline-offset: 2px;
   }
 }
 
-
 @layer utilities {
   .backdrop-blur-optimized {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
-  
+
   .transform-gpu {
     transform: translateZ(0);
     will-change: transform;
   }
-  
+
   .animate-optimized {
     animation-fill-mode: both;
     animation-duration: 0.2s;

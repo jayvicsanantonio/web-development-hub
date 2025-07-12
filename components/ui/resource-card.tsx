@@ -23,12 +23,10 @@ type ResourceCardProps = {
     section?: string;
     tags?: string[];
   };
-  accentColor: 'neon' | 'purple';
 };
 
 export default function ResourceCard({
   resource,
-  accentColor,
 }: ResourceCardProps) {
   const resourceWithSection = {
     ...resource,
@@ -42,29 +40,24 @@ export default function ResourceCard({
       href={resource.href}
       target="_blank"
       rel="noopener noreferrer"
-      className={getCardClassName(accentColor)}
+      className="relative flex flex-col h-full rounded-lg transition-all bg-card border border-border hover:shadow-lg hover:scale-[1.01]"
       key={resourceId}
       id={resourceId}
       aria-labelledby={`title-${resourceId}`}
     >
       <div className="flex items-center justify-between p-6 border-b border-border">
         <div className="flex items-center gap-3">
-          {}
           <div className="relative">
             {iconName ? (
               <Icon
                 icon={iconName}
-                className={cn(
-                  'h-8 w-8',
-                  getAccentColorClasses(accentColor).icon
-                )}
+                className={cn('h-8 w-8')}
                 aria-hidden="true"
               />
             ) : (
               <div
                 className={cn(
-                  'h-8 w-8 flex items-center justify-center rounded-full bg-muted',
-                  getAccentColorClasses(accentColor).icon
+                  'h-8 w-8 flex items-center justify-center rounded-full bg-muted'
                 )}
                 aria-hidden="true"
               >
@@ -90,7 +83,6 @@ export default function ResourceCard({
           {resource.description}
         </p>
 
-        {}
         {resource.tags && resource.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 pt-2">
             {resource.tags.map((tag, index) => (
@@ -101,7 +93,7 @@ export default function ResourceCard({
                   'transition-colors duration-200 ease-in-out transform-gpu',
                   'border border-border/50',
                   'bg-secondary/20 text-secondary-foreground border-secondary/30 hover:bg-secondary/30',
-                  'dark:bg-secondary/10 dark:text-secondary-foreground dark:border-secondary/20 dark:hover:bg-secondary/20'
+                  'dark:bg-secondary/30 dark:text-secondary-foreground dark:border-secondary/95 dark:hover:bg-secondary/80'
                 )}
                 title={`Filter by ${tag}`}
               >

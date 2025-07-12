@@ -16,7 +16,6 @@ interface ResourceSectionProps {
   ctaText: string;
   viewAllLink: string;
   viewAllText: string;
-  accentColor: 'neon' | 'purple';
 }
 
 const ResourceSection = ({
@@ -26,7 +25,6 @@ const ResourceSection = ({
   ctaText,
   viewAllLink,
   viewAllText,
-  accentColor,
 }: ResourceSectionProps) => {
   const normalizeString = (str: string) =>
     str
@@ -82,11 +80,7 @@ const ResourceSection = ({
         aria-label={`${title} list`}
       >
         {resources.slice(0, 6).map((resource) => (
-          <ResourceCard
-            key={resource.href}
-            resource={resource}
-            accentColor={accentColor}
-          />
+          <ResourceCard key={resource.href} resource={resource} />
         ))}
       </div>
       <div className="flex justify-center" id={skipLinkId}>
@@ -94,9 +88,7 @@ const ResourceSection = ({
           href={viewAllLink}
           className={cn(
             'inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background ring-offset-background disabled:pointer-events-none disabled:opacity-50 border hover:bg-accent/10 h-10 px-4 py-2 rounded-full',
-            accentColor === 'neon'
-              ? 'border-accent-neon text-accent-neon focus-visible:ring-accent-neon hover:text-accent-neon/80'
-              : 'border-accent-purple text-accent-purple focus-visible:ring-accent-purple hover:text-accent-purple/80'
+            'border-accent-neon text-accent-neon focus-visible:ring-accent-neon hover:text-accent-neon/80'
           )}
           aria-label={`View all ${title}`}
         >
@@ -119,15 +111,20 @@ const ResourceSection = ({
 };
 
 export default function Home() {
-  const { searchQuery, searchResults, selectedTags, setCurrentCategory } =
-    useSearch();
+  const {
+    searchQuery,
+    searchResults,
+    selectedTags,
+    setCurrentCategory,
+  } = useSearch();
 
   useEffect(() => {
     setCurrentCategory(null);
   }, [setCurrentCategory]);
 
-
-  const isSearching = (searchQuery && searchQuery.trim().length > 0) || selectedTags.length > 0;
+  const isSearching =
+    (searchQuery && searchQuery.trim().length > 0) ||
+    selectedTags.length > 0;
   const groupedResults = isSearching
     ? searchResults.reduce(
         (groups: Record<string, any[]>, item: any) => {
@@ -217,7 +214,6 @@ export default function Home() {
             ctaText="Explore Resource"
             viewAllLink="/learning-resources"
             viewAllText="View All Resources"
-            accentColor="neon"
           />
 
           <ResourceSection
@@ -227,7 +223,6 @@ export default function Home() {
             ctaText="View Tool"
             viewAllLink="/developer-tools"
             viewAllText="View All Tools"
-            accentColor="purple"
           />
 
           <ResourceSection
@@ -237,7 +232,6 @@ export default function Home() {
             ctaText="Learn More"
             viewAllLink="/frameworks-and-libraries"
             viewAllText="View All Frameworks"
-            accentColor="neon"
           />
 
           <ResourceSection
@@ -247,7 +241,6 @@ export default function Home() {
             ctaText="Join Community"
             viewAllLink="/communities"
             viewAllText="View All Communities"
-            accentColor="purple"
           />
 
           <ResourceSection
@@ -257,7 +250,6 @@ export default function Home() {
             ctaText="Read Blog"
             viewAllLink="/blogs"
             viewAllText="View All Blogs"
-            accentColor="neon"
           />
         </>
       )}
