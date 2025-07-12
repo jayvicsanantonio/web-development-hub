@@ -20,7 +20,7 @@ export default function VerticalNavigation() {
   const isHomeActive = pathname === '/';
   const isFavoritesActive = pathname === '/favorites';
 
-  // Hide search functionality for privacy policy and terms of service pages
+
   const excludedRoutes = ['/privacy-policy', '/terms-of-service'];
   const shouldHideSearch = excludedRoutes.includes(pathname);
 

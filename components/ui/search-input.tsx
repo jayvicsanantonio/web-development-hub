@@ -65,8 +65,8 @@ export function SearchInput({
             onChange={handleSearchChange}
             className={`${
               isMobile
-                ? 'w-full pr-10 bg-background-secondary'
-                : 'w-64 h-10 pl-9 pr-10 bg-background-secondary/80 backdrop-blur-md rounded-full shadow-md border border-white/20 transition-all duration-300 hover:bg-background-secondary/90'
+                ? 'w-full pr-10 bg-background-primary'
+                : 'w-64 h-10 pl-9 pr-10 backdrop-blur-md rounded-full shadow-md border border-white/20 transition-all duration-300 dark:hover:bg-background-primary/90'
             } ${className}`}
             aria-label="Search resources"
             autoComplete="off"
@@ -75,7 +75,7 @@ export function SearchInput({
           {isMobile && (
             <button
               type="submit"
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-accent-neon text-background"
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-background-primary text-background"
               aria-label="Submit search"
             >
               <Search className="h-4 w-4" />
@@ -83,7 +83,7 @@ export function SearchInput({
           )}
         </div>
 
-        {/* Filter Button - only show on desktop */}
+        {}
         {!isMobile && <FilterButton />}
       </div>
     </form>

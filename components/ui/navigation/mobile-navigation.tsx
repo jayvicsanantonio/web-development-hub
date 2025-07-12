@@ -28,7 +28,6 @@ export function MobileNavigation({
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
 
-  // Create refs for each navigation item
   const navItemRefs = useRef<
     (HTMLAnchorElement | HTMLButtonElement | null)[]
   >([]);
@@ -95,7 +94,7 @@ export function MobileNavigation({
             <>
               <button
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon cursor-pointer"
+                className="p-2 rounded-full transition-colors focus:outline-none cursor-pointer"
                 aria-expanded={isSearchOpen}
                 aria-label="Search resources"
               >
@@ -109,7 +108,7 @@ export function MobileNavigation({
           )}
           <Link
             href="/favorites"
-            className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon flex items-center justify-center"
+            className="p-2 rounded-full transition-colors focus:outline-none flex items-center justify-center"
             aria-label="View favorites"
           >
             <BookmarkIcon
@@ -119,7 +118,7 @@ export function MobileNavigation({
           </Link>
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon cursor-pointer"
+            className="p-2 rounded-full transition-colors focus:outline-none cursor-pointer"
             aria-label={
               theme === 'dark'
                 ? 'Switch to light mode'
@@ -140,7 +139,7 @@ export function MobileNavigation({
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 rounded-full bg-background-secondary hover:bg-background-muted transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon cursor-pointer"
+            className="p-2 rounded-full transition-colors focus:outline-none cursor-pointer"
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
             aria-label="Main menu"

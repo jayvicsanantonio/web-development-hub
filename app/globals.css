@@ -36,12 +36,29 @@
   --color-chart-4: hsl(var(--chart-4));
   --color-chart-5: hsl(var(--chart-5));
 
-  --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
+  --color-accent-neon: hsl(var(--accent-neon));
+  --color-accent-purple: hsl(var(--accent-purple));
+
+  --color-background-secondary: hsl(215 28% 17%);
+  --color-background-muted: hsl(210 38% 15%);
+  --color-background-primary: hsl(222 47% 14%);
+
+  --radius-lg: 0.75rem;
+  --radius-md: 0.5rem;
+  --radius-sm: 0.25rem;
+
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-dot-bounce: dot-bounce 0.5s ease-in-out;
+  --animate-fade-in: fade-in 0.3s ease-in-out;
+  --animate-slide-in-from-top: slide-in-from-top 0.2s ease-out;
+  --animate-scale-in: scale-in 0.15s ease-out;
 
   @keyframes accordion-down {
     from {
@@ -51,6 +68,7 @@
       height: var(--radix-accordion-content-height);
     }
   }
+
   @keyframes accordion-up {
     from {
       height: var(--radix-accordion-content-height);
@@ -59,111 +77,195 @@
       height: 0;
     }
   }
+
+  @keyframes dot-bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-in-from-top {
+    0% {
+      transform: translateY(-8px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes scale-in {
+    0% {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
 }
 
 @utility container {
   margin-inline: auto;
   padding-inline: 2rem;
-  @media (width >= --theme(--breakpoint-sm)) {
-    max-width: none;
+
+  @media (width >= 640px) {
+    max-width: 640px;
   }
+
+  @media (width >= 768px) {
+    max-width: 768px;
+  }
+
+  @media (width >= 1024px) {
+    max-width: 1024px;
+  }
+
+  @media (width >= 1280px) {
+    max-width: 1280px;
+  }
+
   @media (width >= 1400px) {
     max-width: 1400px;
   }
 }
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
+@utility responsive-grid {
+  display: grid;
+  gap: 1.5rem;
 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
+  @container (width >= 320px) {
+    grid-template-columns: 1fr;
+  }
+
+  @container (width >= 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @container (width >= 1024px) {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
+@utility logical-spacing {
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  margin-inline: auto;
+}
+
 @layer base {
-    :root {
-      /* Pastel blue palette for light mode */
-      --background: 210 50% 98%;
-      --foreground: 215 35% 20%;
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+    --foreground-muted: 0 0% 30%;
 
-      --card: 210 45% 96%;
-      --card-foreground: 215 35% 20%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 10%;
 
-      --popover: 210 45% 96%;
-      --popover-foreground: 215 35% 20%;
+    --popover: 0 0% 98%;
+    --popover-foreground: 0 0% 10%;
 
-      --primary: 210 85% 65%;
-      --primary-foreground: 0 0% 100%;
+    --primary: 150 100% 40%;
+    --primary-foreground: 0 0% 100%;
 
-      --secondary: 200 75% 80%;
-      --secondary-foreground: 215 35% 20%;
+    --secondary: 280 100% 50%;
+    --secondary-foreground: 0 0% 100%;
 
-      --muted: 210 40% 90%;
-      --muted-foreground: 215 25% 40%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 20%;
 
-      --accent: 200 100% 75%;
-      --accent-foreground: 215 35% 20%;
+    --accent: 150 100% 50%; /* Improved neon green */
+    --accent-foreground: 0 0% 100%;
 
-      --destructive: 0 84.2% 60.2%;
-      --destructive-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
 
-      --border: 210 30% 85%;
-      --input: 210 30% 85%;
-      --ring: 210 85% 65%;
+    --accent-neon: 150 85% 35%; /* Improved neon green for light mode */
+    --accent-purple: 280 90% 45%; /* Improved neon purple for light mode */
 
-      --radius: 0.5rem;
-    }
+    --border: 0 0% 80%;
+    --input: 0 0% 80%;
+    --ring: 150 100% 40%;
 
-    .dark {
-      /* Deep desaturated blue background */
-      --background: 222 47% 11%;
-      --foreground: 0 0% 98%;
-
-      --card: 222 47% 14%;
-      --card-foreground: 0 0% 98%;
-
-      --popover: 222 47% 14%;
-      --popover-foreground: 0 0% 98%;
-
-      /* Neon green as primary */
-      --primary: 150 100% 50%;
-      --primary-foreground: 222 47% 11%;
-
-      /* Electric purple as secondary */
-      --secondary: 280 100% 60%;
-      --secondary-foreground: 0 0% 98%;
-
-      --muted: 215 28% 22%;
-      --muted-foreground: 0 0% 80%;
-
-      /* Using accent colors from our theme */
-      --accent: 150 100% 50%;
-      --accent-foreground: 222 47% 11%;
-
-      --destructive: 0 62.8% 30.6%;
-      --destructive-foreground: 0 0% 98%;
-
-      --border: 215 28% 35%;
-      --input: 215 28% 25%;
-      --ring: 150 100% 50%;
-    }
+    --radius: 0.5rem;
   }
 
-  @layer base {
-    * {
-      @apply border-border;
-    }
-    body {
-      @apply bg-background text-foreground;
-    }
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 0 0% 98%;
+
+    --card: 222 47% 14%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 222 47% 14%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 150 100% 50%;
+    --primary-foreground: 222 47% 11%;
+
+    --secondary: 274.32 94% 21%;
+    --secondary-foreground: 271.08 100% 85%;
+    --muted: 215 28% 22%;
+    --muted-foreground: 0 0% 80%;
+
+    --accent: 150 100% 50%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --accent-neon: 150 100% 50%; /* Keep original neon green for dark mode */
+    --accent-purple: 280 100% 60%; /* Keep original neon purple for dark mode */
+
+    --border: 215 28% 35%;
+    --input: 215 28% 25%;
+    --ring: 150 100% 50%;
   }
+
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .backdrop-blur-optimized {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .transform-gpu {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  .animate-optimized {
+    animation-fill-mode: both;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-out;
+  }
+}

@@ -21,7 +21,7 @@ export function useSearchNavItems(
       return;
     }
 
-    // Use a small delay to ensure DOM is ready
+
     const timer = setTimeout(() => {
       const items = createSearchNavItems(searchQuery);
       setNavItems(items);

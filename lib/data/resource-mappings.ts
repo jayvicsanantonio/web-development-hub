@@ -209,7 +209,7 @@ export const RESOURCE_SECTIONS = {
 } as const;
 
 export const ICON_MAP: Record<string, string> = {
-  // Learning Resources
+
   'Frontend Masters': 'mdi:school-outline',
   'Epic Web': 'simple-icons:rocket',
   'MDN Web Docs': 'simple-icons:mdnwebdocs',
@@ -243,7 +243,7 @@ export const ICON_MAP: Record<string, string> = {
   'CSS Grid Garden': 'mdi:grid',
   'Flexbox Froggy': 'simple-icons:css3',
 
-  // Developer Tools
+
   'Visual Studio Code': 'simple-icons:visualstudiocode',
   GitHub: 'simple-icons:github',
   Figma: 'simple-icons:figma',
@@ -306,7 +306,7 @@ export const ICON_MAP: Record<string, string> = {
   'New Relic': 'simple-icons:newrelic',
   Lighthouse: 'simple-icons:lighthouse',
 
-  // Frameworks and Libraries
+
   React: 'simple-icons:react',
   'Vue.js': 'simple-icons:vuedotjs',
   Svelte: 'simple-icons:svelte',
@@ -357,7 +357,7 @@ export const ICON_MAP: Record<string, string> = {
   'Chakra UI': 'simple-icons:chakraui',
   MUI: 'simple-icons:mui',
 
-  // Communities
+
   'Dev.to': 'simple-icons:devdotto',
   'r/webdev': 'simple-icons:reddit',
   iCodeThis: 'mdi:code-braces',
@@ -379,7 +379,7 @@ export const ICON_MAP: Record<string, string> = {
   CodeNewbie: 'mdi:account-school',
   'Web Accessibility Initiative': 'simple-icons:w3c',
 
-  // Blogs and People
+
   'Josh W Comeau': 'mdi:account',
   'Lee Robinson': 'mdi:account',
   'Alex Kondov': 'mdi:account',
@@ -416,7 +416,7 @@ export const ICON_MAP: Record<string, string> = {
   'Jen Simmons': 'mdi:account',
   'Val Head': 'mdi:account',
 
-  // Section titles (fallback icons)
+
   'Learning Resources': 'mdi:book-open-page-variant',
   'Developer Tools': 'mdi:tools',
   'Frameworks and Libraries': 'mdi:code-braces',

@@ -17,7 +17,6 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 
-// Constants
 const SECTION_ORDER = [
   'Learning Resources',
   'Developer Tools',
@@ -32,7 +31,6 @@ const ACCENT_COLORS = {
   Blogs: 'neon',
 } as const;
 
-// Utility functions
 const getAccentColor = (section: string): 'neon' | 'purple' => {
   return (
     (ACCENT_COLORS as Record<string, 'neon' | 'purple'>)[section] ||
@@ -52,7 +50,6 @@ const createSectionId = (section: string): string => {
   return `section-${section.toLowerCase().replace(/\s+/g, '-')}`;
 };
 
-// Components
 const FavoritesHeader = ({
   searchQuery,
   displayedFavorites,
@@ -154,29 +151,28 @@ const FavoritesSection = ({
     <h2 className="text-2xl font-bold tracking-tight">{section}</h2>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {favorites.map((favorite) => (
-        <ResourceCard
-          key={favorite.href}
-          resource={favorite}
-          accentColor={getAccentColor(section)}
-        />
+        <ResourceCard key={favorite.href} resource={favorite} />
       ))}
     </div>
   </section>
 );
 
-// Main component
 export default function FavoritesPage() {
   const { favorites, clearFavorites } = useFavorites();
-  const { searchQuery, searchResults, selectedTags, setCurrentCategory } =
-    useSearch();
+  const {
+    searchQuery,
+    searchResults,
+    selectedTags,
+    setCurrentCategory,
+  } = useSearch();
 
   useEffect(() => {
     setCurrentCategory(null);
   }, [setCurrentCategory]);
 
   const displayedFavorites = useMemo(() => {
-    // Show searchResults when there's a search query OR when tags are selected
-    return (searchQuery && searchQuery.trim()) || selectedTags.length > 0
+    return (searchQuery && searchQuery.trim()) ||
+      selectedTags.length > 0
       ? searchResults
       : favorites;
   }, [searchQuery, searchResults, favorites, selectedTags]);
