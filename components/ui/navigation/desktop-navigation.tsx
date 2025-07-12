@@ -66,7 +66,7 @@ export function DesktopNavigation({
   return (
     <nav
       aria-label="Page sections navigation"
-      className="fixed right-10 top-1/2 transform -translate-y-1/2 z-30 hidden md:flex p-3 bg-background-secondary/70 backdrop-blur-optimized rounded-2xl shadow-md border border-border/10 transition-all duration-300 hover:bg-background-secondary/80 transform-gpu"
+      className="fixed right-10 top-1/2 transform -translate-y-1/2 z-30 hidden md:flex p-3 bg-background-primary/1 backdrop-blur rounded-2xl shadow-md border border-border/20 transition-all duration-300 transform-gpu"
       role="navigation"
     >
       <span id="nav-description" className="sr-only">

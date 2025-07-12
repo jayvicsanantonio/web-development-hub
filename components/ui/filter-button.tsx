@@ -22,10 +22,10 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
           onClick={() => setIsFilterOpen(!isFilterOpen)}
           className={`
             relative cursor-pointer h-10 w-10 rounded-full 
-            bg-background-secondary/80 backdrop-blur-optimized
+            dark:bg-background-primary/80 backdrop-blur
             md:border border-border/20 
             md:shadow-md transition-all duration-300 
-            hover:bg-background-secondary/90 hover:border-border/30
+            dark:hover:bg-background-primary/90 hover:border-border/30
             transform-gpu animate-optimized
             ${className}
           `}

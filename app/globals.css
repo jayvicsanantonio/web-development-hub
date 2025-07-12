@@ -36,14 +36,12 @@
   --color-chart-4: hsl(var(--chart-4));
   --color-chart-5: hsl(var(--chart-5));
 
-  --color-accent-neon: hsl(150 100% 50%);
-  --color-accent-purple: hsl(280 100% 60%);
+  --color-accent-neon: hsl(var(--accent-neon));
+  --color-accent-purple: hsl(var(--accent-purple));
 
   --color-background-secondary: hsl(215 28% 17%);
   --color-background-muted: hsl(210 38% 15%);
   --color-background-primary: hsl(222 47% 14%);
-
-  --color-foreground-muted: hsl(0 0% 80%);
 
   --radius-lg: 0.75rem;
   --radius-md: 0.5rem;
@@ -172,33 +170,37 @@
 
 @layer base {
   :root {
-    --background: 210 50% 98%;
-    --foreground: 215 35% 20%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+    --foreground-muted: 0 0% 30%;
 
-    --card: 210 45% 96%;
-    --card-foreground: 215 35% 20%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 10%;
 
-    --popover: 210 45% 96%;
-    --popover-foreground: 215 35% 20%;
+    --popover: 0 0% 98%;
+    --popover-foreground: 0 0% 10%;
 
-    --primary: 210 85% 65%;
+    --primary: 150 100% 40%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 200 75% 80%;
-    --secondary-foreground: 215 35% 20%;
+    --secondary: 280 100% 50%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 90%;
-    --muted-foreground: 215 25% 40%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 20%;
 
-    --accent: 200 100% 75%;
-    --accent-foreground: 215 35% 20%;
+    --accent: 150 100% 50%; /* Improved neon green */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 210 30% 85%;
-    --input: 210 30% 85%;
-    --ring: 210 85% 65%;
+    --accent-neon: 150 85% 35%; /* Improved neon green for light mode */
+    --accent-purple: 280 90% 45%; /* Improved neon purple for light mode */
+
+    --border: 0 0% 80%;
+    --input: 0 0% 80%;
+    --ring: 150 100% 40%;
 
     --radius: 0.5rem;
   }
@@ -226,6 +228,9 @@
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
+
+    --accent-neon: 150 100% 50%; /* Keep original neon green for dark mode */
+    --accent-purple: 280 100% 60%; /* Keep original neon purple for dark mode */
 
     --border: 215 28% 35%;
     --input: 215 28% 25%;
