@@ -6,9 +6,7 @@ import { X, Star } from 'lucide-react';
 import { Icon } from '@iconify/react';
 import { getTagIconName } from '@/lib/utils/tag-icons';
 
-
 const ALL_TAGS = [
-
   'javascript',
   'typescript',
   'react',
@@ -17,7 +15,6 @@ const ALL_TAGS = [
   'html',
   'nodejs',
   'python',
-
 
   'ai',
   'interview-prep',
@@ -30,11 +27,9 @@ const ALL_TAGS = [
   'accessibility',
   'authentication',
 
-
   'beginner-friendly',
   'advanced',
   'interactive',
-
 
   'documentation',
   'tutorial',
@@ -44,13 +39,11 @@ const ALL_TAGS = [
   'tool',
   'platform',
 
-
   'free',
   'paid',
   'open-source',
   'video-based',
   'hands-on',
-
 
   'trending',
   'career-focused',
@@ -60,7 +53,6 @@ const ALL_TAGS = [
   'database',
   'cms',
 ];
-
 
 const PRIORITY_TAGS = [
   'ai',
@@ -74,7 +66,6 @@ interface TagFilterPanelProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
 
 const getTagIcon = (tag: string) => {
   const iconName = getTagIconName(tag);
@@ -90,6 +81,8 @@ export function TagFilterPanel({
   const { selectedTags, toggleTag, isTagSelected, clearFilters } =
     useSearch();
   const panelRef = useRef<HTMLDivElement>(null);
+  const originalOverflowRef = useRef<string | null>(null);
+  const hasModifiedOverflowRef = useRef(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -110,13 +103,22 @@ export function TagFilterPanel({
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside);
       document.addEventListener('keydown', handleEscapeKey);
+
+      originalOverflowRef.current = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
+      hasModifiedOverflowRef.current = true;
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleEscapeKey);
-      document.body.style.overflow = 'unset';
+
+      if (hasModifiedOverflowRef.current) {
+        document.body.style.overflow =
+          originalOverflowRef.current || '';
+        hasModifiedOverflowRef.current = false;
+        originalOverflowRef.current = null;
+      }
     };
   }, [isOpen, onClose]);
 
