@@ -132,7 +132,7 @@ export function TagFilterPanel({
         className="
           w-full max-h-[90vh] md:max-h-[75vh] overflow-y-auto
           md:w-auto md:min-w-[80vw] lg:min-w-[70vw] xl:min-w-[60vw]
-          bg-card/80 backdrop-blur-optimized
+          bg-card/90 backdrop-blur
           border border-border/20 rounded-2xl
           shadow-lg
           p-4 md:p-6
