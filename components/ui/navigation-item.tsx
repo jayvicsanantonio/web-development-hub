@@ -67,7 +67,7 @@ export const NavigationItem = forwardRef<
             href={href}
             onClick={onClick}
             className={cn(
-              'mobile-nav-item flex w-full items-center gap-3 p-3 rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-neon',
+              'mobile-nav-item flex w-full items-center gap-3 p-3 rounded-md transition-all duration-200  focus:ring-2 focus:ring-accent-neon',
               isActive
                 ? 'bg-background-muted/50 border-l-2 border-foreground/60 text-foreground font-medium'
                 : 'hover:bg-background-muted/30 border-l-2 border-transparent'
@@ -85,7 +85,7 @@ export const NavigationItem = forwardRef<
           ref={ref as React.Ref<HTMLButtonElement>}
           onClick={onClick}
           className={cn(
-            'mobile-nav-item flex w-full items-center gap-3 p-3 rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-neon',
+            'mobile-nav-item flex w-full items-center gap-3 p-3 rounded-md transition-all duration-200  focus:ring-2 focus:ring-accent-neon',
             isActive
               ? 'bg-background-muted/50 border-l-2 border-foreground/60 text-foreground font-medium'
               : 'hover:bg-background-muted/30 border-l-2 border-transparent'
@@ -103,7 +103,7 @@ export const NavigationItem = forwardRef<
         ref={ref as React.Ref<HTMLButtonElement>}
         onClick={onClick}
         className={cn(
-          'cursor-pointer desktop-nav-button w-3 h-3 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent-neon focus:ring-offset-2',
+          'cursor-pointer desktop-nav-button w-3 h-3 rounded-full transition-all duration-300  focus:ring-2 focus:ring-accent-neon focus:ring-offset-2',
           isActive
             ? 'bg-foreground shadow-sm ring-2 ring-foreground/20'
             : 'bg-foreground/40 hover:bg-foreground/60 hover:scale-110'

@@ -94,7 +94,7 @@ const FavoritesHeader = ({
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <button
-              className="px-4 py-2 rounded-md border border-border text-foreground-muted hover:bg-background-secondary transition-colors focus:outline-none focus:ring-2 focus:ring-accent-neon"
+              className="px-4 py-2 rounded-md border border-border text-foreground-muted hover:bg-background-secondary transition-colors  focus:ring-2 focus:ring-accent-neon"
               aria-label="Clear all favorites"
             >
               Clear All
