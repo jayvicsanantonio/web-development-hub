@@ -183,7 +183,8 @@
     --primary: 150 100% 40%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 280 100% 50%;
+    /* --secondary: 280 100% 50%; */
+    --secondary: 280 60% 50%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 95%;
