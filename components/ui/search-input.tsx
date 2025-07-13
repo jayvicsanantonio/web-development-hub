@@ -66,7 +66,7 @@ export function SearchInput({
             className={`${
               isMobile
                 ? 'w-full pr-10 bg-background-primary'
-                : 'w-64 h-10 pl-9 pr-10 backdrop-blur-md rounded-full shadow-md border border-white/20 transition-all duration-300 dark:hover:bg-background-primary/90'
+                : 'w-64 h-10 pl-9 pr-10 backdrop-blur-md rounded-full shadow-md border-border/20 transition-all duration-300 dark:hover:bg-background-primary/90'
             } ${className}`}
             aria-label="Search resources"
             autoComplete="off"
