@@ -9,6 +9,7 @@ import { SearchInput } from '@/components/ui/search-input';
 import { FilterButton } from '@/components/ui/filter-button';
 import { NavigationItem } from '@/components/ui/navigation-item';
 import { type NavigationItem as NavigationItemType } from '@/lib/utils/navigation';
+import { cn } from '@/lib/utils';
 
 interface MobileNavigationProps {
   navItems: NavigationItemType[];
@@ -112,7 +113,12 @@ export function MobileNavigation({
             aria-label="View favorites"
           >
             <BookmarkIcon
-              className="h-5 w-5 text-foreground"
+              className={cn(
+                'h-5 w-5',
+                pathname === '/favorites'
+                  ? 'text-accent-neon'
+                  : 'text-foreground'
+              )}
               aria-hidden="true"
             />
           </Link>

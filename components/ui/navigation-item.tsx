@@ -69,7 +69,7 @@ export const NavigationItem = forwardRef<
             className={cn(
               'mobile-nav-item flex w-full items-center gap-3 p-3 rounded-md transition-all duration-200  focus:ring-2 focus:ring-accent-neon',
               isActive
-                ? 'bg-background-muted/50 border-l-2 border-foreground/60 text-foreground font-medium'
+                ? 'bg-background-muted/50 border-l-2 border-accent-neon text-accent-neon font-medium'
                 : 'hover:bg-background-muted/30 border-l-2 border-transparent'
             )}
             aria-current={isActive ? 'page' : undefined}
@@ -87,7 +87,7 @@ export const NavigationItem = forwardRef<
           className={cn(
             'mobile-nav-item flex w-full items-center gap-3 p-3 rounded-md transition-all duration-200  focus:ring-2 focus:ring-accent-neon',
             isActive
-              ? 'bg-background-muted/50 border-l-2 border-foreground/60 text-foreground font-medium'
+              ? 'bg-background-muted/50 border-l-2 border-accent-neon text-accent-neon font-medium'
               : 'hover:bg-background-muted/30 border-l-2 border-transparent'
           )}
           aria-current={isActive ? 'page' : undefined}

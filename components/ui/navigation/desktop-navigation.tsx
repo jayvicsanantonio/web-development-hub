@@ -85,7 +85,7 @@ export function DesktopNavigation({
               className={cn(
                 'h-5 w-5',
                 isHomeActive
-                  ? 'text-foreground opacity-100 stroke-[3]'
+                  ? 'text-accent-neon opacity-100 stroke-2'
                   : 'text-foreground opacity-75 group-hover:opacity-100'
               )}
             />
@@ -116,7 +116,7 @@ export function DesktopNavigation({
               className={cn(
                 'h-5 w-5',
                 isFavoritesActive
-                  ? 'text-foreground opacity-100 stroke-[3]'
+                  ? 'text-accent-neon opacity-100 stroke-2'
                   : 'text-foreground opacity-75 group-hover:opacity-100'
               )}
             />
