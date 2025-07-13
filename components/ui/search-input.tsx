@@ -54,36 +54,20 @@ export function SearchInput({
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground opacity-70 z-10 pointer-events-none" />
           )}
           <Input
-            id={
-              isMobile
-                ? 'mobile-search-input'
-                : 'desktop-search-input'
-            }
             type="search"
             placeholder="Search resources..."
             value={localSearchQuery}
             onChange={handleSearchChange}
             className={`${
               isMobile
-                ? 'w-full pr-10 bg-background-primary'
-                : 'w-64 h-10 pl-9 pr-10 backdrop-blur-md rounded-full shadow-md border border-white/20 transition-all duration-300 dark:hover:bg-background-primary/90'
+                ? 'w-full pr-10'
+                : 'w-64 h-10 pl-9 pr-10 backdrop-blur-md rounded-full shadow-md border-border/20 transition-all duration-300 dark:hover:bg-background-primary/90'
             } ${className}`}
             aria-label="Search resources"
             autoComplete="off"
             onKeyDown={onKeyDown}
           />
-          {isMobile && (
-            <button
-              type="submit"
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-background-primary text-background"
-              aria-label="Submit search"
-            >
-              <Search className="h-4 w-4" />
-            </button>
-          )}
         </div>
-
-        {}
         {!isMobile && <FilterButton />}
       </div>
     </form>

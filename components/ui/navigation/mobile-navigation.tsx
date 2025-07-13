@@ -9,6 +9,7 @@ import { SearchInput } from '@/components/ui/search-input';
 import { FilterButton } from '@/components/ui/filter-button';
 import { NavigationItem } from '@/components/ui/navigation-item';
 import { type NavigationItem as NavigationItemType } from '@/lib/utils/navigation';
+import { cn } from '@/lib/utils';
 
 interface MobileNavigationProps {
   navItems: NavigationItemType[];
@@ -85,7 +86,7 @@ export function MobileNavigation({
       <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 bg-background md:hidden">
         <Link
           href="/"
-          className="text-foreground font-bold text-xl focus:outline-none focus:ring-2 focus:ring-accent-neon focus:rounded-md"
+          className="text-foreground font-bold text-xl  focus:ring-2 focus:ring-accent-neon focus:rounded-md"
         >
           Web Development Hub
         </Link>
@@ -94,7 +95,7 @@ export function MobileNavigation({
             <>
               <button
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="p-2 rounded-full transition-colors focus:outline-none cursor-pointer"
+                className="p-2 rounded-full transition-colors  cursor-pointer"
                 aria-expanded={isSearchOpen}
                 aria-label="Search resources"
               >
@@ -108,17 +109,22 @@ export function MobileNavigation({
           )}
           <Link
             href="/favorites"
-            className="p-2 rounded-full transition-colors focus:outline-none flex items-center justify-center"
+            className="p-2 rounded-full transition-colors  flex items-center justify-center"
             aria-label="View favorites"
           >
             <BookmarkIcon
-              className="h-5 w-5 text-foreground"
+              className={cn(
+                'h-5 w-5',
+                pathname === '/favorites'
+                  ? 'text-accent-neon'
+                  : 'text-foreground'
+              )}
               aria-hidden="true"
             />
           </Link>
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full transition-colors focus:outline-none cursor-pointer"
+            className="p-2 rounded-full transition-colors  cursor-pointer"
             aria-label={
               theme === 'dark'
                 ? 'Switch to light mode'
@@ -139,7 +145,7 @@ export function MobileNavigation({
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 rounded-full transition-colors focus:outline-none cursor-pointer"
+            className="p-2 rounded-full transition-colors  cursor-pointer"
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
             aria-label="Main menu"

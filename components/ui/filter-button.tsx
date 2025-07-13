@@ -23,10 +23,12 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
           className={`
             relative cursor-pointer h-10 w-10 rounded-full 
              backdrop-blur
-            md:border border-border/20 
+            md:border 
             md:shadow-md transition-all duration-300 
-            dark:hover:bg-background-primary/90 hover:border-border/30
             transform-gpu animate-optimized
+            ${
+              isFilterOpen ? 'border-accent-neon' : 'border-border/20'
+            }
             ${className}
           `}
           aria-label={`Filter resources${

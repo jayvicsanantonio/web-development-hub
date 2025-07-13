@@ -19,19 +19,21 @@ interface BookmarkButtonProps {
   size?: 'sm' | 'md' | 'lg';
 }
 
-export function BookmarkButton({ 
-  resource, 
+export function BookmarkButton({
+  resource,
   className,
-  size = 'md'
+  size = 'md',
 }: BookmarkButtonProps) {
   const { isFavorite, addFavorite, removeFavorite } = useFavorites();
-  
+
   const isBookmarked = isFavorite(resource.href);
 
-  const handleToggleBookmark = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleToggleBookmark = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     if (isBookmarked) {
       removeFavorite(resource.href);
     } else {
@@ -52,15 +54,24 @@ export function BookmarkButton({
       onClick={handleToggleBookmark}
       className={cn(
         'group relative flex items-center justify-center rounded-full p-1 transition-colors',
-        'hover:bg-background-secondary focus:outline-none focus:ring-2 focus:ring-accent-neon',
+        'hover:bg-background-secondary ',
         className
       )}
-      aria-label={isBookmarked ? `Remove ${resource.title} from favorites` : `Add ${resource.title} to favorites`}
+      aria-label={
+        isBookmarked
+          ? `Remove ${resource.title} from favorites`
+          : `Add ${resource.title} to favorites`
+      }
     >
       {isBookmarked ? (
         <BookmarkCheck className={cn('text-accent-neon', iconSize)} />
       ) : (
-        <Bookmark className={cn('text-muted-foreground group-hover:text-foreground', iconSize)} />
+        <Bookmark
+          className={cn(
+            'text-muted-foreground group-hover:text-foreground',
+            iconSize
+          )}
+        />
       )}
       <span className="sr-only">
         {isBookmarked ? 'Remove from favorites' : 'Add to favorites'}
