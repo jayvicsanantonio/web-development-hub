@@ -94,9 +94,34 @@ const FavoritesHeader = ({
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <button
-              className="px-4 py-2 rounded-md border border-border text-foreground-muted hover:bg-background-secondary transition-colors  focus:ring-2 focus:ring-accent-neon"
+              className="
+                cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-md 
+                border border-border/50 
+                text-muted-foreground hover:text-foreground 
+                bg-background hover:bg-muted/50 
+                transition-all duration-200 ease-in-out
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
+                hover:border-border/80
+                shadow-sm hover:shadow-md
+                transform-gpu
+                disabled:pointer-events-none disabled:opacity-50
+              "
               aria-label="Clear all favorites"
             >
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                />
+              </svg>
               Clear All
             </button>
           </AlertDialogTrigger>
