@@ -43,7 +43,7 @@ export default function ResourceCard({
       className="relative flex flex-col h-full rounded-lg transition-all bg-card border border-border hover:shadow-lg hover:scale-[1.01]"
       key={resourceId}
       id={resourceId}
-      aria-label={`Visit ${resource.title} - ${resource.description}`}
+      aria-labelledby={`title-${resourceId}`}
     >
       <div className="flex items-center justify-between p-6 border-b border-border">
         <div className="flex items-center gap-3">

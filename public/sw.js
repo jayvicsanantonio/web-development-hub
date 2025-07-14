@@ -67,13 +67,23 @@ self.addEventListener('fetch', (event) => {
               // Only cache successful responses
               if (response.status === 200) {
                 const responseClone = response.clone();
-                caches.open(CACHE_NAME)
-                  .then((cache) => {
-                    // Cache CSS, JS, and image files
-                    if (event.request.url.match(/\.(css|js|png|jpg|jpeg|gif|svg|webp)$/)) {
-                      cache.put(event.request, responseClone);
-                    }
-                  });
+                // Cache CSS, JS, and image files
+                if (event.request.url.match(/\.(css|js|png|jpg|jpeg|gif|svg|webp)$/)) {
+                  // Return the promise chain to ensure completion before SW terminates
+                  return caches.open(CACHE_NAME)
+                    .then((cache) => {
+                      return cache.put(event.request, responseClone);
+                    })
+                    .then(() => {
+                      // Return the original response after caching is complete
+                      return response;
+                    })
+                    .catch((error) => {
+                      console.error('Service Worker: Failed to cache resource', error);
+                      // Return response even if caching fails
+                      return response;
+                    });
+                }
               }
               return response;
             })
@@ -88,6 +98,13 @@ self.addEventListener('fetch', (event) => {
             });
         })
     );
+  }
+});
+
+// Handle messages from the main thread
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
   }
 });
 

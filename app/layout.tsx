@@ -81,17 +81,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://api.iconify.design" crossOrigin="" />
         <link rel="dns-prefetch" href="https://api.iconify.design" />
         
-        {/* Preload critical fonts */}
-        <link
-          rel="preload"
-          href="/_next/static/media/inter.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin=""
-        />
-        
         {/* Resource hints */}
-        <meta name="format-detection" content="telephone=no" />
         <meta name="msapplication-TileColor" content="hsl(222 47% 11%)" />
         <meta name="theme-color" content="hsl(222 47% 11%)" />
       </head>

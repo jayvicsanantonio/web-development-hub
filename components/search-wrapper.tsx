@@ -4,6 +4,15 @@ import { useEffect } from 'react';
 import { useSearch } from '@/contexts/search-context';
 import ResourceCard from '@/components/ui/resource-card';
 
+// Import Resource type from search context
+type Resource = {
+  title: string;
+  href: string;
+  description: string;
+  section: string;
+  tags?: string[];
+};
+
 interface SearchWrapperProps {
   children: React.ReactNode;
 }
@@ -26,7 +35,7 @@ export function SearchWrapper({ children }: SearchWrapperProps) {
     
   const groupedResults = isSearching
     ? searchResults.reduce(
-        (groups: Record<string, any[]>, item: any) => {
+        (groups: Record<string, Resource[]>, item: Resource) => {
           const category = item.section || 'Uncategorized';
           if (!groups[category]) {
             groups[category] = [];
@@ -34,7 +43,7 @@ export function SearchWrapper({ children }: SearchWrapperProps) {
           groups[category].push(item);
           return groups;
         },
-        {}
+        {} as Record<string, Resource[]>
       )
     : {};
 
@@ -72,7 +81,7 @@ export function SearchWrapper({ children }: SearchWrapperProps) {
                         {category}
                       </h2>
                       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                        {items.map((resource: any) => (
+                        {items.map((resource: Resource) => (
                           <ResourceCard
                             key={resource.href}
                             resource={resource}
