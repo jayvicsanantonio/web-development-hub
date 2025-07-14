@@ -1,13 +1,10 @@
-'use client';
-
-import { useEffect } from 'react';
 import Link from 'next/link';
 import { HeroBanner } from '@/components/ui/hero-banner';
 import { SECTIONS } from '@/constants/sections';
 import { CategoryType } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import ResourceCard from '@/components/ui/resource-card';
-import { useSearch } from '@/contexts/search-context';
+import { SearchWrapper } from '@/components/search-wrapper';
 
 interface ResourceSectionProps {
   title: string;
@@ -111,142 +108,59 @@ const ResourceSection = ({
 };
 
 export default function Home() {
-  const {
-    searchQuery,
-    searchResults,
-    selectedTags,
-    setCurrentCategory,
-  } = useSearch();
-
-  useEffect(() => {
-    setCurrentCategory(null);
-  }, [setCurrentCategory]);
-
-  const isSearching =
-    (searchQuery && searchQuery.trim().length > 0) ||
-    selectedTags.length > 0;
-  const groupedResults = isSearching
-    ? searchResults.reduce(
-        (groups: Record<string, any[]>, item: any) => {
-          const category = item.section || 'Uncategorized';
-          if (!groups[category]) {
-            groups[category] = [];
-          }
-          groups[category].push(item);
-          return groups;
-        },
-        {}
-      )
-    : {};
-
   return (
-    <div className="flex flex-col w-full space-y-24 px-4 md:px-6">
-      {isSearching ? (
-        <section className="container mx-auto py-12 md:py-12 flex flex-col gap-10">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight mb-2">
-              Search Results
-            </h1>
-            <p className="text-foreground-muted">
-              {searchResults.length > 0
-                ? `Found ${searchResults.length} results for "${searchQuery}"`
-                : `No results found for "${searchQuery}"`}
-            </p>
-          </div>
+    <SearchWrapper>
+      <div className="flex flex-col w-full space-y-24 px-4 md:px-6">
+        <HeroBanner
+          title="Your Essential Web Dev Links, Simplified"
+          description="Access a curated collection of must-have resources and quick links, designed to keep everything you need right at your fingertips."
+        />
 
-          {searchResults.length > 0 ? (
-            <div className="flex flex-col gap-12">
-              {Object.entries(groupedResults).map(
-                ([category, items]) => {
-                  const sectionId = `section-${category
-                    .toLowerCase()
-                    .replace(/\s+&\s+/g, '-')
-                    .replace(/\s+/g, '-')}`;
+        <ResourceSection
+          title="Learning Resources"
+          description="Start or advance your web development journey with these educational resources"
+          category="learning-resources"
+          ctaText="Explore Resource"
+          viewAllLink="/learning-resources"
+          viewAllText="View All Resources"
+        />
 
-                  return (
-                    <section
-                      id={sectionId}
-                      key={category}
-                      className="flex flex-col gap-6"
-                    >
-                      <h2 className="text-2xl font-bold tracking-tight">
-                        {category}
-                      </h2>
-                      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                        {items.map((resource: any) => (
-                          <ResourceCard
-                            key={resource.href}
-                            resource={resource}
-                          />
-                        ))}
-                      </div>
-                    </section>
-                  );
-                }
-              )}
-            </div>
-          ) : (
-            <div className="py-12 text-center">
-              <p>
-                Try adjusting your search terms to find what you're
-                looking for.
-              </p>
-            </div>
-          )}
-        </section>
-      ) : (
-        <>
-          <HeroBanner
-            title="Your Essential Web Dev Links, Simplified"
-            description="Access a curated collection of must-have resources and quick links, designed to keep everything you need right at your fingertips."
-          />
+        <ResourceSection
+          title="Developer Tools"
+          description="Essential tools to streamline your development workflow"
+          category="tools"
+          ctaText="View Tool"
+          viewAllLink="/developer-tools"
+          viewAllText="View All Tools"
+        />
 
-          <ResourceSection
-            title="Learning Resources"
-            description="Start or advance your web development journey with these educational resources"
-            category="learning-resources"
-            ctaText="Explore Resource"
-            viewAllLink="/learning-resources"
-            viewAllText="View All Resources"
-          />
+        <ResourceSection
+          title="Frameworks and Libraries"
+          description="Popular frameworks and libraries to build modern web applications"
+          category="frameworks-and-libraries"
+          ctaText="Learn More"
+          viewAllLink="/frameworks-and-libraries"
+          viewAllText="View All Frameworks"
+        />
 
-          <ResourceSection
-            title="Developer Tools"
-            description="Essential tools to streamline your development workflow"
-            category="tools"
-            ctaText="View Tool"
-            viewAllLink="/developer-tools"
-            viewAllText="View All Tools"
-          />
+        <ResourceSection
+          title="Communities"
+          description="Connect with fellow developers in these vibrant communities"
+          category="communities"
+          ctaText="Join Community"
+          viewAllLink="/communities"
+          viewAllText="View All Communities"
+        />
 
-          <ResourceSection
-            title="Frameworks and Libraries"
-            description="Popular frameworks and libraries to build modern web applications"
-            category="frameworks-and-libraries"
-            ctaText="Learn More"
-            viewAllLink="/frameworks-and-libraries"
-            viewAllText="View All Frameworks"
-          />
-
-          <ResourceSection
-            title="Communities"
-            description="Connect with fellow developers in these vibrant communities"
-            category="communities"
-            ctaText="Join Community"
-            viewAllLink="/communities"
-            viewAllText="View All Communities"
-          />
-
-          <ResourceSection
-            title="Blogs"
-            description="Stay updated with the latest trends and insights from the web development world"
-            category="blogs"
-            ctaText="Read Blog"
-            viewAllLink="/blogs"
-            viewAllText="View All Blogs"
-          />
-        </>
-      )}
-    </div>
+        <ResourceSection
+          title="Blogs"
+          description="Stay updated with the latest trends and insights from the web development world"
+          category="blogs"
+          ctaText="Read Blog"
+          viewAllLink="/blogs"
+          viewAllText="View All Blogs"
+        />
+      </div>
+    </SearchWrapper>
   );
 }
