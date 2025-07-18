@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   title: 'Web Development Hub',
   description:
     'A curated list of web development resources, tools, libraries and communities for web developers',
-  metadataBase: new URL('https://web-development-hub.vercel.app'),
+  metadataBase: new URL('https://webdevhub.link'),
   keywords: [
     'web development',
     'developer tools',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     'backend',
     'javascript',
     'react',
-    'resources'
+    'resources',
   ],
   authors: [{ name: 'Web Development Hub' }],
   creator: 'Web Development Hub',
@@ -78,11 +78,18 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Preconnect to external domains */}
-        <link rel="preconnect" href="https://api.iconify.design" crossOrigin="" />
+        <link
+          rel="preconnect"
+          href="https://api.iconify.design"
+          crossOrigin=""
+        />
         <link rel="dns-prefetch" href="https://api.iconify.design" />
-        
+
         {/* Resource hints */}
-        <meta name="msapplication-TileColor" content="hsl(222 47% 11%)" />
+        <meta
+          name="msapplication-TileColor"
+          content="hsl(222 47% 11%)"
+        />
         <meta name="theme-color" content="hsl(222 47% 11%)" />
       </head>
       <body
