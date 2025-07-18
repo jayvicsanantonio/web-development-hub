@@ -1421,6 +1421,27 @@ export const SECTIONS = [
           'Web animation expert sharing insights on CSS animations, motion design, and user experience.',
         tags: ['css', 'design', 'animation', 'blog', 'free', 'tutorial', 'advanced'],
       },
+      {
+        title: 'Vercel',
+        href: 'https://vercel.com/blog',
+        description:
+          'Official Vercel blog covering Next.js, React, deployment strategies, and modern web development platform insights.',
+        tags: ['react', 'deployment', 'blog', 'free', 'platform', 'performance'],
+      },
+      {
+        title: 'Syntax',
+        href: 'https://syntax.fm/snackpack',
+        description:
+          'Developer newsletter featuring hot takes, tips, tricks, and the latest web development news in bite-sized updates.',
+        tags: ['javascript', 'blog', 'free', 'trending', 'beginner-friendly'],
+      },
+      {
+        title: 'Codesmith',
+        href: 'https://www.codesmith.io/blog',
+        description:
+          'Coding bootcamp insights covering software engineering, AI/ML, career transitions, and tech industry trends.',
+        tags: ['career-focused', 'ai', 'blog', 'free', 'beginner-friendly', 'interview-prep'],
+      },
     ],
   },
 ];
