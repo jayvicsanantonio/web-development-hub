@@ -1330,6 +1330,22 @@ export const SECTIONS = [
           'trending',
         ],
       },
+      {
+        title: 'Kiro',
+        href: 'https://kiro.dev/',
+        description:
+          'The AI IDE for prototype to production that brings structure to AI coding with spec-driven development and autonomous agent workflows.',
+        tags: [
+          'ai',
+          'ide',
+          'tool',
+          'paid',
+          'modern',
+          'trending',
+          'productivity',
+          'agent',
+        ],
+      },
     ],
   },
   {
