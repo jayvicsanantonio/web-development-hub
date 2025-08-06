@@ -1465,6 +1465,22 @@ export const SECTIONS = [
           'agent',
         ],
       },
+      {
+        title: 'Bolt',
+        href: 'https://bolt.new/',
+        description:
+          'AI-powered platform for creating stunning apps and websites through conversational interface, enabling rapid prototyping and development.',
+        tags: [
+          'ai',
+          'platform',
+          'tool',
+          'paid',
+          'modern',
+          'trending',
+          'no-code',
+          'prototyping',
+        ],
+      },
     ],
   },
   {
