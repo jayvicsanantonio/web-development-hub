@@ -2838,6 +2838,21 @@ export const SECTIONS = [
           'interview-prep',
         ],
       },
+      {
+        title: 'unwind ai',
+        href: 'https://www.theunwindai.com/',
+        description:
+          "A 3-minute daily read covering what's new and notable in AI - from frameworks and tools to models and implementation strategies.",
+        tags: [
+          'ai',
+          'newsletter',
+          'daily',
+          'free',
+          'modern',
+          'trending',
+          'tutorial',
+        ],
+      },
     ],
   },
 ];

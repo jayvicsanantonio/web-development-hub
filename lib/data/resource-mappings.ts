@@ -209,6 +209,7 @@ export const RESOURCE_SECTIONS = {
     'Val Head',
     'Syntax',
     'Codesmith',
+    'unwind ai',
   ],
 } as const;
 
@@ -418,6 +419,7 @@ export const ICON_MAP: Record<string, string> = {
   'Val Head': 'mdi:account',
   Syntax: 'mdi:podcast',
   Codesmith: 'mdi:school',
+  'unwind ai': 'mdi:email-newsletter',
 
   'Learning Resources': 'mdi:book-open-page-variant',
   'Developer Tools': 'mdi:tools',
