@@ -1362,6 +1362,40 @@ export const SECTIONS = [
           'terminal',
         ],
       },
+      {
+        title: 'Warp',
+        href: 'https://www.warp.dev/',
+        description:
+          'Agentic development environment with modern, intelligent terminal and AI coding agents that can build features, debug code, and create PRs across multi-repo codebases.',
+        tags: [
+          'ai',
+          'terminal',
+          'tool',
+          'free',
+          'paid',
+          'modern',
+          'trending',
+          'productivity',
+          'agent',
+        ],
+      },
+      {
+        title: 'Windsurf',
+        href: 'https://windsurf.com/',
+        description:
+          'Purpose-built AI IDE with Cascade agent that remembers your codebase, auto-fixes lint errors, and supports MCP integration for enhanced workflows.',
+        tags: [
+          'ai',
+          'ide',
+          'tool',
+          'free',
+          'paid',
+          'modern',
+          'trending',
+          'productivity',
+          'agent',
+        ],
+      },
     ],
   },
   {

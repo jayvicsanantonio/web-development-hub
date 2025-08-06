@@ -99,6 +99,8 @@ export const RESOURCE_SECTIONS = {
     'Convex',
     'Kiro',
     'Claude Code',
+    'Warp',
+    'Windsurf',
   ],
   'Frameworks and Libraries': [
     'React',
@@ -266,6 +268,8 @@ export const ICON_MAP: Record<string, string> = {
   Convex: 'mdi:database',
   Kiro: 'mdi:robot-industrial',
   'Claude Code': 'mdi:console',
+  Warp: 'mdi:lightning-bolt',
+  Windsurf: 'mdi:wind-power',
   Sanity: 'simple-icons:sanity',
   Frontmatter: 'mdi:markdown',
   'Adobe Express': 'simple-icons:adobeexpress',
