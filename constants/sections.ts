@@ -1396,6 +1396,23 @@ export const SECTIONS = [
           'agent',
         ],
       },
+      {
+        title: 'Zed',
+        href: 'https://zed.dev/',
+        description:
+          'Next-generation code editor built in Rust for high-performance collaboration with humans and AI, featuring agentic editing and native debugging support.',
+        tags: [
+          'editor',
+          'ai',
+          'tool',
+          'free',
+          'open-source',
+          'modern',
+          'trending',
+          'productivity',
+          'collaborative',
+        ],
+      },
     ],
   },
   {
