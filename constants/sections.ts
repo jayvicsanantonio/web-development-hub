@@ -1346,6 +1346,22 @@ export const SECTIONS = [
           'agent',
         ],
       },
+      {
+        title: 'Claude Code',
+        href: 'https://www.anthropic.com/claude-code',
+        description:
+          'Command-line AI coding assistant powered by Claude Opus 4.1 that understands entire codebases and makes coordinated changes across multiple files.',
+        tags: [
+          'ai',
+          'cli',
+          'tool',
+          'paid',
+          'modern',
+          'trending',
+          'productivity',
+          'terminal',
+        ],
+      },
     ],
   },
   {

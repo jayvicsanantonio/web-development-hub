@@ -98,6 +98,7 @@ export const RESOURCE_SECTIONS = {
     'Cloudinary AI',
     'Convex',
     'Kiro',
+    'Claude Code',
   ],
   'Frameworks and Libraries': [
     'React',
@@ -264,6 +265,7 @@ export const ICON_MAP: Record<string, string> = {
   'Cloudinary AI': 'simple-icons:cloudinary',
   Convex: 'mdi:database',
   Kiro: 'mdi:robot-industrial',
+  'Claude Code': 'mdi:console',
   Sanity: 'simple-icons:sanity',
   Frontmatter: 'mdi:markdown',
   'Adobe Express': 'simple-icons:adobeexpress',
