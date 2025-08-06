@@ -102,6 +102,7 @@ export const RESOURCE_SECTIONS = {
     'Warp',
     'Windsurf',
     'Zed',
+    'Jules',
   ],
   'Frameworks and Libraries': [
     'React',
@@ -272,6 +273,7 @@ export const ICON_MAP: Record<string, string> = {
   Warp: 'mdi:lightning-bolt',
   Windsurf: 'mdi:wind-power',
   Zed: 'mdi:code-braces-box',
+  Jules: 'simple-icons:google',
   Sanity: 'simple-icons:sanity',
   Frontmatter: 'mdi:markdown',
   'Adobe Express': 'simple-icons:adobeexpress',

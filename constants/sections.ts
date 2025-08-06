@@ -1413,6 +1413,22 @@ export const SECTIONS = [
           'collaborative',
         ],
       },
+      {
+        title: 'Jules',
+        href: 'https://jules.google/',
+        description:
+          "Google's AI coding assistant powered by Gemini 2.5 Pro that handles coding tasks you don't want to do - from bug fixes and version bumps to feature building.",
+        tags: [
+          'ai',
+          'assistant',
+          'tool',
+          'paid',
+          'modern',
+          'trending',
+          'productivity',
+          'automation',
+        ],
+      },
     ],
   },
   {
