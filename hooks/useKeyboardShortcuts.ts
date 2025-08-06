@@ -10,6 +10,7 @@ import { useSearch } from '@/contexts/search-context';
  * Keyboard shortcuts:
  * - Ctrl+K or Cmd+K: Focus search input
  * - Ctrl+F or Cmd+F: Toggle filter panel
+ * - Ctrl+B or Cmd+B: Navigate to Bookmarks page
  * - / (forward slash): Focus search input (when not in input field)
  * - F: Focus search input (when not in input field)
  * - ESC: Clear search
@@ -86,6 +87,13 @@ export function useKeyboardShortcuts() {
         return;
       }
 
+      // Ctrl/Cmd + B to navigate to Bookmarks page
+      if ((event.ctrlKey || event.metaKey) && event.key === 'b') {
+        event.preventDefault();
+        router.push('/bookmarks');
+        return;
+      }
+
       // Forward slash (/) to focus search (like GitHub, Reddit)
       if (event.key === '/' && !isInputFocused()) {
         event.preventDefault();
@@ -112,7 +120,7 @@ export function useKeyboardShortcuts() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [router, clearSearch, searchQuery]);
+  }, [router, clearSearch, searchQuery, toggleFilterPanel]);
 
   return {
     focusSearchInput,

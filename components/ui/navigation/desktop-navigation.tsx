@@ -28,6 +28,7 @@ export function DesktopNavigation({
   const [hiddenTooltip, setHiddenTooltip] = useState<string | null>(
     null
   );
+  const [isMac, setIsMac] = useState(false);
 
   const { bookmarks } = useBookmarks();
 
@@ -62,6 +63,10 @@ export function DesktopNavigation({
       return () => clearTimeout(timer);
     }
   }, [hiddenTooltip]);
+
+  useEffect(() => {
+    setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
+  }, []);
 
   return (
     <nav
@@ -108,7 +113,9 @@ export function DesktopNavigation({
           <Link
             href="/bookmarks"
             className="desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
-            aria-label="Navigate to bookmarks"
+            aria-label={`Navigate to bookmarks (${
+              isMac ? '⌘B' : 'Ctrl+B'
+            })`}
             aria-current={isBookmarksActive ? 'page' : undefined}
             onClick={() => setHiddenTooltip('bookmarks')}
           >
@@ -130,8 +137,11 @@ export function DesktopNavigation({
             )}
             role="tooltip"
           >
-            <div className="bg-popover/90 backdrop-blur-optimized px-3 py-2 rounded-md text-sm font-medium text-popover-foreground flex items-center border border-border shadow-md transform-gpu">
+            <div className="bg-popover/90 backdrop-blur-optimized px-3 py-2 rounded-md text-sm font-medium text-popover-foreground flex items-center gap-2 border border-border shadow-md transform-gpu">
               Bookmarks
+              <div className="h-5 w-10 rounded-md bg-muted border border-border/50 flex items-center justify-center text-[10px] font-medium text-muted-foreground px-1 tracking-tight leading-none">
+                {isMac ? '⌘B' : 'Ctrl+B'}
+              </div>
             </div>
           </div>
         </li>
