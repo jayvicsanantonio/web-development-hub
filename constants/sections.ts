@@ -1314,6 +1314,22 @@ export const SECTIONS = [
           'modern',
         ],
       },
+      {
+        title: 'Convex',
+        href: 'https://www.convex.dev/',
+        description:
+          'Open-source reactive database for app developers with TypeScript-first approach, real-time sync, and backend built-ins.',
+        tags: [
+          'database',
+          'free',
+          'open-source',
+          'typescript',
+          'platform',
+          'modern',
+          'performance',
+          'trending',
+        ],
+      },
     ],
   },
   {
