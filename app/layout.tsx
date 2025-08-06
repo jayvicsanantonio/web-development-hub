@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   title: 'Web Development Hub',
   description:
     'A curated list of web development resources, tools, libraries and communities for web developers',
-  metadataBase: new URL('https://web-development-hub.vercel.app'),
+  metadataBase: new URL('https://webdevhub.link/'),
   keywords: [
     'web development',
     'developer tools',
