@@ -103,6 +103,7 @@ export const RESOURCE_SECTIONS = {
     'Windsurf',
     'Zed',
     'Jules',
+    'Cline',
   ],
   'Frameworks and Libraries': [
     'React',
@@ -154,6 +155,7 @@ export const RESOURCE_SECTIONS = {
     'D3.js',
     'Chakra UI',
     'MUI',
+    'AI SDK',
   ],
   Communities: [
     'Dev.to',
@@ -274,6 +276,7 @@ export const ICON_MAP: Record<string, string> = {
   Windsurf: 'mdi:wind-power',
   Zed: 'mdi:code-braces-box',
   Jules: 'simple-icons:google',
+  Cline: 'mdi:robot-excited',
   Sanity: 'simple-icons:sanity',
   Frontmatter: 'mdi:markdown',
   'Adobe Express': 'simple-icons:adobeexpress',
@@ -372,6 +375,7 @@ export const ICON_MAP: Record<string, string> = {
   'D3.js': 'simple-icons:d3dotjs',
   'Chakra UI': 'simple-icons:chakraui',
   MUI: 'simple-icons:mui',
+  'AI SDK': 'mdi:robot-outline',
 
   'Dev.to': 'simple-icons:devdotto',
   'r/webdev': 'simple-icons:reddit',

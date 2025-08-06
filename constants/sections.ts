@@ -1432,6 +1432,23 @@ export const SECTIONS = [
           'automation',
         ],
       },
+      {
+        title: 'Cline',
+        href: 'https://cline.bot/',
+        description:
+          'Open-source AI coding agent with complete transparency, plan mode for complex tasks, and support for any AI model with client-side architecture for maximum security.',
+        tags: [
+          'ai',
+          'agent',
+          'tool',
+          'free',
+          'open-source',
+          'modern',
+          'trending',
+          'productivity',
+          'security',
+        ],
+      },
     ],
   },
   {
