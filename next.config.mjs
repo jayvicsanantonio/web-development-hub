@@ -64,7 +64,10 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+// Only initialize OpenNext Cloudflare in development
+if (process.env.NODE_ENV === 'development') {
+  const { initOpenNextCloudflareForDev } = await import('@opennextjs/cloudflare');
+  initOpenNextCloudflareForDev();
+}
 
-import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare';
-initOpenNextCloudflareForDev();
+export default nextConfig;
