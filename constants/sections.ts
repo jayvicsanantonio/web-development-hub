@@ -500,13 +500,16 @@ export const SECTIONS = [
         title: 'Visual Studio Code',
         href: 'https://code.visualstudio.com/',
         description:
-          'The most popular code editor with extensive extensions, debugging tools, and integrated terminal for modern development.',
+          'Open source AI code editor with agent mode, next edit suggestions, and support for multiple AI models like Claude Sonnet, GPT-4, and more.',
         tags: [
+          'editor',
+          'ai',
           'tool',
           'free',
           'open-source',
           'trending',
           'beginner-friendly',
+          'agent',
         ],
       },
       {
@@ -2144,6 +2147,22 @@ export const SECTIONS = [
           'paid',
           'design',
           'advanced',
+        ],
+      },
+      {
+        title: 'AI SDK',
+        href: 'https://ai-sdk.dev/',
+        description:
+          'Free open-source TypeScript library from Vercel for building AI-powered applications with unified provider API, streaming responses, and generative UI.',
+        tags: [
+          'ai',
+          'typescript',
+          'javascript',
+          'free',
+          'open-source',
+          'modern',
+          'trending',
+          'library',
         ],
       },
     ],
