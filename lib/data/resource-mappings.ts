@@ -106,6 +106,7 @@ export const RESOURCE_SECTIONS = {
     'Cline',
     'Augment Code',
     'Bolt',
+    'Lovable',
   ],
   'Frameworks and Libraries': [
     'React',
@@ -281,6 +282,7 @@ export const ICON_MAP: Record<string, string> = {
   Cline: 'mdi:robot-excited',
   'Augment Code': 'mdi:code-greater-than',
   Bolt: 'mdi:flash',
+  Lovable: 'mdi:heart',
   Sanity: 'simple-icons:sanity',
   Frontmatter: 'mdi:markdown',
   'Adobe Express': 'simple-icons:adobeexpress',

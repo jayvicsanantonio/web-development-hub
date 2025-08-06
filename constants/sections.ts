@@ -1481,6 +1481,22 @@ export const SECTIONS = [
           'prototyping',
         ],
       },
+      {
+        title: 'Lovable',
+        href: 'https://lovable.dev/',
+        description:
+          'AI-powered platform for building apps and websites through conversational interface with Figma import support and community-driven development.',
+        tags: [
+          'ai',
+          'platform',
+          'tool',
+          'paid',
+          'modern',
+          'trending',
+          'no-code',
+          'design',
+        ],
+      },
     ],
   },
   {
