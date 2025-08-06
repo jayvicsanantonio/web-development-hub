@@ -2798,7 +2798,7 @@ export const SECTIONS = [
         ],
       },
       {
-        title: 'Vercel',
+        title: 'Vercel Blog',
         href: 'https://vercel.com/blog',
         description:
           'Official Vercel blog covering Next.js, React, deployment strategies, and modern web development platform insights.',
