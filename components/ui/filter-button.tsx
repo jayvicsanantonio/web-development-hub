@@ -50,11 +50,11 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
           `}
           aria-label={`Filter resources${
             hasFilters ? ` (${selectedTags.length} active)` : ''
-          } (press ${isMac ? '⌘F' : 'Ctrl+F'})`}
+          }`}
           aria-expanded={isFilterPanelOpen}
         >
           <Filter className="h-4 w-4 text-foreground" />
-          <div className="h-5 w-10 rounded-md bg-muted border border-border/50 flex items-center justify-center text-[10px] font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all px-1 tracking-tight leading-none">
+          <div className="hidden md:flex h-5 w-10 rounded-md bg-muted border border-border/50 items-center justify-center text-[10px] font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all px-1 tracking-tight leading-none">
             {isMac ? '⌘F' : 'Ctrl+F'}
           </div>
 
