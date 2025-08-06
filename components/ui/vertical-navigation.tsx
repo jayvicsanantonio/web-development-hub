@@ -18,7 +18,7 @@ export default function VerticalNavigation() {
   const { searchQuery } = useSearch();
 
   const isHomeActive = pathname === '/';
-  const isFavoritesActive = pathname === '/favorites';
+  const isBookmarksActive = pathname === '/bookmarks';
 
 
   const excludedRoutes = ['/privacy-policy', '/terms-of-service'];
@@ -45,7 +45,7 @@ export default function VerticalNavigation() {
         navItems={navItems}
         activeSection={activeSection}
         isHomeActive={isHomeActive}
-        isFavoritesActive={isFavoritesActive}
+        isBookmarksActive={isBookmarksActive}
         onScrollToSection={handleScrollToSection}
       />
       {!shouldHideSearch && <DesktopSearch />}

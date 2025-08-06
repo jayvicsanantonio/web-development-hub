@@ -32,6 +32,7 @@ export const RESOURCE_SECTIONS = {
     'JavaScript30',
     'CSS Grid Garden',
     'Flexbox Froggy',
+    'AI Tutor',
   ],
   'Developer Tools': [
     'Visual Studio Code',
@@ -95,6 +96,18 @@ export const RESOURCE_SECTIONS = {
     'New Relic',
     'Lighthouse',
     'Cloudinary AI',
+    'Convex',
+    'Kiro',
+    'Claude Code',
+    'Warp',
+    'Windsurf',
+    'Zed',
+    'Jules',
+    'Cline',
+    'Augment Code',
+    'Bolt',
+    'Lovable',
+    'v0',
   ],
   'Frameworks and Libraries': [
     'React',
@@ -146,6 +159,7 @@ export const RESOURCE_SECTIONS = {
     'D3.js',
     'Chakra UI',
     'MUI',
+    'AI SDK',
   ],
   Communities: [
     'Dev.to',
@@ -169,7 +183,7 @@ export const RESOURCE_SECTIONS = {
     'CodeNewbie',
     'Web Accessibility Initiative',
   ],
-  Blogs: [
+  'Blogs and Newsletters': [
     'Josh W Comeau',
     'Lee Robinson',
     'Alex Kondov',
@@ -205,11 +219,13 @@ export const RESOURCE_SECTIONS = {
     'Rachel Andrew',
     'Jen Simmons',
     'Val Head',
+    'Syntax',
+    'Codesmith',
+    'unwind ai',
   ],
 } as const;
 
 export const ICON_MAP: Record<string, string> = {
-
   'Frontend Masters': 'mdi:school-outline',
   'Epic Web': 'simple-icons:rocket',
   'MDN Web Docs': 'simple-icons:mdnwebdocs',
@@ -242,7 +258,7 @@ export const ICON_MAP: Record<string, string> = {
   JavaScript30: 'mdi:language-javascript',
   'CSS Grid Garden': 'mdi:grid',
   'Flexbox Froggy': 'simple-icons:css3',
-
+  'AI Tutor': 'mdi:robot-happy',
 
   'Visual Studio Code': 'simple-icons:visualstudiocode',
   GitHub: 'simple-icons:github',
@@ -257,6 +273,18 @@ export const ICON_MAP: Record<string, string> = {
   Clerk: 'simple-icons:clerk',
   Cloudinary: 'simple-icons:cloudinary',
   'Cloudinary AI': 'simple-icons:cloudinary',
+  Convex: 'mdi:database',
+  Kiro: 'mdi:robot-industrial',
+  'Claude Code': 'mdi:console',
+  Warp: 'mdi:lightning-bolt',
+  Windsurf: 'mdi:wind-power',
+  Zed: 'mdi:code-braces-box',
+  Jules: 'simple-icons:google',
+  Cline: 'mdi:robot-excited',
+  'Augment Code': 'mdi:code-greater-than',
+  Bolt: 'mdi:flash',
+  Lovable: 'mdi:heart',
+  v0: 'simple-icons:vercel',
   Sanity: 'simple-icons:sanity',
   Frontmatter: 'mdi:markdown',
   'Adobe Express': 'simple-icons:adobeexpress',
@@ -305,7 +333,6 @@ export const ICON_MAP: Record<string, string> = {
   Sentry: 'simple-icons:sentry',
   'New Relic': 'simple-icons:newrelic',
   Lighthouse: 'simple-icons:lighthouse',
-
 
   React: 'simple-icons:react',
   'Vue.js': 'simple-icons:vuedotjs',
@@ -356,7 +383,7 @@ export const ICON_MAP: Record<string, string> = {
   'D3.js': 'simple-icons:d3dotjs',
   'Chakra UI': 'simple-icons:chakraui',
   MUI: 'simple-icons:mui',
-
+  'AI SDK': 'mdi:robot-outline',
 
   'Dev.to': 'simple-icons:devdotto',
   'r/webdev': 'simple-icons:reddit',
@@ -378,7 +405,6 @@ export const ICON_MAP: Record<string, string> = {
   'Product Hunt': 'simple-icons:producthunt',
   CodeNewbie: 'mdi:account-school',
   'Web Accessibility Initiative': 'simple-icons:w3c',
-
 
   'Josh W Comeau': 'mdi:account',
   'Lee Robinson': 'mdi:account',
@@ -415,13 +441,15 @@ export const ICON_MAP: Record<string, string> = {
   'Rachel Andrew': 'mdi:account',
   'Jen Simmons': 'mdi:account',
   'Val Head': 'mdi:account',
-
+  Syntax: 'mdi:podcast',
+  Codesmith: 'mdi:school',
+  'unwind ai': 'mdi:email-newsletter',
 
   'Learning Resources': 'mdi:book-open-page-variant',
   'Developer Tools': 'mdi:tools',
   'Frameworks and Libraries': 'mdi:code-braces',
   Communities: 'mdi:account-group',
-  Blogs: 'mdi:post',
+  'Blogs and Newsletters': 'mdi:post',
 };
 
 export function determineSection(title: string): string {

@@ -7,13 +7,13 @@ import { useTheme } from '@/contexts/theme-context';
 import { NavigationItem } from '@/components/ui/navigation-item';
 import { type NavigationItem as NavigationItemType } from '@/lib/utils/navigation';
 import { useState, useEffect, useMemo } from 'react';
-import { useFavorites } from '@/contexts/favorites-context';
+import { useBookmarks } from '@/contexts/bookmarks-context';
 
 interface DesktopNavigationProps {
   navItems: NavigationItemType[];
   activeSection: string;
   isHomeActive: boolean;
-  isFavoritesActive: boolean;
+  isBookmarksActive: boolean;
   onScrollToSection: (id: string) => void;
 }
 
@@ -21,37 +21,38 @@ export function DesktopNavigation({
   navItems,
   activeSection,
   isHomeActive,
-  isFavoritesActive,
+  isBookmarksActive,
   onScrollToSection,
 }: DesktopNavigationProps) {
   const { theme, toggleTheme } = useTheme();
   const [hiddenTooltip, setHiddenTooltip] = useState<string | null>(
     null
   );
+  const [isMac, setIsMac] = useState(false);
 
-  const { favorites } = useFavorites();
+  const { bookmarks } = useBookmarks();
 
   const favoritedSections = useMemo(() => {
     const sections = new Set<string>();
-    favorites.forEach((favorite) => {
+    bookmarks.forEach((favorite) => {
       sections.add(favorite.section);
     });
     return sections;
-  }, [favorites]);
+  }, [bookmarks]);
 
   const filteredNavItems = useMemo(() => {
     if (isHomeActive) {
       return navItems;
     }
 
-    if (isFavoritesActive) {
+    if (isBookmarksActive) {
       return navItems.filter((item) =>
         favoritedSections.has(item.title)
       );
     }
 
     return navItems;
-  }, [navItems, favoritedSections, isHomeActive, isFavoritesActive]);
+  }, [navItems, favoritedSections, isHomeActive, isBookmarksActive]);
 
   useEffect(() => {
     if (hiddenTooltip) {
@@ -62,6 +63,10 @@ export function DesktopNavigation({
       return () => clearTimeout(timer);
     }
   }, [hiddenTooltip]);
+
+  useEffect(() => {
+    setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
+  }, []);
 
   return (
     <nav
@@ -77,7 +82,9 @@ export function DesktopNavigation({
           <Link
             href="/"
             className="desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
-            aria-label="Return to home page"
+            aria-label={`Return to home page (${
+              isMac ? '⌘H' : 'Ctrl+H'
+            })`}
             aria-current={isHomeActive ? 'page' : undefined}
             onClick={() => setHiddenTooltip('home')}
           >
@@ -99,23 +106,28 @@ export function DesktopNavigation({
             )}
             role="tooltip"
           >
-            <div className="bg-popover/90 backdrop-blur-optimized px-3 py-2 rounded-md text-sm font-medium text-popover-foreground flex items-center border border-border shadow-md transform-gpu">
+            <div className="bg-popover/90 backdrop-blur-optimized px-3 py-2 rounded-md text-sm font-medium text-popover-foreground flex items-center gap-2 border border-border shadow-md transform-gpu">
               Home
+              <div className="h-5 w-10 rounded-md bg-muted border border-border/50 flex items-center justify-center text-[10px] font-medium text-muted-foreground px-1 tracking-tight leading-none">
+                {isMac ? '⌘H' : 'Ctrl+H'}
+              </div>
             </div>
           </div>
         </li>
         <li className="relative group">
           <Link
-            href="/favorites"
+            href="/bookmarks"
             className="desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
-            aria-label="Navigate to favorites"
-            aria-current={isFavoritesActive ? 'page' : undefined}
-            onClick={() => setHiddenTooltip('favorites')}
+            aria-label={`Navigate to bookmarks (${
+              isMac ? '⌘B' : 'Ctrl+B'
+            })`}
+            aria-current={isBookmarksActive ? 'page' : undefined}
+            onClick={() => setHiddenTooltip('bookmarks')}
           >
             <BookmarkIcon
               className={cn(
                 'h-5 w-5',
-                isFavoritesActive
+                isBookmarksActive
                   ? 'text-accent-neon opacity-100 stroke-2'
                   : 'text-foreground opacity-75 group-hover:opacity-100'
               )}
@@ -124,20 +136,23 @@ export function DesktopNavigation({
           <div
             className={cn(
               'absolute right-12 top-1/2 transform -translate-y-1/2 transition-opacity duration-200 whitespace-nowrap pointer-events-none',
-              hiddenTooltip === 'favorites'
+              hiddenTooltip === 'bookmarks'
                 ? 'opacity-0'
                 : 'opacity-0 group-hover:opacity-100'
             )}
             role="tooltip"
           >
-            <div className="bg-popover/90 backdrop-blur-optimized px-3 py-2 rounded-md text-sm font-medium text-popover-foreground flex items-center border border-border shadow-md transform-gpu">
-              Favorites
+            <div className="bg-popover/90 backdrop-blur-optimized px-3 py-2 rounded-md text-sm font-medium text-popover-foreground flex items-center gap-2 border border-border shadow-md transform-gpu">
+              Bookmarks
+              <div className="h-5 w-10 rounded-md bg-muted border border-border/50 flex items-center justify-center text-[10px] font-medium text-muted-foreground px-1 tracking-tight leading-none">
+                {isMac ? '⌘B' : 'Ctrl+B'}
+              </div>
             </div>
           </div>
         </li>
 
         {((isHomeActive && filteredNavItems.length > 0) ||
-          (isFavoritesActive && filteredNavItems.length > 0)) && (
+          (isBookmarksActive && filteredNavItems.length > 0)) && (
           <li className="w-full">
             <div
               className="h-px w-6 bg-border/50 mx-auto"
@@ -146,7 +161,7 @@ export function DesktopNavigation({
           </li>
         )}
 
-        {(isHomeActive || isFavoritesActive) &&
+        {(isHomeActive || isBookmarksActive) &&
           filteredNavItems.map((item, index) => (
             <li key={item.id} className="relative group">
               <NavigationItem
@@ -232,8 +247,12 @@ export function DesktopNavigation({
             className="cursor-pointer desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
             aria-label={
               theme === 'dark'
-                ? 'Switch to light mode'
-                : 'Switch to dark mode'
+                ? `Switch to light mode (${
+                    isMac ? '⌘⇧L' : 'Ctrl+Shift+L'
+                  })`
+                : `Switch to dark mode (${
+                    isMac ? '⌘⇧L' : 'Ctrl+Shift+L'
+                  })`
             }
           >
             {theme === 'dark' ? (
@@ -257,8 +276,11 @@ export function DesktopNavigation({
             )}
             role="tooltip"
           >
-            <div className="bg-popover/90 backdrop-blur-optimized px-3 py-2 rounded-md text-sm font-medium text-popover-foreground flex items-center border border-border shadow-md transform-gpu">
+            <div className="bg-popover/90 backdrop-blur-optimized px-3 py-2 rounded-md text-sm font-medium text-popover-foreground flex items-center gap-2 border border-border shadow-md transform-gpu">
               {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+              <div className="h-5 w-12 rounded-md bg-muted border border-border/50 flex items-center justify-center text-[10px] font-medium text-muted-foreground px-1 tracking-tight leading-none">
+                {isMac ? '⌘⇧L' : 'Ctrl+⇧L'}
+              </div>
             </div>
           </div>
         </li>

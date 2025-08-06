@@ -108,14 +108,14 @@ export function MobileNavigation({
             </>
           )}
           <Link
-            href="/favorites"
+            href="/bookmarks"
             className="p-2 rounded-full transition-colors  flex items-center justify-center"
-            aria-label="View favorites"
+            aria-label="View bookmarks"
           >
             <BookmarkIcon
               className={cn(
                 'h-5 w-5',
-                pathname === '/favorites'
+                pathname === '/bookmarks'
                   ? 'text-accent-neon'
                   : 'text-foreground'
               )}

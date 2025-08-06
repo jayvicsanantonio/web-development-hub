@@ -10,7 +10,7 @@ import React, {
 } from 'react';
 import { usePathname } from 'next/navigation';
 import { SECTIONS } from '@/constants/sections';
-import { useFavorites } from './favorites-context';
+import { useBookmarks } from './bookmarks-context';
 import { useFilter } from '@/hooks/useFilter';
 
 type Resource = {
@@ -29,13 +29,17 @@ type SearchContextType = {
   currentCategory: string | null;
   setCurrentCategory: (category: string | null) => void;
 
-
   selectedTags: string[];
   toggleTag: (tag: string) => void;
   isTagSelected: (tag: string) => boolean;
   clearFilters: () => void;
   hasSelectedTags: boolean;
   selectedTagCount: number;
+
+  // Filter panel state
+  isFilterPanelOpen: boolean;
+  setIsFilterPanelOpen: (isOpen: boolean) => void;
+  toggleFilterPanel: () => void;
 };
 
 const SearchContext = createContext<SearchContextType | undefined>(
@@ -64,9 +68,9 @@ export function SearchProvider({
   const [currentCategory, setCurrentCategory] = useState<
     string | null
   >(null);
+  const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
   const pathname = usePathname();
-  const { favorites } = useFavorites();
-
+  const { bookmarks } = useBookmarks();
 
   const {
     selectedTags,
@@ -87,30 +91,26 @@ export function SearchProvider({
     setSearchResults([]);
   }, []);
 
+  const toggleFilterPanel = useCallback(() => {
+    setIsFilterPanelOpen((prev) => !prev);
+  }, []);
 
   useEffect(() => {
     clearSearch();
   }, [pathname, clearSearch]);
 
   useEffect(() => {
-
     if (!searchQuery || searchQuery.trim() === '') {
-
       let results;
 
-
-      if (pathname === '/favorites') {
-
-        results = favorites;
+      if (pathname === '/bookmarks') {
+        results = bookmarks;
       } else if (selectedTags.length > 0) {
-
         results = getAllResources();
       } else {
-
         setSearchResults([]);
         return;
       }
-
 
       if (selectedTags.length > 0) {
         results = filterResourcesByTags(results);
@@ -120,12 +120,10 @@ export function SearchProvider({
       return;
     }
 
-
     const query = searchQuery.toLowerCase();
 
-
     const searchSource =
-      pathname === '/favorites' ? favorites : getAllResources();
+      pathname === '/bookmarks' ? bookmarks : getAllResources();
 
     let results = searchSource.filter(
       (resource) =>
@@ -140,7 +138,6 @@ export function SearchProvider({
       );
     }
 
-
     if (selectedTags.length > 0) {
       results = filterResourcesByTags(results);
     }
@@ -150,7 +147,7 @@ export function SearchProvider({
     searchQuery,
     currentCategory,
     pathname,
-    favorites,
+    bookmarks,
     selectedTags,
   ]);
 
@@ -169,6 +166,11 @@ export function SearchProvider({
       clearFilters,
       hasSelectedTags,
       selectedTagCount,
+
+      // Filter panel state
+      isFilterPanelOpen,
+      setIsFilterPanelOpen,
+      toggleFilterPanel,
     }),
     [
       searchQuery,
@@ -184,6 +186,11 @@ export function SearchProvider({
       clearFilters,
       hasSelectedTags,
       selectedTagCount,
+
+      // Filter panel dependencies
+      isFilterPanelOpen,
+      setIsFilterPanelOpen,
+      toggleFilterPanel,
     ]
   );
 

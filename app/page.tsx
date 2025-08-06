@@ -153,12 +153,12 @@ export default function Home() {
         />
 
         <ResourceSection
-          title="Blogs"
+          title="Blogs and Newsletters"
           description="Stay updated with the latest trends and insights from the web development world"
           category="blogs"
           ctaText="Read Blog"
           viewAllLink="/blogs"
-          viewAllText="View All Blogs"
+          viewAllText="View All Blogs and Newsletters"
         />
       </div>
     </SearchWrapper>
