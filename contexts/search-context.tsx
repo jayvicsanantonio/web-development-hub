@@ -10,7 +10,7 @@ import React, {
 } from 'react';
 import { usePathname } from 'next/navigation';
 import { SECTIONS } from '@/constants/sections';
-import { useFavorites } from './favorites-context';
+import { useBookmarks } from './bookmarks-context';
 import { useFilter } from '@/hooks/useFilter';
 
 type Resource = {
@@ -70,7 +70,7 @@ export function SearchProvider({
   >(null);
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
   const pathname = usePathname();
-  const { favorites } = useFavorites();
+  const { bookmarks } = useBookmarks();
 
   const {
     selectedTags,
@@ -103,8 +103,8 @@ export function SearchProvider({
     if (!searchQuery || searchQuery.trim() === '') {
       let results;
 
-      if (pathname === '/favorites') {
-        results = favorites;
+      if (pathname === '/bookmarks') {
+        results = bookmarks;
       } else if (selectedTags.length > 0) {
         results = getAllResources();
       } else {
@@ -123,7 +123,7 @@ export function SearchProvider({
     const query = searchQuery.toLowerCase();
 
     const searchSource =
-      pathname === '/favorites' ? favorites : getAllResources();
+      pathname === '/bookmarks' ? bookmarks : getAllResources();
 
     let results = searchSource.filter(
       (resource) =>
@@ -147,7 +147,7 @@ export function SearchProvider({
     searchQuery,
     currentCategory,
     pathname,
-    favorites,
+    bookmarks,
     selectedTags,
   ]);
 

@@ -3,7 +3,7 @@
 import React from 'react';
 import { Bookmark, BookmarkCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useFavorites } from '@/contexts/favorites-context';
+import { useBookmarks } from '@/contexts/bookmarks-context';
 
 type Resource = {
   title: string;
@@ -24,7 +24,11 @@ export function BookmarkButton({
   className,
   size = 'md',
 }: BookmarkButtonProps) {
-  const { isFavorite, addFavorite, removeFavorite } = useFavorites();
+  const {
+    isBookmarked: isFavorite,
+    addBookmark: addFavorite,
+    removeBookmark: removeFavorite,
+  } = useBookmarks();
 
   const isBookmarked = isFavorite(resource.href);
 
@@ -59,8 +63,8 @@ export function BookmarkButton({
       )}
       aria-label={
         isBookmarked
-          ? `Remove ${resource.title} from favorites`
-          : `Add ${resource.title} to favorites`
+          ? `Remove ${resource.title} from bookmarks`
+          : `Add ${resource.title} to bookmarks`
       }
     >
       {isBookmarked ? (
@@ -74,7 +78,7 @@ export function BookmarkButton({
         />
       )}
       <span className="sr-only">
-        {isBookmarked ? 'Remove from favorites' : 'Add to favorites'}
+        {isBookmarked ? 'Remove from bookmarks' : 'Add to bookmarks'}
       </span>
     </button>
   );

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { useFavorites } from '@/contexts/favorites-context';
+import { useBookmarks } from '@/contexts/bookmarks-context';
 import ResourceCard from '@/components/ui/resource-card';
 import { useSearch } from '@/contexts/search-context';
 import {
@@ -50,32 +50,32 @@ const createSectionId = (section: string): string => {
   return `section-${section.toLowerCase().replace(/\s+/g, '-')}`;
 };
 
-const FavoritesHeader = ({
+const BookmarksHeader = ({
   searchQuery,
-  displayedFavorites,
-  favorites,
+  displayedBookmarks,
+  bookmarks,
   onClearAll,
 }: {
   searchQuery: string;
-  displayedFavorites: any[];
-  favorites: any[];
+  displayedBookmarks: any[];
+  bookmarks: any[];
   onClearAll: () => void;
 }) => {
   const getDescription = () => {
     if (searchQuery && searchQuery.trim()) {
-      return displayedFavorites.length === 0
-        ? `No favorites found for "${searchQuery}"`
+      return displayedBookmarks.length === 0
+        ? `No bookmarks found for "${searchQuery}"`
         : `Found ${formatCount(
-            displayedFavorites.length,
+            displayedBookmarks.length,
             'favorite',
-            'favorites'
+            'bookmarks'
           )} for "${searchQuery}"`;
     }
 
-    return favorites.length === 0
-      ? "You haven't added any favorites yet."
+    return bookmarks.length === 0
+      ? "You haven't added any bookmarks yet."
       : `You have ${formatCount(
-          favorites.length,
+          bookmarks.length,
           'favorite resource',
           'favorite resources'
         )}.`;
@@ -85,12 +85,12 @@ const FavoritesHeader = ({
     <div className="flex items-center justify-between">
       <div>
         <h1 className="text-4xl font-bold tracking-tight mb-2">
-          My Favorites
+          My Bookmarks
         </h1>
         <p className="text-foreground-muted">{getDescription()}</p>
       </div>
 
-      {favorites.length > 0 && (
+      {bookmarks.length > 0 && (
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <button
@@ -106,7 +106,7 @@ const FavoritesHeader = ({
                 transform-gpu
                 disabled:pointer-events-none disabled:opacity-50
               "
-              aria-label="Clear all favorites"
+              aria-label="Clear all bookmarks"
             >
               <svg
                 className="h-4 w-4"
@@ -127,9 +127,9 @@ const FavoritesHeader = ({
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Clear All Favorites</AlertDialogTitle>
+              <AlertDialogTitle>Clear All Bookmarks</AlertDialogTitle>
               <AlertDialogDescription>
-                Are you sure you want to clear all your favorites?
+                Are you sure you want to clear all your bookmarks?
                 This action cannot be undone.
               </AlertDialogDescription>
             </AlertDialogHeader>
@@ -154,7 +154,7 @@ const EmptyState = ({ searchQuery }: { searchQuery: string }) => (
     <p className="text-lg mb-6">
       {searchQuery && searchQuery.trim()
         ? "Try adjusting your search terms to find what you're looking for."
-        : 'Bookmark resources to add them to your favorites list.'}
+        : 'Bookmark resources to add them to your bookmarks list.'}
     </p>
     <Link
       href="/"
@@ -165,25 +165,25 @@ const EmptyState = ({ searchQuery }: { searchQuery: string }) => (
   </div>
 );
 
-const FavoritesSection = ({
+const BookmarksSection = ({
   section,
-  favorites,
+  bookmarks,
 }: {
   section: string;
-  favorites: any[];
+  bookmarks: any[];
 }) => (
   <section id={createSectionId(section)} className="space-y-6">
     <h2 className="text-2xl font-bold tracking-tight">{section}</h2>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {favorites.map((favorite) => (
-        <ResourceCard key={favorite.href} resource={favorite} />
+      {bookmarks.map((bookmark) => (
+        <ResourceCard key={bookmark.href} resource={bookmark} />
       ))}
     </div>
   </section>
 );
 
-export default function FavoritesPage() {
-  const { favorites, clearFavorites } = useFavorites();
+export default function BookmarksPage() {
+  const { bookmarks, clearBookmarks } = useBookmarks();
   const {
     searchQuery,
     searchResults,
@@ -195,47 +195,47 @@ export default function FavoritesPage() {
     setCurrentCategory(null);
   }, [setCurrentCategory]);
 
-  const displayedFavorites = useMemo(() => {
+  const displayedBookmarks = useMemo(() => {
     return (searchQuery && searchQuery.trim()) ||
       selectedTags.length > 0
       ? searchResults
-      : favorites;
-  }, [searchQuery, searchResults, favorites, selectedTags]);
+      : bookmarks;
+  }, [searchQuery, searchResults, bookmarks, selectedTags]);
 
-  const groupedFavorites = useMemo(() => {
-    return displayedFavorites.reduce((acc, favorite) => {
-      if (!acc[favorite.section]) {
-        acc[favorite.section] = [];
+  const groupedBookmarks = useMemo(() => {
+    return displayedBookmarks.reduce((acc, bookmark) => {
+      if (!acc[bookmark.section]) {
+        acc[bookmark.section] = [];
       }
-      acc[favorite.section].push(favorite);
+      acc[bookmark.section].push(bookmark);
       return acc;
-    }, {} as Record<string, typeof displayedFavorites>);
-  }, [displayedFavorites]);
+    }, {} as Record<string, typeof displayedBookmarks>);
+  }, [displayedBookmarks]);
 
   const handleClearAll = () => {
-    clearFavorites();
+    clearBookmarks();
   };
 
   return (
     <div className="container mx-auto md:mt-20 mt-8 py-12 space-y-12">
-      <FavoritesHeader
+      <BookmarksHeader
         searchQuery={searchQuery}
-        displayedFavorites={displayedFavorites}
-        favorites={favorites}
+        displayedBookmarks={displayedBookmarks}
+        bookmarks={bookmarks}
         onClearAll={handleClearAll}
       />
 
-      {displayedFavorites.length === 0 ? (
+      {displayedBookmarks.length === 0 ? (
         <EmptyState searchQuery={searchQuery} />
       ) : (
         <div className="space-y-16">
           {SECTION_ORDER.filter(
-            (section) => groupedFavorites[section]
+            (section) => groupedBookmarks[section]
           ).map((section) => (
-            <FavoritesSection
+            <BookmarksSection
               key={section}
               section={section}
-              favorites={groupedFavorites[section]}
+              bookmarks={groupedBookmarks[section]}
             />
           ))}
         </div>
