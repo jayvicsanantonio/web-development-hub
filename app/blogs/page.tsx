@@ -7,7 +7,7 @@ import ResourceGrid from '@/components/ui/resource-grid';
 import { useSearch } from '@/contexts/search-context';
 
 export default function Page() {
-  const CATEGORY_TITLE = 'Blogs';
+  const CATEGORY_TITLE = 'Blogs and Newsletters';
   const { searchQuery, searchResults, setCurrentCategory } =
     useSearch();
 
@@ -20,6 +20,15 @@ export default function Page() {
   const sectionData = SECTIONS.find(
     (section) => section.title === CATEGORY_TITLE
   );
+
+  // Debug logging
+  console.log('CATEGORY_TITLE:', CATEGORY_TITLE);
+  console.log('sectionData:', sectionData);
+  console.log(
+    'Available sections:',
+    SECTIONS.map((s) => s.title)
+  );
+
   const allResources = (sectionData?.links || []).map((link) => ({
     title: link.title,
     href: link.href,
@@ -33,7 +42,9 @@ export default function Page() {
   return (
     <div className="container mx-auto md:mt-20 mt-8 py-12 px-4 md:px-6 flex flex-col gap-10">
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight">Blogs</h1>
+        <h1 className="text-3xl font-bold tracking-tight">
+          Blogs and Newsletters
+        </h1>
         <p className="text-foreground-muted max-w-[700px]">
           Stay updated with insights from industry experts and thought
           leaders

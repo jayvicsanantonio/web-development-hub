@@ -22,13 +22,13 @@ const SECTION_ORDER = [
   'Developer Tools',
   'Frameworks and Libraries',
   'Communities',
-  'Blogs',
+  'Blogs and Newsletters',
 ] as const;
 
 const ACCENT_COLORS = {
   'Learning Resources': 'neon',
   'Frameworks and Libraries': 'neon',
-  Blogs: 'neon',
+  'Blogs and Newsletters': 'neon',
 } as const;
 
 const getAccentColor = (section: string): 'neon' | 'purple' => {

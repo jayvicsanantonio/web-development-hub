@@ -28,7 +28,11 @@ export const DEFAULT_NAV_ITEMS: NavigationItem[] = [
     title: 'Communities',
     iconName: getResourceIcon('Communities'),
   },
-  { id: 'section-blogs', title: 'Blogs', iconName: getResourceIcon('Blogs') },
+  {
+    id: 'section-blogs',
+    title: 'Blogs and Newsletters',
+    iconName: getResourceIcon('Blogs and Newsletters'),
+  },
 ];
 
 export function createSearchNavItems(
@@ -63,11 +67,9 @@ export function createSearchNavItems(
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
 
-
       if (displayName === 'Frameworks And Libraries') {
         displayName = 'Frameworks and Libraries';
       } else {
-
         displayName = displayName.replace(/\b[aA][nN][dD]\b/g, '&');
       }
 

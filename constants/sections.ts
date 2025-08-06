@@ -2319,7 +2319,7 @@ export const SECTIONS = [
     ],
   },
   {
-    title: 'Blogs',
+    title: 'Blogs and Newsletters',
     href: '/blogs',
     description:
       'Personal blogs and insights from individual web developers sharing their experiences, learnings, and perspectives.',
