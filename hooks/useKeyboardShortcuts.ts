@@ -9,13 +9,14 @@ import { useSearch } from '@/contexts/search-context';
  *
  * Keyboard shortcuts:
  * - Ctrl+K or Cmd+K: Focus search input
+ * - Ctrl+F or Cmd+F: Toggle filter panel
  * - / (forward slash): Focus search input (when not in input field)
  * - F: Focus search input (when not in input field)
- * - ESC: Clear search and navigate to home page
+ * - ESC: Clear search
  */
 export function useKeyboardShortcuts() {
   const router = useRouter();
-  const { clearSearch, searchQuery } = useSearch();
+  const { clearSearch, searchQuery, toggleFilterPanel } = useSearch();
   const searchInputRef = useRef<HTMLInputElement | null>(null);
 
   // Function to focus on search input
@@ -36,6 +37,12 @@ export function useKeyboardShortcuts() {
     }
   };
 
+  // Function to toggle filter panel - now uses context
+  const handleToggleFilterPanel = () => {
+    console.log('Toggling filter panel via context');
+    toggleFilterPanel();
+  };
+
   // Function to handle ESC key - clear search only
   const handleEscape = () => {
     const activeElement = document.activeElement as HTMLElement;
@@ -54,11 +61,28 @@ export function useKeyboardShortcuts() {
   };
 
   useEffect(() => {
+    // Helper function to check if an input element is currently focused
+    const isInputFocused = () => {
+      const activeElement = document.activeElement as HTMLElement;
+      return (
+        activeElement?.tagName === 'INPUT' ||
+        activeElement?.tagName === 'TEXTAREA' ||
+        activeElement?.isContentEditable === true
+      );
+    };
+
     const handleKeyDown = (event: KeyboardEvent) => {
       // Ctrl/Cmd + K to focus search (common shortcut)
       if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
         event.preventDefault();
         focusSearchInput();
+        return;
+      }
+
+      // Ctrl/Cmd + F to toggle filter panel
+      if ((event.ctrlKey || event.metaKey) && event.key === 'f') {
+        event.preventDefault();
+        handleToggleFilterPanel();
         return;
       }
 
@@ -81,16 +105,6 @@ export function useKeyboardShortcuts() {
         handleEscape();
         return;
       }
-    };
-
-    // Helper function to check if an input element is currently focused
-    const isInputFocused = () => {
-      const activeElement = document.activeElement as HTMLElement;
-      return (
-        activeElement?.tagName === 'INPUT' ||
-        activeElement?.tagName === 'TEXTAREA' ||
-        activeElement?.isContentEditable === true
-      );
     };
 
     document.addEventListener('keydown', handleKeyDown);

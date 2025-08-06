@@ -81,17 +81,18 @@ export function TagFilterPanel({
   const { selectedTags, toggleTag, isTagSelected, clearFilters } =
     useSearch();
   const panelRef = useRef<HTMLDivElement>(null);
-  const originalOverflowRef = useRef<string | null>(null);
-  const hasModifiedOverflowRef = useRef(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        panelRef.current &&
-        !panelRef.current.contains(event.target as Node)
-      ) {
-        onClose();
-      }
+      // Small delay to ensure button onClick handlers complete first
+      setTimeout(() => {
+        if (
+          panelRef.current &&
+          !panelRef.current.contains(event.target as Node)
+        ) {
+          onClose();
+        }
+      }, 0);
     };
 
     const handleEscapeKey = (event: KeyboardEvent) => {
@@ -101,24 +102,14 @@ export function TagFilterPanel({
     };
 
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      // Use click instead of mousedown to avoid timing issues with button onClick
+      document.addEventListener('click', handleClickOutside);
       document.addEventListener('keydown', handleEscapeKey);
-
-      originalOverflowRef.current = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
-      hasModifiedOverflowRef.current = true;
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
       document.removeEventListener('keydown', handleEscapeKey);
-
-      if (hasModifiedOverflowRef.current) {
-        document.body.style.overflow =
-          originalOverflowRef.current || '';
-        hasModifiedOverflowRef.current = false;
-        originalOverflowRef.current = null;
-      }
     };
   }, [isOpen, onClose]);
 

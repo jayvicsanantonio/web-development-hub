@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Filter, X } from 'lucide-react';
 import { useSearch } from '@/contexts/search-context';
 import { TagFilterPanel } from '@/components/ui/tag-filter-panel';
@@ -10,8 +10,22 @@ interface FilterButtonProps {
 }
 
 export function FilterButton({ className = '' }: FilterButtonProps) {
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const { selectedTags, clearFilters } = useSearch();
+  const {
+    selectedTags,
+    clearFilters,
+    isFilterPanelOpen,
+    setIsFilterPanelOpen,
+  } = useSearch();
+
+  // Detect platform for keyboard shortcut display
+  const [isMac, setIsMac] = useState(false);
+
+  useEffect(() => {
+    setIsMac(
+      typeof navigator !== 'undefined' &&
+        navigator.platform.includes('Mac')
+    );
+  }, []);
 
   const hasFilters = selectedTags.length > 0;
 
@@ -19,27 +33,33 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
     <>
       <div className="flex items-center">
         <button
-          onClick={() => setIsFilterOpen(!isFilterOpen)}
+          onClick={() => setIsFilterPanelOpen(!isFilterPanelOpen)}
+          data-filter-button="true"
           className={`
-            relative cursor-pointer h-10 w-10 rounded-full 
-             backdrop-blur
+            relative cursor-pointer h-10 px-3 rounded-full 
+            backdrop-blur flex items-center gap-2
             md:border 
             md:shadow-md transition-all duration-300 
             transform-gpu animate-optimized
             ${
-              isFilterOpen ? 'border-accent-neon' : 'border-border/20'
+              isFilterPanelOpen
+                ? 'border-accent-neon'
+                : 'border-border/20'
             }
             ${className}
           `}
           aria-label={`Filter resources${
             hasFilters ? ` (${selectedTags.length} active)` : ''
-          }`}
-          aria-expanded={isFilterOpen}
+          } (press ${isMac ? '⌘F' : 'Ctrl+F'})`}
+          aria-expanded={isFilterPanelOpen}
         >
-          <Filter className="h-5 w-5 md:h-4 md:w-4 text-foreground mx-auto" />
+          <Filter className="h-4 w-4 text-foreground" />
+          <div className="h-5 w-10 rounded-md bg-muted border border-border/50 flex items-center justify-center text-[10px] font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all px-1 tracking-tight leading-none">
+            {isMac ? '⌘F' : 'Ctrl+F'}
+          </div>
 
           {}
-          {hasFilters && isFilterOpen && (
+          {hasFilters && isFilterPanelOpen && (
             <div className="absolute -top-1 -right-1 h-4 w-4 bg-destructive rounded-full flex items-center justify-center animate-scale-in">
               <span className="text-xs font-medium text-destructive-foreground">
                 {selectedTags.length}
@@ -49,7 +69,7 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
         </button>
 
         {}
-        {hasFilters && !isFilterOpen && (
+        {hasFilters && !isFilterPanelOpen && (
           <button
             onClick={clearFilters}
             className="
@@ -69,8 +89,8 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
 
       {}
       <TagFilterPanel
-        isOpen={isFilterOpen}
-        onClose={() => setIsFilterOpen(false)}
+        isOpen={isFilterPanelOpen}
+        onClose={() => setIsFilterPanelOpen(false)}
       />
     </>
   );
