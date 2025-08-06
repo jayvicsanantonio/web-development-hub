@@ -1497,6 +1497,22 @@ export const SECTIONS = [
           'design',
         ],
       },
+      {
+        title: 'v0',
+        href: 'https://v0.dev/',
+        description:
+          "Vercel's AI-powered generative UI tool that creates React components and interfaces from text prompts, enabling rapid UI development and prototyping.",
+        tags: [
+          'ai',
+          'ui',
+          'tool',
+          'paid',
+          'modern',
+          'trending',
+          'react',
+          'generative',
+        ],
+      },
     ],
   },
   {

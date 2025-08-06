@@ -107,6 +107,7 @@ export const RESOURCE_SECTIONS = {
     'Augment Code',
     'Bolt',
     'Lovable',
+    'v0',
   ],
   'Frameworks and Libraries': [
     'React',
@@ -283,6 +284,7 @@ export const ICON_MAP: Record<string, string> = {
   'Augment Code': 'mdi:code-greater-than',
   Bolt: 'mdi:flash',
   Lovable: 'mdi:heart',
+  v0: 'simple-icons:vercel',
   Sanity: 'simple-icons:sanity',
   Frontmatter: 'mdi:markdown',
   'Adobe Express': 'simple-icons:adobeexpress',
