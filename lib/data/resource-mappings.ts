@@ -32,6 +32,7 @@ export const RESOURCE_SECTIONS = {
     'JavaScript30',
     'CSS Grid Garden',
     'Flexbox Froggy',
+    'AI Tutor',
   ],
   'Developer Tools': [
     'Visual Studio Code',
@@ -95,6 +96,7 @@ export const RESOURCE_SECTIONS = {
     'New Relic',
     'Lighthouse',
     'Cloudinary AI',
+    'Convex',
   ],
   'Frameworks and Libraries': [
     'React',
@@ -205,6 +207,8 @@ export const RESOURCE_SECTIONS = {
     'Rachel Andrew',
     'Jen Simmons',
     'Val Head',
+    'Syntax',
+    'Codesmith',
   ],
 } as const;
 
@@ -241,6 +245,7 @@ export const ICON_MAP: Record<string, string> = {
   JavaScript30: 'mdi:language-javascript',
   'CSS Grid Garden': 'mdi:grid',
   'Flexbox Froggy': 'simple-icons:css3',
+  'AI Tutor': 'mdi:robot-happy',
 
   'Visual Studio Code': 'simple-icons:visualstudiocode',
   GitHub: 'simple-icons:github',
@@ -255,6 +260,7 @@ export const ICON_MAP: Record<string, string> = {
   Clerk: 'simple-icons:clerk',
   Cloudinary: 'simple-icons:cloudinary',
   'Cloudinary AI': 'simple-icons:cloudinary',
+  Convex: 'mdi:database',
   Sanity: 'simple-icons:sanity',
   Frontmatter: 'mdi:markdown',
   'Adobe Express': 'simple-icons:adobeexpress',
@@ -410,6 +416,8 @@ export const ICON_MAP: Record<string, string> = {
   'Rachel Andrew': 'mdi:account',
   'Jen Simmons': 'mdi:account',
   'Val Head': 'mdi:account',
+  Syntax: 'mdi:podcast',
+  Codesmith: 'mdi:school',
 
   'Learning Resources': 'mdi:book-open-page-variant',
   'Developer Tools': 'mdi:tools',
