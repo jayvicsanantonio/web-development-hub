@@ -32,17 +32,11 @@ type FavoritesContextType = {
 
 const LOCAL_STORAGE_KEY = 'web-dev-hub-favorites';
 
-const createResourceMap = (): Map<
-  string,
-  Map<string, string>
-> => {
+const createResourceMap = (): Map<string, Map<string, string>> => {
   const resourceMap = new Map();
 
   SECTIONS.forEach((section) => {
-    const sectionMap = new Map<
-      string,
-      string
-    >();
+    const sectionMap = new Map<string, string>();
 
     section.links.forEach((link) => {
       if (link.href && link.title) {
