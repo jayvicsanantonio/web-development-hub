@@ -1449,6 +1449,22 @@ export const SECTIONS = [
           'security',
         ],
       },
+      {
+        title: 'Augment Code',
+        href: 'https://www.augmentcode.com/',
+        description:
+          'AI software development platform with industry-leading context engine, autonomous agents, and codebase-aware autocomplete for VS Code, JetBrains, Vim, and Neovim.',
+        tags: [
+          'ai',
+          'platform',
+          'tool',
+          'paid',
+          'modern',
+          'trending',
+          'productivity',
+          'agent',
+        ],
+      },
     ],
   },
   {

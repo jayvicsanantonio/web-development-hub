@@ -104,6 +104,7 @@ export const RESOURCE_SECTIONS = {
     'Zed',
     'Jules',
     'Cline',
+    'Augment Code',
   ],
   'Frameworks and Libraries': [
     'React',
@@ -277,6 +278,7 @@ export const ICON_MAP: Record<string, string> = {
   Zed: 'mdi:code-braces-box',
   Jules: 'simple-icons:google',
   Cline: 'mdi:robot-excited',
+  'Augment Code': 'mdi:code-greater-than',
   Sanity: 'simple-icons:sanity',
   Frontmatter: 'mdi:markdown',
   'Adobe Express': 'simple-icons:adobeexpress',
