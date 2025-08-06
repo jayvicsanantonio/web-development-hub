@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSearch } from '@/contexts/search-context';
+import { useTheme } from '@/contexts/theme-context';
 
 /**
  * Custom hook for global keyboard shortcuts
@@ -11,6 +12,8 @@ import { useSearch } from '@/contexts/search-context';
  * - Ctrl+K or Cmd+K: Focus search input
  * - Ctrl+F or Cmd+F: Toggle filter panel
  * - Ctrl+B or Cmd+B: Navigate to Bookmarks page
+ * - Ctrl+H or Cmd+H: Navigate to Home page
+ * - Ctrl+Shift+L or Cmd+Shift+L: Toggle light/dark theme
  * - / (forward slash): Focus search input (when not in input field)
  * - F: Focus search input (when not in input field)
  * - ESC: Clear search
@@ -18,6 +21,7 @@ import { useSearch } from '@/contexts/search-context';
 export function useKeyboardShortcuts() {
   const router = useRouter();
   const { clearSearch, searchQuery, toggleFilterPanel } = useSearch();
+  const { toggleTheme } = useTheme();
   const searchInputRef = useRef<HTMLInputElement | null>(null);
 
   // Function to focus on search input
@@ -94,6 +98,25 @@ export function useKeyboardShortcuts() {
         return;
       }
 
+      // Ctrl/Cmd + H to navigate to Home page
+      if ((event.ctrlKey || event.metaKey) && event.key === 'h') {
+        event.preventDefault();
+        router.push('/');
+        return;
+      }
+
+      // Ctrl/Cmd + Shift + L to toggle theme
+      if (
+        (event.ctrlKey || event.metaKey) &&
+        event.shiftKey &&
+        (event.key === 'l' || event.key === 'L')
+      ) {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleTheme();
+        return;
+      }
+
       // Forward slash (/) to focus search (like GitHub, Reddit)
       if (event.key === '/' && !isInputFocused()) {
         event.preventDefault();
@@ -120,7 +143,13 @@ export function useKeyboardShortcuts() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [router, clearSearch, searchQuery, toggleFilterPanel]);
+  }, [
+    router,
+    clearSearch,
+    searchQuery,
+    toggleFilterPanel,
+    toggleTheme,
+  ]);
 
   return {
     focusSearchInput,
