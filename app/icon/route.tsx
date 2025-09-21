@@ -5,7 +5,7 @@ import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
 
-export function GET() {
+export async function GET() {
   return new ImageResponse(
     (
       <div
@@ -27,6 +27,10 @@ export function GET() {
     {
       width: 32,
       height: 32,
+      headers: {
+        'Content-Type': 'image/png',
+        'Cache-Control': 'public, max-age=31536000, immutable',
+      },
     },
   )
 }
