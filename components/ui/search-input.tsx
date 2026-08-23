@@ -1,11 +1,10 @@
 'use client';
 
-import { useState, useEffect, useRef, forwardRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useSearch } from '@/contexts/search-context';
 import { FilterButton } from './filter-button';
-import { useRouter } from 'next/navigation';
 
 interface SearchInputProps {
   isMobile?: boolean;
@@ -21,7 +20,6 @@ export function SearchInput({
   onKeyDown,
 }: SearchInputProps) {
   const { searchQuery, setSearchQuery, clearSearch } = useSearch();
-  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [localSearchQuery, setLocalSearchQuery] = useState('');

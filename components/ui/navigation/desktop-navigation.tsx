@@ -172,8 +172,6 @@ export function DesktopNavigation({
                   setHiddenTooltip(item.id);
                 }}
                 variant="desktop"
-                index={index}
-                totalItems={filteredNavItems.length}
                 aria-describedby="nav-description"
                 onKeyDown={(e) => {
                   switch (e.key) {

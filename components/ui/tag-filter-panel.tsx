@@ -5,56 +5,9 @@ import { useSearch } from '@/contexts/search-context';
 import { X, Star } from 'lucide-react';
 import { Icon } from '@iconify/react';
 import { getTagIconName } from '@/lib/utils/tag-icons';
+import { RESOURCE_TAGS } from '@/constants/sections';
 
-const ALL_TAGS = [
-  'javascript',
-  'typescript',
-  'react',
-  'vue',
-  'css',
-  'html',
-  'nodejs',
-  'python',
-
-  'ai',
-  'interview-prep',
-  'coding-challenges',
-  'system-design',
-  'testing',
-  'deployment',
-  'design',
-  'performance',
-  'accessibility',
-  'authentication',
-
-  'beginner-friendly',
-  'advanced',
-  'interactive',
-
-  'documentation',
-  'tutorial',
-  'course',
-  'community',
-  'blog',
-  'tool',
-  'platform',
-
-  'free',
-  'paid',
-  'open-source',
-  'video-based',
-  'hands-on',
-
-  'trending',
-  'career-focused',
-  'full-stack',
-  'mobile-dev',
-  'desktop-dev',
-  'database',
-  'cms',
-];
-
-const PRIORITY_TAGS = [
+const PRIORITY_TAGS: readonly string[] = [
   'ai',
   'interview-prep',
   'free',
@@ -237,7 +190,7 @@ export function TagFilterPanel({
               All Tags
             </span>
             <div className="flex flex-wrap gap-1.5 md:gap-2">
-              {ALL_TAGS.filter(
+              {RESOURCE_TAGS.filter(
                 (tag) => !PRIORITY_TAGS.includes(tag)
               ).map((tag) => (
                 <button
@@ -265,7 +218,7 @@ export function TagFilterPanel({
         <div className="flex items-center justify-between text-[10px] md:text-xs text-muted-foreground pt-2 border-t border-border/20">
           <span>Click tags to add or remove filters</span>
           <span>
-            {selectedTags.length} of {ALL_TAGS.length} tags selected
+            {selectedTags.length} of {RESOURCE_TAGS.length} tags selected
           </span>
         </div>
       </div>
