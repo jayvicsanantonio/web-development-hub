@@ -9,6 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm build` - Build the application for production
 - `pnpm start` - Start production server
 - `pnpm lint` - Run ESLint
+- `pnpm typecheck` - Type-check with `tsc --noEmit`
 - `fnm use` - Use correct Node.js version (requires fnm)
 
 ### Cloudflare Deployment
@@ -38,12 +39,11 @@ This project uses **pnpm** exclusively for package management. Always use `pnpm 
 - React Context for global state:
   - `BookmarksProvider` - manages user bookmarks
   - `ThemeProvider` - handles light/dark theme switching
-- Custom hooks in `/hooks/` for reusable logic
-- Form handling with React Hook Form + Zod validation
+- Custom hooks in `/hooks/` and `/lib/hooks/` for reusable logic
 
 ### Data Layer
 - Static data in `/lib/data/` with TypeScript definitions
-- Resource mappings and category types in `/lib/types.ts`
+- Resource-to-icon mappings in `/lib/data/resource-mappings.ts`; the section index is derived from `SECTIONS`, never hand-maintained
 - Utility functions in `/lib/utils/` and `/lib/utils.ts`
 
 ### Styling System

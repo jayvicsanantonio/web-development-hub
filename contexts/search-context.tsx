@@ -6,6 +6,7 @@ import React, {
   useState,
   useCallback,
   useEffect,
+  useMemo,
   ReactNode,
 } from 'react';
 import { usePathname } from 'next/navigation';
@@ -24,7 +25,8 @@ type Resource = {
 type SearchContextType = {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
-  searchResults: Resource[];
+  /** `null` means "not searching"; `[]` means "searched, no matches". */
+  searchResults: Resource[] | null;
   clearSearch: () => void;
   currentCategory: string | null;
   setCurrentCategory: (category: string | null) => void;
@@ -46,17 +48,17 @@ const SearchContext = createContext<SearchContextType | undefined>(
   undefined
 );
 
-const getAllResources = (): Resource[] => {
-  return SECTIONS.flatMap((section) =>
-    section.links.map((link) => ({
-      title: link.title,
-      href: link.href,
-      description: link.description,
-      section: section.title,
-      tags: link.tags,
-    }))
-  );
-};
+// SECTIONS is a static module-level literal, so this is computed once rather
+// than rebuilt on every keystroke.
+const ALL_RESOURCES: Resource[] = SECTIONS.flatMap((section) =>
+  section.links.map((link) => ({
+    title: link.title,
+    href: link.href,
+    description: link.description,
+    section: section.title,
+    tags: link.tags,
+  }))
+);
 
 export function SearchProvider({
   children,
@@ -64,7 +66,6 @@ export function SearchProvider({
   children: ReactNode;
 }) {
   const [searchQuery, setSearchQueryState] = useState('');
-  const [searchResults, setSearchResults] = useState<Resource[]>([]);
   const [currentCategory, setCurrentCategory] = useState<
     string | null
   >(null);
@@ -80,7 +81,7 @@ export function SearchProvider({
     hasSelectedTags,
     selectedTagCount,
     filterResourcesByTags,
-  } = useFilter({});
+  } = useFilter();
 
   const setSearchQuery = useCallback((query: string) => {
     setSearchQueryState(query);
@@ -88,7 +89,6 @@ export function SearchProvider({
 
   const clearSearch = useCallback(() => {
     setSearchQueryState('');
-    setSearchResults([]);
   }, []);
 
   const toggleFilterPanel = useCallback(() => {
@@ -99,39 +99,31 @@ export function SearchProvider({
     clearSearch();
   }, [pathname, clearSearch]);
 
-  useEffect(() => {
-    if (!searchQuery || searchQuery.trim() === '') {
-      let results;
+  // Derived during render rather than stored in state: storing it meant every
+  // keystroke committed one frame pairing the new query with the old results.
+  const searchResults = useMemo<Resource[] | null>(() => {
+    const query = searchQuery.trim().toLowerCase();
+    const isSearching = query.length > 0 || selectedTags.length > 0;
 
-      if (pathname === '/bookmarks') {
-        results = bookmarks;
-      } else if (selectedTags.length > 0) {
-        results = getAllResources();
-      } else {
-        setSearchResults([]);
-        return;
-      }
-
-      if (selectedTags.length > 0) {
-        results = filterResourcesByTags(results);
-      }
-
-      setSearchResults(results);
-      return;
+    if (!isSearching) {
+      return null;
     }
 
-    const query = searchQuery.toLowerCase();
+    // Bookmarks satisfy Resource (tags is optional), and carry tags at runtime.
+    let results: Resource[] =
+      pathname === '/bookmarks' ? bookmarks : ALL_RESOURCES;
 
-    const searchSource =
-      pathname === '/bookmarks' ? bookmarks : getAllResources();
+    if (query) {
+      results = results.filter(
+        (resource) =>
+          resource.title.toLowerCase().includes(query) ||
+          resource.description.toLowerCase().includes(query) ||
+          resource.section.toLowerCase().includes(query)
+      );
+    }
 
-    let results = searchSource.filter(
-      (resource) =>
-        resource.title.toLowerCase().includes(query) ||
-        resource.description.toLowerCase().includes(query) ||
-        resource.section.toLowerCase().includes(query)
-    );
-
+    // Applied in every branch, so tag-only filtering stays scoped to the
+    // category page the user is on.
     if (currentCategory) {
       results = results.filter(
         (resource) => resource.section === currentCategory
@@ -142,13 +134,14 @@ export function SearchProvider({
       results = filterResourcesByTags(results);
     }
 
-    setSearchResults(results);
+    return results;
   }, [
     searchQuery,
     currentCategory,
     pathname,
     bookmarks,
     selectedTags,
+    filterResourcesByTags,
   ]);
 
   const contextValue = React.useMemo(

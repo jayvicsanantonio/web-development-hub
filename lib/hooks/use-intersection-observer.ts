@@ -13,6 +13,12 @@ export const useIntersectionObserver = (
   const [activeSection, setActiveSection] = useState<string>('');
   const observerRef = useRef<IntersectionObserver | null>(null);
 
+  // The effect observes a *set* of ids, so it should re-run when that set
+  // changes — not whenever the caller happens to allocate a new array.
+  const idsKey = sectionIds.join('|');
+  const idsRef = useRef(sectionIds);
+  idsRef.current = sectionIds;
+
   const {
     rootMargin = '-20% 0px -20% 0px',
     threshold = 0.4,
@@ -20,7 +26,8 @@ export const useIntersectionObserver = (
   } = options;
 
   useEffect(() => {
-    if (sectionIds.length === 0) return;
+    const ids = idsRef.current;
+    if (ids.length === 0) return;
 
     observerRef.current = new IntersectionObserver(
       (entries) => {
@@ -60,7 +67,7 @@ export const useIntersectionObserver = (
       }
     );
 
-    sectionIds.forEach((id) => {
+    ids.forEach((id) => {
       const element = document.getElementById(id);
       if (element && observerRef.current) {
         observerRef.current.observe(element);
@@ -72,7 +79,9 @@ export const useIntersectionObserver = (
         observerRef.current.disconnect();
       }
     };
-  }, [sectionIds, rootMargin, threshold, root]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- keyed on idsKey
+    // (the set's value) with the array itself read through a ref.
+  }, [idsKey, rootMargin, threshold, root]);
 
   return activeSection;
 };
