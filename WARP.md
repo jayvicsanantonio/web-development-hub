@@ -25,7 +25,7 @@ Commands
   - Gates available: pnpm lint, pnpm typecheck (tsc --noEmit), pnpm build
 
 Environment notes
-- Node: engines requires >= 20. Use fnm use to select the correct version (.node-version pins 20.0.0).
+- Node: engines requires >= 18; .node-version pins 18.18.0, while .npmrc and .idx/dev.nix both say 20. These disagree — reconcile deliberately, and re-check the Cloudflare Pages build when you do, since it reads .node-version.
 - Package manager: pnpm is used exclusively (see README and CLAUDE.md).
 
 High-level architecture and structure
