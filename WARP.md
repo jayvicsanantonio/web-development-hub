@@ -25,7 +25,7 @@ Commands
   - Gates available: pnpm lint, pnpm typecheck (tsc --noEmit), pnpm build
 
 Environment notes
-- Node: engines requires >= 18; .node-version pins 18.18.0, while .npmrc and .idx/dev.nix both say 20. These disagree — reconcile deliberately, and re-check the Cloudflare Pages build when you do, since it reads .node-version.
+- Node: .node-version pins 20 (major only, so Cloudflare Pages resolves its latest available 20.x), matching .npmrc and .idx/dev.nix. engines allows >= 18 so local installs on 18 still work.
 - Package manager: pnpm is used exclusively (see README and CLAUDE.md).
 
 High-level architecture and structure
