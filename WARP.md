@@ -25,7 +25,7 @@ Commands
   - Gates available: pnpm lint, pnpm typecheck (tsc --noEmit), pnpm build
 
 Environment notes
-- Node: .node-version pins 20 (major only, so Cloudflare Pages resolves its latest available 20.x), matching .npmrc and .idx/dev.nix. engines allows >= 18 so local installs on 18 still work.
+- Node: .node-version pins 22, which is what the Cloudflare Pages V3 build image provides by default (v18 is EOL and v1/v2 images are being retired). .npmrc matches. engines stays >= 18 so it never blocks an install. .idx/dev.nix still uses nodejs_20 because its nix channel is pinned to stable-23.11 — that sandbox is independent of the deploy build.
 - Package manager: pnpm is used exclusively (see README and CLAUDE.md).
 
 High-level architecture and structure
