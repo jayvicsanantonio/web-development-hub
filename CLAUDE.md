@@ -13,10 +13,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `fnm use` - Use correct Node.js version (requires fnm); the project needs Node >= 20.19
 
 ### Cloudflare Deployment
-- `pnpm preview` - Build and preview with OpenNext Cloudflare
-- `pnpm deploy` - Build and deploy to Cloudflare
-- `pnpm upload` - Build and upload to Cloudflare
-- `pnpm cf-typegen` - Generate Cloudflare environment types
+Deploys as a **Worker** via the OpenNext adapter, configured by `wrangler.jsonc`
+and `open-next.config.ts`. (The older Pages + `@cloudflare/next-on-pages` path is
+deprecated upstream and no longer resolves.)
+- `pnpm preview` - Build and preview the Worker locally
+- `pnpm deploy` - Build and deploy the Worker
+- `pnpm upload` - Build and upload a new Worker version without releasing it
+- `pnpm cf-typegen` - Regenerate `cloudflare-env.d.ts` (gitignored) after editing `wrangler.jsonc`
 
 ### Package Management
 This project uses **pnpm** exclusively for package management. Always use `pnpm install`, `pnpm add`, etc.
@@ -59,7 +62,7 @@ This project uses **pnpm** exclusively for package management. Always use `pnpm 
 - Compression and caching headers configured in next.config.mjs
 
 ### Deployment
-- Configured for Cloudflare deployment using OpenNext Cloudflare
+- Cloudflare Workers via OpenNext (`wrangler.jsonc` + `open-next.config.ts`)
 - Development mode initializes Cloudflare integration automatically
 - Security headers and CSP configured for production
 

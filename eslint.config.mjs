@@ -17,6 +17,7 @@ const config = [
       'out/**',
       'build/**',
       'next-env.d.ts',
+      'cloudflare-env.d.ts',
     ],
   },
 
