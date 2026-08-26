@@ -25,7 +25,8 @@ Commands
   - Gates available: pnpm lint, pnpm typecheck (tsc --noEmit), pnpm build
 
 Environment notes
-- Node: .node-version pins 22, which is what the Cloudflare Pages V3 build image provides by default (v18 is EOL and v1/v2 images are being retired). .npmrc matches. engines stays >= 18 so it never blocks an install. .idx/dev.nix still uses nodejs_20 because its nix channel is pinned to stable-23.11 — that sandbox is independent of the deploy build.
+- Node: .node-version and .npmrc pin 22; engines requires >= 20.19 (the floor set by Next 16 and ESLint 9). Note that the Cloudflare Pages project sets a NODE_VERSION build variable, which overrides .node-version there — the repo file governs local and Vercel builds only.
+- Toolchain ceilings: TypeScript is held at 6.x because typescript-eslint does not support TS 7 yet, and ESLint is held at 9.x because no stable eslint-plugin-react supports ESLint 10 yet. Both are the newest versions that keep `pnpm lint` working.
 - Package manager: pnpm is used exclusively (see README and CLAUDE.md).
 
 High-level architecture and structure

@@ -46,13 +46,18 @@ const withCanonicalSection = (resource: Resource): Resource => {
     : resource;
 };
 
-const validateResource = (resource: any): resource is Resource => {
+const validateResource = (
+  resource: unknown
+): resource is Resource => {
+  if (typeof resource !== 'object' || resource === null) {
+    return false;
+  }
+  const candidate = resource as Record<string, unknown>;
   return (
-    resource &&
-    typeof resource.title === 'string' &&
-    typeof resource.href === 'string' &&
-    typeof resource.description === 'string' &&
-    typeof resource.section === 'string'
+    typeof candidate.title === 'string' &&
+    typeof candidate.href === 'string' &&
+    typeof candidate.description === 'string' &&
+    typeof candidate.section === 'string'
   );
 };
 

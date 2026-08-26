@@ -46,7 +46,7 @@ const CACHEABLE_ASSET = /\.(css|js|png|jpg|jpeg|gif|svg|webp|woff2?)$/;
 async function handleNavigate(request) {
   try {
     return await fetch(request);
-  } catch (error) {
+  } catch {
     const offline = await caches.match('/offline.html');
     // Never resolve to undefined: respondWith would turn that into a network error.
     return (
@@ -73,13 +73,13 @@ async function handleAsset(request) {
       try {
         const cache = await caches.open(CACHE_NAME);
         await cache.put(request, copy);
-      } catch (error) {
+      } catch {
         console.error('Service Worker: Failed to cache resource', error);
       }
     }
 
     return response;
-  } catch (error) {
+  } catch {
     if (request.destination === 'image') {
       return OFFLINE_IMAGE.clone();
     }

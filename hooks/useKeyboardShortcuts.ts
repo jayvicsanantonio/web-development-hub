@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSearch } from '@/contexts/search-context';
 import { useTheme } from '@/contexts/theme-context';
@@ -36,7 +36,7 @@ export function useKeyboardShortcuts() {
   };
 
   // Function to handle ESC key - clear search only
-  const handleEscape = () => {
+  const handleEscape = useCallback(() => {
     const activeElement = document.activeElement as HTMLElement;
 
     // If search input is focused, clear it and blur
@@ -50,7 +50,7 @@ export function useKeyboardShortcuts() {
       // If there's a search query but input isn't focused, just clear search
       clearSearch();
     }
-  };
+  }, [clearSearch, searchQuery]);
 
   useEffect(() => {
     // Helper function to check if an input element is currently focused
@@ -132,8 +132,7 @@ export function useKeyboardShortcuts() {
     };
   }, [
     router,
-    clearSearch,
-    searchQuery,
+    handleEscape,
     toggleFilterPanel,
     toggleTheme,
   ]);

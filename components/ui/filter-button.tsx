@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { Filter, X } from 'lucide-react';
 import { useSearch } from '@/contexts/search-context';
+import { useIsMac } from '@/lib/hooks/use-is-mac';
 import { TagFilterPanel } from '@/components/ui/tag-filter-panel';
 
 interface FilterButtonProps {
@@ -17,15 +17,7 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
     setIsFilterPanelOpen,
   } = useSearch();
 
-  // Detect platform for keyboard shortcut display
-  const [isMac, setIsMac] = useState(false);
-
-  useEffect(() => {
-    setIsMac(
-      typeof navigator !== 'undefined' &&
-        navigator.platform.includes('Mac')
-    );
-  }, []);
+  const isMac = useIsMac();
 
   const hasFilters = selectedTags.length > 0;
 
