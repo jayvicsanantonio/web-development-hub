@@ -8,9 +8,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm dev` - Start development server with Turbopack
 - `pnpm build` - Build the application for production
 - `pnpm start` - Start production server
-- `pnpm lint` - Run ESLint
+- `pnpm lint` - Run ESLint (flat config in `eslint.config.mjs`; `next lint` was removed in Next 16)
 - `pnpm typecheck` - Type-check with `tsc --noEmit`
-- `fnm use` - Use correct Node.js version (requires fnm)
+- `fnm use` - Use correct Node.js version (requires fnm); the project needs Node >= 20.19
 
 ### Cloudflare Deployment
 - `pnpm preview` - Build and preview with OpenNext Cloudflare

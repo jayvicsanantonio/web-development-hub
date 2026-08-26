@@ -5,7 +5,6 @@ import React, {
   useContext,
   useState,
   useCallback,
-  useEffect,
   useMemo,
   ReactNode,
 } from 'react';
@@ -95,9 +94,14 @@ export function SearchProvider({
     setIsFilterPanelOpen((prev) => !prev);
   }, []);
 
-  useEffect(() => {
-    clearSearch();
-  }, [pathname, clearSearch]);
+  // Reset the query when the route changes. Done during render (React's
+  // documented "adjusting state when a prop changes" pattern) rather than in an
+  // effect: an effect would commit one frame showing the previous page's query.
+  const [queryPathname, setQueryPathname] = useState(pathname);
+  if (queryPathname !== pathname) {
+    setQueryPathname(pathname);
+    setSearchQueryState('');
+  }
 
   // Derived during render rather than stored in state: storing it meant every
   // keystroke committed one frame pairing the new query with the old results.
