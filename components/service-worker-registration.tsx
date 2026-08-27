@@ -20,73 +20,31 @@ export default function ServiceWorkerRegistration() {
   };
 
   useEffect(() => {
-    if (!('serviceWorker' in navigator)) {
-      return;
-    }
-
-    let cancelled = false;
-    const cleanups: Array<() => void> = [];
-
-    const register = () => {
-      navigator.serviceWorker
-        .register('/sw.js')
-        .then((registration) => {
-          if (cancelled) return;
-
-          const onUpdateFound = () => {
-            const installingWorker = registration.installing;
-            if (!installingWorker) return;
-
-            const onStateChange = () => {
-              if (
-                installingWorker.state === 'installed' &&
-                navigator.serviceWorker.controller
-              ) {
-                setNewWorker(installingWorker);
-                setShowUpdateNotification(true);
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('/sw.js')
+          .then(registration => {
+            console.log('Service worker registered successfully:', registration);
+            
+            // Check for updates
+            registration.addEventListener('updatefound', () => {
+              const installingWorker = registration.installing;
+              if (installingWorker) {
+                installingWorker.addEventListener('statechange', () => {
+                  if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    // New version available - show UI notification
+                    console.log('New version available! Showing update notification.');
+                    setNewWorker(installingWorker);
+                    setShowUpdateNotification(true);
+                  }
+                });
               }
-            };
-
-            installingWorker.addEventListener(
-              'statechange',
-              onStateChange
-            );
-            cleanups.push(() =>
-              installingWorker.removeEventListener(
-                'statechange',
-                onStateChange
-              )
-            );
-          };
-
-          registration.addEventListener('updatefound', onUpdateFound);
-          cleanups.push(() =>
-            registration.removeEventListener(
-              'updatefound',
-              onUpdateFound
-            )
-          );
-        })
-        .catch((err) =>
-          console.error('Service worker registration failed:', err)
-        );
-    };
-
-    // This effect runs after hydration, by which point `load` may already
-    // have fired — waiting for it unconditionally would never register.
-    if (document.readyState === 'complete') {
-      register();
-    } else {
-      window.addEventListener('load', register);
-      cleanups.push(() =>
-        window.removeEventListener('load', register)
-      );
+            });
+          })
+          .catch(err => console.error('Service worker registration failed:', err));
+      });
     }
-
-    return () => {
-      cancelled = true;
-      cleanups.forEach((fn) => fn());
-    };
   }, []);
 
   if (!showUpdateNotification) {

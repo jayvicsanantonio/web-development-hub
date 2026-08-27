@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { HeroBanner } from '@/components/ui/hero-banner';
 import { SECTIONS } from '@/constants/sections';
-import { toSectionId } from '@/lib/utils/navigation';
+import { CategoryType } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import ResourceCard from '@/components/ui/resource-card';
 import { SearchWrapper } from '@/components/search-wrapper';
@@ -9,6 +9,8 @@ import { SearchWrapper } from '@/components/search-wrapper';
 interface ResourceSectionProps {
   title: string;
   description: string;
+  category: CategoryType;
+  ctaText: string;
   viewAllLink: string;
   viewAllText: string;
 }
@@ -16,12 +18,26 @@ interface ResourceSectionProps {
 const ResourceSection = ({
   title,
   description,
+  category,
+  ctaText,
   viewAllLink,
   viewAllText,
 }: ResourceSectionProps) => {
-  const sectionData = SECTIONS.find(
-    (section) => section.title === title
-  );
+  const normalizeString = (str: string) =>
+    str
+      .toLowerCase()
+      .replace(/\s+&\s+/g, ' ')
+      .replace(/\s+/g, '-');
+
+  const sectionData = SECTIONS.find((section) => {
+    const normalizedSectionTitle = normalizeString(section.title);
+    const normalizedCategory = normalizeString(category);
+    const normalizedTitle = normalizeString(title);
+    return (
+      normalizedSectionTitle === normalizedCategory ||
+      normalizedSectionTitle === normalizedTitle
+    );
+  });
 
   const resources = (sectionData?.links || []).map((link) => ({
     title: link.title,
@@ -31,7 +47,7 @@ const ResourceSection = ({
   }));
 
   const formattedTitle = title.toLowerCase().replace(/\s+/g, '-');
-  const sectionId = toSectionId(title);
+  const sectionId = `section-${formattedTitle}`;
   const headingId = `heading-${formattedTitle}`;
   const skipLinkId = `skip-${formattedTitle}`;
 
@@ -103,6 +119,8 @@ export default function Home() {
         <ResourceSection
           title="Learning Resources"
           description="Start or advance your web development journey with these educational resources"
+          category="learning-resources"
+          ctaText="Explore Resource"
           viewAllLink="/learning-resources"
           viewAllText="View All Resources"
         />
@@ -110,6 +128,8 @@ export default function Home() {
         <ResourceSection
           title="Developer Tools"
           description="Essential tools to streamline your development workflow"
+          category="tools"
+          ctaText="View Tool"
           viewAllLink="/developer-tools"
           viewAllText="View All Tools"
         />
@@ -117,6 +137,8 @@ export default function Home() {
         <ResourceSection
           title="Frameworks and Libraries"
           description="Popular frameworks and libraries to build modern web applications"
+          category="frameworks-and-libraries"
+          ctaText="Learn More"
           viewAllLink="/frameworks-and-libraries"
           viewAllText="View All Frameworks"
         />
@@ -124,6 +146,8 @@ export default function Home() {
         <ResourceSection
           title="Communities"
           description="Connect with fellow developers in these vibrant communities"
+          category="communities"
+          ctaText="Join Community"
           viewAllLink="/communities"
           viewAllText="View All Communities"
         />
@@ -131,6 +155,8 @@ export default function Home() {
         <ResourceSection
           title="Blogs and Newsletters"
           description="Stay updated with the latest trends and insights from the web development world"
+          category="blogs"
+          ctaText="Read Blog"
           viewAllLink="/blogs"
           viewAllText="View All Blogs and Newsletters"
         />

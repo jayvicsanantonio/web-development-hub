@@ -10,12 +10,15 @@ import React, {
   useMemo,
 } from 'react';
 import { SECTIONS } from '@/constants/sections';
+import { Icon } from '@iconify/react';
+import { getResourceIcon } from '@/lib/data/resource-mappings';
 
 export type Resource = {
   title: string;
   href: string;
   description: string;
   section: string;
+  iconName?: string;
 };
 
 type BookmarksContextType = {
@@ -29,36 +32,40 @@ type BookmarksContextType = {
 
 const LOCAL_STORAGE_KEY = 'web-dev-hub-bookmarks';
 
-// Titles are unique across all 215 links; hrefs are not (the AI SDK is listed
-// twice), so the section index is keyed by title.
-const SECTION_BY_TITLE = new Map<string, string>(
-  SECTIONS.flatMap((section) =>
-    section.links.map(
-      (link) => [link.title, section.title] as [string, string]
-    )
-  )
-);
+const createResourceMap = (): Map<string, Map<string, string>> => {
+  const resourceMap = new Map();
 
-const withCanonicalSection = (resource: Resource): Resource => {
-  const section = SECTION_BY_TITLE.get(resource.title);
-  return section && section !== resource.section
-    ? { ...resource, section }
-    : resource;
+  SECTIONS.forEach((section) => {
+    const sectionMap = new Map<string, string>();
+
+    section.links.forEach((link) => {
+      if (link.href && link.title) {
+        sectionMap.set(link.href, getResourceIcon(link.title));
+      }
+    });
+
+    if (sectionMap.size > 0) {
+      resourceMap.set(section.title, sectionMap);
+    }
+  });
+
+  return resourceMap;
 };
 
-const validateResource = (
-  resource: unknown
-): resource is Resource => {
-  if (typeof resource !== 'object' || resource === null) {
-    return false;
-  }
-  const candidate = resource as Record<string, unknown>;
+const validateResource = (resource: any): resource is Resource => {
   return (
-    typeof candidate.title === 'string' &&
-    typeof candidate.href === 'string' &&
-    typeof candidate.description === 'string' &&
-    typeof candidate.section === 'string'
+    resource &&
+    typeof resource.title === 'string' &&
+    typeof resource.href === 'string' &&
+    typeof resource.description === 'string' &&
+    typeof resource.section === 'string'
   );
+};
+
+const getSerializableBookmarks = (
+  bookmarks: Resource[]
+): Omit<Resource, 'iconName'>[] => {
+  return bookmarks.map(({ iconName, ...rest }) => rest);
 };
 
 const BookmarksContext = createContext<
@@ -72,6 +79,20 @@ export function BookmarksProvider({
 }) {
   const [bookmarks, setBookmarks] = useState<Resource[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const resourceMap = useMemo(() => createResourceMap(), []);
+
+  const restoreIcons = useCallback(
+    (bookmarkItems: Resource[]): Resource[] => {
+      return bookmarkItems.map((bookmark) => {
+        const sectionMap = resourceMap.get(bookmark.section);
+        const icon = sectionMap?.get(bookmark.href);
+
+        return icon ? { ...bookmark, icon } : bookmark;
+      });
+    },
+    [resourceMap]
+  );
 
   useEffect(() => {
     const loadBookmarks = async () => {
@@ -97,11 +118,11 @@ export function BookmarksProvider({
           return;
         }
 
-        const validBookmarks = parsedBookmarks
-          .filter(validateResource)
-          .map(withCanonicalSection);
+        const validBookmarks =
+          parsedBookmarks.filter(validateResource);
+        const bookmarksWithIcons = restoreIcons(validBookmarks);
 
-        setBookmarks(validBookmarks);
+        setBookmarks(bookmarksWithIcons);
       } catch (error) {
         console.error('Error loading bookmarks:', error);
         setBookmarks([]);
@@ -111,15 +132,17 @@ export function BookmarksProvider({
     };
 
     loadBookmarks();
-  }, []);
+  }, [restoreIcons]);
 
   useEffect(() => {
     if (isLoading) return;
 
     try {
+      const serializableBookmarks =
+        getSerializableBookmarks(bookmarks);
       localStorage.setItem(
         LOCAL_STORAGE_KEY,
-        JSON.stringify(bookmarks)
+        JSON.stringify(serializableBookmarks)
       );
     } catch (error) {
       console.error(
@@ -130,12 +153,11 @@ export function BookmarksProvider({
   }, [bookmarks, isLoading]);
 
   const addBookmark = useCallback((resource: Resource) => {
-    const canonical = withCanonicalSection(resource);
     setBookmarks((prev) => {
       const exists = prev.some(
-        (bookmark) => bookmark.href === canonical.href
+        (bookmark) => bookmark.href === resource.href
       );
-      return exists ? prev : [...prev, canonical];
+      return exists ? prev : [...prev, resource];
     });
   }, []);
 

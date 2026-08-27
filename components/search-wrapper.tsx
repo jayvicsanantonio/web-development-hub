@@ -1,9 +1,8 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useSearch } from '@/contexts/search-context';
 import ResourceCard from '@/components/ui/resource-card';
-import { toSectionId } from '@/lib/utils/navigation';
 
 // Import Resource type from search context
 type Resource = {
@@ -19,32 +18,36 @@ interface SearchWrapperProps {
 }
 
 export function SearchWrapper({ children }: SearchWrapperProps) {
-  const { searchQuery, searchResults, setCurrentCategory } =
-    useSearch();
+  const {
+    searchQuery,
+    searchResults,
+    selectedTags,
+    setCurrentCategory,
+  } = useSearch();
 
   useEffect(() => {
     setCurrentCategory(null);
   }, [setCurrentCategory]);
 
-  // `searchResults === null` is the single signal for "not searching"; every
-  // consumer used to re-derive its own predicate, and they disagreed.
-  const groupedResults = useMemo(() => {
-    if (!searchResults) return {} as Record<string, Resource[]>;
+  const isSearching =
+    (searchQuery && searchQuery.trim().length > 0) ||
+    selectedTags.length > 0;
+    
+  const groupedResults = isSearching
+    ? searchResults.reduce(
+        (groups: Record<string, Resource[]>, item: Resource) => {
+          const category = item.section || 'Uncategorized';
+          if (!groups[category]) {
+            groups[category] = [];
+          }
+          groups[category].push(item);
+          return groups;
+        },
+        {} as Record<string, Resource[]>
+      )
+    : {};
 
-    return searchResults.reduce(
-      (groups: Record<string, Resource[]>, item: Resource) => {
-        const category = item.section || 'Uncategorized';
-        if (!groups[category]) {
-          groups[category] = [];
-        }
-        groups[category].push(item);
-        return groups;
-      },
-      {} as Record<string, Resource[]>
-    );
-  }, [searchResults]);
-
-  if (searchResults) {
+  if (isSearching) {
     return (
       <div className="flex flex-col w-full space-y-24 px-4 md:px-6">
         <section className="container mx-auto py-12 md:py-12 flex flex-col gap-10">
@@ -63,7 +66,10 @@ export function SearchWrapper({ children }: SearchWrapperProps) {
             <div className="flex flex-col gap-12">
               {Object.entries(groupedResults).map(
                 ([category, items]) => {
-                  const sectionId = toSectionId(category);
+                  const sectionId = `section-${category
+                    .toLowerCase()
+                    .replace(/\s+&\s+/g, '-')
+                    .replace(/\s+/g, '-')}`;
 
                   return (
                     <section

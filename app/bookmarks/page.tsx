@@ -2,13 +2,9 @@
 
 import { useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import {
-  useBookmarks,
-  type Resource,
-} from '@/contexts/bookmarks-context';
+import { useBookmarks } from '@/contexts/bookmarks-context';
 import ResourceCard from '@/components/ui/resource-card';
 import { useSearch } from '@/contexts/search-context';
-import { toSectionId } from '@/lib/utils/navigation';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -29,12 +25,29 @@ const SECTION_ORDER = [
   'Blogs and Newsletters',
 ] as const;
 
+const ACCENT_COLORS = {
+  'Learning Resources': 'neon',
+  'Frameworks and Libraries': 'neon',
+  'Blogs and Newsletters': 'neon',
+} as const;
+
+const getAccentColor = (section: string): 'neon' | 'purple' => {
+  return (
+    (ACCENT_COLORS as Record<string, 'neon' | 'purple'>)[section] ||
+    'purple'
+  );
+};
+
 const formatCount = (
   count: number,
   singular: string,
   plural: string
 ): string => {
   return `${count} ${count === 1 ? singular : plural}`;
+};
+
+const createSectionId = (section: string): string => {
+  return `section-${section.toLowerCase().replace(/\s+/g, '-')}`;
 };
 
 const BookmarksHeader = ({
@@ -44,8 +57,8 @@ const BookmarksHeader = ({
   onClearAll,
 }: {
   searchQuery: string;
-  displayedBookmarks: Resource[];
-  bookmarks: Resource[];
+  displayedBookmarks: any[];
+  bookmarks: any[];
   onClearAll: () => void;
 }) => {
   const getDescription = () => {
@@ -157,9 +170,9 @@ const BookmarksSection = ({
   bookmarks,
 }: {
   section: string;
-  bookmarks: Resource[];
+  bookmarks: any[];
 }) => (
-  <section id={toSectionId(section)} className="space-y-6">
+  <section id={createSectionId(section)} className="space-y-6">
     <h2 className="text-2xl font-bold tracking-tight">{section}</h2>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {bookmarks.map((bookmark) => (
@@ -171,15 +184,23 @@ const BookmarksSection = ({
 
 export default function BookmarksPage() {
   const { bookmarks, clearBookmarks } = useBookmarks();
-  const { searchQuery, searchResults, setCurrentCategory } =
-    useSearch();
+  const {
+    searchQuery,
+    searchResults,
+    selectedTags,
+    setCurrentCategory,
+  } = useSearch();
 
   useEffect(() => {
     setCurrentCategory(null);
   }, [setCurrentCategory]);
 
-  // `null` means "not searching or filtering" — show every bookmark.
-  const displayedBookmarks = searchResults ?? bookmarks;
+  const displayedBookmarks = useMemo(() => {
+    return (searchQuery && searchQuery.trim()) ||
+      selectedTags.length > 0
+      ? searchResults
+      : bookmarks;
+  }, [searchQuery, searchResults, bookmarks, selectedTags]);
 
   const groupedBookmarks = useMemo(() => {
     return displayedBookmarks.reduce((acc, bookmark) => {
@@ -190,21 +211,6 @@ export default function BookmarksPage() {
       return acc;
     }, {} as Record<string, typeof displayedBookmarks>);
   }, [displayedBookmarks]);
-
-  // Known sections first, then anything else, so a bookmark whose section is
-  // unrecognised is still rendered rather than silently dropped.
-  const orderedSections = useMemo(() => {
-    const known = SECTION_ORDER.filter(
-      (section) => groupedBookmarks[section]
-    );
-    const rest = Object.keys(groupedBookmarks)
-      .filter(
-        (section) =>
-          !(SECTION_ORDER as readonly string[]).includes(section)
-      )
-      .sort();
-    return [...known, ...rest];
-  }, [groupedBookmarks]);
 
   const handleClearAll = () => {
     clearBookmarks();
@@ -223,7 +229,9 @@ export default function BookmarksPage() {
         <EmptyState searchQuery={searchQuery} />
       ) : (
         <div className="space-y-16">
-          {orderedSections.map((section) => (
+          {SECTION_ORDER.filter(
+            (section) => groupedBookmarks[section]
+          ).map((section) => (
             <BookmarksSection
               key={section}
               section={section}

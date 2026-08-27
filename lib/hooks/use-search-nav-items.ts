@@ -1,30 +1,34 @@
-import { useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import {
-  NAV_ITEMS,
-  getNavItemsForSections,
+  createSearchNavItems,
+  DEFAULT_NAV_ITEMS,
   type NavigationItem,
 } from '@/lib/utils/navigation';
 
-/**
- * Nav items for the current search state.
- *
- * This used to read the rendered DOM and reconstruct titles from element ids,
- * which needed an `isClient` flag and a `setTimeout(…, 0)` to outrun the render
- * that produced the markup it was reading. Deriving from the same data the page
- * renders makes it a pure function: no state, no effects, no race.
- */
 export function useSearchNavItems(
-  searchResults: { section: string }[] | null
+  searchQuery: string
 ): NavigationItem[] {
-  return useMemo(() => {
-    if (!searchResults) {
-      return NAV_ITEMS;
+  const [navItems, setNavItems] =
+    useState<NavigationItem[]>(DEFAULT_NAV_ITEMS);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) {
+      return;
     }
 
-    const visible = new Set(
-      searchResults.map((resource) => resource.section)
-    );
 
-    return getNavItemsForSections(visible);
-  }, [searchResults]);
+    const timer = setTimeout(() => {
+      const items = createSearchNavItems(searchQuery);
+      setNavItems(items);
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery, isClient]);
+
+  return navItems;
 }

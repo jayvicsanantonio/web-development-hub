@@ -1,18 +1,21 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { useSearch } from '@/contexts/search-context';
 import { useIntersectionObserver } from '@/lib/hooks/use-intersection-observer';
 import { useSearchNavItems } from '@/lib/hooks/use-search-nav-items';
-import { scrollToSection } from '@/lib/utils/navigation';
+import {
+  scrollToSection,
+  type NavigationItem as NavigationItemType,
+} from '@/lib/utils/navigation';
 import { MobileNavigation } from '@/components/ui/navigation/mobile-navigation';
 import { DesktopNavigation } from '@/components/ui/navigation/desktop-navigation';
 import { DesktopSearch } from '@/components/ui/navigation/desktop-search';
 
 export default function VerticalNavigation() {
   const pathname = usePathname();
-  const { searchResults } = useSearch();
+  const { searchQuery } = useSearch();
 
   const isHomeActive = pathname === '/';
   const isBookmarksActive = pathname === '/bookmarks';
@@ -21,12 +24,9 @@ export default function VerticalNavigation() {
   const excludedRoutes = ['/privacy-policy', '/terms-of-service'];
   const shouldHideSearch = excludedRoutes.includes(pathname);
 
-  const navItems = useSearchNavItems(searchResults);
+  const navItems = useSearchNavItems(searchQuery || '');
 
-  const sectionIds = useMemo(
-    () => navItems.map((item) => item.id),
-    [navItems]
-  );
+  const sectionIds = navItems.map((item) => item.id);
   const activeSection = useIntersectionObserver(sectionIds);
 
   const handleScrollToSection = useCallback((id: string) => {
@@ -37,6 +37,8 @@ export default function VerticalNavigation() {
     <>
       <MobileNavigation
         navItems={navItems}
+        activeSection={activeSection}
+        onScrollToSection={handleScrollToSection}
         hideSearch={shouldHideSearch}
       />
       <DesktopNavigation
