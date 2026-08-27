@@ -6,14 +6,11 @@ interface NavigationItemProps {
   item: {
     id: string;
     title: string;
-    icon?: React.FC<{ className?: string }>;
   };
   isActive: boolean;
   onClick: () => void;
   onKeyDown?: (e: React.KeyboardEvent) => void;
   variant?: 'mobile' | 'desktop';
-  index?: number;
-  totalItems?: number;
   'aria-describedby'?: string;
   href?: string;
 }
@@ -29,35 +26,16 @@ export const NavigationItem = forwardRef<
       onClick,
       onKeyDown,
       variant = 'desktop',
-      index,
-      totalItems,
       'aria-describedby': ariaDescribedBy,
       href,
     },
     ref
   ) => {
-    const Icon = item.icon;
-
     if (variant === 'mobile') {
       const content = (
-        <>
-          {Icon && (
-            <Icon
-              className={cn(
-                'h-5 w-5',
-                isActive
-                  ? 'text-foreground opacity-90'
-                  : 'text-foreground opacity-70'
-              )}
-              aria-hidden="true"
-            />
-          )}
-          <span
-            className={cn(isActive ? 'font-medium' : 'font-normal')}
-          >
-            {item.title}
-          </span>
-        </>
+        <span className={cn(isActive ? 'font-medium' : 'font-normal')}>
+          {item.title}
+        </span>
       );
 
       if (href) {

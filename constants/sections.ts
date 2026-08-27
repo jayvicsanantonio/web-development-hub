@@ -1,3 +1,61 @@
+// Tag vocabulary, ordered by how often each tag appears in SECTIONS below.
+// Derived from the data rather than hand-listed in the filter panel, which had
+// drifted to the point where 23 real tags were unreachable from the UI.
+export const RESOURCE_TAGS = [
+  'free',
+  'advanced',
+  'javascript',
+  'open-source',
+  'trending',
+  'paid',
+  'modern',
+  'beginner-friendly',
+  'performance',
+  'tool',
+  'blog',
+  'react',
+  'platform',
+  'design',
+  'ai',
+  'tutorial',
+  'community',
+  'css',
+  'career-focused',
+  'typescript',
+  'testing',
+  'full-stack',
+  'hands-on',
+  'interactive',
+  'deployment',
+  'coding-challenges',
+  'course',
+  'database',
+  'documentation',
+  'vue',
+  'nodejs',
+  'interview-prep',
+  'productivity',
+  'mobile-dev',
+  'accessibility',
+  'agent',
+  'html',
+  'python',
+  'video-based',
+  'cms',
+  'authentication',
+  'desktop-dev',
+  'reference',
+  'system-design',
+  'api',
+  'monitoring',
+  'editor',
+  'ide',
+  'no-code',
+  'terminal',
+] as const;
+
+export type ResourceTag = (typeof RESOURCE_TAGS)[number];
+
 export const SECTIONS = [
   {
     title: 'Learning Resources',
@@ -989,21 +1047,6 @@ export const SECTIONS = [
         ],
       },
 
-      {
-        title: 'Vercel AI SDK',
-        href: 'https://ai-sdk.dev/',
-        description:
-          'Open-source library for building AI-powered applications with streaming, edge functions, and React components.',
-        tags: [
-          'ai',
-          'free',
-          'open-source',
-          'react',
-          'javascript',
-          'modern',
-          'advanced',
-        ],
-      },
       {
         title: 'Amazon Bedrock',
         href: 'https://aws.amazon.com/bedrock/',

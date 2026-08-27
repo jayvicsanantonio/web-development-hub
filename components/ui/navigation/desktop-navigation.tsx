@@ -7,6 +7,7 @@ import { useTheme } from '@/contexts/theme-context';
 import { NavigationItem } from '@/components/ui/navigation-item';
 import { type NavigationItem as NavigationItemType } from '@/lib/utils/navigation';
 import { useState, useEffect, useMemo } from 'react';
+import { useIsMac } from '@/lib/hooks/use-is-mac';
 import { useBookmarks } from '@/contexts/bookmarks-context';
 
 interface DesktopNavigationProps {
@@ -28,7 +29,7 @@ export function DesktopNavigation({
   const [hiddenTooltip, setHiddenTooltip] = useState<string | null>(
     null
   );
-  const [isMac, setIsMac] = useState(false);
+  const isMac = useIsMac();
 
   const { bookmarks } = useBookmarks();
 
@@ -63,10 +64,6 @@ export function DesktopNavigation({
       return () => clearTimeout(timer);
     }
   }, [hiddenTooltip]);
-
-  useEffect(() => {
-    setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
-  }, []);
 
   return (
     <nav
@@ -172,8 +169,6 @@ export function DesktopNavigation({
                   setHiddenTooltip(item.id);
                 }}
                 variant="desktop"
-                index={index}
-                totalItems={filteredNavItems.length}
                 aria-describedby="nav-description"
                 onKeyDown={(e) => {
                   switch (e.key) {

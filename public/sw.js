@@ -1,7 +1,7 @@
-const CACHE_NAME = 'web-dev-hub-v1';
+const CACHE_NAME = 'web-dev-hub-v2';
 const STATIC_ASSETS = [
   '/',
-  '/manifest.json',
+  '/manifest.webmanifest',
   '/icon.svg',
   '/offline.html'
 ];
@@ -36,68 +36,70 @@ self.addEventListener('activate', (event) => {
 });
 
 // Fetch event - serve from cache with network fallback
+const OFFLINE_IMAGE = new Response(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="#f0f0f0"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="#999">Image</text></svg>',
+  { headers: { 'Content-Type': 'image/svg+xml' } }
+);
+
+const CACHEABLE_ASSET = /\.(css|js|png|jpg|jpeg|gif|svg|webp|woff2?)$/;
+
+async function handleNavigate(request) {
+  try {
+    return await fetch(request);
+  } catch {
+    const offline = await caches.match('/offline.html');
+    // Never resolve to undefined: respondWith would turn that into a network error.
+    return (
+      offline ||
+      new Response('You are offline.', {
+        status: 503,
+        headers: { 'Content-Type': 'text/plain' },
+      })
+    );
+  }
+}
+
+async function handleAsset(request) {
+  const cached = await caches.match(request);
+  if (cached) {
+    return cached;
+  }
+
+  try {
+    const response = await fetch(request);
+
+    if (response.status === 200 && CACHEABLE_ASSET.test(request.url)) {
+      const copy = response.clone();
+      try {
+        const cache = await caches.open(CACHE_NAME);
+        await cache.put(request, copy);
+      } catch {
+        console.error('Service Worker: Failed to cache resource', error);
+      }
+    }
+
+    return response;
+  } catch {
+    if (request.destination === 'image') {
+      return OFFLINE_IMAGE.clone();
+    }
+    return new Response('', { status: 504, statusText: 'Gateway Timeout' });
+  }
+}
+
 self.addEventListener('fetch', (event) => {
   // Skip cross-origin requests
   if (!event.request.url.startsWith(self.location.origin)) {
     return;
   }
 
-  // Handle navigation requests
   if (event.request.mode === 'navigate') {
-    event.respondWith(
-      fetch(event.request)
-        .catch(() => {
-          return caches.match('/offline.html');
-        })
-    );
+    event.respondWith(handleNavigate(event.request));
     return;
   }
 
-  // Handle other requests with cache-first strategy for static assets
   if (event.request.method === 'GET') {
-    event.respondWith(
-      caches.match(event.request)
-        .then((cachedResponse) => {
-          if (cachedResponse) {
-            return cachedResponse;
-          }
-
-          return fetch(event.request)
-            .then((response) => {
-              // Only cache successful responses
-              if (response.status === 200) {
-                const responseClone = response.clone();
-                // Cache CSS, JS, and image files
-                if (event.request.url.match(/\.(css|js|png|jpg|jpeg|gif|svg|webp)$/)) {
-                  // Return the promise chain to ensure completion before SW terminates
-                  return caches.open(CACHE_NAME)
-                    .then((cache) => {
-                      return cache.put(event.request, responseClone);
-                    })
-                    .then(() => {
-                      // Return the original response after caching is complete
-                      return response;
-                    })
-                    .catch((error) => {
-                      console.error('Service Worker: Failed to cache resource', error);
-                      // Return response even if caching fails
-                      return response;
-                    });
-                }
-              }
-              return response;
-            })
-            .catch(() => {
-              // Return a fallback for failed requests
-              if (event.request.destination === 'image') {
-                return new Response(
-                  '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="#f0f0f0"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="#999">Image</text></svg>',
-                  { headers: { 'Content-Type': 'image/svg+xml' } }
-                );
-              }
-            });
-        })
-    );
+    event.respondWith(handleAsset(event.request));
   }
 });
 
