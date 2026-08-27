@@ -41,11 +41,9 @@ These rules define the standards and practices for the Windsurf AI project, ensu
 
 ## Forms
 
-- **React Hook Form `v7.57.0`** for form state management and validation.
-  - Use the latest APIs and features for form control and error handling.
-- **Zod `v3.25.67`** for schema validation.
-  - Define all validation schemas with Zod.
-  - Integrate Zod schemas with React Hook Form for type-safe, declarative validation.
+This project has no forms. React Hook Form and Zod were listed here and declared as
+dependencies but never imported, and have been removed. If a form is ever added, choose
+the libraries then and update this section.
 
 ---
 
@@ -65,7 +63,7 @@ These rules define the standards and practices for the Windsurf AI project, ensu
   - Explaining workarounds or non-obvious solutions
   - Documenting library version deviations or special handling
   - API documentation (JSDoc for public interfaces)
-- **Write and maintain comprehensive tests** for all components, hooks, and business logic.
+- **Testing:** this repository has no test runner or CI today. Until one is added, treat `pnpm lint`, `pnpm typecheck` and `pnpm build` as the required gates, and verify UI changes manually.
 - **Use pnpm** as the project's package manager. **DO NOT** use npm.
 
 ---
@@ -77,8 +75,6 @@ These rules define the standards and practices for the Windsurf AI project, ensu
 | Framework        | Next.js         | 15.4.0                                      |
 | Styling          | Tailwind CSS    | 4.0                                         |
 | UI Components    | Shadcn UI       | Latest CLI (Aug 2024+)                      |
-| Forms            | React Hook Form | 7.57.0                                      |
-| Validation       | Zod             | 3.25.67                                     |
 | State Management | React Context   | (built-in)                                  |
 
 ---
@@ -89,7 +85,6 @@ These rules define the standards and practices for the Windsurf AI project, ensu
 - [Next.js v15.4.0](https://nextjs.org/)
 - [Tailwind CSS v4.0](https://tailwindcss.com/)
 - [Shadcn UI](https://ui.shadcn.com/)
-- [React Hook Form v7.57.0](https://react-hook-form.com/)
 - [Zod v3.25.67](https://zod.dev/)
 
 ---

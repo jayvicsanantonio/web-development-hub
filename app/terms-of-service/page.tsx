@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 
 export default function TermsOfServicePage() {
@@ -15,7 +13,7 @@ export default function TermsOfServicePage() {
           </p>
         </div>
 
-        <div className="prose prose-invert max-w-none space-y-8">
+        <div className="max-w-none space-y-8">
           <div className="bg-card rounded-lg p-6 border border-border">
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">
               Agreement to Terms
