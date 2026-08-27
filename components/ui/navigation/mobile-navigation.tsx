@@ -13,11 +13,15 @@ import { cn } from '@/lib/utils';
 
 interface MobileNavigationProps {
   navItems: NavigationItemType[];
+  activeSection: string;
+  onScrollToSection: (id: string) => void;
   hideSearch?: boolean;
 }
 
 export function MobileNavigation({
   navItems,
+  activeSection,
+  onScrollToSection,
   hideSearch = false,
 }: MobileNavigationProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -36,6 +40,18 @@ export function MobileNavigation({
 
   const handleNavigationClick = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  const urlMap: Record<string, string> = {
+    'section-learning-resources': '/learning-resources',
+    'section-developer-tools': '/developer-tools',
+    'section-frameworks-and-libraries': '/frameworks-and-libraries',
+    'section-communities': '/communities',
+    'section-blogs': '/blogs',
+  };
+
+  const getPageUrl = (sectionId: string) => {
+    return urlMap[sectionId] || '/';
   };
 
   const focusNextItem = useCallback((currentIndex: number) => {
@@ -172,11 +188,17 @@ export function MobileNavigation({
           <ul className="flex flex-col gap-4 list-none m-0 p-0 min-h-[calc(100vh-8rem)]">
             <li>
               <NavigationItem
-                item={{ id: 'home', title: 'Home' }}
+                item={{
+                  id: 'home',
+                  title: 'Home',
+                  icon: undefined,
+                }}
                 isActive={pathname === '/'}
                 href="/"
                 onClick={handleNavigationClick}
                 variant="mobile"
+                index={0}
+                totalItems={navItems.length + 1}
                 onKeyDown={(e) => handleKeyDown(e, 0)}
                 ref={(el) => {
                   navItemRefs.current[0] = el;
@@ -184,7 +206,7 @@ export function MobileNavigation({
               />
             </li>
             {navItems.map((item, index) => {
-              const pageUrl = item.href;
+              const pageUrl = getPageUrl(item.id);
               const isActive = pathname === pageUrl;
               const itemIndex = index + 1;
 
@@ -196,6 +218,8 @@ export function MobileNavigation({
                     href={pageUrl}
                     onClick={handleNavigationClick}
                     variant="mobile"
+                    index={itemIndex}
+                    totalItems={navItems.length + 1}
                     onKeyDown={(e) => handleKeyDown(e, itemIndex)}
                     ref={(el) => {
                       navItemRefs.current[itemIndex] = el;

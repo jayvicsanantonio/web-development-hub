@@ -1,8 +1,9 @@
-// Serves the application favicon with proper headers and caching.
-// Runs on the Node runtime: Next 16 deprecated the Edge Runtime, and pinning it
-// here also opted this route out of static generation.
+// Icon route handler with Edge Runtime for Cloudflare compatibility
+// Serves the application favicon with proper headers and caching
 
 import { ImageResponse } from 'next/og'
+
+export const runtime = 'edge'
 
 export async function GET() {
   return new ImageResponse(
