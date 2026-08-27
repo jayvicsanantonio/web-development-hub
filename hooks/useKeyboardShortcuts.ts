@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSearch } from '@/contexts/search-context';
 import { useTheme } from '@/contexts/theme-context';
@@ -22,12 +22,19 @@ export function useKeyboardShortcuts() {
   const router = useRouter();
   const { clearSearch, searchQuery, toggleFilterPanel } = useSearch();
   const { toggleTheme } = useTheme();
-  // Whichever search input is mounted; the mobile one is inside #mobile-search
-  // and so already matches this selector.
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
+
+  // Function to focus on search input
   const focusSearchInput = () => {
-    const searchInput = document.querySelector<HTMLInputElement>(
+    // Try to find the search input element
+    const desktopSearchInput = document.querySelector(
       'input[type="search"]'
-    );
+    ) as HTMLInputElement;
+    const mobileSearchInput = document.querySelector(
+      '#mobile-search input[type="search"]'
+    ) as HTMLInputElement;
+
+    const searchInput = desktopSearchInput || mobileSearchInput;
 
     if (searchInput) {
       searchInput.focus();
@@ -35,8 +42,14 @@ export function useKeyboardShortcuts() {
     }
   };
 
+  // Function to toggle filter panel - now uses context
+  const handleToggleFilterPanel = () => {
+    console.log('Toggling filter panel via context');
+    toggleFilterPanel();
+  };
+
   // Function to handle ESC key - clear search only
-  const handleEscape = useCallback(() => {
+  const handleEscape = () => {
     const activeElement = document.activeElement as HTMLElement;
 
     // If search input is focused, clear it and blur
@@ -50,7 +63,7 @@ export function useKeyboardShortcuts() {
       // If there's a search query but input isn't focused, just clear search
       clearSearch();
     }
-  }, [clearSearch, searchQuery]);
+  };
 
   useEffect(() => {
     // Helper function to check if an input element is currently focused
@@ -74,7 +87,7 @@ export function useKeyboardShortcuts() {
       // Ctrl/Cmd + F to toggle filter panel
       if ((event.ctrlKey || event.metaKey) && event.key === 'f') {
         event.preventDefault();
-        toggleFilterPanel();
+        handleToggleFilterPanel();
         return;
       }
 
@@ -132,9 +145,14 @@ export function useKeyboardShortcuts() {
     };
   }, [
     router,
-    handleEscape,
+    clearSearch,
+    searchQuery,
     toggleFilterPanel,
     toggleTheme,
   ]);
 
+  return {
+    focusSearchInput,
+    searchInputRef,
+  };
 }

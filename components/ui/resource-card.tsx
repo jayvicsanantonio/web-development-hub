@@ -8,7 +8,11 @@ import {
   determineSection,
   getResourceIcon,
 } from '@/lib/data/resource-mappings';
-import { generateResourceId } from '@/lib/utils/resource-card';
+import {
+  generateResourceId,
+  getCardClassName,
+  getAccentColorClasses,
+} from '@/lib/utils/resource-card';
 import { getTagIconName } from '@/lib/utils/tag-icons';
 
 type ResourceCardProps = {

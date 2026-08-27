@@ -13,12 +13,6 @@ export const useIntersectionObserver = (
   const [activeSection, setActiveSection] = useState<string>('');
   const observerRef = useRef<IntersectionObserver | null>(null);
 
-  // The effect observes a *set* of ids, so it should re-run when that set
-  // changes — not whenever the caller happens to allocate a new array. The key
-  // is the serialised set, and the effect splits it back apart, so the array
-  // identity never enters the dependency list and no ref is written in render.
-  const idsKey = sectionIds.join('|');
-
   const {
     rootMargin = '-20% 0px -20% 0px',
     threshold = 0.4,
@@ -26,8 +20,7 @@ export const useIntersectionObserver = (
   } = options;
 
   useEffect(() => {
-    const ids = idsKey ? idsKey.split('|') : [];
-    if (ids.length === 0) return;
+    if (sectionIds.length === 0) return;
 
     observerRef.current = new IntersectionObserver(
       (entries) => {
@@ -67,7 +60,7 @@ export const useIntersectionObserver = (
       }
     );
 
-    ids.forEach((id) => {
+    sectionIds.forEach((id) => {
       const element = document.getElementById(id);
       if (element && observerRef.current) {
         observerRef.current.observe(element);
@@ -79,7 +72,7 @@ export const useIntersectionObserver = (
         observerRef.current.disconnect();
       }
     };
-  }, [idsKey, rootMargin, threshold, root]);
+  }, [sectionIds, rootMargin, threshold, root]);
 
   return activeSection;
 };
