@@ -1,11 +1,11 @@
 'use client';
 
-import { useRef } from 'react';
+import { useState, useEffect, useRef, forwardRef } from 'react';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useSearch } from '@/contexts/search-context';
 import { FilterButton } from './filter-button';
-import { useIsMac } from '@/lib/hooks/use-is-mac';
+import { useRouter } from 'next/navigation';
 
 interface SearchInputProps {
   isMobile?: boolean;
@@ -21,18 +21,36 @@ export function SearchInput({
   onKeyDown,
 }: SearchInputProps) {
   const { searchQuery, setSearchQuery, clearSearch } = useSearch();
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
-  const isMac = useIsMac();
+
+  const [localSearchQuery, setLocalSearchQuery] = useState('');
+
+  // Detect platform for keyboard shortcut display
+  const [isMac, setIsMac] = useState(false);
+
+  useEffect(() => {
+    setIsMac(
+      typeof navigator !== 'undefined' &&
+        navigator.platform.includes('Mac')
+    );
+  }, []);
+
+  useEffect(() => {
+    setLocalSearchQuery(searchQuery);
+  }, [searchQuery]);
 
   const handleSearchChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setSearchQuery(e.target.value);
+    const value = e.target.value;
+    setLocalSearchQuery(value);
+    setSearchQuery(value);
   };
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
+    if (localSearchQuery.trim()) {
       onSubmit?.();
     }
   };
@@ -62,7 +80,7 @@ export function SearchInput({
             ref={inputRef}
             type="search"
             placeholder="Find resources..."
-            value={searchQuery}
+            value={localSearchQuery}
             onChange={handleSearchChange}
             className={`${
               isMobile
@@ -77,23 +95,23 @@ export function SearchInput({
             <button
               type="button"
               onClick={() => {
-                if (searchQuery) {
+                if (localSearchQuery) {
                   clearSearch();
                 } else {
                   inputRef.current?.focus();
                 }
               }}
               className={`absolute right-3 top-1/2 transform -translate-y-1/2 ${
-                searchQuery ? 'h-5 w-8' : 'h-5 w-10'
+                localSearchQuery ? 'h-5 w-8' : 'h-5 w-10'
               } rounded-md bg-muted border border-border/50 flex items-center justify-center text-[10px] font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all cursor-pointer px-1 tracking-tight leading-none`}
               aria-label={
-                searchQuery
+                localSearchQuery
                   ? 'Clear search (press ESC)'
                   : `Focus search (press ${isMac ? '⌘K' : 'Ctrl+K'})`
               }
               tabIndex={-1}
             >
-              {searchQuery ? 'ESC' : isMac ? '⌘K' : 'Ctrl+K'}
+              {localSearchQuery ? 'ESC' : isMac ? '⌘K' : 'Ctrl+K'}
             </button>
           )}
         </div>

@@ -3,10 +3,7 @@ import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import Footer from '@/components/ui/footer';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
-import {
-  ThemeProvider,
-  themeInitScript,
-} from '@/contexts/theme-context';
+import { ThemeProvider } from '@/contexts/theme-context';
 import LayoutWrapper from '@/components/ui/layout-wrapper';
 import ServiceWorkerRegistration from '@/components/service-worker-registration';
 import './globals.css';
@@ -80,11 +77,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Applies the stored theme before first paint (no dark flash) */}
-        <script
-          dangerouslySetInnerHTML={{ __html: themeInitScript }}
-        />
-
         {/* Preconnect to external domains */}
         <link
           rel="preconnect"

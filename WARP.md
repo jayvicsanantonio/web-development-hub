@@ -21,12 +21,10 @@ Commands
   - pnpm upload   # Build and upload bundle (without switching traffic)
   - pnpm cf-typegen  # Generate Cloudflare env types (wrangler types --env-interface CloudflareEnv)
 - Tests
-  - No test script is currently defined in package.json; there is no CI
-  - Gates available: pnpm lint, pnpm typecheck (tsc --noEmit), pnpm build
+  - No test script is currently defined in package.json
 
 Environment notes
-- Node: .node-version and .npmrc pin 22; engines requires >= 20.19 (the floor set by Next 16 and ESLint 9). Note that the Cloudflare Pages project sets a NODE_VERSION build variable, which overrides .node-version there — the repo file governs local and Vercel builds only.
-- Toolchain ceilings: TypeScript is held at 6.x because typescript-eslint does not support TS 7 yet, and ESLint is held at 9.x because no stable eslint-plugin-react supports ESLint 10 yet. Both are the newest versions that keep `pnpm lint` working.
+- Node: engines requires >= 18. Use fnm use to select the correct version.
 - Package manager: pnpm is used exclusively (see README and CLAUDE.md).
 
 High-level architecture and structure
@@ -51,7 +49,8 @@ High-level architecture and structure
 
 - Data model and content
   - The primary content comes from constants/sections.ts: a curated list of resources grouped into top-level sections. Each resource has title, href, description, and optional tags.
-  - lib/data/resource-mappings.ts maps resource names to icon identifiers; determineSection() derives the title-to-section index from SECTIONS, so the two cannot drift apart.
+  - lib/data/resource-mappings.ts maps well-known resource names to icon identifiers and also groups titles by rubric for display.
+  - lib/types.ts defines CategoryType used in app/page.tsx and routes.
 
 - Pages and composition
   - app/page.tsx builds the home view using SECTIONS-derived data and re-usable components (e.g., ResourceCard, ResourceGrid). Individual category pages live under app/<category>/page.tsx and follow the same data source.

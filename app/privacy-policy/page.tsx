@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 
 export default function PrivacyPolicyPage() {
@@ -13,7 +15,7 @@ export default function PrivacyPolicyPage() {
           </p>
         </div>
 
-        <div className="max-w-none space-y-8">
+        <div className="prose prose-invert max-w-none space-y-8">
           <div className="bg-card rounded-lg p-6 border border-border">
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">
               Introduction

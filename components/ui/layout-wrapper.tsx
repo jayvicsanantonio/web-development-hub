@@ -1,5 +1,6 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import VerticalNavigation from './vertical-navigation';
 import { SearchProvider } from '@/contexts/search-context';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
@@ -9,6 +10,8 @@ interface LayoutWrapperProps {
 }
 
 function LayoutWrapperContent({ children }: LayoutWrapperProps) {
+  const pathname = usePathname();
+
   useKeyboardShortcuts();
 
   return (
