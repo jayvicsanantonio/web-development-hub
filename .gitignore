@@ -29,8 +29,9 @@ yarn-error.log*
 .env*.local
 .dev.vars
 
-# opennext
-.open-next
+# cloudflare
+.wrangler
+cloudflare-env.d.ts
 
 # vercel
 .vercel

@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "web-development-hub",
+  "compatibility_date": "2026-08-28",
+
+  // No "main": this Worker has no code. Every route in the app prerenders, so
+  // Cloudflare serves ./out directly from its asset store. Adding a "main"
+  // entry point would put a runtime in front of files that never change.
+  "assets": {
+    "directory": "./out",
+
+    // `next build` with output: 'export' emits 404.html; serve it for any
+    // path that does not match an asset.
+    "not_found_handling": "404-page"
+  }
+}

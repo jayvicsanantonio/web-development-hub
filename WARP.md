@@ -2,7 +2,7 @@
 
 This file provides guidance to WARP (warp.dev) when working with code in this repository.
 
-Project type: Next.js 15 (App Router) with TypeScript and Tailwind CSS v4, configured for Cloudflare deployment via OpenNext.
+Project type: Next.js 15 (App Router) with TypeScript and Tailwind CSS v4, deployed as a static export to Cloudflare Workers.
 
 Commands
 - Setup
@@ -10,15 +10,14 @@ Commands
   - pnpm install
 - Develop
   - pnpm dev  # Next dev with Turbopack
-- Build and run
-  - pnpm build
-  - pnpm start
+- Build
+  - pnpm build  # static export to out/
 - Lint
   - pnpm lint
-- Cloudflare (OpenNext)
-  - pnpm preview  # Build and preview locally with OpenNext Cloudflare
-  - pnpm deploy   # Build and deploy to Cloudflare
-  - pnpm upload   # Build and upload bundle (without switching traffic)
+- Cloudflare (Workers static assets)
+  - pnpm preview  # Build and serve out/ locally via wrangler dev
+  - pnpm deploy   # Build and deploy out/ to Cloudflare Workers
+  - pnpm upload   # Build and upload a new version (without switching traffic)
   - pnpm cf-typegen  # Generate Cloudflare env types (wrangler types --env-interface CloudflareEnv)
 - Tests
   - No test script is currently defined in package.json
@@ -62,11 +61,12 @@ High-level architecture and structure
 
 - Performance and deployment configuration
   - next.config.mjs:
+    - output: 'export' — the whole app prerenders, so the build emits static files to out/.
     - experimental.optimizePackageImports for @iconify/react.
-    - Compression enabled; strict caching headers for static assets; basic security headers.
-    - Images configured for AVIF/WebP and sized breakpoints; SVG allowed (with CSP sandboxing for images).
-    - In development, automatically initializes OpenNext Cloudflare integration.
-  - Cloudflare workflows are provided via package.json scripts using @opennextjs/cloudflare and wrangler types.
+    - Images unoptimized (nothing imports next/image); SVG allowed with CSP sandboxing.
+  - public/_headers carries the caching and security headers; Cloudflare Workers
+    parses it natively, and next.config's headers() is a no-op under static export.
+  - wrangler.jsonc declares assets only and no main, so no Worker script is deployed.
 
 Assistant-specific notes from CLAUDE.md (applicable here)
 - Use pnpm for all package operations.
