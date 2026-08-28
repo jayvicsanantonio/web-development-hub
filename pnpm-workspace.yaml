@@ -1,0 +1,7 @@
+# Build-script approvals, declared so local installs and CI agree instead of
+# prompting. sharp is deliberately not built: the Next image optimizer it backs
+# never runs under `output: 'export'`, and nothing in this app imports next/image.
+allowBuilds:
+  esbuild: true
+  workerd: true
+  sharp: false

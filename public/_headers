@@ -1,0 +1,15 @@
+# Response headers for static assets, parsed natively by Cloudflare Workers.
+# This replaces next.config.mjs's headers(), which does nothing under
+# `output: 'export'`. Rules here apply to asset responses only.
+#
+# The previous config also carried a /static/* cache rule; there is no
+# public/static directory, so it never matched anything and is not carried over.
+
+/*
+  X-DNS-Prefetch-Control: on
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: origin-when-cross-origin
+
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable

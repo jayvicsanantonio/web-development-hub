@@ -68,6 +68,16 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  // Point at the icons already shipped in public/ and referenced by the web
+  // manifest. Until now no rel="icon" was emitted at all: the app carried a
+  // /icon route that generated one at runtime, but nothing ever linked to it.
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: '/icon-192x192.png',
+  },
 };
 export default function RootLayout({
   children,
