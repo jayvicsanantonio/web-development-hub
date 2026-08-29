@@ -48,6 +48,5 @@
     "@types/react": "19.1.2",
     "@types/react-dom": "19.1.2",
     "glob": "10.3.10"
-  },
-  "packageManager": "pnpm@11.24.0"
+  }
 }
