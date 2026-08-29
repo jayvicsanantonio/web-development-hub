@@ -20,7 +20,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Pinned here rather than via a package.json "packageManager" field:
+      # that field also drives Vercel's builder, which rejects pnpm versions
+      # its build image does not ship.
       - uses: pnpm/action-setup@v4
+        with:
+          version: 11.24.0
 
       - uses: actions/setup-node@v4
         with:

@@ -1,6 +1,6 @@
-# Build-script approvals, declared so local installs and CI agree instead of
-# prompting. sharp is deliberately not built: the Next image optimizer it backs
-# never runs under `output: 'export'`, and nothing in this app imports next/image.
+# Build-script approvals, declared so installs do not prompt. pnpm reads these
+# here rather than from package.json. sharp is deliberately not built: the Next
+# image optimizer it backs never runs under `output: 'export'`.
 allowBuilds:
   esbuild: true
   workerd: true
