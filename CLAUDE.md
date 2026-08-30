@@ -64,6 +64,10 @@ This project uses **pnpm** exclusively for package management. Always use `pnpm 
   no `main`, so there is no Worker script and no server runtime
 - `.github/workflows/deploy.yml` builds every PR and deploys pushes to `main`
 - Security headers live in `public/_headers`, which Workers parses natively
+- `vercel.json` pins the Vercel preview builds to the same static output:
+  `framework: null` turns off Vercel's Next.js preset (there is no server to
+  host), and `cleanUrls` is required because the export writes flat files
+  (`blogs.html`, not `blogs/index.html`) that Next links to without an extension
 
 ### TypeScript Configuration
 - Strict mode enabled with path aliases (`@/*` maps to root)
