@@ -23,7 +23,7 @@ Commands
   - No test script is currently defined in package.json
 
 Environment notes
-- Node: engines requires >= 18. Use fnm use to select the correct version.
+- Node: engines requires 22.x, matching .node-version. Use fnm use to select it.
 - Package manager: pnpm is used exclusively (see README and CLAUDE.md).
 
 High-level architecture and structure
@@ -67,6 +67,10 @@ High-level architecture and structure
   - public/_headers carries the caching and security headers; Cloudflare Workers
     parses it natively, and next.config's headers() is a no-op under static export.
   - wrangler.jsonc declares assets only and no main, so no Worker script is deployed.
+  - vercel.json configures the preview-only Vercel deployments to build the same
+    static export (framework: null, outputDirectory: out, cleanUrls for the flat
+    .html files). Vercel does not read public/_headers, so previews serve without
+    the security headers that production gets from Workers.
 
 Assistant-specific notes from CLAUDE.md (applicable here)
 - Use pnpm for all package operations.
