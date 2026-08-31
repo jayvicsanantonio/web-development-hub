@@ -1,7 +1,7 @@
-const CACHE_NAME = 'web-dev-hub-v1';
+const CACHE_NAME = 'web-dev-hub-v2';
 const STATIC_ASSETS = [
   '/',
-  '/manifest.json',
+  '/manifest.webmanifest',
   '/icon.svg',
   '/offline.html'
 ];
