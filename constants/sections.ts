@@ -990,21 +990,6 @@ export const SECTIONS = [
       },
 
       {
-        title: 'Vercel AI SDK',
-        href: 'https://ai-sdk.dev/',
-        description:
-          'Open-source library for building AI-powered applications with streaming, edge functions, and React components.',
-        tags: [
-          'ai',
-          'free',
-          'open-source',
-          'react',
-          'javascript',
-          'modern',
-          'advanced',
-        ],
-      },
-      {
         title: 'Amazon Bedrock',
         href: 'https://aws.amazon.com/bedrock/',
         description:
