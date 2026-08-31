@@ -3,6 +3,7 @@
 import { useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useBookmarks } from '@/contexts/bookmarks-context';
+import { toSectionId } from '@/lib/utils/navigation';
 import ResourceCard from '@/components/ui/resource-card';
 import { useSearch } from '@/contexts/search-context';
 import {
@@ -47,7 +48,7 @@ const formatCount = (
 };
 
 const createSectionId = (section: string): string => {
-  return `section-${section.toLowerCase().replace(/\s+/g, '-')}`;
+  return toSectionId(section);
 };
 
 const BookmarksHeader = ({

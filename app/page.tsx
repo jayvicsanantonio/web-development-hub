@@ -3,6 +3,7 @@ import { HeroBanner } from '@/components/ui/hero-banner';
 import { SECTIONS } from '@/constants/sections';
 import { CategoryType } from '@/lib/types';
 import { cn } from '@/lib/utils';
+import { toSectionId, toSlug } from '@/lib/utils/navigation';
 import ResourceCard from '@/components/ui/resource-card';
 import { SearchWrapper } from '@/components/search-wrapper';
 
@@ -46,8 +47,8 @@ const ResourceSection = ({
     tags: link.tags,
   }));
 
-  const formattedTitle = title.toLowerCase().replace(/\s+/g, '-');
-  const sectionId = `section-${formattedTitle}`;
+  const formattedTitle = toSlug(title);
+  const sectionId = toSectionId(title);
   const headingId = `heading-${formattedTitle}`;
   const skipLinkId = `skip-${formattedTitle}`;
 
