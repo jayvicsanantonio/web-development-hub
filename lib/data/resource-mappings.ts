@@ -221,6 +221,7 @@ export const RESOURCE_SECTIONS = {
     'Syntax',
     'Codesmith',
     'unwind ai',
+    'Vercel Blog',
   ],
 } as const;
 
@@ -447,6 +448,7 @@ export const ICON_MAP: Record<string, string> = {
   'Developer Tools': 'mdi:tools',
   'Frameworks and Libraries': 'mdi:code-braces',
   Communities: 'mdi:account-group',
+  'Vercel Blog': 'simple-icons:vercel',
   'Blogs and Newsletters': 'mdi:post',
 };
 
