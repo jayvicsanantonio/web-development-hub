@@ -213,6 +213,23 @@ export default function BookmarksPage() {
     }, {} as Record<string, typeof displayedBookmarks>);
   }, [displayedBookmarks]);
 
+  // Known sections in their canonical order, then anything else. Rendering
+  // only SECTION_ORDER meant a bookmark whose section fell outside that list
+  // was stored and counted but never drawn — and so could not be removed from
+  // this page, which is the only place it can be removed.
+  const orderedSections = useMemo(() => {
+    const known: string[] = SECTION_ORDER.filter(
+      (section) => groupedBookmarks[section]
+    );
+    const unknown = Object.keys(groupedBookmarks)
+      .filter(
+        (section) =>
+          !(SECTION_ORDER as readonly string[]).includes(section)
+      )
+      .sort();
+    return [...known, ...unknown];
+  }, [groupedBookmarks]);
+
   const handleClearAll = () => {
     clearBookmarks();
   };
@@ -230,9 +247,7 @@ export default function BookmarksPage() {
         <EmptyState searchQuery={searchQuery} />
       ) : (
         <div className="space-y-16">
-          {SECTION_ORDER.filter(
-            (section) => groupedBookmarks[section]
-          ).map((section) => (
+          {orderedSections.map((section) => (
             <BookmarksSection
               key={section}
               section={section}
