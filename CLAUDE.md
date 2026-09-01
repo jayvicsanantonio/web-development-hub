@@ -9,6 +9,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm build` - Build the application for production
 - `pnpm preview` - Serve the built static export locally (see below)
 - `pnpm lint` - Run ESLint
+- `pnpm typecheck` - Type-check without emitting
+- `pnpm test` - Run the Vitest suite once (`pnpm test:watch` to rerun on change)
+- `pnpm test:e2e` - Playwright smoke tests against the built export via wrangler
 - `fnm use` - Use correct Node.js version (requires fnm)
 
 ### Cloudflare Deployment

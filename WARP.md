@@ -20,7 +20,10 @@ Commands
   - pnpm upload   # Build and upload a new version (without switching traffic)
   - pnpm cf-typegen  # Generate Cloudflare env types (wrangler types --env-interface CloudflareEnv)
 - Tests
-  - No test script is currently defined in package.json
+  - pnpm test       # Vitest: data integrity, contexts, hooks
+  - pnpm test:watch # Vitest in watch mode
+  - pnpm test:e2e   # Playwright against out/ served by wrangler dev
+  - pnpm typecheck  # tsc --noEmit
 
 Environment notes
 - Node: engines requires 22.x, matching .node-version. Use fnm use to select it.
