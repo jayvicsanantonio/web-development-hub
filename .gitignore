@@ -29,6 +29,12 @@ yarn-error.log*
 .env*.local
 .dev.vars
 
+# playwright
+/test-results
+/playwright-report
+/blob-report
+.playwright
+
 # cloudflare
 .wrangler
 cloudflare-env.d.ts
