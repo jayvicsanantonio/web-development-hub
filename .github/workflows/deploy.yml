@@ -77,6 +77,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # wrangler-action installs wrangler with whatever package manager the
+      # repository declares - it sees pnpm-lock.yaml and shells out to pnpm.
+      # This job runs on its own runner, so without these two steps pnpm is
+      # not on PATH and the action fails before it ever contacts Cloudflare.
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.24.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      # Installs the wrangler pinned in the lockfile, so the deploy runs the
+      # same version the e2e suite served ./out with rather than whichever
+      # one the action would fetch. Drifting deploy config from the repo is
+      # what broke the previous Pages setup.
+      - run: pnpm install --frozen-lockfile
+
       - uses: actions/download-artifact@v4
         with:
           name: static-export
