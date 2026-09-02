@@ -125,7 +125,6 @@ export const SECTIONS = [
           'video-based',
         ],
       },
-
       {
         title: 'Great Frontend',
         href: 'https://www.greatfrontend.com/',
@@ -143,9 +142,9 @@ export const SECTIONS = [
       },
       {
         title: 'Design Gurus',
-        href: 'https://designgurus.com/',
+        href: 'https://www.designgurus.io/',
         description:
-          'Specialized training for technical interviews with system design, algorithms, and front-end engineering focus.',
+          'Grokking courses for technical interviews with system design, algorithms, and front-end engineering focus.',
         tags: [
           'interview-prep',
           'paid',
@@ -156,10 +155,10 @@ export const SECTIONS = [
         ],
       },
       {
-        title: 'Learn With Jason',
-        href: 'https://www.learnwithjason.dev/',
+        title: 'CodeTV',
+        href: 'https://codetv.dev/',
         description:
-          'Live coding sessions with web development experts, building real projects and sharing practical knowledge.',
+          'Jason Lengstorf\'s developer TV network, home to Learn With Jason live coding sessions and Web Dev Challenge.',
         tags: [
           'tutorial',
           'free',
@@ -486,6 +485,170 @@ export const SECTIONS = [
           'tutorial',
           'modern',
           'beginner-friendly',
+        ],
+      },
+      {
+        title: 'roadmap.sh',
+        href: 'https://roadmap.sh/',
+        description:
+          'Community-driven step-by-step roadmaps for frontend, backend, and DevOps careers with curated resources at every node.',
+        tags: [
+          'tutorial',
+          'free',
+          'open-source',
+          'career-focused',
+          'full-stack',
+          'community',
+          'beginner-friendly',
+        ],
+      },
+      {
+        title: 'Total TypeScript',
+        href: 'https://www.totaltypescript.com/',
+        description:
+          'Exercise-driven TypeScript training from Matt Pocock, with free tutorials on generics, type transformations, and library-grade types.',
+        tags: [
+          'course',
+          'free',
+          'paid',
+          'typescript',
+          'advanced',
+          'interactive',
+          'hands-on',
+        ],
+      },
+      {
+        title: 'Patterns.dev',
+        href: 'https://www.patterns.dev/',
+        description:
+          'Free book on design, rendering, and performance patterns for modern web apps by Lydia Hallie and Addy Osmani.',
+        tags: [
+          'documentation',
+          'free',
+          'javascript',
+          'react',
+          'performance',
+          'system-design',
+          'advanced',
+        ],
+      },
+      {
+        title: 'Scrimba',
+        href: 'https://scrimba.com/',
+        description:
+          "Interactive courses you edit while the video plays; its Frontend Career Path is MDN's recommended course partner.",
+        tags: [
+          'course',
+          'free',
+          'paid',
+          'interactive',
+          'javascript',
+          'react',
+          'career-focused',
+          'beginner-friendly',
+        ],
+      },
+      {
+        title: 'Josh W. Comeau Courses',
+        href: 'https://www.joshwcomeau.com/courses/',
+        description:
+          'Deep interactive courses on CSS, React, and web animation, including CSS for JavaScript Developers and The Joy of React.',
+        tags: [
+          'course',
+          'paid',
+          'css',
+          'react',
+          'interactive',
+          'advanced',
+          'hands-on',
+        ],
+      },
+      {
+        title: 'Practical Accessibility',
+        href: 'https://practical-accessibility.today/',
+        description:
+          "Sara Soueidan's video course on semantic HTML, ARIA, and WCAG for building genuinely accessible interfaces.",
+        tags: [
+          'course',
+          'paid',
+          'accessibility',
+          'html',
+          'video-based',
+          'advanced',
+          'hands-on',
+        ],
+      },
+      {
+        title: 'The A11Y Project',
+        href: 'https://www.a11yproject.com/',
+        description:
+          'Community-maintained accessibility checklist, patterns, and resources for shipping inclusive web interfaces.',
+        tags: [
+          'documentation',
+          'free',
+          'accessibility',
+          'open-source',
+          'community',
+          'beginner-friendly',
+        ],
+      },
+      {
+        title: 'Defensive CSS',
+        href: 'https://defensivecss.dev/',
+        description:
+          "Ahmad Shadeed's catalogue of CSS patterns that keep layouts from breaking on long strings, odd images, and dynamic content.",
+        tags: [
+          'tutorial',
+          'free',
+          'css',
+          'design',
+          'advanced',
+          'hands-on',
+        ],
+      },
+      {
+        title: 'Learn Git Branching',
+        href: 'https://learngitbranching.js.org/',
+        description:
+          'Interactive Git tutorial that visualises the commit tree as you run real branching, merging, and rebasing commands.',
+        tags: [
+          'interactive',
+          'free',
+          'open-source',
+          'tutorial',
+          'hands-on',
+          'beginner-friendly',
+        ],
+      },
+      {
+        title: 'BFE.dev',
+        href: 'https://bigfrontend.dev/',
+        description:
+          'Frontend-specific coding problems, quizzes, and system design questions across JavaScript, React, TypeScript, and CSS.',
+        tags: [
+          'interview-prep',
+          'coding-challenges',
+          'free',
+          'paid',
+          'javascript',
+          'react',
+          'typescript',
+          'css',
+        ],
+      },
+      {
+        title: 'NeetCode',
+        href: 'https://neetcode.io/',
+        description:
+          'Curated data structures and algorithms roadmap with free video walkthroughs of the essential interview problems.',
+        tags: [
+          'interview-prep',
+          'free',
+          'coding-challenges',
+          'video-based',
+          'javascript',
+          'python',
+          'career-focused',
         ],
       },
     ],
