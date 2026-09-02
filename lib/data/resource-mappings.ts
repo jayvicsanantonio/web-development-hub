@@ -1,4 +1,8 @@
-export const RESOURCE_SECTIONS = {
+// Internal: reached only through determineSection() below. This is a
+// hand-maintained second copy of the titles in constants/sections.ts, and a
+// title missing from it resolves to 'Other'; constants/sections.test.ts fails
+// if the two ever drift apart again.
+const RESOURCE_SECTIONS = {
   'Learning Resources': [
     'Frontend Masters',
     'Epic Web',
@@ -72,7 +76,6 @@ export const RESOURCE_SECTIONS = {
     'Cursor',
     'Figma AI',
     'Adobe Firefly',
-    'Vercel AI SDK',
     'Amazon Bedrock',
     'Google AI Studio',
     'Docker',
@@ -222,10 +225,12 @@ export const RESOURCE_SECTIONS = {
     'Syntax',
     'Codesmith',
     'unwind ai',
+    'Vercel Blog',
   ],
 } as const;
 
-export const ICON_MAP: Record<string, string> = {
+// Internal: reached only through getResourceIcon() below.
+const ICON_MAP: Record<string, string> = {
   'Frontend Masters': 'mdi:school-outline',
   'Epic Web': 'simple-icons:rocket',
   'MDN Web Docs': 'simple-icons:mdnwebdocs',
@@ -310,7 +315,6 @@ export const ICON_MAP: Record<string, string> = {
   'GitHub Copilot': 'simple-icons:github',
   Cursor: 'mdi:cursor-default',
   'Figma AI': 'simple-icons:figma',
-  'Vercel AI SDK': 'simple-icons:vercel',
   'Amazon Bedrock': 'simple-icons:amazonaws',
   'Google AI Studio': 'simple-icons:google',
   Docker: 'simple-icons:docker',
@@ -449,6 +453,7 @@ export const ICON_MAP: Record<string, string> = {
   'Developer Tools': 'mdi:tools',
   'Frameworks and Libraries': 'mdi:code-braces',
   Communities: 'mdi:account-group',
+  'Vercel Blog': 'simple-icons:vercel',
   'Blogs and Newsletters': 'mdi:post',
 };
 
@@ -465,18 +470,4 @@ export function determineSection(title: string): string {
 
 export function getResourceIcon(title: string): string {
   return ICON_MAP[title] || 'material-symbols:list';
-}
-
-export function getResourcesBySection(
-  section: string
-): readonly string[] {
-  return (
-    (RESOURCE_SECTIONS[
-      section as keyof typeof RESOURCE_SECTIONS
-    ] as readonly string[]) || []
-  );
-}
-
-export function getAllSections(): string[] {
-  return Object.keys(RESOURCE_SECTIONS);
 }

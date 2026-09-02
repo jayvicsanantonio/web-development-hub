@@ -29,8 +29,15 @@ yarn-error.log*
 .env*.local
 .dev.vars
 
-# opennext
-.open-next
+# playwright
+/test-results
+/playwright-report
+/blob-report
+.playwright
+
+# cloudflare
+.wrangler
+cloudflare-env.d.ts
 
 # vercel
 .vercel

@@ -7,14 +7,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Development
 - `pnpm dev` - Start development server with Turbopack
 - `pnpm build` - Build the application for production
-- `pnpm start` - Start production server
+- `pnpm preview` - Serve the built static export locally (see below)
 - `pnpm lint` - Run ESLint
+- `pnpm typecheck` - Type-check without emitting
+- `pnpm test` - Run the Vitest suite once (`pnpm test:watch` to rerun on change)
+- `pnpm test:e2e` - Playwright smoke tests against the built export via wrangler
 - `fnm use` - Use correct Node.js version (requires fnm)
 
 ### Cloudflare Deployment
-- `pnpm preview` - Build and preview with OpenNext Cloudflare
-- `pnpm deploy` - Build and deploy to Cloudflare
-- `pnpm upload` - Build and upload to Cloudflare
+- `pnpm preview` - Build and serve the static export locally via `wrangler dev`
+- `pnpm deploy` - Build and deploy the static export to Cloudflare Workers
+- `pnpm upload` - Build and upload a new version without shifting traffic
 - `pnpm cf-typegen` - Generate Cloudflare environment types
 
 ### Package Management
@@ -56,12 +59,18 @@ This project uses **pnpm** exclusively for package management. Always use `pnpm 
 - Image optimization with WebP/AVIF formats
 - Package import optimization for @iconify/react
 - Service worker registration for PWA capabilities
-- Compression and caching headers configured in next.config.mjs
+- Response and caching headers configured in public/_headers
 
 ### Deployment
-- Configured for Cloudflare deployment using OpenNext Cloudflare
-- Development mode initializes Cloudflare integration automatically
-- Security headers and CSP configured for production
+- `next build` with `output: 'export'` emits a fully static site to `out/`
+- Cloudflare Workers serves `out/` as static assets; `wrangler.jsonc` declares
+  no `main`, so there is no Worker script and no server runtime
+- `.github/workflows/deploy.yml` builds every PR and deploys pushes to `main`
+- Security headers live in `public/_headers`, which Workers parses natively
+- `vercel.json` pins the Vercel preview builds to the same static output:
+  `framework: null` turns off Vercel's Next.js preset (there is no server to
+  host), and `cleanUrls` is required because the export writes flat files
+  (`blogs.html`, not `blogs/index.html`) that Next links to without an extension
 
 ### TypeScript Configuration
 - Strict mode enabled with path aliases (`@/*` maps to root)

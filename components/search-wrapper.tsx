@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useSearch } from '@/contexts/search-context';
+import { toSectionId } from '@/lib/utils/navigation';
 import ResourceCard from '@/components/ui/resource-card';
 
 // Import Resource type from search context
@@ -66,10 +67,7 @@ export function SearchWrapper({ children }: SearchWrapperProps) {
             <div className="flex flex-col gap-12">
               {Object.entries(groupedResults).map(
                 ([category, items]) => {
-                  const sectionId = `section-${category
-                    .toLowerCase()
-                    .replace(/\s+&\s+/g, '-')
-                    .replace(/\s+/g, '-')}`;
+                  const sectionId = toSectionId(category);
 
                   return (
                     <section

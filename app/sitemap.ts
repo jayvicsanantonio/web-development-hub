@@ -1,11 +1,16 @@
 import { MetadataRoute } from 'next';
 
+// Required by `output: 'export'`: metadata routes must opt in to static
+// generation explicitly, or the export build fails collecting page data.
+export const dynamic = 'force-static';
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://webdevhub.link/';
+  // No trailing slash: every entry below appends its own leading slash.
+  const baseUrl = 'https://webdevhub.link';
 
   return [
     {
-      url: baseUrl,
+      url: `${baseUrl}/`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1,
@@ -41,7 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/favorites`,
+      url: `${baseUrl}/bookmarks`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.6,

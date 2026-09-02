@@ -21,14 +21,6 @@ export default function Page() {
     (section) => section.title === CATEGORY_TITLE
   );
 
-  // Debug logging
-  console.log('CATEGORY_TITLE:', CATEGORY_TITLE);
-  console.log('sectionData:', sectionData);
-  console.log(
-    'Available sections:',
-    SECTIONS.map((s) => s.title)
-  );
-
   const allResources = (sectionData?.links || []).map((link) => ({
     title: link.title,
     href: link.href,
