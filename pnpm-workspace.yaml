@@ -1,0 +1,17 @@
+# Not a monorepo. This file exists because pnpm 10+ refuses to install when a
+# dependency's build script is neither approved nor declined, and pnpm reads
+# those approvals only from here — not from package.json's "pnpm" field and not
+# from .npmrc. Left absent, pnpm 10+ regenerates it without a `packages` key.
+#
+# `packages` is required: Vercel builds this project with pnpm 9 (it pins the
+# version by project creation date), and pnpm 9 rejects a workspace file that
+# has no `packages`, failing the install with "packages field missing or empty".
+packages:
+  - '.'
+
+# sharp is deliberately declined: the Next image optimizer it backs never runs
+# under `output: 'export'`, and nothing in this app imports next/image.
+allowBuilds:
+  esbuild: true
+  workerd: true
+  sharp: false

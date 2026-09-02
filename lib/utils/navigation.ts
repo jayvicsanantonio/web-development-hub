@@ -7,33 +7,29 @@ export interface NavigationItem {
   iconName: string;
 }
 
-export const DEFAULT_NAV_ITEMS: NavigationItem[] = [
-  {
-    id: 'section-learning-resources',
-    title: 'Learning Resources',
-    iconName: getResourceIcon('Learning Resources'),
-  },
-  {
-    id: 'section-developer-tools',
-    title: 'Developer Tools',
-    iconName: getResourceIcon('Developer Tools'),
-  },
-  {
-    id: 'section-frameworks-and-libraries',
-    title: 'Frameworks and Libraries',
-    iconName: getResourceIcon('Frameworks and Libraries'),
-  },
-  {
-    id: 'section-communities',
-    title: 'Communities',
-    iconName: getResourceIcon('Communities'),
-  },
-  {
-    id: 'section-blogs',
-    title: 'Blogs and Newsletters',
-    iconName: getResourceIcon('Blogs and Newsletters'),
-  },
-];
+/**
+ * The single rule for turning a section title into a DOM id. Four sites used
+ * to derive this independently and one of them disagreed, which left the
+ * Blogs nav entry pointing at an element that is never rendered.
+ */
+export function toSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/\s+&\s+/g, '-')
+    .replace(/\s+/g, '-');
+}
+
+export function toSectionId(title: string): string {
+  return `section-${toSlug(title)}`;
+}
+
+export const DEFAULT_NAV_ITEMS: NavigationItem[] = SECTIONS.map(
+  (section) => ({
+    id: toSectionId(section.title),
+    title: section.title,
+    iconName: getResourceIcon(section.title),
+  })
+);
 
 export function createSearchNavItems(
   searchQuery: string

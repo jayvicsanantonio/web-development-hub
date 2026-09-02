@@ -1,5 +1,7 @@
 'use client';
 
+import { SECTIONS } from '@/constants/sections';
+import { toSectionId } from '@/lib/utils/navigation';
 import { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -10,6 +12,12 @@ import { FilterButton } from '@/components/ui/filter-button';
 import { NavigationItem } from '@/components/ui/navigation-item';
 import { type NavigationItem as NavigationItemType } from '@/lib/utils/navigation';
 import { cn } from '@/lib/utils';
+
+// Keyed by the same rule the sections are rendered with, so a renamed section
+// cannot leave this map pointing at an id that no longer exists.
+const URL_BY_SECTION_ID: Record<string, string> = Object.fromEntries(
+  SECTIONS.map((section) => [toSectionId(section.title), section.href])
+);
 
 interface MobileNavigationProps {
   navItems: NavigationItemType[];
@@ -42,16 +50,8 @@ export function MobileNavigation({
     setIsMobileMenuOpen(false);
   };
 
-  const urlMap: Record<string, string> = {
-    'section-learning-resources': '/learning-resources',
-    'section-developer-tools': '/developer-tools',
-    'section-frameworks-and-libraries': '/frameworks-and-libraries',
-    'section-communities': '/communities',
-    'section-blogs': '/blogs',
-  };
-
   const getPageUrl = (sectionId: string) => {
-    return urlMap[sectionId] || '/';
+    return URL_BY_SECTION_ID[sectionId] || '/';
   };
 
   const focusNextItem = useCallback((currentIndex: number) => {
