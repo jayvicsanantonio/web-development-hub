@@ -1,4 +1,8 @@
-export const RESOURCE_SECTIONS = {
+// Internal: reached only through determineSection() below. This is a
+// hand-maintained second copy of the titles in constants/sections.ts, and a
+// title missing from it resolves to 'Other'; constants/sections.test.ts fails
+// if the two ever drift apart again.
+const RESOURCE_SECTIONS = {
   'Learning Resources': [
     'Frontend Masters',
     'Epic Web',
@@ -225,7 +229,8 @@ export const RESOURCE_SECTIONS = {
   ],
 } as const;
 
-export const ICON_MAP: Record<string, string> = {
+// Internal: reached only through getResourceIcon() below.
+const ICON_MAP: Record<string, string> = {
   'Frontend Masters': 'mdi:school-outline',
   'Epic Web': 'simple-icons:rocket',
   'MDN Web Docs': 'simple-icons:mdnwebdocs',
@@ -465,18 +470,4 @@ export function determineSection(title: string): string {
 
 export function getResourceIcon(title: string): string {
   return ICON_MAP[title] || 'material-symbols:list';
-}
-
-export function getResourcesBySection(
-  section: string
-): readonly string[] {
-  return (
-    (RESOURCE_SECTIONS[
-      section as keyof typeof RESOURCE_SECTIONS
-    ] as readonly string[]) || []
-  );
-}
-
-export function getAllSections(): string[] {
-  return Object.keys(RESOURCE_SECTIONS);
 }
