@@ -13,6 +13,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "check:links": "node scripts/check-links.mjs",
     "preview": "next build && wrangler dev",
     "deploy": "next build && wrangler deploy",
     "upload": "next build && wrangler versions upload",

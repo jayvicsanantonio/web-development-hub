@@ -12,6 +12,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `pnpm typecheck` - Type-check without emitting
 - `pnpm test` - Run the Vitest suite once (`pnpm test:watch` to rerun on change)
 - `pnpm test:e2e` - Playwright smoke tests against the built export via wrangler
+- `pnpm check:links` - Check every resource URL in `constants/sections.ts` (add
+  `--section "Learning Resources"` to scope it, `--json` for machine output).
+  Exits non-zero only on genuinely broken links; 403/429 bot-protection
+  responses are reported as inconclusive
 - `fnm use` - Use correct Node.js version (requires fnm)
 
 ### Cloudflare Deployment
