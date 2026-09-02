@@ -106,3 +106,115 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+  # Per-pull-request preview, served by the same Worker that serves production
+  # - so a preview exercises the real asset handling and public/_headers rather
+  # than approximating them. `versions upload` creates a version WITHOUT
+  # promoting it: triggers (the webdevhub.link custom domain, workers.dev) are
+  # only applied by `deploy`, so a preview cannot disturb production.
+  preview:
+    needs: build
+    # Fork pull requests get no secrets, so the upload could only fail. Skip
+    # them rather than show a red check nobody can fix.
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.24.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # The artifact build already produced, so the preview is byte-identical
+      # to what lint, the unit tests and the e2e suite ran against.
+      - uses: actions/download-artifact@v4
+        with:
+          name: static-export
+          path: out
+
+      - name: Derive a preview alias from the branch
+        id: alias
+        env:
+          BRANCH: ${{ github.event.pull_request.head.ref }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          # Cloudflare requires lowercase letters, digits and dashes, a leading
+          # lowercase letter, and alias + "-" + worker name <= 63 characters.
+          # "web-development-hub" is 19, so the alias gets 43.
+          max=43
+          alias=$(printf '%s' "$BRANCH" | tr '[:upper:]' '[:lower:]' \
+            | sed -e 's/[^a-z0-9-]/-/g' -e 's/--*/-/g' -e 's/^-*//' -e 's/-*$//')
+          case "$alias" in
+            [a-z]*) ;;
+            # Prefix rather than strip, so branches differing only in a leading
+            # digit cannot collide.
+            *) alias="pr-$PR-$alias" ;;
+          esac
+          if [ ${#alias} -gt $max ]; then
+            # Two long branches can share the first 43 characters, so keep the
+            # PR number on the end: short names stay readable, long ones stay
+            # unique.
+            alias="$(printf "%.$(( max - ${#PR} - 1 ))s" "$alias" | sed -e 's/-*$//')-$PR"
+          fi
+          alias=$(printf '%s' "$alias" | sed -e 's/-*$//')
+          [ -n "$alias" ] || alias="pr-$PR"
+          echo "value=$alias" >> "$GITHUB_OUTPUT"
+
+      - name: Upload a preview version
+        id: upload
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: versions upload --preview-alias ${{ steps.alias.outputs.value }}
+
+      - name: Comment the preview URL
+        uses: actions/github-script@v7
+        env:
+          PREVIEW_URL: ${{ steps.upload.outputs.deployment-url }}
+          ALIAS: ${{ steps.alias.outputs.value }}
+        with:
+          script: |
+            const marker = '<!-- cloudflare-preview -->';
+            const url = process.env.PREVIEW_URL;
+            const body = [
+              marker,
+              '### Cloudflare preview',
+              '',
+              url
+                ? `**${url}**`
+                : `Uploaded as alias \`${process.env.ALIAS}\`. The action reported no URL - see [the run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}) for it.`,
+              '',
+              `Version uploaded from \`${context.sha.slice(0, 7)}\`, not deployed - production is untouched.`,
+            ].join('\n');
+
+            const { data: comments } = await github.rest.issues.listComments({
+              ...context.repo,
+              issue_number: context.issue.number,
+              per_page: 100,
+            });
+            const existing = comments.find((c) => c.body?.includes(marker));
+
+            // Update in place so pushing to a branch does not leave a trail of
+            // stale preview links.
+            if (existing) {
+              await github.rest.issues.updateComment({
+                ...context.repo, comment_id: existing.id, body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                ...context.repo, issue_number: context.issue.number, body,
+              });
+            }
