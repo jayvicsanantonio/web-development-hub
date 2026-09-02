@@ -12,5 +12,34 @@
     // `next build` with output: 'export' emits 404.html; serve it for any
     // path that does not match an asset.
     "not_found_handling": "404-page"
-  }
+  },
+
+  // The production domain, declared here rather than left as dashboard state.
+  // A bare hostname with custom_domain means Cloudflare owns the DNS record
+  // and the certificate, and every path on it reaches this Worker - which is
+  // what a static site wants, since there is no origin behind the assets.
+  //
+  // Wrangler treats this file as authoritative: routes changed in the
+  // dashboard are overwritten on the next deploy. That is the point - the
+  // Pages project this replaced drifted precisely because its config lived
+  // only in a dashboard.
+  //
+  // The domain must already be attached to this Worker before this ships.
+  // Creating a custom domain over a conflicting CNAME fails, and because
+  // that happens inside `wrangler deploy`, it would fail the whole deploy,
+  // asset upload included.
+  "routes": [
+    { "pattern": "webdevhub.link", "custom_domain": true }
+
+    // Add www the same way if it should serve too - one entry per hostname:
+    // { "pattern": "www.webdevhub.link", "custom_domain": true }
+  ],
+
+  // Explicit because the inferred value is surprising: adding "routes" makes
+  // wrangler infer workers_dev as false, which would silently retire
+  // web-development-hub.hi-00e.workers.dev. Keeping it true leaves a URL that
+  // verifies a deploy without depending on DNS. Set it to false once the
+  // custom domain is trusted - Cloudflare treats workers.dev as a free
+  // hobby-tier hostname and recommends against serving production from it.
+  "workers_dev": true
 }
