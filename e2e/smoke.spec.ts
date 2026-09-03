@@ -128,18 +128,41 @@ test.describe('bookmarks', () => {
   test('a bookmark survives a reload', async ({ page }) => {
     await page.goto('/');
 
-    const toggle = page
-      .getByRole('button', { name: /bookmark/i })
-      .first();
-    await toggle.click();
+    // A named resource rather than "the first bookmark button". The button's
+    // accessible name is what identifies it, and toggling flips that name, so
+    // a `.first()` locator would quietly re-resolve to a different card the
+    // moment the bookmark is added.
+    const { title } = SECTIONS[0].links[0];
+    const add = page.getByRole('button', {
+      name: `Add ${title} to bookmarks`,
+      exact: true,
+    });
+    const added = page.getByRole('button', {
+      name: `Remove ${title} from bookmarks`,
+      exact: true,
+    });
+
+    await add.click();
+    // The label only flips once React has the click, so this pins a later
+    // failure on persistence rather than on the click never landing.
+    await expect(added).toBeVisible();
 
     await page.goto('/bookmarks');
-    const afterAdd = await page
-      .locator('a[href^="http"]')
-      .count();
-    expect(afterAdd).toBeGreaterThan(0);
+
+    // This page prerenders its empty state: bookmarks live in localStorage,
+    // so the cards exist only after the provider has hydrated and read it -
+    // tens of milliseconds after the load event that page.goto() waits for.
+    // Everything here has to be a retrying assertion. Reading count()
+    // straight after the navigation samples the page exactly once, and hit
+    // that gap on roughly a quarter of runs.
+    const card = page.getByRole('link', { name: title, exact: true });
+    await expect(card).toBeVisible();
+
+    // Safe now: the assertion above has already waited out the hydration gap.
+    const afterAdd = await page.locator('a[href^="http"]').count();
 
     await page.reload();
+    await expect(card).toBeVisible();
     await expect(page.locator('a[href^="http"]')).toHaveCount(
       afterAdd
     );

@@ -69,12 +69,21 @@ This project uses **pnpm** exclusively for package management. Always use `pnpm 
 - `next build` with `output: 'export'` emits a fully static site to `out/`
 - Cloudflare Workers serves `out/` as static assets; `wrangler.jsonc` declares
   no `main`, so there is no Worker script and no server runtime
-- `.github/workflows/deploy.yml` builds every PR and deploys pushes to `main`
+- Cloudflare **Workers Builds** owns deployment. It is connected to this
+  repository directly and builds every push: `main` deploys to
+  `webdevhub.link`, and any other branch is uploaded as a Worker version whose
+  commit and branch preview URLs are posted to the pull request by the
+  `cloudflare-workers-and-pages` bot
+- Preview URLs are `<branch>-web-development-hub.hi-00e.workers.dev`. A version
+  is not a deployment, so a preview cannot shift production traffic
+- The build command lives in the Cloudflare dashboard, not in this repo. The
+  Worker's own config - assets, routes, custom domain - still comes from
+  `wrangler.jsonc`, so only the build step is dashboard state
+- `.github/workflows/ci.yml` deploys nothing. It is the test gate: lint,
+  typecheck, Vitest, the static-export check and the Playwright suite. Workers
+  Builds runs none of these, so a red CI job is the only thing standing
+  between a broken commit and production
 - Security headers live in `public/_headers`, which Workers parses natively
-- `vercel.json` pins the Vercel preview builds to the same static output:
-  `framework: null` turns off Vercel's Next.js preset (there is no server to
-  host), and `cleanUrls` is required because the export writes flat files
-  (`blogs.html`, not `blogs/index.html`) that Next links to without an extension
 
 ### TypeScript Configuration
 - Strict mode enabled with path aliases (`@/*` maps to root)

@@ -70,10 +70,15 @@ High-level architecture and structure
   - public/_headers carries the caching and security headers; Cloudflare Workers
     parses it natively, and next.config's headers() is a no-op under static export.
   - wrangler.jsonc declares assets only and no main, so no Worker script is deployed.
-  - vercel.json configures the preview-only Vercel deployments to build the same
-    static export (framework: null, outputDirectory: out, cleanUrls for the flat
-    .html files). Vercel does not read public/_headers, so previews serve without
-    the security headers that production gets from Workers.
+    It also pins preview_urls: true, which the per-branch previews depend on -
+    wrangler otherwise defaults it to the value of workers_dev.
+  - Cloudflare Workers Builds is connected to the repository and does the
+    deploying: main goes to webdevhub.link, other branches are uploaded as Worker
+    versions and their preview URLs are commented on the pull request. The build
+    command is dashboard state; the Worker config itself stays in wrangler.jsonc.
+  - .github/workflows/ci.yml deploys nothing - it runs lint, typecheck, Vitest and
+    the Playwright suite. Workers Builds runs none of those, so CI is the only
+    gate on what ships.
 
 Assistant-specific notes from CLAUDE.md (applicable here)
 - Use pnpm for all package operations.
