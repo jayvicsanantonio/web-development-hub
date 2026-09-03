@@ -70,13 +70,15 @@ High-level architecture and structure
   - public/_headers carries the caching and security headers; Cloudflare Workers
     parses it natively, and next.config's headers() is a no-op under static export.
   - wrangler.jsonc declares assets only and no main, so no Worker script is deployed.
-    It also pins preview_urls: true, which per-PR previews depend on - wrangler
-    otherwise defaults it to the value of workers_dev.
-  - .github/workflows/deploy.yml is the only deployment config. Pull requests are
-    uploaded as Worker versions aliased pr-<number> (a version is not a
-    deployment, so previews never touch production); pushes to main deploy to
-    webdevhub.link. Both jobs declare a GitHub environment, which is what fills
-    the repository's Deployments tab.
+    It also pins preview_urls: true, which the per-branch previews depend on -
+    wrangler otherwise defaults it to the value of workers_dev.
+  - Cloudflare Workers Builds is connected to the repository and does the
+    deploying: main goes to webdevhub.link, other branches are uploaded as Worker
+    versions and their preview URLs are commented on the pull request. The build
+    command is dashboard state; the Worker config itself stays in wrangler.jsonc.
+  - .github/workflows/ci.yml deploys nothing - it runs lint, typecheck, Vitest and
+    the Playwright suite. Workers Builds runs none of those, so CI is the only
+    gate on what ships.
 
 Assistant-specific notes from CLAUDE.md (applicable here)
 - Use pnpm for all package operations.

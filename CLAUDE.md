@@ -69,16 +69,20 @@ This project uses **pnpm** exclusively for package management. Always use `pnpm 
 - `next build` with `output: 'export'` emits a fully static site to `out/`
 - Cloudflare Workers serves `out/` as static assets; `wrangler.jsonc` declares
   no `main`, so there is no Worker script and no server runtime
-- `.github/workflows/deploy.yml` owns both environments. It builds and tests
-  every PR, uploads that build as a Cloudflare preview version, and deploys
-  pushes to `main` to production
-- Preview: `wrangler versions upload --preview-alias pr-<number>` publishes a
-  Worker *version* at `pr-<number>-web-development-hub.hi-00e.workers.dev`.
-  A version is not a deployment, so a preview cannot affect production.
-  Skipped for fork and Dependabot PRs, which have no access to repo secrets
-- Production: `wrangler deploy` on pushes to `main`, serving `webdevhub.link`
-- Both jobs declare a GitHub `environment` (`Preview`, `Production`), which is
-  what populates the repository's Deployments tab
+- Cloudflare **Workers Builds** owns deployment. It is connected to this
+  repository directly and builds every push: `main` deploys to
+  `webdevhub.link`, and any other branch is uploaded as a Worker version whose
+  commit and branch preview URLs are posted to the pull request by the
+  `cloudflare-workers-and-pages` bot
+- Preview URLs are `<branch>-web-development-hub.hi-00e.workers.dev`. A version
+  is not a deployment, so a preview cannot shift production traffic
+- The build command lives in the Cloudflare dashboard, not in this repo. The
+  Worker's own config - assets, routes, custom domain - still comes from
+  `wrangler.jsonc`, so only the build step is dashboard state
+- `.github/workflows/ci.yml` deploys nothing. It is the test gate: lint,
+  typecheck, Vitest, the static-export check and the Playwright suite. Workers
+  Builds runs none of these, so a red CI job is the only thing standing
+  between a broken commit and production
 - Security headers live in `public/_headers`, which Workers parses natively
 
 ### TypeScript Configuration

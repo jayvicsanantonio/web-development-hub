@@ -50,16 +50,20 @@ The site is a static export (`next build` with `output: 'export'`) served by
 Cloudflare Workers from `out/`. There is no server runtime: `wrangler.jsonc`
 declares no `main`, only static assets.
 
-`.github/workflows/deploy.yml` drives both environments:
+Cloudflare **Workers Builds** is connected to this repository and does the
+deploying:
 
-| Environment | Trigger | Command | URL |
-| --- | --- | --- | --- |
-| Preview | Pull request | `wrangler versions upload --preview-alias pr-<n>` | `pr-<n>-web-development-hub.hi-00e.workers.dev` |
-| Production | Push to `main` | `wrangler deploy` | [webdevhub.link](https://webdevhub.link) |
+| Environment | Trigger | URL |
+| --- | --- | --- |
+| Preview | Any branch / pull request | `<branch>-web-development-hub.hi-00e.workers.dev` |
+| Production | Push to `main` | [webdevhub.link](https://webdevhub.link) |
 
 A preview publishes a Worker *version*, not a deployment, so it cannot shift
-production traffic. Previews are skipped on fork and Dependabot pull requests,
-which do not have access to repository secrets.
+production traffic. Preview URLs are commented on each pull request.
+
+`.github/workflows/ci.yml` does not deploy. It runs lint, typecheck, Vitest and
+the Playwright smoke suite on every pull request. Workers Builds runs only the
+build, so CI is what catches anything a successful build would not.
 
 To deploy by hand: `pnpm preview` serves the built export locally through
 wrangler, `pnpm upload` uploads a version without shifting traffic, and

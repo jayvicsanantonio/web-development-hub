@@ -1,0 +1,71 @@
+name: CI
+
+# Test gate only. Deployment is owned by Cloudflare Workers Builds, which
+# builds this repository directly on every push: pushes to main deploy to
+# webdevhub.link, and every other branch is uploaded as a Worker version and
+# gets its preview URLs posted to the pull request.
+#
+# So nothing here deploys. What it does is fail a pull request that Workers
+# Builds would happily ship, because Workers Builds runs the build and
+# nothing else - no lint, no typecheck, no tests.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Pinned here rather than via a package.json "packageManager" field so
+      # that the version CI installs is visible next to the job that uses it.
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.24.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm lint
+
+      - run: pnpm typecheck
+
+      - run: pnpm test
+
+      - name: Build static export
+        run: pnpm build
+
+      - name: Fail if the export is not fully static
+        # `output: 'export'` writes ./out. If a dynamic route ever sneaks back
+        # in, the build fails before this - but an empty or missing out/ would
+        # otherwise sail through as a blank site.
+        run: test -f out/index.html && test -f out/404.html
+
+      # After the build so the export already exists; Playwright serves ./out
+      # through wrangler, which is what production does with it.
+      - name: Install Playwright browser
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: End-to-end smoke tests
+        run: pnpm test:e2e
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 5
