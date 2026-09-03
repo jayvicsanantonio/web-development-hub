@@ -69,12 +69,17 @@ This project uses **pnpm** exclusively for package management. Always use `pnpm 
 - `next build` with `output: 'export'` emits a fully static site to `out/`
 - Cloudflare Workers serves `out/` as static assets; `wrangler.jsonc` declares
   no `main`, so there is no Worker script and no server runtime
-- `.github/workflows/deploy.yml` builds every PR and deploys pushes to `main`
+- `.github/workflows/deploy.yml` owns both environments. It builds and tests
+  every PR, uploads that build as a Cloudflare preview version, and deploys
+  pushes to `main` to production
+- Preview: `wrangler versions upload --preview-alias pr-<number>` publishes a
+  Worker *version* at `pr-<number>-web-development-hub.hi-00e.workers.dev`.
+  A version is not a deployment, so a preview cannot affect production.
+  Skipped for fork and Dependabot PRs, which have no access to repo secrets
+- Production: `wrangler deploy` on pushes to `main`, serving `webdevhub.link`
+- Both jobs declare a GitHub `environment` (`Preview`, `Production`), which is
+  what populates the repository's Deployments tab
 - Security headers live in `public/_headers`, which Workers parses natively
-- `vercel.json` pins the Vercel preview builds to the same static output:
-  `framework: null` turns off Vercel's Next.js preset (there is no server to
-  host), and `cleanUrls` is required because the export writes flat files
-  (`blogs.html`, not `blogs/index.html`) that Next links to without an extension
 
 ### TypeScript Configuration
 - Strict mode enabled with path aliases (`@/*` maps to root)

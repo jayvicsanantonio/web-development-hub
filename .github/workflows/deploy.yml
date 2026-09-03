@@ -1,9 +1,10 @@
 name: Deploy
 
-# Builds the static export on every pull request, and deploys it to Cloudflare
-# Workers on pushes to main. The Cloudflare Pages project this replaces was
-# configured only in the dashboard, which is how its build config drifted out
-# of sync with the repository.
+# Builds the static export on every pull request, uploads that build as a
+# Cloudflare preview version, and deploys pushes to main to production.
+# The Cloudflare Pages project this replaces was configured only in the
+# dashboard, which is how its build config drifted out of sync with the
+# repository - so both environments are defined here instead.
 
 on:
   push:
@@ -14,15 +15,17 @@ concurrency:
   group: deploy-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      # Pinned here rather than via a package.json "packageManager" field:
-      # that field also drives Vercel's builder, which rejects pnpm versions
-      # its build image does not ship.
+      # Pinned here rather than via a package.json "packageManager" field so
+      # that the version CI installs is visible next to the jobs that use it.
       - uses: pnpm/action-setup@v4
         with:
           version: 11.24.0
@@ -70,10 +73,157 @@ jobs:
           path: out
           retention-days: 5
 
+  # Uploads the pull request's build as a new Worker *version* and gives it a
+  # preview URL. `versions upload` does not touch the deployment that serves
+  # webdevhub.link, so this cannot affect production - it is the direct
+  # replacement for the per-PR URLs Vercel used to post.
+  preview:
+    needs: build
+    # Fork pull requests and Dependabot run without access to repository
+    # secrets, so the Cloudflare credentials below would be empty and the
+    # upload would fail. Skip rather than fail: the build job above is still
+    # the gate that matters for those PRs.
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      deployments: write
+      pull-requests: write
+    environment:
+      name: Preview
+      # Evaluated after the job finishes, which is why it can read a step
+      # output. This is the alias URL, so the environment link keeps working
+      # as new commits are pushed to the same pull request.
+      url: ${{ steps.urls.outputs.alias }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.24.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      # Installs the wrangler pinned in the lockfile, so previews are uploaded
+      # by the same version that deploys production and that the e2e suite
+      # served ./out with.
+      - run: pnpm install --frozen-lockfile
+
+      # The same artifact production deploys, so the preview is byte-for-byte
+      # the build that passed lint, typecheck, unit and e2e tests.
+      - uses: actions/download-artifact@v4
+        with:
+          name: static-export
+          path: out
+
+      - name: Upload preview version to Cloudflare Workers
+        id: upload
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # The alias is the pull request number rather than the branch name:
+          # it becomes a DNS label, and branch names are neither guaranteed to
+          # be valid there (slashes, dots, case) nor to fit - the whole label
+          # `<alias>-web-development-hub` has to stay under 63 characters.
+          command: versions upload --preview-alias pr-${{ github.event.pull_request.number }}
+
+      - name: Resolve preview URLs
+        id: urls
+        env:
+          # wrangler-action sets deployment-url from wrangler's structured
+          # output file. For `versions upload` that is the URL unique to this
+          # commit's version: https://<version>-<worker>.<subdomain>.workers.dev
+          COMMIT_URL: ${{ steps.upload.outputs.deployment-url }}
+          ALIAS: pr-${{ github.event.pull_request.number }}
+          # Must match "name" in wrangler.jsonc. A mismatch is not silent: the
+          # check below stops matching and the commit URL is used instead.
+          WORKER: web-development-hub
+        run: |
+          set -euo pipefail
+
+          # Rebuild the URL with the alias in place of the version prefix. The
+          # aliased URL is not exposed as an action output yet
+          # (cloudflare/wrangler-action#384), and taking the subdomain from
+          # wrangler's own output keeps it from being hardcoded here.
+          host=${COMMIT_URL#https://}
+          label=${host%%.*}
+          domain=${host#*.}
+
+          # Only rewrite a host that really is <version>-<worker>.<subdomain>.
+          # Anything else - an empty output, a custom domain, the workers.dev
+          # root - falls through and the commit URL stands, so the environment
+          # link is never a guess.
+          alias_url=$COMMIT_URL
+          case "$label" in
+            ?*-"$WORKER") alias_url="https://${ALIAS}-${WORKER}.${domain}" ;;
+          esac
+
+          echo "alias=$alias_url" >> "$GITHUB_OUTPUT"
+          echo "commit=$COMMIT_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Comment the preview URLs on the pull request
+        uses: actions/github-script@v7
+        env:
+          ALIAS_URL: ${{ steps.urls.outputs.alias }}
+          COMMIT_URL: ${{ steps.urls.outputs.commit }}
+        with:
+          script: |
+            // Rewrite one comment instead of adding one per push.
+            const marker = '<!-- cloudflare-preview -->';
+            const body = [
+              marker,
+              '### Cloudflare Workers preview',
+              '',
+              '| | URL |',
+              '| --- | --- |',
+              `| Preview | ${process.env.ALIAS_URL} |`,
+              `| This commit | ${process.env.COMMIT_URL} |`,
+              '',
+              `Uploaded from \`${context.payload.pull_request.head.sha.slice(0, 7)}\`.`,
+              'This is a Worker version, not a deployment: production is untouched.',
+            ].join('\n');
+
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const comments = await github.paginate(
+              github.rest.issues.listComments,
+              { owner, repo, issue_number },
+            );
+            const existing = comments.find(
+              (c) => c.user?.type === 'Bot' && (c.body ?? '').includes(marker),
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner, repo, comment_id: existing.id, body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner, repo, issue_number, body,
+              });
+            }
+
   deploy:
     needs: build
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      deployments: write
+    environment:
+      name: Production
+      # The custom domain declared in wrangler.jsonc. Kept in step with it by
+      # hand; there is no output that reports a Worker's custom domains.
+      url: https://webdevhub.link
     steps:
       - uses: actions/checkout@v4
 

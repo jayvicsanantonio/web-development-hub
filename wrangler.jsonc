@@ -41,5 +41,16 @@
   // verifies a deploy without depending on DNS. Set it to false once the
   // custom domain is trusted - Cloudflare treats workers.dev as a free
   // hobby-tier hostname and recommends against serving production from it.
-  "workers_dev": true
+  "workers_dev": true,
+
+  // Per-pull-request previews depend on this. It is set explicitly because it
+  // is not independent: wrangler defaults preview_urls to whatever workers_dev
+  // is, so flipping workers_dev to false - which the note above recommends
+  // doing once the custom domain is trusted - would also silently turn off
+  // every preview URL the Deploy workflow uploads. Pinning it here keeps the
+  // two decisions separate.
+  //
+  // Preview URLs are served at <alias>-web-development-hub.hi-00e.workers.dev;
+  // the workflow uses pr-<number> as the alias.
+  "preview_urls": true
 }

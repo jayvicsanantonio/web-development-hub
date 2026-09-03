@@ -70,10 +70,13 @@ High-level architecture and structure
   - public/_headers carries the caching and security headers; Cloudflare Workers
     parses it natively, and next.config's headers() is a no-op under static export.
   - wrangler.jsonc declares assets only and no main, so no Worker script is deployed.
-  - vercel.json configures the preview-only Vercel deployments to build the same
-    static export (framework: null, outputDirectory: out, cleanUrls for the flat
-    .html files). Vercel does not read public/_headers, so previews serve without
-    the security headers that production gets from Workers.
+    It also pins preview_urls: true, which per-PR previews depend on - wrangler
+    otherwise defaults it to the value of workers_dev.
+  - .github/workflows/deploy.yml is the only deployment config. Pull requests are
+    uploaded as Worker versions aliased pr-<number> (a version is not a
+    deployment, so previews never touch production); pushes to main deploy to
+    webdevhub.link. Both jobs declare a GitHub environment, which is what fills
+    the repository's Deployments tab.
 
 Assistant-specific notes from CLAUDE.md (applicable here)
 - Use pnpm for all package operations.

@@ -44,8 +44,23 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The site is a static export (`next build` with `output: 'export'`) served by
+Cloudflare Workers from `out/`. There is no server runtime: `wrangler.jsonc`
+declares no `main`, only static assets.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+`.github/workflows/deploy.yml` drives both environments:
+
+| Environment | Trigger | Command | URL |
+| --- | --- | --- | --- |
+| Preview | Pull request | `wrangler versions upload --preview-alias pr-<n>` | `pr-<n>-web-development-hub.hi-00e.workers.dev` |
+| Production | Push to `main` | `wrangler deploy` | [webdevhub.link](https://webdevhub.link) |
+
+A preview publishes a Worker *version*, not a deployment, so it cannot shift
+production traffic. Previews are skipped on fork and Dependabot pull requests,
+which do not have access to repository secrets.
+
+To deploy by hand: `pnpm preview` serves the built export locally through
+wrangler, `pnpm upload` uploads a version without shifting traffic, and
+`pnpm deploy` deploys to production.
