@@ -79,6 +79,9 @@ High-level architecture and structure
   - .github/workflows/ci.yml deploys nothing - it runs lint, typecheck, Vitest and
     the Playwright suite. Workers Builds runs none of those, so CI is the only
     gate on what ships.
+  - Its production job records the Production environment in GitHub's Deployments
+    tab on pushes to main, by waiting for the Workers Builds check and checking
+    that webdevhub.link answers. Cloudflare writes no GitHub deployments itself.
 
 Assistant-specific notes from CLAUDE.md (applicable here)
 - Use pnpm for all package operations.

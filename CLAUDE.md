@@ -83,6 +83,12 @@ This project uses **pnpm** exclusively for package management. Always use `pnpm 
   typecheck, Vitest, the static-export check and the Playwright suite. Workers
   Builds runs none of these, so a red CI job is the only thing standing
   between a broken commit and production
+- Its `production` job is what fills GitHub's Deployments tab. Workers Builds
+  writes no GitHub deployments, so on pushes to `main` this job waits for the
+  Workers Builds check on the commit, confirms `webdevhub.link` answers, and
+  lets its `environment: Production` declaration record the result. It runs no
+  deploy of its own - a failed Workers Builds is recorded as a failed
+  deployment
 - Security headers live in `public/_headers`, which Workers parses natively
 
 ### TypeScript Configuration

@@ -65,6 +65,11 @@ production traffic. Preview URLs are commented on each pull request.
 the Playwright smoke suite on every pull request. Workers Builds runs only the
 build, so CI is what catches anything a successful build would not.
 
+On pushes to `main` it also records the deployment in the repository's
+Deployments tab: Cloudflare writes no GitHub deployments itself, so the
+`production` job waits for the Workers Builds check on the commit, verifies
+`webdevhub.link` is serving, and reports that as the Production environment.
+
 To deploy by hand: `pnpm preview` serves the built export locally through
 wrangler, `pnpm upload` uploads a version without shifting traffic, and
 `pnpm deploy` deploys to production.

@@ -1,13 +1,14 @@
 name: CI
 
-# Test gate only. Deployment is owned by Cloudflare Workers Builds, which
-# builds this repository directly on every push: pushes to main deploy to
-# webdevhub.link, and every other branch is uploaded as a Worker version and
-# gets its preview URLs posted to the pull request.
+# Nothing here deploys. Deployment is owned by Cloudflare Workers Builds,
+# which builds this repository directly on every push: pushes to main deploy
+# to webdevhub.link, and every other branch is uploaded as a Worker version
+# and gets its preview URLs posted to the pull request.
 #
-# So nothing here deploys. What it does is fail a pull request that Workers
-# Builds would happily ship, because Workers Builds runs the build and
-# nothing else - no lint, no typecheck, no tests.
+# What this workflow does is fail a pull request that Workers Builds would
+# happily ship, because Workers Builds runs the build and nothing else - no
+# lint, no typecheck, no tests. On main it also records the deploy that
+# Workers Builds performed, which is what fills GitHub's Deployments tab.
 
 on:
   push:
@@ -69,3 +70,89 @@ jobs:
           name: playwright-report
           path: playwright-report
           retention-days: 5
+
+  # Records production in GitHub's Deployments tab. Workers Builds does the
+  # deploying and does not write GitHub deployments of its own, so without
+  # this the Production environment keeps whatever Vercel last left in it -
+  # which is why it read "inactive" long after Vercel stopped mattering.
+  #
+  # This job deploys nothing, and must not: declaring `environment` below is
+  # the whole mechanism. GitHub opens a Production deployment when the job
+  # starts and closes it with the job's result, so the job's only work is
+  # establishing whether the real deploy happened. A failed Workers Builds
+  # is therefore recorded as a failed deployment rather than a green one.
+  production:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    # Nothing is checked out, so this needs no access to the repository.
+    permissions:
+      checks: read
+      deployments: write
+    environment:
+      name: Production
+      url: https://webdevhub.link
+    steps:
+      - name: Wait for the Workers Builds deploy of this commit
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Workers Builds posts one check run per build, on branch pushes
+            // and on main alike. Matched on the prefix so that renaming the
+            // Worker does not quietly turn this into the timeout below.
+            const deadlineMs = Date.now() + 15 * 60 * 1000;
+            const { owner, repo } = context.repo;
+
+            while (Date.now() < deadlineMs) {
+              const { data } = await github.rest.checks.listForRef({
+                owner,
+                repo,
+                ref: context.sha,
+                per_page: 100,
+              });
+              const check = data.check_runs.find((run) =>
+                run.name.startsWith('Workers Builds')
+              );
+
+              if (check && check.status === 'completed') {
+                if (check.conclusion === 'success') {
+                  core.info(`Workers Builds succeeded: ${check.details_url}`);
+                  return;
+                }
+                core.setFailed(
+                  `Workers Builds concluded "${check.conclusion}", so this commit ` +
+                    `is not in production: ${check.details_url}`
+                );
+                return;
+              }
+
+              core.info(
+                check
+                  ? `Workers Builds is ${check.status}...`
+                  : 'Waiting for Workers Builds to start...'
+              );
+              await new Promise((resolve) => setTimeout(resolve, 15_000));
+            }
+
+            core.setFailed(
+              'Timed out waiting for a Workers Builds check on this commit. If the ' +
+                'Cloudflare Git integration has been disconnected, nothing is ' +
+                'deploying production.'
+            );
+
+      - name: Check that production is serving
+        # Workers Builds reporting success means the deploy was accepted, not
+        # that the custom domain answers. Nothing else checks the real one.
+        run: |
+          set -uo pipefail
+          for attempt in 1 2 3 4 5; do
+            code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 \
+              https://webdevhub.link/) || code=000
+            if [ "$code" = "200" ]; then
+              echo "webdevhub.link returned 200"
+              exit 0
+            fi
+            echo "attempt $attempt: webdevhub.link returned $code"
+            sleep 10
+          done
+          echo "webdevhub.link never returned 200"
+          exit 1
