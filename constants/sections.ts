@@ -1514,6 +1514,21 @@ export const SECTIONS = [
         ],
       },
       {
+        title: 'Agent QA',
+        href: 'https://github.com/vostride/agent-qa',
+        description:
+          'Agentic QA harness for writing web and mobile tests in natural language, with execution memory and adaptation to UI changes.',
+        tags: [
+          'ai',
+          'testing',
+          'tool',
+          'web',
+          'mobile',
+          'automation',
+          'agent',
+        ],
+      },
+      {
         title: 'Warp',
         href: 'https://www.warp.dev/',
         description:
