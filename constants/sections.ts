@@ -1916,7 +1916,7 @@ export const SECTIONS = [
       },
       {
         title: 'Qwik',
-        href: 'https://qwik.builder.io/',
+        href: 'https://qwik.dev/',
         description:
           'Framework focused on instant loading with resumability and minimal JavaScript execution.',
         tags: [
@@ -2016,17 +2016,32 @@ export const SECTIONS = [
         ],
       },
       {
-        title: 'Gatsby',
-        href: 'https://www.gatsbyjs.com/',
+        title: 'React Router',
+        href: 'https://reactrouter.com/',
         description:
-          'React-based static site generator with GraphQL data layer and extensive plugin ecosystem.',
+          'Standards-focused router for React that scales from client-side routing to a full server-rendered framework.',
         tags: [
           'react',
-          'javascript',
+          'typescript',
           'free',
           'open-source',
+          'full-stack',
+          'trending',
+        ],
+      },
+      {
+        title: 'SvelteKit',
+        href: 'https://svelte.dev/docs/kit/introduction',
+        description:
+          'Official Svelte application framework with filesystem routing, server rendering, and adapters for any host.',
+        tags: [
+          'javascript',
+          'typescript',
+          'free',
+          'open-source',
+          'full-stack',
           'performance',
-          'cms',
+          'modern',
         ],
       },
       {
@@ -2046,7 +2061,7 @@ export const SECTIONS = [
       },
       {
         title: 'Deno Fresh',
-        href: 'https://fresh.deno.dev/',
+        href: 'https://usefresh.dev/',
         description:
           'Modern web framework for Deno with server-side rendering, islands architecture, and TypeScript support.',
         tags: [
@@ -2099,6 +2114,64 @@ export const SECTIONS = [
           'performance',
           'cms',
           'beginner-friendly',
+        ],
+      },
+      {
+        title: 'Express',
+        href: 'https://expressjs.com/',
+        description:
+          'Minimal and unopinionated Node.js web framework, the long-standing default for HTTP servers and APIs.',
+        tags: [
+          'nodejs',
+          'javascript',
+          'free',
+          'open-source',
+          'full-stack',
+          'beginner-friendly',
+        ],
+      },
+      {
+        title: 'Fastify',
+        href: 'https://fastify.dev/',
+        description:
+          'Node.js web framework built around schema-based validation and low request overhead.',
+        tags: [
+          'nodejs',
+          'javascript',
+          'typescript',
+          'free',
+          'open-source',
+          'full-stack',
+          'performance',
+        ],
+      },
+      {
+        title: 'Hono',
+        href: 'https://hono.dev/',
+        description:
+          'Small web framework built on Web Standards that runs on Node.js, Bun, Deno, and edge runtimes.',
+        tags: [
+          'typescript',
+          'javascript',
+          'free',
+          'open-source',
+          'performance',
+          'modern',
+          'trending',
+        ],
+      },
+      {
+        title: 'NestJS',
+        href: 'https://nestjs.com/',
+        description:
+          'Opinionated Node.js framework with dependency injection and modular architecture for large server applications.',
+        tags: [
+          'typescript',
+          'nodejs',
+          'free',
+          'open-source',
+          'full-stack',
+          'advanced',
         ],
       },
       {
@@ -2349,21 +2422,6 @@ export const SECTIONS = [
         ],
       },
       {
-        title: 'NativeScript',
-        href: 'https://nativescript.org/',
-        description:
-          'Framework for building truly native mobile applications using JavaScript, TypeScript, Angular, or Vue.',
-        tags: [
-          'javascript',
-          'typescript',
-          'vue',
-          'mobile-dev',
-          'free',
-          'open-source',
-          'advanced',
-        ],
-      },
-      {
         title: 'Tailwind CSS',
         href: 'https://tailwindcss.com/',
         description:
@@ -2376,6 +2434,20 @@ export const SECTIONS = [
           'trending',
           'beginner-friendly',
           'performance',
+        ],
+      },
+      {
+        title: 'Bootstrap',
+        href: 'https://getbootstrap.com/',
+        description:
+          'Component-driven CSS framework with a responsive grid, prebuilt widgets, and extensive theming.',
+        tags: [
+          'css',
+          'javascript',
+          'free',
+          'open-source',
+          'design',
+          'beginner-friendly',
         ],
       },
       {
@@ -2392,6 +2464,36 @@ export const SECTIONS = [
           'accessibility',
           'trending',
           'modern',
+        ],
+      },
+      {
+        title: 'Radix UI',
+        href: 'https://www.radix-ui.com/',
+        description:
+          'Unstyled, accessible React primitives that handle keyboard, focus, and ARIA behavior for you.',
+        tags: [
+          'react',
+          'typescript',
+          'free',
+          'open-source',
+          'design',
+          'accessibility',
+          'modern',
+        ],
+      },
+      {
+        title: 'Mantine',
+        href: 'https://mantine.dev/',
+        description:
+          'Full-featured React component and hooks library with dark mode, forms, and accessible defaults.',
+        tags: [
+          'react',
+          'typescript',
+          'free',
+          'open-source',
+          'design',
+          'accessibility',
+          'beginner-friendly',
         ],
       },
       {
@@ -2439,7 +2541,7 @@ export const SECTIONS = [
       },
       {
         title: 'XState',
-        href: 'https://xstate.js.org/',
+        href: 'https://stately.ai/docs/xstate',
         description:
           'State machines and statecharts for the modern web, enabling robust, visual state management.',
         tags: [
@@ -2453,7 +2555,7 @@ export const SECTIONS = [
       },
       {
         title: 'TanStack Query',
-        href: 'https://tanstack.com/query/',
+        href: 'https://tanstack.com/query/latest',
         description:
           'Powerful data fetching and caching library for React, Vue, and Svelte with automatic cache management.',
         tags: [
@@ -2467,12 +2569,69 @@ export const SECTIONS = [
         ],
       },
       {
-        title: 'Framer Motion',
-        href: 'https://www.framer.com/motion/',
+        title: 'TanStack Router',
+        href: 'https://tanstack.com/router/latest',
         description:
-          'Production-ready animation library for React with declarative syntax and performant transitions.',
+          'Type-safe React router with typed search params, loaders, and a full-stack Start framework.',
         tags: [
           'react',
+          'typescript',
+          'free',
+          'open-source',
+          'modern',
+          'advanced',
+        ],
+      },
+      {
+        title: 'Zod',
+        href: 'https://zod.dev/',
+        description:
+          'TypeScript-first schema validation that infers static types from a single runtime schema definition.',
+        tags: [
+          'typescript',
+          'javascript',
+          'free',
+          'open-source',
+          'modern',
+          'trending',
+        ],
+      },
+      {
+        title: 'React Hook Form',
+        href: 'https://react-hook-form.com/',
+        description:
+          'Uncontrolled form library for React that minimizes re-renders and integrates with schema validators.',
+        tags: [
+          'react',
+          'typescript',
+          'free',
+          'open-source',
+          'performance',
+          'beginner-friendly',
+        ],
+      },
+      {
+        title: 'Drizzle ORM',
+        href: 'https://orm.drizzle.team/',
+        description:
+          'Lightweight TypeScript ORM with SQL-like queries, generated migrations, and serverless driver support.',
+        tags: [
+          'typescript',
+          'database',
+          'free',
+          'open-source',
+          'modern',
+          'trending',
+        ],
+      },
+      {
+        title: 'Motion',
+        href: 'https://motion.dev/',
+        description:
+          'Production-grade animation library for React, Vue, and vanilla JavaScript with a hybrid engine and declarative syntax.',
+        tags: [
+          'react',
+          'vue',
           'javascript',
           'free',
           'open-source',
@@ -2500,6 +2659,34 @@ export const SECTIONS = [
         href: 'https://d3js.org/',
         description:
           'JavaScript library for producing dynamic, interactive data visualizations using SVG, HTML, and CSS.',
+        tags: [
+          'javascript',
+          'free',
+          'open-source',
+          'design',
+          'advanced',
+          'interactive',
+        ],
+      },
+      {
+        title: 'Chart.js',
+        href: 'https://www.chartjs.org/',
+        description:
+          'Canvas-based charting library with sensible defaults and eight built-in chart types.',
+        tags: [
+          'javascript',
+          'free',
+          'open-source',
+          'design',
+          'interactive',
+          'beginner-friendly',
+        ],
+      },
+      {
+        title: 'GSAP',
+        href: 'https://gsap.com/',
+        description:
+          'Timeline-based animation toolkit for any framework, with scroll, SVG, and text plugins now free.',
         tags: [
           'javascript',
           'free',
