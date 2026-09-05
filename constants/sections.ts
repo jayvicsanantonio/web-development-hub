@@ -718,20 +718,6 @@ export const SECTIONS = [
         ],
       },
       {
-        title: 'Project IDX',
-        href: 'https://developers.google.com/idx',
-        description:
-          "Google's AI-assisted cloud development environment for full-stack, multiplatform application development.",
-        tags: [
-          'ai',
-          'tool',
-          'free',
-          'full-stack',
-          'trending',
-          'modern',
-        ],
-      },
-      {
         title: 'Amazon Web Services',
         href: 'https://aws.amazon.com/',
         description:
@@ -783,7 +769,7 @@ export const SECTIONS = [
       },
       {
         title: 'Netlify',
-        href: 'https://netlify.com/',
+        href: 'https://www.netlify.com/',
         description:
           'All-in-one platform for building, deploying, and managing modern web applications with serverless functions.',
         tags: [
@@ -825,7 +811,7 @@ export const SECTIONS = [
       },
       {
         title: 'Sanity',
-        href: 'https://sanity.io/',
+        href: 'https://www.sanity.io/',
         description:
           'Headless CMS with real-time collaboration, customizable content studio, and powerful querying capabilities.',
         tags: [
@@ -860,7 +846,7 @@ export const SECTIONS = [
       },
       {
         title: 'Turborepo',
-        href: 'https://turbo.build/repo',
+        href: 'https://turborepo.dev/',
         description:
           'High-performance build system for JavaScript monorepos with intelligent caching and parallel execution.',
         tags: [
@@ -945,7 +931,7 @@ export const SECTIONS = [
       },
       {
         title: 'Vite',
-        href: 'https://vitejs.dev/',
+        href: 'https://vite.dev/',
         description:
           'Next-generation front-end build tool with instant hot module replacement and optimized production builds.',
         tags: [
@@ -960,7 +946,7 @@ export const SECTIONS = [
       },
       {
         title: 'Turbopack',
-        href: 'https://turbo.build/pack',
+        href: 'https://nextjs.org/docs/app/api-reference/turbopack',
         description:
           'Incremental bundler optimized for JavaScript and TypeScript, built by Vercel for Next.js applications.',
         tags: [
@@ -1101,13 +1087,6 @@ export const SECTIONS = [
         ],
       },
       {
-        title: 'Supermaven',
-        href: 'https://supermaven.com/',
-        description:
-          'AI-powered code completion tool with 300K token context window for high-quality, context-aware suggestions.',
-        tags: ['ai', 'free', 'paid', 'tool', 'trending', 'modern'],
-      },
-      {
         title: 'GitHub Copilot',
         href: 'https://github.com/features/copilot',
         description:
@@ -1116,7 +1095,7 @@ export const SECTIONS = [
       },
       {
         title: 'Cursor',
-        href: 'https://cursor.sh/',
+        href: 'https://cursor.com/',
         description:
           'AI-first code editor built on VS Code with advanced AI capabilities for code generation and editing.',
         tags: ['ai', 'free', 'paid', 'tool', 'trending', 'modern'],
@@ -1203,7 +1182,7 @@ export const SECTIONS = [
       },
       {
         title: 'GitLab',
-        href: 'https://gitlab.com/',
+        href: 'https://about.gitlab.com/',
         description:
           'Complete DevOps platform with Git repository, CI/CD, security scanning, and project management tools.',
         tags: [
@@ -1270,21 +1249,6 @@ export const SECTIONS = [
         ],
       },
       {
-        title: 'Glitch',
-        href: 'https://glitch.com/',
-        description:
-          'Collaborative platform for building, remixing, and deploying full-stack web apps with instant hosting.',
-        tags: [
-          'tool',
-          'free',
-          'paid',
-          'full-stack',
-          'deployment',
-          'community',
-          'beginner-friendly',
-        ],
-      },
-      {
         title: 'Postman',
         href: 'https://www.postman.com/',
         description:
@@ -1315,7 +1279,7 @@ export const SECTIONS = [
       },
       {
         title: 'MongoDB Atlas',
-        href: 'https://www.mongodb.com/atlas/database',
+        href: 'https://www.mongodb.com/products/platform/atlas-database',
         description:
           'Multi-cloud developer data platform with fully managed MongoDB database services and built-in search.',
         tags: [
@@ -1350,7 +1314,6 @@ export const SECTIONS = [
           'MySQL-compatible serverless database platform built on Vitess with branching, non-blocking schema changes.',
         tags: [
           'database',
-          'free',
           'paid',
           'platform',
           'performance',
@@ -1436,7 +1399,7 @@ export const SECTIONS = [
       },
       {
         title: 'Lighthouse',
-        href: 'https://developers.google.com/web/tools/lighthouse',
+        href: 'https://developer.chrome.com/docs/lighthouse/overview/',
         description:
           'Open-source tool for auditing web pages and applications for performance, accessibility, and SEO.',
         tags: [
@@ -1499,7 +1462,7 @@ export const SECTIONS = [
       },
       {
         title: 'Claude Code',
-        href: 'https://www.anthropic.com/claude-code',
+        href: 'https://claude.com/product/claude-code',
         description:
           'Command-line AI coding assistant powered by Claude Opus 4.1 that understands entire codebases and makes coordinated changes across multiple files.',
         tags: [
@@ -1531,10 +1494,10 @@ export const SECTIONS = [
         ],
       },
       {
-        title: 'Windsurf',
-        href: 'https://windsurf.com/',
+        title: 'Devin Desktop',
+        href: 'https://devin.ai/desktop',
         description:
-          'Purpose-built AI IDE with Cascade agent that remembers your codebase, auto-fixes lint errors, and supports MCP integration for enhanced workflows.',
+          "Cognition's agentic IDE, formerly Windsurf, running Devin Local plus any Agent Client Protocol agent for autonomous multi-file editing.",
         tags: [
           'ai',
           'ide',
@@ -1601,7 +1564,7 @@ export const SECTIONS = [
         title: 'Augment Code',
         href: 'https://www.augmentcode.com/',
         description:
-          'AI software development platform with industry-leading context engine, autonomous agents, and codebase-aware autocomplete for VS Code, JetBrains, Vim, and Neovim.',
+          'Cosmos, an agent platform that carries work from spec to verification across GitHub, GitLab, and Slack with shared context, audit trails, and human review points.',
         tags: [
           'ai',
           'platform',
@@ -1647,7 +1610,7 @@ export const SECTIONS = [
       },
       {
         title: 'v0',
-        href: 'https://v0.dev/',
+        href: 'https://v0.app/',
         description:
           "Vercel's AI-powered generative UI tool that creates React components and interfaces from text prompts, enabling rapid UI development and prototyping.",
         tags: [
@@ -1659,6 +1622,204 @@ export const SECTIONS = [
           'trending',
           'react',
           'generative',
+        ],
+      },
+      {
+        title: 'ESLint',
+        href: 'https://eslint.org/',
+        description:
+          'Pluggable JavaScript and TypeScript linter with a flat config system and an ecosystem of framework-specific rule sets.',
+        tags: [
+          'tool',
+          'free',
+          'open-source',
+          'javascript',
+          'typescript',
+        ],
+      },
+      {
+        title: 'Prettier',
+        href: 'https://prettier.io/',
+        description:
+          'Opinionated code formatter that reprints source from its own AST, ending style debates across JavaScript, CSS, HTML, and Markdown.',
+        tags: [
+          'tool',
+          'free',
+          'open-source',
+          'javascript',
+          'css',
+          'productivity',
+        ],
+      },
+      {
+        title: 'Bun',
+        href: 'https://bun.com/',
+        description:
+          'JavaScript runtime, package manager, bundler, and test runner in one binary, built on JavaScriptCore for fast startup.',
+        tags: [
+          'tool',
+          'free',
+          'open-source',
+          'javascript',
+          'typescript',
+          'nodejs',
+          'performance',
+          'modern',
+        ],
+      },
+      {
+        title: 'Neon',
+        href: 'https://neon.com/',
+        description:
+          'Serverless Postgres with database branching, scale-to-zero compute, and instant restore from any point in time.',
+        tags: [
+          'database',
+          'free',
+          'paid',
+          'platform',
+          'performance',
+          'modern',
+        ],
+      },
+      {
+        title: 'Prisma',
+        href: 'https://www.prisma.io/',
+        description:
+          'Type-safe ORM for TypeScript with a declarative schema, generated client, and a migration workflow for Postgres, MySQL, and SQLite.',
+        tags: [
+          'database',
+          'tool',
+          'free',
+          'paid',
+          'open-source',
+          'typescript',
+          'nodejs',
+        ],
+      },
+      {
+        title: 'Cloudflare Workers',
+        href: 'https://www.cloudflare.com/products/workers/',
+        description:
+          'Edge runtime that executes JavaScript close to users, with bound storage in KV, D1, R2, and Durable Objects.',
+        tags: [
+          'platform',
+          'free',
+          'paid',
+          'deployment',
+          'performance',
+          'javascript',
+          'modern',
+        ],
+      },
+      {
+        title: 'Railway',
+        href: 'https://railway.com/',
+        description:
+          'Deployment platform that provisions apps, databases, and cron jobs from a repository without writing infrastructure config.',
+        tags: [
+          'platform',
+          'paid',
+          'deployment',
+          'full-stack',
+          'beginner-friendly',
+          'modern',
+        ],
+      },
+      {
+        title: 'Bruno',
+        href: 'https://www.usebruno.com/',
+        description:
+          'Offline-first API client that stores collections as plain files in your repository, so requests review and merge like code.',
+        tags: [
+          'api',
+          'tool',
+          'free',
+          'open-source',
+          'testing',
+        ],
+      },
+      {
+        title: 'Excalidraw',
+        href: 'https://excalidraw.com/',
+        description:
+          'Virtual whiteboard with a hand-drawn look for architecture sketches and diagrams, with live collaboration and end-to-end encryption.',
+        tags: [
+          'design',
+          'free',
+          'open-source',
+          'tool',
+          'community',
+          'beginner-friendly',
+        ],
+      },
+      {
+        title: 'PostHog',
+        href: 'https://posthog.com/',
+        description:
+          'Product analytics with session replay, feature flags, A/B testing, and error tracking, available self-hosted or as a cloud service.',
+        tags: [
+          'platform',
+          'free',
+          'paid',
+          'open-source',
+          'monitoring',
+          'modern',
+        ],
+      },
+      {
+        title: 'Better Auth',
+        href: 'https://better-auth.com/',
+        description:
+          'Framework-agnostic authentication library for TypeScript that runs on your own database, covering sessions, OAuth, 2FA, and organizations.',
+        tags: [
+          'authentication',
+          'free',
+          'open-source',
+          'typescript',
+          'full-stack',
+          'modern',
+        ],
+      },
+      {
+        title: 'Ghostty',
+        href: 'https://ghostty.org/',
+        description:
+          'GPU-accelerated terminal emulator using native platform UI, with fast rendering and a broad set of terminal escape sequences.',
+        tags: [
+          'terminal',
+          'tool',
+          'free',
+          'open-source',
+          'performance',
+        ],
+      },
+      {
+        title: 'Google Antigravity',
+        href: 'https://antigravity.google/',
+        description:
+          "Google's agent-first development platform where agents work across editor, terminal, and browser and report back with verifiable artifacts.",
+        tags: [
+          'ai',
+          'ide',
+          'tool',
+          'free',
+          'agent',
+          'modern',
+          'trending',
+        ],
+      },
+      {
+        title: 'Resend',
+        href: 'https://resend.com/',
+        description:
+          'Transactional email API for developers, with React Email templates, a test mode, and deliverability tooling for domains.',
+        tags: [
+          'api',
+          'platform',
+          'free',
+          'paid',
+          'react',
+          'modern',
         ],
       },
     ],
