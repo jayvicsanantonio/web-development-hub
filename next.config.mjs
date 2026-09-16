@@ -14,9 +14,6 @@ const nextConfig = {
     // The Next image optimizer needs a server; nothing in this app imports
     // next/image, so opt out rather than ship an optimizer that cannot run.
     unoptimized: true,
-    dangerouslyAllowSVG: true,
-    contentSecurityPolicy:
-      "default-src 'self'; script-src 'none'; sandbox;",
   },
 
   // Response headers live in public/_headers, which Cloudflare Workers parses

@@ -31,7 +31,6 @@ type SearchContextType = {
   isTagSelected: (tag: string) => boolean;
   clearFilters: () => void;
   hasSelectedTags: boolean;
-  selectedTagCount: number;
 
   // Filter panel state
   isFilterPanelOpen: boolean;
@@ -79,9 +78,8 @@ export function SearchProvider({
     isTagSelected,
     clearAllTags: clearFilters,
     hasSelectedTags,
-    selectedTagCount,
     filterResourcesByTags,
-  } = useFilter({});
+  } = useFilter();
 
   // Keeps typing responsive while the scan over every resource runs at a lower
   // priority, without a timer to clean up.
@@ -149,7 +147,6 @@ export function SearchProvider({
       isTagSelected,
       clearFilters,
       hasSelectedTags,
-      selectedTagCount,
 
       // Filter panel state
       isFilterPanelOpen,
@@ -167,7 +164,6 @@ export function SearchProvider({
       isTagSelected,
       clearFilters,
       hasSelectedTags,
-      selectedTagCount,
 
       // Filter panel dependencies
       isFilterPanelOpen,

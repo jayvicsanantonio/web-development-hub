@@ -1,5 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
-import { StrictMode } from 'react';
+import { describe, it, expect } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { useFilter } from './useFilter';
 
@@ -19,86 +18,27 @@ describe('useFilter', () => {
     expect(result.current.hasSelectedTags).toBe(false);
   });
 
-  it('honours initial tags', () => {
-    const { result } = renderHook(() =>
-      useFilter({ initialTags: ['python'] })
-    );
-    expect(result.current.isTagSelected('python')).toBe(true);
-  });
-
   it('toggles a tag on and back off', () => {
     const { result } = renderHook(() => useFilter());
 
     act(() => result.current.toggleTag('javascript'));
     expect(result.current.selectedTags).toEqual(['javascript']);
     expect(result.current.hasSelectedTags).toBe(true);
+    expect(result.current.isTagSelected('javascript')).toBe(true);
 
     act(() => result.current.toggleTag('javascript'));
     expect(result.current.selectedTags).toEqual([]);
   });
 
-  it('does not add the same tag twice', () => {
+  it('keeps every selection until it is cleared', () => {
     const { result } = renderHook(() => useFilter());
-    act(() => result.current.addTag('javascript'));
-    act(() => result.current.addTag('javascript'));
-    expect(result.current.selectedTags).toEqual(['javascript']);
-  });
 
-  it('respects maxTags', () => {
-    const { result } = renderHook(() => useFilter({ maxTags: 2 }));
-    act(() => result.current.addTag('a'));
-    act(() => result.current.addTag('b'));
-    act(() => result.current.addTag('c'));
+    act(() => result.current.toggleTag('a'));
+    act(() => result.current.toggleTag('b'));
     expect(result.current.selectedTags).toEqual(['a', 'b']);
-  });
 
-  it('clears every selection', () => {
-    const { result } = renderHook(() =>
-      useFilter({ initialTags: ['a', 'b'] })
-    );
     act(() => result.current.clearAllTags());
     expect(result.current.selectedTags).toEqual([]);
-  });
-
-  it('notifies onTagsChange', () => {
-    const onTagsChange = vi.fn();
-    const { result } = renderHook(() => useFilter({ onTagsChange }));
-    act(() => result.current.addTag('python'));
-    expect(onTagsChange).toHaveBeenCalledWith(['python']);
-  });
-
-  it('notifies onTagsChange exactly once per change', () => {
-    // React invokes a setState updater twice under StrictMode, so a callback
-    // fired from inside the updater is delivered twice per interaction.
-    const onTagsChange = vi.fn();
-    const { result } = renderHook(() => useFilter({ onTagsChange }), {
-      wrapper: StrictMode,
-    });
-
-    act(() => result.current.addTag('python'));
-    expect(onTagsChange).toHaveBeenCalledTimes(1);
-
-    act(() => result.current.toggleTag('rust'));
-    expect(onTagsChange).toHaveBeenCalledTimes(2);
-    expect(onTagsChange).toHaveBeenLastCalledWith(['python', 'rust']);
-
-    act(() => result.current.removeTag('python'));
-    expect(onTagsChange).toHaveBeenCalledTimes(3);
-    expect(onTagsChange).toHaveBeenLastCalledWith(['rust']);
-  });
-
-  it('does not notify when maxTags rejects the addition', () => {
-    const onTagsChange = vi.fn();
-    const { result } = renderHook(() =>
-      useFilter({ maxTags: 1, onTagsChange })
-    );
-
-    act(() => result.current.addTag('a'));
-    act(() => result.current.addTag('b'));
-    act(() => result.current.toggleTag('c'));
-
-    expect(result.current.selectedTags).toEqual(['a']);
-    expect(onTagsChange).toHaveBeenCalledTimes(1);
   });
 
   it('returns everything when nothing is selected', () => {

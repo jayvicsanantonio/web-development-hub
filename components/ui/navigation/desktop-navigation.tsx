@@ -49,7 +49,7 @@ function NavTooltip({
       role="tooltip"
       aria-hidden={ariaHidden}
     >
-      <div className="bg-popover/90 backdrop-blur-optimized px-3 py-2 rounded-md text-sm font-medium text-popover-foreground flex items-center gap-2 border border-border shadow-md transform-gpu">
+      <div className="bg-popover/90 backdrop-blur-[20px] px-3 py-2 rounded-md text-sm font-medium text-popover-foreground flex items-center gap-2 border border-border shadow-md transform-gpu">
         {label}
         {shortcut && (
           <div
@@ -201,8 +201,6 @@ export function DesktopNavigation({
                   setHiddenTooltip(item.id);
                 }}
                 variant="desktop"
-                index={index}
-                totalItems={filteredNavItems.length}
                 aria-describedby="nav-description"
                 ref={(el) => {
                   itemRefs.current[index] = el as HTMLButtonElement;

@@ -15,11 +15,10 @@ type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
   theme: Theme;
-  setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
 }
 
-export const THEME_STORAGE_KEY = 'theme';
+const THEME_STORAGE_KEY = 'theme';
 
 const ThemeContext = createContext<ThemeContextType | undefined>(
   undefined
@@ -86,7 +85,7 @@ export function ThemeProvider({
   }, []);
 
   const contextValue = useMemo(
-    () => ({ theme, setTheme, toggleTheme }),
+    () => ({ theme, toggleTheme }),
     [theme, toggleTheme]
   );
 

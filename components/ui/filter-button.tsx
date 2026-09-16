@@ -33,7 +33,7 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
             backdrop-blur flex items-center gap-2
             md:border 
             md:shadow-md transition-all duration-300 
-            transform-gpu animate-optimized
+            transform-gpu
             ${
               isFilterPanelOpen
                 ? 'border-accent-neon'
