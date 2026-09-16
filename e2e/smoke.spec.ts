@@ -203,6 +203,33 @@ test.describe('search', () => {
   });
 });
 
+test.describe('tag filtering', () => {
+  test('narrows a category page to the selected tag', async ({
+    page,
+  }) => {
+    // The panel reported "1 active" while the page went on rendering every
+    // resource: the filter was only ever applied alongside a typed query.
+    await page.goto('/developer-tools');
+
+    const cards = page.locator('main article');
+    const before = await cards.count();
+    expect(before).toBeGreaterThan(0);
+
+    await page
+      .locator('button[aria-label^="Filter resources"]:visible')
+      .first()
+      .click();
+    await page
+      .getByRole('button', { name: 'paid', exact: true })
+      .first()
+      .click();
+
+    // Reported without an empty `for ""`, since nothing was typed.
+    await expect(page.getByText(/^Found \d+ results?$/)).toBeVisible();
+    expect(await cards.count()).toBeLessThan(before);
+  });
+});
+
 test.describe('bookmarks', () => {
   test('a bookmark survives a reload', async ({ page }) => {
     await page.goto('/');

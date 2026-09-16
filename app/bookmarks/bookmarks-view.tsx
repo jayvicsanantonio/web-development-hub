@@ -3,14 +3,21 @@
 // localStorage through BookmarksProvider.
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import Link from 'next/link';
 import {
   useBookmarks,
   type Resource,
 } from '@/contexts/bookmarks-context';
-import { SECTION_TITLES } from '@/constants/sections';
-import { toSectionId } from '@/lib/utils/navigation';
+import {
+  groupBySection,
+  toSectionId,
+} from '@/lib/utils/navigation';
+import {
+  filterResources,
+  isFiltering,
+  resultSummary,
+} from '@/lib/utils/search';
 import ResourceCard from '@/components/ui/resource-card';
 import { useSearch } from '@/contexts/search-context';
 import {
@@ -25,32 +32,33 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 
-const formatCount = (count: number): string =>
-  `${count} ${count === 1 ? 'bookmark' : 'bookmarks'}`;
-
 const BookmarksHeader = ({
   searchQuery,
+  filtering,
   displayedBookmarks,
   bookmarks,
   onClearAll,
 }: {
   searchQuery: string;
+  filtering: boolean;
   displayedBookmarks: Resource[];
   bookmarks: Resource[];
   onClearAll: () => void;
 }) => {
   const getDescription = () => {
-    if (searchQuery && searchQuery.trim()) {
-      return displayedBookmarks.length === 0
-        ? `No bookmarks found for "${searchQuery}"`
-        : `Found ${formatCount(
-            displayedBookmarks.length,
-          )} for "${searchQuery}"`;
+    if (filtering) {
+      return resultSummary(
+        displayedBookmarks.length,
+        searchQuery,
+        'bookmark',
+      );
     }
 
     return bookmarks.length === 0
       ? "You haven't added any bookmarks yet."
-      : `You have ${formatCount(bookmarks.length)}.`;
+      : `You have ${bookmarks.length} ${
+          bookmarks.length === 1 ? 'bookmark' : 'bookmarks'
+        }.`;
   };
 
   return (
@@ -59,7 +67,7 @@ const BookmarksHeader = ({
         <h1 className="text-4xl font-bold tracking-tight mb-2">
           My Bookmarks
         </h1>
-        <p className="text-foreground-muted">{getDescription()}</p>
+        <p className="text-muted-foreground">{getDescription()}</p>
       </div>
 
       {bookmarks.length > 0 && (
@@ -121,10 +129,10 @@ const BookmarksHeader = ({
   );
 };
 
-const EmptyState = ({ searchQuery }: { searchQuery: string }) => (
+const EmptyState = ({ filtering }: { filtering: boolean }) => (
   <div className="py-12 text-center">
     <p className="text-lg mb-6">
-      {searchQuery && searchQuery.trim()
+      {filtering
         ? "Try adjusting your search terms to find what you're looking for."
         : 'Bookmark resources to add them to your bookmarks list.'}
     </p>
@@ -156,50 +164,19 @@ const BookmarksSection = ({
 
 export function BookmarksView() {
   const { bookmarks, clearBookmarks } = useBookmarks();
-  const {
-    searchQuery,
-    searchResults,
-    selectedTags,
-    setCurrentCategory,
-  } = useSearch();
+  const { searchQuery, deferredQuery, selectedTags } = useSearch();
 
-  useEffect(() => {
-    setCurrentCategory(null);
-  }, [setCurrentCategory]);
+  const filtering = isFiltering(deferredQuery, selectedTags);
 
-  const displayedBookmarks = useMemo(() => {
-    return (searchQuery && searchQuery.trim()) ||
-      selectedTags.length > 0
-      ? searchResults
-      : bookmarks;
-  }, [searchQuery, searchResults, bookmarks, selectedTags]);
+  const displayedBookmarks = useMemo(
+    () => filterResources(bookmarks, deferredQuery, selectedTags),
+    [bookmarks, deferredQuery, selectedTags],
+  );
 
-  const groupedBookmarks = useMemo(() => {
-    return displayedBookmarks.reduce(
-      (acc, bookmark) => {
-        if (!acc[bookmark.section]) {
-          acc[bookmark.section] = [];
-        }
-        acc[bookmark.section].push(bookmark);
-        return acc;
-      },
-      {} as Record<string, typeof displayedBookmarks>,
-    );
-  }, [displayedBookmarks]);
-
-  // Known sections in their canonical order, then anything else. Rendering
-  // only the known titles meant a bookmark whose section fell outside that
-  // list was stored and counted but never drawn — and so could not be removed
-  // from this page, which is the only place it can be removed.
-  const orderedSections = useMemo(() => {
-    const known = SECTION_TITLES.filter(
-      (section) => groupedBookmarks[section],
-    );
-    const unknown = Object.keys(groupedBookmarks)
-      .filter((section) => !SECTION_TITLES.includes(section))
-      .sort();
-    return [...known, ...unknown];
-  }, [groupedBookmarks]);
+  const groupedBookmarks = useMemo(
+    () => groupBySection(displayedBookmarks),
+    [displayedBookmarks],
+  );
 
   const handleClearAll = () => {
     clearBookmarks();
@@ -209,20 +186,21 @@ export function BookmarksView() {
     <div className="container mx-auto md:mt-20 mt-8 py-12 space-y-12">
       <BookmarksHeader
         searchQuery={searchQuery}
+        filtering={filtering}
         displayedBookmarks={displayedBookmarks}
         bookmarks={bookmarks}
         onClearAll={handleClearAll}
       />
 
       {displayedBookmarks.length === 0 ? (
-        <EmptyState searchQuery={searchQuery} />
+        <EmptyState filtering={filtering} />
       ) : (
         <div className="space-y-16">
-          {orderedSections.map((section) => (
+          {groupedBookmarks.map(([section, sectionBookmarks]) => (
             <BookmarksSection
               key={section}
               section={section}
-              bookmarks={groupedBookmarks[section]}
+              bookmarks={sectionBookmarks}
             />
           ))}
         </div>

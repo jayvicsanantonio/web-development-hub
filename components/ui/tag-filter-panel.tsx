@@ -1,58 +1,13 @@
 'use client';
 
+// The tags on offer come from the dataset, so a tag a resource gains is
+// filterable at once. Only the featured few are chosen by hand.
 import { useEffect, useRef } from 'react';
 import { useSearch } from '@/contexts/search-context';
 import { X, Star } from 'lucide-react';
 import { Icon } from '@iconify/react';
+import { ALL_TAGS } from '@/constants/sections';
 import { getTagIconName } from '@/lib/utils/tag-icons';
-
-const ALL_TAGS = [
-  'javascript',
-  'typescript',
-  'react',
-  'vue',
-  'css',
-  'html',
-  'nodejs',
-  'python',
-
-  'ai',
-  'interview-prep',
-  'coding-challenges',
-  'system-design',
-  'testing',
-  'deployment',
-  'design',
-  'performance',
-  'accessibility',
-  'authentication',
-
-  'beginner-friendly',
-  'advanced',
-  'interactive',
-
-  'documentation',
-  'tutorial',
-  'course',
-  'community',
-  'blog',
-  'tool',
-  'platform',
-
-  'free',
-  'paid',
-  'open-source',
-  'video-based',
-  'hands-on',
-
-  'trending',
-  'career-focused',
-  'full-stack',
-  'mobile-dev',
-  'desktop-dev',
-  'database',
-  'cms',
-];
 
 const PRIORITY_TAGS = [
   'ai',
@@ -60,12 +15,14 @@ const PRIORITY_TAGS = [
   'free',
   'beginner-friendly',
   'trending',
-];
+].filter((tag) => ALL_TAGS.includes(tag));
 
 interface TagFilterPanelProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+const tagLabel = (tag: string) => tag.replaceAll('-', ' ');
 
 const getTagIcon = (tag: string) => {
   const iconName = getTagIconName(tag);
@@ -78,8 +35,8 @@ export function TagFilterPanel({
   isOpen,
   onClose,
 }: TagFilterPanelProps) {
-  const { selectedTags, toggleTag, isTagSelected, clearFilters } =
-    useSearch();
+  const { selectedTags, toggleTag, clearFilters } = useSearch();
+  const isTagSelected = (tag: string) => selectedTags.includes(tag);
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -176,7 +133,7 @@ export function TagFilterPanel({
                   "
                 >
                   {getTagIcon(tag)}
-                  {tag.replace('-', ' ')}
+                  {tagLabel(tag)}
                   <button
                     onClick={() => toggleTag(tag)}
                     className="
@@ -219,7 +176,7 @@ export function TagFilterPanel({
                     `}
                   >
                     {getTagIcon(tag)}
-                    <span>{tag.replace('-', ' ')}</span>
+                    <span>{tagLabel(tag)}</span>
                   </button>
                 );
               })}
@@ -248,7 +205,7 @@ export function TagFilterPanel({
                     }
                   `}
                 >
-                  {tag.replace('-', ' ')}
+                  {tagLabel(tag)}
                 </button>
               ))}
             </div>

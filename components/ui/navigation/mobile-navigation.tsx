@@ -175,7 +175,7 @@ export function MobileNavigation({
           isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
         role="navigation"
-        aria-hidden={!isMobileMenuOpen}
+        inert={!isMobileMenuOpen}
       >
         <nav aria-label="Site sections">
           <ul className="flex flex-col gap-4 list-none m-0 p-0 min-h-[calc(100vh-8rem)]">

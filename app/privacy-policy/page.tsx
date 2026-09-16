@@ -18,7 +18,7 @@ export default function PrivacyPolicyPage() {
           <h1 className="text-4xl font-bold tracking-tight">
             Privacy Policy
           </h1>
-          <p className="text-foreground-muted text-lg">
+          <p className="text-muted-foreground text-lg">
             Last updated: July 4, 2025
           </p>
         </div>
@@ -28,7 +28,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">
               Introduction
             </h2>
-            <p className="text-foreground-muted leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed">
               Web Development Hub ("we," "our," or "us") is committed
               to protecting your privacy. This Privacy Policy explains
               how we collect, use, disclose, and safeguard your
@@ -47,7 +47,7 @@ export default function PrivacyPolicyPage() {
                 <h3 className="text-xl font-medium text-accent-purple mb-2">
                   Information You Provide Directly
                 </h3>
-                <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+                <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
                   <li>
                     Feedback and communications when you contact us
                     via email or other means
@@ -58,12 +58,12 @@ export default function PrivacyPolicyPage() {
                 <h3 className="text-xl font-medium text-accent-purple mb-2">
                   Privacy-First Web Analytics (via Cloudflare)
                 </h3>
-                <p className="text-foreground-muted leading-relaxed mb-3">
+                <p className="text-muted-foreground leading-relaxed mb-3">
                   We use Cloudflare Web Analytics to understand how
                   our platform is used. This service is designed with
                   privacy as the primary focus:
                 </p>
-                <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+                <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
                   <li>
                     <strong>No individual user tracking</strong> - we
                     cannot identify or track specific users
@@ -98,12 +98,12 @@ export default function PrivacyPolicyPage() {
                 <h3 className="text-xl font-medium text-accent-purple mb-2">
                   Cloudflare Infrastructure Data
                 </h3>
-                <p className="text-foreground-muted leading-relaxed mb-3">
+                <p className="text-muted-foreground leading-relaxed mb-3">
                   As our hosting and CDN provider, Cloudflare
                   processes technical data for security, performance,
                   and analytics:
                 </p>
-                <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+                <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
                   <li>
                     <strong>Analytics and Logs:</strong> Request data
                     for Web Analytics (privacy-first, no user
@@ -140,7 +140,7 @@ export default function PrivacyPolicyPage() {
                 <h3 className="text-xl font-medium text-accent-purple mb-2">
                   Communications
                 </h3>
-                <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+                <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
                   <li>
                     Respond to your feedback, questions, and support
                     requests
@@ -151,7 +151,7 @@ export default function PrivacyPolicyPage() {
                 <h3 className="text-xl font-medium text-accent-purple mb-2">
                   Privacy-First Analytics
                 </h3>
-                <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+                <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
                   <li>
                     Understand which resources are most helpful to
                     developers (without tracking individuals)
@@ -174,7 +174,7 @@ export default function PrivacyPolicyPage() {
                 <h3 className="text-xl font-medium text-accent-purple mb-2">
                   Legal Compliance
                 </h3>
-                <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+                <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
                   <li>
                     Comply with applicable laws and legal obligations
                   </li>
@@ -191,7 +191,7 @@ export default function PrivacyPolicyPage() {
               Information Sharing and Disclosure
             </h2>
             <div className="space-y-4">
-              <p className="text-foreground-muted leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 <strong>
                   We do not sell, trade, or rent any personal
                   information.
@@ -200,7 +200,7 @@ export default function PrivacyPolicyPage() {
                 share. We may share information only in these specific
                 circumstances:
               </p>
-              <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+              <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
                 <li>
                   <strong>Cloudflare Services:</strong> Privacy-first
                   analytics, security analytics, and server logs are
@@ -226,13 +226,13 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">
               Data Security
             </h2>
-            <p className="text-foreground-muted leading-relaxed mb-4">
+            <p className="text-muted-foreground leading-relaxed mb-4">
               We implement appropriate security measures to protect
               your information against unauthorized access,
               alteration, disclosure, or destruction. These measures
               include:
             </p>
-            <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+            <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
               <li>Encryption of data in transit and at rest</li>
               <li>Regular security assessments and updates</li>
               <li>Access controls and authentication measures</li>
@@ -245,11 +245,11 @@ export default function PrivacyPolicyPage() {
               Your Privacy Rights
             </h2>
             <div className="space-y-4">
-              <p className="text-foreground-muted leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 Depending on your location, you may have the following
                 rights regarding your personal information:
               </p>
-              <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+              <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
                 <li>
                   <strong>Access:</strong> Request access to your
                   personal information
@@ -271,7 +271,7 @@ export default function PrivacyPolicyPage() {
                   certain data processing activities
                 </li>
               </ul>
-              <p className="text-foreground-muted leading-relaxed mt-4">
+              <p className="text-muted-foreground leading-relaxed mt-4">
                 To exercise these rights, please contact us using the
                 information provided below.
               </p>
@@ -283,14 +283,14 @@ export default function PrivacyPolicyPage() {
               Cookies and Tracking
             </h2>
             <div className="space-y-4">
-              <p className="text-foreground-muted leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 <strong>
                   We do not use cookies for tracking or analytics.
                 </strong>{' '}
                 Our analytics solution (Cloudflare Web Analytics) is
                 completely cookie-free and privacy-focused.
               </p>
-              <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+              <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
                 <li>
                   <strong>No Analytics Cookies:</strong> Cloudflare
                   Web Analytics doesn't use any client-side state (no
@@ -307,7 +307,7 @@ export default function PrivacyPolicyPage() {
                   performance purposes (CDN functionality)
                 </li>
               </ul>
-              <p className="text-foreground-muted leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 Since we don't use tracking cookies, there are no
                 cookie consent banners or analytics cookie settings to
                 manage.
@@ -319,7 +319,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">
               Third-Party Links
             </h2>
-            <p className="text-foreground-muted leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed">
               Our platform contains links to external websites and
               resources. We are not responsible for the privacy
               practices or content of these third-party sites. We
@@ -332,7 +332,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">
               Changes to This Policy
             </h2>
-            <p className="text-foreground-muted leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed">
               We may update this Privacy Policy periodically to
               reflect changes in our practices or legal requirements.
               We will notify you of material changes by posting the
@@ -345,11 +345,11 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">
               Contact Us
             </h2>
-            <p className="text-foreground-muted leading-relaxed mb-4">
+            <p className="text-muted-foreground leading-relaxed mb-4">
               If you have questions about this Privacy Policy or wish
               to contact us about your data, please reach out:
             </p>
-            <div className="space-y-2 text-foreground-muted">
+            <div className="space-y-2 text-muted-foreground">
               <p>
                 <strong>Website:</strong>{' '}
                 <Link

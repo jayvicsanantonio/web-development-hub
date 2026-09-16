@@ -27,10 +27,7 @@ export default function ResourceCard({
   const iconName = getResourceIcon(resource.title);
 
   return (
-    <a
-      href={resource.href}
-      target="_blank"
-      rel="noopener noreferrer"
+    <article
       className="relative flex flex-col h-full rounded-lg transition-all bg-card border border-border hover:shadow-lg hover:scale-[1.01]"
       id={resourceId}
       aria-labelledby={`title-${resourceId}`}
@@ -48,17 +45,27 @@ export default function ResourceCard({
             id={`title-${resourceId}`}
             className="text-lg font-semibold"
           >
-            {resource.title}
+            {/* The ::after overlay makes the whole card clickable while the
+                link itself stays inside the heading, so the bookmark button is
+                a sibling rather than a button nested in an anchor. */}
+            <a
+              href={resource.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="after:absolute after:inset-0 after:rounded-lg focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-[var(--color-ring)]"
+            >
+              {resource.title}
+            </a>
           </h3>
         </div>
         <BookmarkButton
           resource={resourceWithSection}
           size="md"
-          className="z-10"
+          className="relative z-10"
         />
       </div>
       <div className="p-6 flex-grow space-y-4">
-        <p className="text-foreground-muted">
+        <p className="text-muted-foreground">
           {resource.description}
         </p>
 
@@ -92,6 +99,6 @@ export default function ResourceCard({
           </div>
         )}
       </div>
-    </a>
+    </article>
   );
 }

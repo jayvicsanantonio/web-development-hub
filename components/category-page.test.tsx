@@ -19,21 +19,34 @@ import { SECTIONS, sectionByTitle } from '@/constants/sections';
 
 const section = sectionByTitle('Developer Tools');
 
-function SearchBox() {
-  const { searchQuery, setSearchQuery } = useSearch();
+// A tag some but not all of this section's resources carry, so filtering on it
+// has something to remove.
+const TAG = section.links
+  .flatMap((link) => link.tags)
+  .find(
+    (tag) =>
+      section.links.filter((link) => link.tags.includes(tag)).length <
+      section.links.length
+  )!;
+
+function SearchControls() {
+  const { searchQuery, setSearchQuery, toggleTag } = useSearch();
   return (
-    <input
-      aria-label="query"
-      value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)}
-    />
+    <>
+      <input
+        aria-label="query"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+      <button onClick={() => toggleTag(TAG)}>toggle tag</button>
+    </>
   );
 }
 
 const wrapper = ({ children }: { children: ReactNode }) => (
   <BookmarksProvider>
     <SearchProvider>
-      <SearchBox />
+      <SearchControls />
       {children}
     </SearchProvider>
   </BookmarksProvider>
@@ -78,7 +91,7 @@ describe('searching', () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText(new RegExp(`results for "${target}"`))
+        screen.getByText(new RegExp(`results? for "${target}"`))
       ).toBeInTheDocument()
     );
     expect(
@@ -106,6 +119,40 @@ describe('searching', () => {
     expect(
       screen.queryByRole('heading', { level: 3, name: other })
     ).not.toBeInTheDocument();
+  });
+
+  it('narrows to resources carrying a selected tag with no query typed', async () => {
+    const user = userEvent.setup();
+    renderPage();
+
+    const expected = section.links.filter((link) =>
+      link.tags.includes(TAG)
+    ).length;
+    expect(expected).toBeLessThan(section.links.length);
+    expect(screen.getAllByRole('link')).toHaveLength(
+      section.links.length
+    );
+
+    await user.click(
+      screen.getByRole('button', { name: 'toggle tag' })
+    );
+
+    await waitFor(() =>
+      expect(screen.getAllByRole('link')).toHaveLength(expected)
+    );
+  });
+
+  it('counts what a tag on its own matched, without quoting an empty query', async () => {
+    const user = userEvent.setup();
+    renderPage();
+
+    await user.click(
+      screen.getByRole('button', { name: 'toggle tag' })
+    );
+
+    await waitFor(() =>
+      expect(screen.getByText(/^Found \d+ results?$/)).toBeInTheDocument()
+    );
   });
 
   it('reports an empty search plainly', async () => {
