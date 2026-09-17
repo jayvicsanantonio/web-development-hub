@@ -71,7 +71,7 @@ export default function ResourceCard({
                   key={`${resourceId}-tag-${tag}`}
                   className={cn(
                     'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium',
-                    'transition-colors duration-200 ease-in-out transform-gpu',
+                    'transition-colors duration-200 ease-in-out',
                     'border border-border/50',
                     'bg-secondary/5 text-secondary border-secondary/30 hover:bg-secondary/10',
                     'dark:bg-secondary/30 dark:text-secondary-foreground dark:border-secondary/95 dark:hover:bg-secondary/80',

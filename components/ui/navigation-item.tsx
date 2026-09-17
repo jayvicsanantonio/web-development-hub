@@ -18,8 +18,6 @@ interface NavigationItemProps {
   onClick: () => void;
   onKeyDown?: (e: React.KeyboardEvent) => void;
   variant?: 'mobile' | 'desktop';
-  index?: number;
-  totalItems?: number;
   'aria-describedby'?: string;
   href?: string;
 }
@@ -35,8 +33,6 @@ export const NavigationItem = forwardRef<
       onClick,
       onKeyDown,
       variant = 'desktop',
-      index,
-      totalItems,
       'aria-describedby': ariaDescribedBy,
       href,
     },

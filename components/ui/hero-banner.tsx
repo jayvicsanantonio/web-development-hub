@@ -13,17 +13,17 @@ export function HeroBanner({
     <div className="min-h-[100vh] w-full">
       <section className="container mx-auto h-screen flex flex-col items-center justify-center text-center space-y-6 px-4">
         {tagline && (
-          <div className="inline-block rounded-full bg-accent-neon/10 px-4 py-1.5 text-sm font-medium text-accent-neon mb-4 transform-gpu animate-optimized">
+          <div className="inline-block rounded-full bg-accent-neon/10 px-4 py-1.5 text-sm font-medium text-accent-neon mb-4 transform-gpu">
             {tagline}
           </div>
         )}
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter max-w-3xl transform-gpu animate-optimized">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter max-w-3xl transform-gpu">
           {title}
         </h1>
-        <p className="text-lg md:text-xl text-muted-foreground max-w-[700px] mt-4 transform-gpu animate-optimized">
+        <p className="text-lg md:text-xl text-muted-foreground max-w-[700px] mt-4 transform-gpu">
           {description}
         </p>
-        <div className="mt-8 transform-gpu animate-optimized">
+        <div className="mt-8 transform-gpu">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

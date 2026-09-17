@@ -190,8 +190,6 @@ export function MobileNavigation({
                 href="/"
                 onClick={handleNavigationClick}
                 variant="mobile"
-                index={0}
-                totalItems={navItems.length + 1}
                 onKeyDown={(e) => handleKeyDown(e, 0)}
                 ref={(el) => {
                   navItemRefs.current[0] = el;
@@ -211,8 +209,6 @@ export function MobileNavigation({
                     href={pageUrl}
                     onClick={handleNavigationClick}
                     variant="mobile"
-                    index={itemIndex}
-                    totalItems={navItems.length + 1}
                     onKeyDown={(e) => handleKeyDown(e, itemIndex)}
                     ref={(el) => {
                       navItemRefs.current[itemIndex] = el;

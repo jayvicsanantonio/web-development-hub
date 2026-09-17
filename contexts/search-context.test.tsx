@@ -114,7 +114,7 @@ describe('SearchProvider', () => {
       result.current.searchResults.every((r) => r.tags?.includes(tag))
     ).toBe(true);
     expect(result.current.hasSelectedTags).toBe(true);
-    expect(result.current.selectedTagCount).toBe(1);
+    expect(result.current.selectedTags).toEqual([tag]);
   });
 
   it('clears the query and its results', async () => {

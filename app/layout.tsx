@@ -119,12 +119,6 @@ export default function RootLayout({
           crossOrigin=""
         />
         <link rel="dns-prefetch" href="https://api.iconify.design" />
-
-        {/* Resource hints */}
-        <meta
-          name="msapplication-TileColor"
-          content="hsl(222 47% 11%)"
-        />
       </head>
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-background text-foreground min-h-screen overflow-x-hidden`}

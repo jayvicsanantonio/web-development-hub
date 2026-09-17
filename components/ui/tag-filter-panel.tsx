@@ -126,7 +126,7 @@ export function TagFilterPanel({
           border border-border/20 rounded-2xl
           shadow-lg
           p-4 md:p-6
-          animate-optimized animate-scale-in
+          animate-scale-in
           transform-gpu
         "
       >
@@ -210,7 +210,7 @@ export function TagFilterPanel({
                     onClick={() => toggleTag(tag)}
                     className={`
                       inline-flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 md:py-1.5 rounded-full text-[10px] md:text-xs font-medium
-                      transition-all duration-200 border hover:scale-105 transform-gpu animate-optimized
+                      transition-all duration-200 border hover:scale-105 transform-gpu
                       ${
                         isSelected
                           ? 'bg-accent-neon/20 text-accent-neon border-accent-neon/40 ring-1 md:ring-2 ring-accent-neon/30 shadow-md md:shadow-lg'
@@ -239,7 +239,7 @@ export function TagFilterPanel({
                   onClick={() => toggleTag(tag)}
                   className={`
                     inline-flex items-center px-2 md:px-2.5 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-medium border
-                    transition-all duration-200 hover:scale-105 transform-gpu animate-optimized
+                    transition-all duration-200 hover:scale-105 transform-gpu
                      focus:ring-1 focus:ring-accent-neon/50
                     ${
                       isTagSelected(tag)
