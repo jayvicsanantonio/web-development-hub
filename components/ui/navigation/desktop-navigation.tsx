@@ -6,33 +6,25 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { BookmarkIcon, HomeIcon, Moon, Sun } from 'lucide-react';
 import { toggleTheme } from '@/lib/theme';
-import { NavigationItem } from '@/components/ui/navigation-item';
 import { type NavigationItem as NavigationItemType } from '@/lib/utils/navigation';
-import {
-  useCallback,
-  useRef,
-  useState,
-  useEffect,
-  useMemo,
-} from 'react';
+import { useCallback, useRef, useMemo } from 'react';
 import { useBookmarks } from '@/contexts/bookmarks-context';
 import { useIsMac } from '@/lib/hooks/use-is-mac';
 
 /**
- * The hover/focus label beside a rail button. `isSuppressed` hides it after a
- * click, so the tooltip does not linger over the thing the click navigated to.
+ * The label beside a rail button, shown on hover or keyboard focus. It keys on
+ * :focus-visible rather than any focus, so a mouse click, which leaves focus
+ * on the button, does not keep the label up after the pointer moves away.
  */
 function NavTooltip({
   label,
   shortcut,
-  isSuppressed,
   offsetClassName = 'right-12',
   shortcutClassName = 'w-10',
   ariaHidden,
 }: {
   label: string;
   shortcut?: string;
-  isSuppressed: boolean;
   offsetClassName?: string;
   shortcutClassName?: string;
   ariaHidden?: boolean;
@@ -42,9 +34,7 @@ function NavTooltip({
       className={cn(
         'absolute top-1/2 transform -translate-y-1/2 transition-opacity duration-200 whitespace-nowrap will-change-[opacity,transform] pointer-events-none',
         offsetClassName,
-        isSuppressed
-          ? 'opacity-0'
-          : 'opacity-0 group-hover:opacity-100 group-focus-within:opacity-100',
+        'opacity-0 group-hover:opacity-100 group-has-[:focus-visible]:opacity-100',
       )}
       role="tooltip"
       aria-hidden={ariaHidden}
@@ -81,9 +71,6 @@ export function DesktopNavigation({
   isBookmarksActive,
   onScrollToSection,
 }: DesktopNavigationProps) {
-  const [hiddenTooltip, setHiddenTooltip] = useState<string | null>(
-    null,
-  );
   const isMac = useIsMac();
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -108,16 +95,6 @@ export function DesktopNavigation({
     itemRefs.current[index]?.focus();
   }, []);
 
-  useEffect(() => {
-    if (hiddenTooltip) {
-      const timer = setTimeout(() => {
-        setHiddenTooltip(null);
-      }, 2000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [hiddenTooltip]);
-
   return (
     <nav
       aria-label="Page sections navigation"
@@ -136,7 +113,6 @@ export function DesktopNavigation({
               isMac ? '⌘H' : 'Ctrl+H'
             })`}
             aria-current={isHomeActive ? 'page' : undefined}
-            onClick={() => setHiddenTooltip('home')}
           >
             <HomeIcon
               className={cn(
@@ -150,7 +126,6 @@ export function DesktopNavigation({
           <NavTooltip
             label="Home"
             shortcut={isMac ? '⌘H' : 'Ctrl+H'}
-            isSuppressed={hiddenTooltip === 'home'}
           />
         </li>
         <li className="relative group">
@@ -161,7 +136,6 @@ export function DesktopNavigation({
               isMac ? '⌘B' : 'Ctrl+B'
             })`}
             aria-current={isBookmarksActive ? 'page' : undefined}
-            onClick={() => setHiddenTooltip('bookmarks')}
           >
             <BookmarkIcon
               className={cn(
@@ -175,7 +149,6 @@ export function DesktopNavigation({
           <NavTooltip
             label="Bookmarks"
             shortcut={isMac ? '⌘B' : 'Ctrl+B'}
-            isSuppressed={hiddenTooltip === 'bookmarks'}
           />
         </li>
 
@@ -192,18 +165,22 @@ export function DesktopNavigation({
         {(isHomeActive || isBookmarksActive) &&
           filteredNavItems.map((item, index) => (
             <li key={item.id} className="relative group">
-              <NavigationItem
-                item={item}
-                isActive={activeSection === item.id}
-                onClick={() => {
-                  onScrollToSection(item.id);
-                  setHiddenTooltip(item.id);
-                }}
-                variant="desktop"
-                aria-describedby="nav-description"
+              <button
                 ref={(el) => {
-                  itemRefs.current[index] = el as HTMLButtonElement;
+                  itemRefs.current[index] = el;
                 }}
+                onClick={() => onScrollToSection(item.id)}
+                className={cn(
+                  'cursor-pointer w-3 h-3 rounded-full transition-all duration-300  focus:ring-2 focus:ring-accent-neon focus:ring-offset-2',
+                  activeSection === item.id
+                    ? 'bg-foreground shadow-sm ring-2 ring-foreground/20'
+                    : 'bg-foreground/40 hover:bg-foreground/60 hover:scale-110',
+                )}
+                aria-label={`Navigate to ${item.title} section`}
+                aria-current={
+                  activeSection === item.id ? 'page' : undefined
+                }
+                aria-describedby="nav-description"
                 onKeyDown={(e) => {
                   // Indexed refs rather than a selector: every button is the
                   // only element in its <li>, so :nth-of-type(n) matched them
@@ -235,7 +212,6 @@ export function DesktopNavigation({
               />
               <NavTooltip
                 label={item.title}
-                isSuppressed={hiddenTooltip === item.id}
                 offsetClassName="right-14"
                 ariaHidden={activeSection !== item.id}
               />
@@ -251,10 +227,7 @@ export function DesktopNavigation({
 
         <li className="relative group">
           <button
-            onClick={() => {
-              toggleTheme();
-              setHiddenTooltip('theme');
-            }}
+            onClick={toggleTheme}
             className="cursor-pointer desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
             aria-label={`Switch between light and dark mode (${
               isMac ? '⌘⇧L' : 'Ctrl+Shift+L'
@@ -272,7 +245,6 @@ export function DesktopNavigation({
           <NavTooltip
             label="Toggle Theme"
             shortcut={isMac ? '⌘⇧L' : 'Ctrl+⇧L'}
-            isSuppressed={hiddenTooltip === 'theme'}
             shortcutClassName="w-12"
           />
         </li>

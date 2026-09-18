@@ -9,7 +9,7 @@ import { Menu, Search, BookmarkIcon, Moon, Sun } from 'lucide-react';
 import { toggleTheme } from '@/lib/theme';
 import { SearchInput } from '@/components/ui/search-input';
 import { FilterButton } from '@/components/ui/filter-button';
-import { NavigationItem } from '@/components/ui/navigation-item';
+import { Icon } from '@iconify/react';
 import { type NavigationItem as NavigationItemType } from '@/lib/utils/navigation';
 import { cn } from '@/lib/utils';
 
@@ -18,6 +18,55 @@ import { cn } from '@/lib/utils';
 const URL_BY_SECTION_ID: Record<string, string> = Object.fromEntries(
   SECTIONS.map((section) => [toSectionId(section.title), section.href])
 );
+
+/** One row of the mobile menu: the page's icon and title, as a link. */
+function MenuLink({
+  title,
+  iconName,
+  href,
+  isActive,
+  onClick,
+  onKeyDown,
+  ref,
+}: {
+  title: string;
+  iconName: string;
+  href: string;
+  isActive: boolean;
+  onClick: () => void;
+  onKeyDown: (e: React.KeyboardEvent) => void;
+  ref: React.Ref<HTMLAnchorElement>;
+}) {
+  return (
+    <Link
+      ref={ref}
+      href={href}
+      onClick={onClick}
+      onKeyDown={onKeyDown}
+      className={cn(
+        'flex w-full items-center gap-3 p-3 rounded-md transition-all duration-200  focus:ring-2 focus:ring-accent-neon',
+        isActive
+          ? 'bg-background-muted/50 border-l-2 border-accent-neon text-accent-neon font-medium'
+          : 'hover:bg-background-muted/30 border-l-2 border-transparent'
+      )}
+      aria-current={isActive ? 'page' : undefined}
+    >
+      <Icon
+        icon={iconName}
+        className={cn(
+          'h-5 w-5',
+          isActive
+            ? 'text-foreground opacity-90'
+            : 'text-foreground opacity-70'
+        )}
+        aria-hidden="true"
+      />
+      <span className={cn(isActive ? 'font-medium' : 'font-normal')}>
+        {title}
+      </span>
+    </Link>
+  );
+}
 
 interface MobileNavigationProps {
   navItems: NavigationItemType[];
@@ -36,9 +85,7 @@ export function MobileNavigation({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  const navItemRefs = useRef<
-    (HTMLAnchorElement | HTMLButtonElement | null)[]
-  >([]);
+  const navItemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   const handleSearchComplete = () => {
     setIsMobileMenuOpen(false);
@@ -179,16 +226,12 @@ export function MobileNavigation({
         <nav aria-label="Site sections">
           <ul className="flex flex-col gap-4 list-none m-0 p-0 min-h-[calc(100vh-8rem)]">
             <li>
-              <NavigationItem
-                item={{
-                  id: 'home',
-                  title: 'Home',
-                  iconName: 'mdi:home-outline',
-                }}
-                isActive={pathname === '/'}
+              <MenuLink
+                title="Home"
+                iconName="mdi:home-outline"
                 href="/"
+                isActive={pathname === '/'}
                 onClick={handleNavigationClick}
-                variant="mobile"
                 onKeyDown={(e) => handleKeyDown(e, 0)}
                 ref={(el) => {
                   navItemRefs.current[0] = el;
@@ -202,12 +245,12 @@ export function MobileNavigation({
 
               return (
                 <li key={item.id}>
-                  <NavigationItem
-                    item={item}
-                    isActive={isActive}
+                  <MenuLink
+                    title={item.title}
+                    iconName={item.iconName}
                     href={pageUrl}
+                    isActive={isActive}
                     onClick={handleNavigationClick}
-                    variant="mobile"
                     onKeyDown={(e) => handleKeyDown(e, itemIndex)}
                     ref={(el) => {
                       navItemRefs.current[itemIndex] = el;
