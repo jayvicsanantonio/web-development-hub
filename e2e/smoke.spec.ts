@@ -263,6 +263,36 @@ test.describe('tag filtering', () => {
     await expect(page.getByText(/^Found \d+ results?$/)).toBeVisible();
     expect(await cards.count()).toBeLessThan(before);
   });
+
+  for (const viewport of [
+    { name: 'desktop', width: 1280, height: 900 },
+    { name: 'mobile', width: 390, height: 844 },
+  ]) {
+    test(`renders one filter panel on ${viewport.name}`, async ({
+      page,
+    }) => {
+      // The header and the mobile bar each rendered their own panel, one of
+      // them hidden by CSS but still mounted and listening for clicks.
+      await page.setViewportSize(viewport);
+      await page.goto('/');
+
+      await page
+        .locator('button[aria-label^="Filter resources"]:visible')
+        .first()
+        .click();
+
+      const panels = page.locator('h2', { hasText: 'Filter by Tags' });
+      await expect(panels).toHaveCount(1);
+      await expect(panels).toBeVisible();
+
+      // Selecting a tag must leave the panel open.
+      await page
+        .getByRole('button', { name: 'free', exact: true })
+        .first()
+        .click();
+      await expect(panels).toBeVisible();
+    });
+  }
 });
 
 test.describe('bookmarks', () => {

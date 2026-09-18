@@ -73,7 +73,7 @@ export function TagFilterPanel({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center md:absolute md:inset-auto md:top-14 md:left-1/2 md:-translate-x-1/2">
+    <div className="fixed inset-0 z-50 flex items-start justify-center md:inset-auto md:top-20 md:left-1/2 md:-translate-x-1/2">
       <div
         ref={panelRef}
         className="
