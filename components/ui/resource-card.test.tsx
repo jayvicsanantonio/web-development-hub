@@ -40,8 +40,8 @@ describe('content', () => {
 
   it('labels the card with its own heading', () => {
     renderCard();
-    const link = screen.getByRole('link');
-    const headingId = link.getAttribute('aria-labelledby');
+    const card = screen.getByRole('article');
+    const headingId = card.getAttribute('aria-labelledby');
 
     expect(headingId).toBeTruthy();
     expect(document.getElementById(headingId!)).toHaveTextContent(
@@ -49,9 +49,9 @@ describe('content', () => {
     );
   });
 
-  it('gives the card a slugged id for the nav to scroll to', () => {
+  it('gives the card a slugged id to address it by', () => {
     renderCard();
-    expect(screen.getByRole('link')).toHaveAttribute(
+    expect(screen.getByRole('article')).toHaveAttribute(
       'id',
       'mdn-web-docs'
     );
@@ -121,12 +121,25 @@ describe('bookmarking', () => {
   });
 });
 
-describe('the grid it sits in', () => {
-  it('keeps each card addressable by its own heading', () => {
+describe('markup', () => {
+  it('puts the link in the heading rather than around the card', () => {
+    renderCard();
+    const heading = screen.getByRole('heading', { level: 3 });
+
+    expect(
+      within(heading).getByRole('link')
+    ).toHaveAccessibleName(RESOURCE.title);
+  });
+
+  it('keeps the bookmark button outside the link', () => {
+    // A button inside an anchor is not valid HTML, and it left the click
+    // handler cancelling the navigation the anchor would otherwise make.
     renderCard();
     const link = screen.getByRole('link');
-    expect(
-      within(link).getByRole('heading', { level: 3 })
-    ).toHaveTextContent(RESOURCE.title);
+    const button = screen.getByRole('button', {
+      name: /bookmarks$/,
+    });
+
+    expect(link.contains(button)).toBe(false);
   });
 });

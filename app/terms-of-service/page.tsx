@@ -18,7 +18,7 @@ export default function TermsOfServicePage() {
           <h1 className="text-4xl font-bold tracking-tight">
             Terms of Service
           </h1>
-          <p className="text-foreground-muted text-lg">
+          <p className="text-muted-foreground text-lg">
             Last updated: July 4, 2025
           </p>
         </div>
@@ -28,7 +28,7 @@ export default function TermsOfServicePage() {
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">
               Agreement to Terms
             </h2>
-            <p className="text-foreground-muted leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed">
               By accessing and using Web Development Hub ("the
               Service," "we," "us," or "our"), you accept and agree to
               be bound by the terms and provision of this agreement.
@@ -41,10 +41,10 @@ export default function TermsOfServicePage() {
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">
               Description of Service
             </h2>
-            <p className="text-foreground-muted leading-relaxed mb-4">
+            <p className="text-muted-foreground leading-relaxed mb-4">
               Web Development Hub is a curated platform that provides:
             </p>
-            <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+            <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
               <li>
                 A comprehensive directory of web development
                 resources, tools, and libraries
@@ -74,7 +74,7 @@ export default function TermsOfServicePage() {
                 <h3 className="text-xl font-medium text-accent-purple mb-2">
                   You may use our Service to:
                 </h3>
-                <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+                <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
                   <li>
                     Browse and discover web development resources
                   </li>
@@ -95,7 +95,7 @@ export default function TermsOfServicePage() {
                 <h3 className="text-xl font-medium text-accent-purple mb-2">
                   You may not use our Service to:
                 </h3>
-                <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+                <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
                   <li>Violate any applicable laws or regulations</li>
                   <li>Infringe upon intellectual property rights</li>
                   <li>
@@ -127,7 +127,7 @@ export default function TermsOfServicePage() {
                 <h3 className="text-xl font-medium text-accent-purple mb-2">
                   Our Content
                 </h3>
-                <p className="text-foreground-muted leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed">
                   The Service and its original content, features, and
                   functionality are owned by Web Development Hub and
                   are protected by international copyright, trademark,
@@ -139,7 +139,7 @@ export default function TermsOfServicePage() {
                 <h3 className="text-xl font-medium text-accent-purple mb-2">
                   Third-Party Content
                 </h3>
-                <p className="text-foreground-muted leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed">
                   Our platform links to external resources and
                   third-party websites. We do not claim ownership of
                   any third-party content and respect the intellectual
@@ -151,7 +151,7 @@ export default function TermsOfServicePage() {
                 <h3 className="text-xl font-medium text-accent-purple mb-2">
                   User Contributions
                 </h3>
-                <p className="text-foreground-muted leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed">
                   Any feedback, suggestions, or contributions you
                   provide may be used by us to improve the Service
                   without compensation or attribution, unless
@@ -165,7 +165,7 @@ export default function TermsOfServicePage() {
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">
               Privacy and Data
             </h2>
-            <p className="text-foreground-muted leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed">
               Your privacy is important to us. Please review our{' '}
               <Link
                 href="/privacy-policy"
@@ -188,7 +188,7 @@ export default function TermsOfServicePage() {
                 <h3 className="text-xl font-medium text-accent-purple mb-2">
                   Service Disclaimer
                 </h3>
-                <p className="text-foreground-muted leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed">
                   The Service is provided "as is" and "as available"
                   without warranties of any kind, either express or
                   implied. We do not warrant that the Service will be
@@ -199,7 +199,7 @@ export default function TermsOfServicePage() {
                 <h3 className="text-xl font-medium text-accent-purple mb-2">
                   Content Disclaimer
                 </h3>
-                <p className="text-foreground-muted leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed">
                   We curate and link to external resources but do not
                   guarantee the accuracy, completeness, or reliability
                   of any third-party content. Users should
@@ -211,7 +211,7 @@ export default function TermsOfServicePage() {
                 <h3 className="text-xl font-medium text-accent-purple mb-2">
                   Limitation of Liability
                 </h3>
-                <p className="text-foreground-muted leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed">
                   To the maximum extent permitted by law, Web
                   Development Hub shall not be liable for any
                   indirect, incidental, special, consequential, or
@@ -226,12 +226,12 @@ export default function TermsOfServicePage() {
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">
               Third-Party Links and Services
             </h2>
-            <p className="text-foreground-muted leading-relaxed mb-4">
+            <p className="text-muted-foreground leading-relaxed mb-4">
               Our Service contains links to third-party websites,
               tools, and resources. We provide these links for your
               convenience and do not:
             </p>
-            <ul className="list-disc list-inside space-y-2 text-foreground-muted leading-relaxed">
+            <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
               <li>
                 Endorse or recommend any third-party products or
                 services
@@ -254,7 +254,7 @@ export default function TermsOfServicePage() {
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">
               Termination
             </h2>
-            <p className="text-foreground-muted leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed">
               We may terminate or suspend your access to the Service
               immediately, without prior notice or liability, for any
               reason whatsoever, including without limitation if you
@@ -267,7 +267,7 @@ export default function TermsOfServicePage() {
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">
               Changes to Terms
             </h2>
-            <p className="text-foreground-muted leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed">
               We reserve the right to modify or replace these Terms at
               any time. If a revision is material, we will try to
               provide at least 30 days' notice prior to any new terms
@@ -280,7 +280,7 @@ export default function TermsOfServicePage() {
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">
               Governing Law
             </h2>
-            <p className="text-foreground-muted leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed">
               These Terms shall be interpreted and governed by the
               laws of the jurisdiction where Web Development Hub
               operates, without regard to conflict of law provisions.
@@ -294,7 +294,7 @@ export default function TermsOfServicePage() {
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">
               Severability
             </h2>
-            <p className="text-foreground-muted leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed">
               If any provision of these Terms is held to be invalid or
               unenforceable, the remaining provisions will remain in
               full force and effect. The invalid or unenforceable
@@ -308,11 +308,11 @@ export default function TermsOfServicePage() {
             <h2 className="text-2xl font-semibold text-accent-neon mb-4">
               Contact Information
             </h2>
-            <p className="text-foreground-muted leading-relaxed mb-4">
+            <p className="text-muted-foreground leading-relaxed mb-4">
               If you have any questions about these Terms of Service,
               please contact us:
             </p>
-            <div className="space-y-2 text-foreground-muted">
+            <div className="space-y-2 text-muted-foreground">
               <p>
                 <strong>Email:</strong> legal@webdevhub.com
               </p>
@@ -326,7 +326,7 @@ export default function TermsOfServicePage() {
                 </Link>
               </p>
             </div>
-            <p className="text-foreground-muted leading-relaxed mt-4">
+            <p className="text-muted-foreground leading-relaxed mt-4">
               By using Web Development Hub, you acknowledge that you
               have read and understood these Terms of Service and
               agree to be bound by them.

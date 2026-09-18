@@ -49,7 +49,7 @@ const ResourceSection = ({ section }: { section: Section }) => {
         >
           {title}
         </h2>
-        <p className="text-foreground-muted">{description}</p>
+        <p className="text-muted-foreground">{description}</p>
       </div>
       <div
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"

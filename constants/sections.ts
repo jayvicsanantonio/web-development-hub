@@ -1,6 +1,6 @@
 // The curated resource dataset: five sections, each holding the links the site
 // renders. `satisfies` checks every entry's shape without widening the array.
-import type { Section } from '@/lib/types';
+import type { Resource, Section } from '@/lib/types';
 
 export const SECTIONS = [
   {
@@ -6700,6 +6700,20 @@ export const SECTIONS = [
 // Derived rather than hand-listed: every consumer that needs the canonical
 // section order reads this, so adding a section cannot leave a copy behind.
 export const SECTION_TITLES = SECTIONS.map((section) => section.title);
+
+// Every resource, each carrying the section it came from. Flattened once at
+// module load: SECTIONS is static, and rebuilding this list inside a search
+// meant allocating an object per resource on every keystroke.
+export const ALL_RESOURCES: Resource[] = SECTIONS.flatMap((section) =>
+  section.links.map((link) => ({ ...link, section: section.title }))
+);
+
+// The tags a visitor can filter on. Derived, so a tag added to a resource is
+// filterable the moment it lands rather than when someone remembers to add it
+// to a second list.
+export const ALL_TAGS: string[] = [
+  ...new Set(ALL_RESOURCES.flatMap((resource) => resource.tags ?? [])),
+].sort();
 
 /**
  * The section a page renders. Throws rather than returning undefined so a page

@@ -6,11 +6,13 @@ import { useCallback, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 import { useSearch } from '@/contexts/search-context';
 import { useIntersectionObserver } from '@/lib/hooks/use-intersection-observer';
+import { ALL_RESOURCES } from '@/constants/sections';
 import {
   DEFAULT_NAV_ITEMS,
   scrollToSection,
   sectionNavItems,
 } from '@/lib/utils/navigation';
+import { filterResources, isFiltering } from '@/lib/utils/search';
 import { MobileNavigation } from '@/components/ui/navigation/mobile-navigation';
 import { DesktopNavigation } from '@/components/ui/navigation/desktop-navigation';
 import { DesktopSearch } from '@/components/ui/navigation/desktop-search';
@@ -19,22 +21,29 @@ const EXCLUDED_SEARCH_ROUTES = ['/privacy-policy', '/terms-of-service'];
 
 export default function VerticalNavigation() {
   const pathname = usePathname();
-  const { searchQuery, searchResults, hasSelectedTags } = useSearch();
+  const { deferredQuery, selectedTags } = useSearch();
 
   const isHomeActive = pathname === '/';
   const isBookmarksActive = pathname === '/bookmarks';
 
   const shouldHideSearch = EXCLUDED_SEARCH_ROUTES.includes(pathname);
 
-  // While searching, the page renders one section per group of results, so the
+  // While filtering, the page renders one section per group of results, so the
   // nav lists exactly those. Otherwise it lists every section.
-  const isSearching =
-    searchQuery.trim().length > 0 || hasSelectedTags;
+  const filtering = isFiltering(deferredQuery, selectedTags);
 
   const navItems = useMemo(
     () =>
-      isSearching ? sectionNavItems(searchResults) : DEFAULT_NAV_ITEMS,
-    [isSearching, searchResults]
+      filtering
+        ? sectionNavItems(
+            filterResources(
+              ALL_RESOURCES,
+              deferredQuery,
+              selectedTags
+            )
+          )
+        : DEFAULT_NAV_ITEMS,
+    [filtering, deferredQuery, selectedTags]
   );
 
   // Memoised because it is the observer's dependency: a fresh array each render

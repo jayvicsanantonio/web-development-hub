@@ -104,7 +104,7 @@ export default function ServiceWorkerRegistration() {
             <h3 className="text-sm font-medium text-foreground mb-1">
               New Version Available
             </h3>
-            <p className="text-xs text-foreground-muted mb-3">
+            <p className="text-xs text-muted-foreground mb-3">
               A new version of the app is ready. Refresh to get the
               latest features and improvements.
             </p>
@@ -117,7 +117,7 @@ export default function ServiceWorkerRegistration() {
               </button>
               <button
                 onClick={handleDismiss}
-                className="text-xs text-foreground-muted hover:text-foreground px-3 py-1.5 rounded-md transition-colors"
+                className="text-xs text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-md transition-colors"
               >
                 Later
               </button>
@@ -125,7 +125,7 @@ export default function ServiceWorkerRegistration() {
           </div>
           <button
             onClick={handleDismiss}
-            className="flex-shrink-0 text-foreground-muted hover:text-foreground transition-colors"
+            className="flex-shrink-0 text-muted-foreground hover:text-foreground transition-colors"
           >
             <svg
               className="w-4 h-4"
