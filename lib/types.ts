@@ -4,6 +4,8 @@
 export type ResourceLink = {
   title: string;
   href: string;
+  /** An Iconify icon name, such as `simple-icons:react`. */
+  icon: string;
   description: string;
   tags: string[];
 };
@@ -11,6 +13,8 @@ export type ResourceLink = {
 export type Section = {
   title: string;
   href: string;
+  /** An Iconify icon name, drawn beside the section in the nav. */
+  icon: string;
   description: string;
   links: ResourceLink[];
 };

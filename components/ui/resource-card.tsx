@@ -4,7 +4,6 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import { cn } from '@/lib/utils';
 import { BookmarkButton } from '@/components/ui/bookmark-button';
-import { getResourceIcon } from '@/lib/data/resource-mappings';
 import { generateResourceId } from '@/lib/utils/resource-card';
 import { getTagIconName } from '@/lib/utils/tag-icons';
 import type { ResourceLink } from '@/lib/types';
@@ -17,7 +16,6 @@ export default function ResourceCard({
   resource,
 }: ResourceCardProps) {
   const resourceId = generateResourceId(resource.title);
-  const iconName = getResourceIcon(resource.title);
 
   return (
     <article
@@ -29,7 +27,7 @@ export default function ResourceCard({
         <div className="flex items-center gap-3">
           <div className="relative">
             <Icon
-              icon={iconName}
+              icon={resource.icon}
               className="h-8 w-8"
               aria-hidden="true"
             />

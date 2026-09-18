@@ -4,7 +4,6 @@ import {
   SECTION_TITLES,
   sectionByTitle,
 } from './sections';
-import { getResourceIcon } from '@/lib/data/resource-mappings';
 
 const allResources = SECTIONS.flatMap((section) =>
   section.links.map((link) => ({ ...link, section: section.title }))
@@ -25,16 +24,19 @@ describe('resource dataset integrity', () => {
     expect(duplicates).toEqual([]);
   });
 
-  it('gives every resource a non-placeholder icon', () => {
-    const withoutIcon = allResources
-      .filter((r) => getResourceIcon(r.title) === 'material-symbols:list')
-      .map((r) => r.title);
-    expect(withoutIcon).toEqual([]);
+  it('gives every resource and section an Iconify icon name', () => {
+    // Iconify renders an empty box for a name it cannot resolve, so a typo
+    // here fails quietly on the page rather than loudly in the build.
+    const ICON_NAME = /^[a-z0-9-]+:[a-z0-9-]+$/;
+    const invalid = [...SECTIONS, ...allResources]
+      .filter((entry) => !ICON_NAME.test(entry.icon ?? ''))
+      .map((entry) => `${entry.title}: ${entry.icon}`);
+    expect(invalid).toEqual([]);
   });
 
   it('has no duplicate titles', () => {
-    // Titles are the lookup key into RESOURCE_SECTIONS and ICON_MAP, so two
-    // resources sharing one cannot be told apart by either.
+    // A card's DOM id is its slugged title, so two resources sharing one would
+    // render two elements with the same id on any page listing both.
     const titles = allResources.map((r) => r.title);
     expect(titles).toHaveLength(new Set(titles).size);
   });

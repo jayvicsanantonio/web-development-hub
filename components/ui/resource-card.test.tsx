@@ -15,6 +15,7 @@ import type { ResourceLink } from '@/lib/types';
 const RESOURCE: ResourceLink = {
   title: 'MDN Web Docs',
   href: 'https://developer.mozilla.org/',
+  icon: 'simple-icons:mdnwebdocs',
   description: 'Reference documentation for the web platform.',
   tags: ['free', 'documentation'],
 };
