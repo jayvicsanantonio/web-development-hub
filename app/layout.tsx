@@ -5,7 +5,6 @@ import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import Footer from '@/components/ui/footer';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
-import { ThemeProvider } from '@/contexts/theme-context';
 import LayoutWrapper from '@/components/ui/layout-wrapper';
 import ServiceWorkerRegistration from '@/components/service-worker-registration';
 import './globals.css';
@@ -27,10 +26,11 @@ export const viewport: Viewport = {
   ],
 };
 
-// Mirrors resolveTheme() in contexts/theme-context.tsx. It has to run before
-// the first paint, so it is inlined here rather than imported: the export is
-// static, and applying the class from an effect meant every visitor whose
-// theme differed from the default saw it flash.
+// The one place the theme is resolved: a stored choice wins, then the system
+// preference. It has to run before the first paint, so it is inlined here
+// rather than imported: the export is static, and applying the class from an
+// effect meant every visitor whose theme differed from the default saw it
+// flash. lib/theme.ts only ever flips what this settled.
 const THEME_SCRIPT = `try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}if(t==='dark'){document.documentElement.classList.add('dark')}document.documentElement.style.colorScheme=t}catch(e){}`;
 export const metadata: Metadata = {
   // Pages set their own title; this frames it and supplies the fallback.
@@ -124,12 +124,10 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-background text-foreground min-h-screen overflow-x-hidden`}
       >
         <ServiceWorkerRegistration />
-        <ThemeProvider>
-          <BookmarksProvider>
-            <LayoutWrapper>{children}</LayoutWrapper>
-            <Footer />
-          </BookmarksProvider>
-        </ThemeProvider>
+        <BookmarksProvider>
+          <LayoutWrapper>{children}</LayoutWrapper>
+          <Footer />
+        </BookmarksProvider>
       </body>
     </html>
   );

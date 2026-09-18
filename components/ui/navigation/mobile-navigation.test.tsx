@@ -13,15 +13,12 @@ vi.mock('next/navigation', () => ({
 import { MobileNavigation } from './mobile-navigation';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
 import { SearchProvider } from '@/contexts/search-context';
-import { ThemeProvider } from '@/contexts/theme-context';
 import { DEFAULT_NAV_ITEMS } from '@/lib/utils/navigation';
 
 const wrapper = ({ children }: { children: ReactNode }) => (
-  <ThemeProvider>
-    <BookmarksProvider>
-      <SearchProvider>{children}</SearchProvider>
-    </BookmarksProvider>
-  </ThemeProvider>
+  <BookmarksProvider>
+    <SearchProvider>{children}</SearchProvider>
+  </BookmarksProvider>
 );
 
 const renderNav = () =>

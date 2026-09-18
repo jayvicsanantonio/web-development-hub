@@ -6,7 +6,6 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DesktopNavigation } from './desktop-navigation';
-import { ThemeProvider } from '@/contexts/theme-context';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
 import type { NavigationItem } from '@/lib/utils/navigation';
 
@@ -20,18 +19,16 @@ function renderNav(props: Partial<
   React.ComponentProps<typeof DesktopNavigation>
 > = {}) {
   return render(
-    <ThemeProvider>
-      <BookmarksProvider>
-        <DesktopNavigation
-          navItems={NAV_ITEMS}
-          activeSection="section-one"
-          isHomeActive
-          isBookmarksActive={false}
-          onScrollToSection={vi.fn()}
-          {...props}
-        />
-      </BookmarksProvider>
-    </ThemeProvider>
+    <BookmarksProvider>
+      <DesktopNavigation
+        navItems={NAV_ITEMS}
+        activeSection="section-one"
+        isHomeActive
+        isBookmarksActive={false}
+        onScrollToSection={vi.fn()}
+        {...props}
+      />
+    </BookmarksProvider>
   );
 }
 

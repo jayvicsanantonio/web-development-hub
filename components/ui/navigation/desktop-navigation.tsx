@@ -5,7 +5,7 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { BookmarkIcon, HomeIcon, Moon, Sun } from 'lucide-react';
-import { useTheme } from '@/contexts/theme-context';
+import { toggleTheme } from '@/lib/theme';
 import { NavigationItem } from '@/components/ui/navigation-item';
 import { type NavigationItem as NavigationItemType } from '@/lib/utils/navigation';
 import {
@@ -81,7 +81,6 @@ export function DesktopNavigation({
   isBookmarksActive,
   onScrollToSection,
 }: DesktopNavigationProps) {
-  const { toggleTheme } = useTheme();
   const [hiddenTooltip, setHiddenTooltip] = useState<string | null>(
     null,
   );

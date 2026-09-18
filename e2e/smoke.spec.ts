@@ -133,6 +133,43 @@ test.describe('theme', () => {
     await expect(page.locator('html')).not.toHaveClass(/dark/);
     await context.close();
   });
+
+  test('ignores a stored value that is not a theme', async ({
+    browser,
+  }) => {
+    const context = await browser.newContext({
+      colorScheme: 'light',
+    });
+    const page = await context.newPage();
+    await page.addInitScript(() =>
+      localStorage.setItem('theme', 'chartreuse')
+    );
+    await page.goto('/');
+    await expect(page.locator('html')).not.toHaveClass(/dark/);
+    await context.close();
+  });
+
+  test('the toggle flips the theme and remembers it', async ({
+    page,
+  }) => {
+    await page.addInitScript(() => {
+      if (!sessionStorage.getItem('seeded')) {
+        localStorage.setItem('theme', 'dark');
+        sessionStorage.setItem('seeded', '1');
+      }
+    });
+    await page.goto('/');
+    await expect(page.locator('html')).toHaveClass(/dark/);
+
+    await page
+      .getByRole('button', { name: /Switch between light and dark/ })
+      .filter({ visible: true })
+      .click();
+    await expect(page.locator('html')).not.toHaveClass(/dark/);
+
+    await page.reload();
+    await expect(page.locator('html')).not.toHaveClass(/dark/);
+  });
 });
 
 test.describe('metadata', () => {

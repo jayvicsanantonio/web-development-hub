@@ -6,7 +6,7 @@ import { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, Search, BookmarkIcon, Moon, Sun } from 'lucide-react';
-import { useTheme } from '@/contexts/theme-context';
+import { toggleTheme } from '@/lib/theme';
 import { SearchInput } from '@/components/ui/search-input';
 import { FilterButton } from '@/components/ui/filter-button';
 import { NavigationItem } from '@/components/ui/navigation-item';
@@ -34,7 +34,6 @@ export function MobileNavigation({
 }: MobileNavigationProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { toggleTheme } = useTheme();
   const pathname = usePathname();
 
   const navItemRefs = useRef<
