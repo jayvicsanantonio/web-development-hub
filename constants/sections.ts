@@ -7195,14 +7195,14 @@ export const ALL_TAGS: string[] = [
 ].sort();
 
 /**
- * The section a page renders. Throws rather than returning undefined so a page
- * naming a section that no longer exists fails the build instead of rendering
- * an empty grid.
+ * The section served at `/<slug>`. Throws rather than returning undefined so a
+ * route naming a section that no longer exists fails the build instead of
+ * rendering an empty grid.
  */
-export function sectionByTitle(title: string): Section {
-  const section = SECTIONS.find((s) => s.title === title);
+export function sectionBySlug(slug: string): Section {
+  const section = SECTIONS.find((s) => s.href === `/${slug}`);
   if (!section) {
-    throw new Error(`No section titled "${title}" in SECTIONS`);
+    throw new Error(`No section at "/${slug}" in SECTIONS`);
   }
   return section;
 }

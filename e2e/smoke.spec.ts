@@ -2,13 +2,11 @@ import { test, expect } from '@playwright/test';
 import { SECTIONS } from '../constants/sections';
 import { toSectionId } from '../lib/utils/navigation';
 
+// Section pages come from the dataset, so a section added there is checked
+// here without a second edit.
 const ROUTES = [
   '/',
-  '/learning-resources',
-  '/developer-tools',
-  '/frameworks-and-libraries',
-  '/communities',
-  '/blogs',
+  ...SECTIONS.map((section) => section.href),
   '/bookmarks',
   '/privacy-policy',
   '/terms-of-service',

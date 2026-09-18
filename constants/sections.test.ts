@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   SECTIONS,
   SECTION_TITLES,
-  sectionByTitle,
+  sectionBySlug,
 } from './sections';
 
 const allResources = SECTIONS.flatMap((section) =>
@@ -55,14 +55,14 @@ describe('section lookup', () => {
     expect(SECTION_TITLES).toEqual(SECTIONS.map((s) => s.title));
   });
 
-  it('returns the section a title names', () => {
-    expect(sectionByTitle('Communities').href).toBe('/communities');
+  it('returns the section served at a slug', () => {
+    expect(sectionBySlug('communities').title).toBe('Communities');
   });
 
-  it('throws rather than returning undefined for an unknown title', () => {
-    // Pages call this at module scope, so an unknown title should fail the
-    // build instead of prerendering an empty grid.
-    expect(() => sectionByTitle('Nope')).toThrow(/No section titled/);
+  it('throws rather than returning undefined for an unknown slug', () => {
+    // The section route calls this while generating each page, so an unknown
+    // slug should fail the build instead of prerendering an empty grid.
+    expect(() => sectionBySlug('nope')).toThrow(/No section at/);
   });
 
   it('gives every section a tagline the pages can render', () => {
