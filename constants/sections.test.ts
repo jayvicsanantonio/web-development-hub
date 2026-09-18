@@ -4,10 +4,7 @@ import {
   SECTION_TITLES,
   sectionByTitle,
 } from './sections';
-import {
-  determineSection,
-  getResourceIcon,
-} from '@/lib/data/resource-mappings';
+import { getResourceIcon } from '@/lib/data/resource-mappings';
 
 const allResources = SECTIONS.flatMap((section) =>
   section.links.map((link) => ({ ...link, section: section.title }))
@@ -26,21 +23,6 @@ describe('resource dataset integrity', () => {
       ([, titles]) => titles.length > 1
     );
     expect(duplicates).toEqual([]);
-  });
-
-  it('resolves every resource to its own section', () => {
-    // determineSection() reads RESOURCE_SECTIONS, a hand-maintained second copy
-    // of this list. A title missing from it falls through to 'Other', and the
-    // bookmarks page then stores the entry without ever rendering it, which
-    // also makes it impossible to un-bookmark. Shipped once, as "Vercel Blog".
-    const misfiled = allResources
-      .filter((r) => determineSection(r.title) !== r.section)
-      .map((r) => ({
-        title: r.title,
-        expected: r.section,
-        actual: determineSection(r.title),
-      }));
-    expect(misfiled).toEqual([]);
   });
 
   it('gives every resource a non-placeholder icon', () => {

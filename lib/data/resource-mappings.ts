@@ -1,17 +1,5 @@
-// Per-resource presentation data: which section a resource belongs to, and
-// which Iconify icon represents it.
-import { SECTIONS } from '@/constants/sections';
-
-// Derived from the dataset rather than hand-listed. This was a second copy of
-// every title, and a title missing from it resolved to 'Other' — the bookmarks
-// page then stored the entry without ever rendering it, which also made it
-// impossible to un-bookmark. Shipped once, as "Vercel Blog".
-const SECTION_BY_TITLE = new Map<string, string>(
-  SECTIONS.flatMap((section) =>
-    section.links.map((link) => [link.title, section.title]),
-  ),
-);
-
+// Per-resource presentation data: which Iconify icon represents each
+// resource and section.
 // Internal: reached only through getResourceIcon() below.
 const ICON_MAP: Record<string, string> = {
   'Master.dev': 'mdi:school-outline',
@@ -499,10 +487,6 @@ const ICON_MAP: Record<string, string> = {
   'Vercel Blog': 'simple-icons:vercel',
   'Blogs and Newsletters': 'mdi:post',
 };
-
-export function determineSection(title: string): string {
-  return SECTION_BY_TITLE.get(title) ?? 'Other';
-}
 
 export function getResourceIcon(title: string): string {
   return ICON_MAP[title] || 'material-symbols:list';

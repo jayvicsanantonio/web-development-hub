@@ -1,21 +1,25 @@
 // Covers what a card renders and the identifiers other things hang off it:
 // the anchor id, the aria-labelledby pairing, and the bookmark round trip.
 import { describe, it, expect } from 'vitest';
-import { render, screen, within } from '@testing-library/react';
+import {
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ResourceCard from './resource-card';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
-import type { CardResource } from '@/lib/types';
+import type { ResourceLink } from '@/lib/types';
 
-const RESOURCE: CardResource = {
+const RESOURCE: ResourceLink = {
   title: 'MDN Web Docs',
   href: 'https://developer.mozilla.org/',
   description: 'Reference documentation for the web platform.',
-  section: 'Learning Resources',
   tags: ['free', 'documentation'],
 };
 
-const renderCard = (resource: CardResource = RESOURCE) =>
+const renderCard = (resource: ResourceLink = RESOURCE) =>
   render(
     <BookmarksProvider>
       <ResourceCard resource={resource} />
@@ -76,7 +80,7 @@ describe('tags', () => {
   it('renders no tag row when there are no tags', () => {
     const { container } = renderCard({
       ...RESOURCE,
-      tags: undefined,
+      tags: [],
     });
     expect(
       container.querySelector('[title^="Filter by"]')
@@ -101,23 +105,19 @@ describe('bookmarking', () => {
     ).toBeInTheDocument();
   });
 
-  it('resolves the section when the card is given one without it', async () => {
+  it('saves the resource by its href', async () => {
     const user = userEvent.setup();
-    const { rerender } = renderCard({
-      title: 'MDN Web Docs',
-      href: RESOURCE.href,
-      description: RESOURCE.description,
-    });
+    renderCard();
 
     await user.click(
       screen.getByRole('button', { name: /Add .* to bookmarks/ })
     );
 
-    const raw = localStorage.getItem('web-dev-hub-bookmarks');
-    expect(JSON.parse(raw ?? '[]')[0].section).toBe(
-      'Learning Resources'
+    await waitFor(() =>
+      expect(
+        JSON.parse(localStorage.getItem('web-dev-hub-bookmarks') ?? '[]')
+      ).toEqual([RESOURCE.href])
     );
-    rerender(<div />);
   });
 });
 

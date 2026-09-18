@@ -15,18 +15,8 @@ export type Section = {
   links: ResourceLink[];
 };
 
-// A resource as the UI passes it around: a dataset link carrying the section
-// it came from. Four modules declared this shape independently.
-export type Resource = {
-  title: string;
-  href: string;
-  description: string;
+// A dataset link carrying the section it came from, for the views that list
+// resources from more than one section and group them.
+export type Resource = ResourceLink & {
   section: string;
-  tags?: string[];
-};
-
-// What a resource card needs. Search results carry their section; a dataset
-// link rendered directly has its section resolved from the title instead.
-export type CardResource = Omit<Resource, 'section'> & {
-  section?: string;
 };

@@ -5,10 +5,7 @@
 
 import { useMemo } from 'react';
 import Link from 'next/link';
-import {
-  useBookmarks,
-  type Resource,
-} from '@/contexts/bookmarks-context';
+import { useBookmarks } from '@/contexts/bookmarks-context';
 import {
   groupBySection,
   toSectionId,
@@ -20,6 +17,7 @@ import {
 } from '@/lib/utils/search';
 import ResourceCard from '@/components/ui/resource-card';
 import { useSearch } from '@/contexts/search-context';
+import type { Resource } from '@/lib/types';
 import {
   AlertDialog,
   AlertDialogAction,

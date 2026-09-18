@@ -1,5 +1,6 @@
-// Bookmarks state, persisted to localStorage. Only the fields the site cannot
-// re-derive are stored; icons are resolved from the title at render time.
+// Bookmarks, persisted to localStorage as the hrefs the visitor saved. Every
+// other field is resolved from the dataset, so a bookmark always shows the
+// resource as the site currently describes it.
 'use client';
 
 import React, {
@@ -11,13 +12,12 @@ import React, {
   useCallback,
   useMemo,
 } from 'react';
+import { ALL_RESOURCES } from '@/constants/sections';
 import type { Resource } from '@/lib/types';
-
-export type { Resource };
 
 type BookmarksContextType = {
   bookmarks: Resource[];
-  addBookmark: (resource: Resource) => void;
+  addBookmark: (href: string) => void;
   removeBookmark: (href: string) => void;
   isBookmarked: (href: string) => boolean;
   clearBookmarks: () => void;
@@ -26,21 +26,31 @@ type BookmarksContextType = {
 
 const LOCAL_STORAGE_KEY = 'web-dev-hub-bookmarks';
 
-const validateResource = (
-  resource: unknown
-): resource is Resource => {
-  if (typeof resource !== 'object' || resource === null) {
-    return false;
-  }
+const RESOURCE_BY_HREF = new Map(
+  ALL_RESOURCES.map((resource) => [resource.href, resource])
+);
 
-  const candidate = resource as Record<string, unknown>;
-  return (
-    typeof candidate.title === 'string' &&
-    typeof candidate.href === 'string' &&
-    typeof candidate.description === 'string' &&
-    typeof candidate.section === 'string'
-  );
-};
+/**
+ * The saved hrefs in a parsed storage value. Entries may be hrefs or objects
+ * carrying one, since both shapes exist in visitors' storage. Anything else,
+ * and any href the dataset no longer has, is dropped.
+ */
+function parseStoredBookmarks(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+
+  const hrefs = value
+    .map((entry) =>
+      typeof entry === 'string'
+        ? entry
+        : (entry as { href?: unknown } | null)?.href
+    )
+    .filter(
+      (href): href is string =>
+        typeof href === 'string' && RESOURCE_BY_HREF.has(href)
+    );
+
+  return [...new Set(hrefs)];
+}
 
 const BookmarksContext = createContext<
   BookmarksContextType | undefined
@@ -51,33 +61,15 @@ export function BookmarksProvider({
 }: {
   children: ReactNode;
 }) {
-  const [bookmarks, setBookmarks] = useState<Resource[]>([]);
+  const [hrefs, setHrefs] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     try {
-      const storedBookmarks = localStorage.getItem(LOCAL_STORAGE_KEY);
-
-      if (!storedBookmarks) {
-        setBookmarks([]);
-        return;
-      }
-
-      const parsedBookmarks = JSON.parse(storedBookmarks);
-
-      if (!Array.isArray(parsedBookmarks)) {
-        console.error(
-          'Stored bookmarks is not an array:',
-          parsedBookmarks
-        );
-        setBookmarks([]);
-        return;
-      }
-
-      setBookmarks(parsedBookmarks.filter(validateResource));
+      const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+      setHrefs(stored ? parseStoredBookmarks(JSON.parse(stored)) : []);
     } catch (error) {
       console.error('Error loading bookmarks:', error);
-      setBookmarks([]);
     } finally {
       setIsLoading(false);
     }
@@ -87,41 +79,35 @@ export function BookmarksProvider({
     if (isLoading) return;
 
     try {
-      localStorage.setItem(
-        LOCAL_STORAGE_KEY,
-        JSON.stringify(bookmarks)
-      );
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(hrefs));
     } catch (error) {
       console.error(
         'Failed to save bookmarks to localStorage:',
         error
       );
     }
-  }, [bookmarks, isLoading]);
+  }, [hrefs, isLoading]);
 
-  const addBookmark = useCallback((resource: Resource) => {
-    setBookmarks((prev) => {
-      const exists = prev.some(
-        (bookmark) => bookmark.href === resource.href
-      );
-      return exists ? prev : [...prev, resource];
-    });
+  const bookmarks = useMemo(
+    () => hrefs.flatMap((href) => RESOURCE_BY_HREF.get(href) ?? []),
+    [hrefs]
+  );
+
+  const addBookmark = useCallback((href: string) => {
+    setHrefs((prev) => (prev.includes(href) ? prev : [...prev, href]));
   }, []);
 
   const removeBookmark = useCallback((href: string) => {
-    setBookmarks((prev) =>
-      prev.filter((bookmark) => bookmark.href !== href)
-    );
+    setHrefs((prev) => prev.filter((saved) => saved !== href));
   }, []);
 
   const isBookmarked = useCallback(
-    (href: string) =>
-      bookmarks.some((bookmark) => bookmark.href === href),
-    [bookmarks]
+    (href: string) => hrefs.includes(href),
+    [hrefs]
   );
 
   const clearBookmarks = useCallback(() => {
-    setBookmarks([]);
+    setHrefs([]);
   }, []);
 
   const contextValue = useMemo(

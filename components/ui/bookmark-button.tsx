@@ -5,16 +5,17 @@ import React from 'react';
 import { Bookmark, BookmarkCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useBookmarks } from '@/contexts/bookmarks-context';
-import type { Resource } from '@/lib/types';
 
 interface BookmarkButtonProps {
-  resource: Resource;
+  href: string;
+  title: string;
   className?: string;
   size?: 'sm' | 'md' | 'lg';
 }
 
 export function BookmarkButton({
-  resource,
+  href,
+  title,
   className,
   size = 'md',
 }: BookmarkButtonProps) {
@@ -24,7 +25,7 @@ export function BookmarkButton({
     removeBookmark: removeFavorite,
   } = useBookmarks();
 
-  const isBookmarked = isFavorite(resource.href);
+  const isBookmarked = isFavorite(href);
 
   const handleToggleBookmark = (
     e: React.MouseEvent<HTMLButtonElement>
@@ -33,9 +34,9 @@ export function BookmarkButton({
     e.stopPropagation();
 
     if (isBookmarked) {
-      removeFavorite(resource.href);
+      removeFavorite(href);
     } else {
-      addFavorite(resource);
+      addFavorite(href);
     }
   };
 
@@ -57,8 +58,8 @@ export function BookmarkButton({
       )}
       aria-label={
         isBookmarked
-          ? `Remove ${resource.title} from bookmarks`
-          : `Add ${resource.title} to bookmarks`
+          ? `Remove ${title} from bookmarks`
+          : `Add ${title} to bookmarks`
       }
     >
       {isBookmarked ? (
