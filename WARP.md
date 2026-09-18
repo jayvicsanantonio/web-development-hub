@@ -33,29 +33,26 @@ High-level architecture and structure
 - App Router entry and global layout
   - app/layout.tsx is the root layout: sets fonts (Inter, JetBrains Mono), global SEO metadata, viewport, and wraps the app with providers.
   - Providers used globally:
-    - ThemeProvider (contexts/theme-context.tsx): toggles light/dark theme, persists to localStorage, applies the `dark` class to documentElement.
-    - BookmarksProvider (contexts/bookmarks-context.tsx): manages a list of bookmarked resources, persisted to localStorage. Only fields that cannot be re-derived are stored; icons are resolved from the title wherever a card renders.
+    - BookmarksProvider (contexts/bookmarks-context.tsx): manages the bookmarked resources, persisted to localStorage. Only the hrefs are stored; each is resolved against constants/sections.ts, so a bookmark always shows the current entry.
+  - The theme is not a provider: the blocking script in app/layout.tsx resolves it before first paint, and toggleTheme() in lib/theme.ts flips the `dark` class, colorScheme and the stored choice.
   - ServiceWorkerRegistration (components/service-worker-registration.tsx) is mounted in layout to register public/sw.js and prompt for updates.
   - LayoutWrapper (components/ui/layout-wrapper.tsx): wraps page content with SearchProvider and the persistent navigation chrome.
 
 - Navigation, search, and filtering
-  - Search context lives in contexts/search-context.tsx and is provided by LayoutWrapper. It:
-    - Builds a flat resource index from constants/sections.ts.
-    - Supports free-text search across title/description/section and tag filtering via hooks/useFilter.ts.
-    - Tracks a filter panel state and current category; resets on route change.
+  - Search context lives in contexts/search-context.tsx and is provided by LayoutWrapper. It holds the query, the selected tags and the filter panel state, and resets the query on route change.
+  - Filtering is lib/utils/search.ts: filterResources() matches title/description/section and requires every selected tag. Each view calls it on its own list - the home page on ALL_RESOURCES, a section page on its links, bookmarks on the saved list.
   - SearchWrapper (components/search-wrapper.tsx) conditionally renders grouped search results by section when a query or tags are active; otherwise renders children (the normal page).
-  - lib/utils/navigation.ts computes the section nav model and helpers (DEFAULT_NAV_ITEMS, createSearchNavItems, scrollToSection) used by the desktop/mobile navigation components.
+  - lib/utils/navigation.ts computes the section nav model and helpers (DEFAULT_NAV_ITEMS, sectionNavItems, groupBySection, scrollToSection) used by the desktop/mobile navigation components.
   - Navigation UI:
-    - components/ui/navigation/desktop-navigation.tsx and mobile-navigation.tsx render the section list and quick actions (home, bookmarks, theme toggle). They consume ThemeProvider and BookmarksProvider.
-    - components/ui/navigation-item.tsx renders individual nav items.
+    - components/ui/navigation/desktop-navigation.tsx and mobile-navigation.tsx render the section list and quick actions (home, bookmarks, theme toggle). They call toggleTheme() and consume BookmarksProvider. The rail's section dots and the mobile menu's links are rendered inline in those two files.
+    - VerticalNavigation renders the one tag filter panel for both layouts; each layout's FilterButton only opens it.
 
 - Data model and content
-  - The primary content comes from constants/sections.ts: a curated list of resources grouped into top-level sections. Each resource has title, href, description, and optional tags.
-  - lib/data/resource-mappings.ts maps resource titles to icon identifiers. The title-to-section lookup beside it is derived from constants/sections.ts rather than hand-listed.
-  - lib/types.ts defines CategoryType used in app/page.tsx and routes.
+  - The primary content comes from constants/sections.ts: a curated list of resources grouped into top-level sections. Each section and resource has a title, href, Iconify icon and description; each resource also has tags.
+  - lib/types.ts defines the shared shapes: Section, ResourceLink, and Resource (a link with its section).
 
 - Pages and composition
-  - app/page.tsx builds the home view using SECTIONS-derived data and re-usable components (e.g., ResourceCard, ResourceGrid). Individual category pages live under app/<category>/page.tsx and follow the same data source.
+  - app/page.tsx builds the home view using SECTIONS-derived data and re-usable components (e.g., ResourceCard, ResourceGrid). Every section page is generated from one route, app/[section]/page.tsx, from the same data source.
   - Shared UI lives under components/ui/ (e.g., hero-banner, resource-card, inputs, navigation components). Styling leverages Tailwind and small utilities in lib/utils.ts (cn helper). Additional UI behavior helpers exist in lib/utils/resource-card.ts and lib/hooks/*.
 
 - Styling and assets
