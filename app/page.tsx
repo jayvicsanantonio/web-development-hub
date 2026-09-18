@@ -6,7 +6,7 @@ import { SECTIONS } from '@/constants/sections';
 import type { Section } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { toSectionId, toSlug } from '@/lib/utils/navigation';
-import ResourceCard from '@/components/ui/resource-card';
+import ResourceGrid from '@/components/ui/resource-grid';
 import { SearchWrapper } from '@/components/search-wrapper';
 
 const PREVIEW_COUNT = 6;
@@ -51,14 +51,7 @@ const ResourceSection = ({ section }: { section: Section }) => {
         </h2>
         <p className="text-muted-foreground">{description}</p>
       </div>
-      <div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-        aria-label={`${title} list`}
-      >
-        {links.slice(0, PREVIEW_COUNT).map((link) => (
-          <ResourceCard key={link.href} resource={link} />
-        ))}
-      </div>
+      <ResourceGrid resources={links.slice(0, PREVIEW_COUNT)} />
       <div className="flex justify-center" id={skipLinkId}>
         <Link
           href={href}
