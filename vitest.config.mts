@@ -1,5 +1,9 @@
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
+import { writeIconBundle } from './scripts/build-icons.mjs';
+
+// Tests render icons from the same bundle the build ships.
+writeIconBundle();
 
 export default defineConfig({
   plugins: [react()],

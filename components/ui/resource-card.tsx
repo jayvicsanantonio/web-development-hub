@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Icon } from '@iconify/react';
+import { Icon } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 import { BookmarkButton } from '@/components/ui/bookmark-button';
 import { generateResourceId } from '@/lib/utils/resource-card';

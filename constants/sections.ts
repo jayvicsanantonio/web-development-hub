@@ -157,7 +157,7 @@ export const SECTIONS = [
       {
         title: 'Design Gurus',
         href: 'https://www.designgurus.io/',
-        icon: 'simple-icons:designgurus',
+        icon: 'mdi:pencil-ruler',
         description:
           'Grokking courses for technical interviews with system design, algorithms, and front-end engineering focus.',
         tags: [
@@ -1605,7 +1605,7 @@ export const SECTIONS = [
       {
         title: 'Adobe Express',
         href: 'https://www.adobe.com/express/',
-        icon: 'simple-icons:adobeexpress',
+        icon: 'simple-icons:adobe',
         description:
           'All-in-one design tool for creating graphics, videos, and web content with AI-powered templates and assets.',
         tags: [
@@ -1650,7 +1650,7 @@ export const SECTIONS = [
       {
         title: 'Rollup',
         href: 'https://rollupjs.org/',
-        icon: 'simple-icons:rollupjs',
+        icon: 'simple-icons:rollupdotjs',
         description:
           'Efficient JavaScript module bundler optimized for libraries with tree-shaking and ES module output.',
         tags: [
@@ -1665,7 +1665,7 @@ export const SECTIONS = [
       {
         title: 'Parcel',
         href: 'https://parceljs.org/',
-        icon: 'simple-icons:parceljs',
+        icon: 'mdi:package-variant',
         description:
           'Zero-configuration web application bundler with automatic asset optimization and fast development builds.',
         tags: [
@@ -4178,7 +4178,7 @@ export const SECTIONS = [
       {
         title: 'SolidStart',
         href: 'https://start.solidjs.com/',
-        icon: 'simple-icons:solidjs',
+        icon: 'simple-icons:solid',
         description:
           'Full-stack meta-framework for SolidJS with server-side rendering, routing, and modern web features.',
         tags: [
@@ -5657,7 +5657,7 @@ export const SECTIONS = [
       {
         title: 'Lobsters',
         href: 'https://lobste.rs/',
-        icon: 'mdi:lobster',
+        icon: 'simple-icons:lobsters',
         description:
           'Computing-focused community with high-quality technical discussions and a strong focus on programming.',
         tags: ['community', 'free', 'advanced', 'trending'],

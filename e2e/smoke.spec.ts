@@ -42,8 +42,9 @@ test.describe('the deployed static export', () => {
     expect(csp).toContain("default-src 'self'");
     expect(csp).toContain("frame-ancestors 'none'");
     expect(csp).toContain("object-src 'none'");
-    // Iconify is the only origin the page is allowed to talk to.
-    expect(csp).toContain('https://api.iconify.design');
+    // Icons come from the build, so the page talks to no other origin.
+    expect(csp).toContain("connect-src 'self';");
+    expect(csp).not.toContain('iconify');
 
     expect(headers['permissions-policy']).toContain('geolocation=()');
   });
@@ -95,6 +96,41 @@ test.describe('the deployed static export', () => {
         `sitemap lists ${path}`
       ).toBe(200);
     }
+  });
+});
+
+test.describe('icons', () => {
+  test('are in the static HTML, before any script runs', async ({
+    request,
+  }) => {
+    // Rendered from the bundle during the build, so a card never shows an
+    // empty box while its icon is fetched.
+    const section = SECTIONS[0];
+    const html = await (await request.get(section.href)).text();
+    const cards = html.split('<article').slice(1);
+
+    expect(cards).toHaveLength(section.links.length);
+    // Matched by the class Iconify gives the SVG it renders: every card also
+    // holds the bookmark button's own SVG, which proves nothing here.
+    for (const card of cards) {
+      expect(card.split('</article>')[0]).toMatch(
+        /<svg[^>]*class="iconify iconify--[a-z-]+[^"]*"[^>]*>\s*<path/
+      );
+    }
+  });
+
+  test('are never fetched from Iconify', async ({ page }) => {
+    const iconRequests: string[] = [];
+    page.on('request', (request) => {
+      if (request.url().includes('iconify')) {
+        iconRequests.push(request.url());
+      }
+    });
+
+    await page.goto(SECTIONS[1].href);
+    await page.waitForLoadState('networkidle');
+
+    expect(iconRequests).toEqual([]);
   });
 });
 

@@ -1,3 +1,9 @@
+import { writeIconBundle } from './scripts/build-icons.mjs';
+
+// Every build and dev server starts from an icon bundle that matches the
+// source. It throws on an icon the installed sets lack, failing the build.
+writeIconBundle();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Emit a fully static site to ./out. Every route in this app prerenders, so

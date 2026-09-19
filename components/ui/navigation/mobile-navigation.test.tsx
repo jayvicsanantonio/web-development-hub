@@ -4,7 +4,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { addIcon } from '@iconify/react';
 import type { ReactNode } from 'react';
 
 const pathname = vi.hoisted(() => ({ current: '/' }));
@@ -17,19 +16,6 @@ import { BookmarksProvider } from '@/contexts/bookmarks-context';
 import { SearchProvider } from '@/contexts/search-context';
 import { DEFAULT_NAV_ITEMS } from '@/lib/utils/navigation';
 import { SECTIONS } from '@/constants/sections';
-
-// Iconify fetches unknown icons from its API and paints an empty placeholder
-// until they arrive. Registering the data locally makes each <svg> assertable.
-for (const name of [
-  'mdi:home-outline',
-  ...DEFAULT_NAV_ITEMS.map((item) => item.iconName),
-]) {
-  addIcon(name, {
-    body: '<path d="M12 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"/>',
-    width: 24,
-    height: 24,
-  });
-}
 
 const wrapper = ({ children }: { children: ReactNode }) => (
   <BookmarksProvider>
