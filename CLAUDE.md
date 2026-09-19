@@ -32,12 +32,14 @@ This project uses **pnpm** exclusively for package management. Always use `pnpm 
 
 ### Next.js App Router Structure
 - Uses Next.js 15 with App Router in `/app` directory
-- Each route has its own directory with `page.tsx` (e.g., `/blogs/page.tsx`)
+- Each route has its own directory with `page.tsx`. The five section pages
+  share one: `app/[section]/page.tsx` generates a static page per section in
+  `SECTIONS`, with `dynamicParams` off so any other path is the 404 page
 - Global layout in `app/layout.tsx` with providers, font configuration and the
   blocking script that applies the theme before first paint
 - Each route is a server component that exports its own `metadata`; the
-  interactive part is a client component it renders (e.g. `app/blogs/page.tsx`
-  renders `components/category-page.tsx`). Keeping a route `'use client'`
+  interactive part is a client component it renders (e.g.
+  `app/[section]/page.tsx` renders `components/category-page.tsx`). Keeping a route `'use client'`
   costs it its metadata, so the whole site shares one title
 
 ### Component Organization
@@ -48,21 +50,27 @@ This project uses **pnpm** exclusively for package management. Always use `pnpm 
 
 ### State Management
 - React Context for global state:
-  - `BookmarksProvider` - manages user bookmarks, persisted to localStorage
-  - `ThemeProvider` - handles light/dark theme switching
-  - `SearchProvider` - the query, tag filters and derived results
+  - `BookmarksProvider` - the saved hrefs, persisted to localStorage and
+    resolved against the dataset, so a bookmark shows the current entry
+  - `SearchProvider` - the query, the selected tags and the filter panel's
+    state. It holds the request, not the answer: each view filters its own
+    list with `filterResources()` from `lib/utils/search.ts`
+- The theme is not React state. The blocking script in `app/layout.tsx`
+  resolves it before first paint, and `toggleTheme()` in `lib/theme.ts` flips
+  whatever the page currently shows
 - Custom hooks in `/hooks/`; smaller presentational ones in `/lib/hooks/`
 
 ### Data Layer
 - `constants/sections.ts` is the single source of truth: five sections and
   every resource, checked against `Section` from `lib/types.ts` via `satisfies`
 - Anything derivable from it must be derived, not copied. Section titles come
-  from `SECTION_TITLES`, a section from `sectionByTitle()`, and a resource's
-  section from `determineSection()`, which builds its map from `SECTIONS`
-- `lib/data/resource-mappings.ts` holds the hand-maintained per-resource icon
-  map, which is editorial and cannot be derived; `constants/sections.test.ts`
-  fails if it drifts from the dataset
-- Shared shapes (`Section`, `ResourceLink`, `Resource`, `CardResource`) live in
+  from `SECTION_TITLES`, a section from `sectionBySlug()`, every resource with
+  its section from `ALL_RESOURCES`, and the filterable tags from `ALL_TAGS`.
+  The sitemap and the e2e route list read `SECTIONS` too, so adding a section
+  is a data-only change
+- Every resource and section carries its own Iconify `icon`. The field is
+  required, so an entry without one fails typecheck
+- Shared shapes (`Section`, `ResourceLink`, `Resource`) live in
   `lib/types.ts`; do not redeclare them per file
 - Utility functions in `/lib/utils/` and `/lib/utils.ts`
 

@@ -15,9 +15,9 @@ import {
   SearchProvider,
   useSearch,
 } from '@/contexts/search-context';
-import { SECTIONS, sectionByTitle } from '@/constants/sections';
+import { SECTIONS, sectionBySlug } from '@/constants/sections';
 
-const section = sectionByTitle('Developer Tools');
+const section = sectionBySlug('developer-tools');
 
 // A tag some but not all of this section's resources carry, so filtering on it
 // has something to remove.

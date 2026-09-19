@@ -1,10 +1,11 @@
-// The filter toggle beside the search box, plus the panel it opens.
+// The filter toggle beside the search box. It only opens and closes the
+// panel; the one panel is rendered by VerticalNavigation, since this button
+// appears in both the desktop header and the mobile bar.
 'use client';
 
 import { Filter, X } from 'lucide-react';
 import { useSearch } from '@/contexts/search-context';
 import { useIsMac } from '@/lib/hooks/use-is-mac';
-import { TagFilterPanel } from '@/components/ui/tag-filter-panel';
 
 interface FilterButtonProps {
   className?: string;
@@ -23,65 +24,58 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
   const hasFilters = selectedTags.length > 0;
 
   return (
-    <>
-      <div className="flex items-center">
-        <button
-          onClick={() => setIsFilterPanelOpen(!isFilterPanelOpen)}
-          data-filter-button="true"
-          className={`
-            relative cursor-pointer h-10 px-3 rounded-full 
-            backdrop-blur flex items-center gap-2
-            md:border 
-            md:shadow-md transition-all duration-300 
-            transform-gpu
-            ${
-              isFilterPanelOpen
-                ? 'border-accent-neon'
-                : 'border-border/20'
-            }
-            ${className}
-          `}
-          aria-label={`Filter resources${
-            hasFilters ? ` (${selectedTags.length} active)` : ''
-          }`}
-          aria-expanded={isFilterPanelOpen}
-        >
-          <Filter className="h-4 w-4 text-foreground" />
-          <div className="hidden md:flex h-5 w-10 rounded-md bg-muted border border-border/50 items-center justify-center text-[10px] font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all px-1 tracking-tight leading-none">
-            {isMac ? '⌘F' : 'Ctrl+F'}
+    <div className="flex items-center">
+      <button
+        onClick={() => setIsFilterPanelOpen(!isFilterPanelOpen)}
+        data-filter-button="true"
+        className={`
+          relative cursor-pointer h-10 px-3 rounded-full 
+          backdrop-blur flex items-center gap-2
+          md:border 
+          md:shadow-md transition-all duration-300 
+          transform-gpu
+          ${
+            isFilterPanelOpen
+              ? 'border-accent-neon'
+              : 'border-border/20'
+          }
+          ${className}
+        `}
+        aria-label={`Filter resources${
+          hasFilters ? ` (${selectedTags.length} active)` : ''
+        }`}
+        aria-expanded={isFilterPanelOpen}
+      >
+        <Filter className="h-4 w-4 text-foreground" />
+        <div className="hidden md:flex h-5 w-10 rounded-md bg-muted border border-border/50 items-center justify-center text-[10px] font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all px-1 tracking-tight leading-none">
+          {isMac ? '⌘F' : 'Ctrl+F'}
+        </div>
+
+        {hasFilters && isFilterPanelOpen && (
+          <div className="absolute -top-1 -right-1 h-4 w-4 bg-destructive rounded-full flex items-center justify-center animate-scale-in">
+            <span className="text-xs font-medium text-destructive-foreground">
+              {selectedTags.length}
+            </span>
           </div>
-
-          {hasFilters && isFilterPanelOpen && (
-            <div className="absolute -top-1 -right-1 h-4 w-4 bg-destructive rounded-full flex items-center justify-center animate-scale-in">
-              <span className="text-xs font-medium text-destructive-foreground">
-                {selectedTags.length}
-              </span>
-            </div>
-          )}
-        </button>
-
-        {hasFilters && !isFilterPanelOpen && (
-          <button
-            onClick={clearFilters}
-            className="
-              absolute -top-1 -right-1 h-4 w-4 cursor-pointer
-              bg-destructive hover:bg-destructive/90
-              rounded-full flex items-center justify-center
-              transition-colors duration-200
-              animate-scale-in
-              transform-gpu
-            "
-            aria-label="Clear all filters"
-          >
-            <X className="h-4 w-4 md:h-3 md:w-3 text-destructive-foreground" />
-          </button>
         )}
-      </div>
+      </button>
 
-      <TagFilterPanel
-        isOpen={isFilterPanelOpen}
-        onClose={() => setIsFilterPanelOpen(false)}
-      />
-    </>
+      {hasFilters && !isFilterPanelOpen && (
+        <button
+          onClick={clearFilters}
+          className="
+            absolute -top-1 -right-1 h-4 w-4 cursor-pointer
+            bg-destructive hover:bg-destructive/90
+            rounded-full flex items-center justify-center
+            transition-colors duration-200
+            animate-scale-in
+            transform-gpu
+          "
+          aria-label="Clear all filters"
+        >
+          <X className="h-4 w-4 md:h-3 md:w-3 text-destructive-foreground" />
+        </button>
+      )}
+    </div>
   );
 }

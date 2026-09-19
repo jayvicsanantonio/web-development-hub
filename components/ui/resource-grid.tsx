@@ -5,10 +5,10 @@
 import React from 'react';
 import ResourceCard from '@/components/ui/resource-card';
 import { resultSummary } from '@/lib/utils/search';
-import type { CardResource } from '@/lib/types';
+import type { ResourceLink } from '@/lib/types';
 
 interface ResourceGridProps {
-  resources: CardResource[];
+  resources: ResourceLink[];
   /** Whether a query or a tag is narrowing the list. */
   filtering?: boolean;
   /** The query as typed, for the count to quote. */

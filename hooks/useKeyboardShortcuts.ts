@@ -5,7 +5,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSearch } from '@/contexts/search-context';
-import { useTheme } from '@/contexts/theme-context';
+import { toggleTheme } from '@/lib/theme';
 
 /**
  * Keyboard shortcuts:
@@ -21,7 +21,6 @@ import { useTheme } from '@/contexts/theme-context';
 export function useKeyboardShortcuts() {
   const router = useRouter();
   const { clearSearch, searchQuery, toggleFilterPanel } = useSearch();
-  const { toggleTheme } = useTheme();
 
   useEffect(() => {
     const focusSearchInput = () => {
@@ -133,11 +132,5 @@ export function useKeyboardShortcuts() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [
-    router,
-    clearSearch,
-    searchQuery,
-    toggleFilterPanel,
-    toggleTheme,
-  ]);
+  }, [router, clearSearch, searchQuery, toggleFilterPanel]);
 }

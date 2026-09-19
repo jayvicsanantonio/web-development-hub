@@ -14,7 +14,6 @@ vi.mock('next/navigation', () => ({
 
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
 import { SearchProvider, useSearch } from '@/contexts/search-context';
-import { ThemeProvider } from '@/contexts/theme-context';
 import { useKeyboardShortcuts } from './useKeyboardShortcuts';
 
 function Harness() {
@@ -36,11 +35,9 @@ function Harness() {
 }
 
 const wrapper = ({ children }: { children: ReactNode }) => (
-  <ThemeProvider>
-    <BookmarksProvider>
-      <SearchProvider>{children}</SearchProvider>
-    </BookmarksProvider>
-  </ThemeProvider>
+  <BookmarksProvider>
+    <SearchProvider>{children}</SearchProvider>
+  </BookmarksProvider>
 );
 
 const mount = () => render(<Harness />, { wrapper });

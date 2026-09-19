@@ -16,12 +16,18 @@ import { filterResources, isFiltering } from '@/lib/utils/search';
 import { MobileNavigation } from '@/components/ui/navigation/mobile-navigation';
 import { DesktopNavigation } from '@/components/ui/navigation/desktop-navigation';
 import { DesktopSearch } from '@/components/ui/navigation/desktop-search';
+import { TagFilterPanel } from '@/components/ui/tag-filter-panel';
 
 const EXCLUDED_SEARCH_ROUTES = ['/privacy-policy', '/terms-of-service'];
 
 export default function VerticalNavigation() {
   const pathname = usePathname();
-  const { deferredQuery, selectedTags } = useSearch();
+  const {
+    deferredQuery,
+    selectedTags,
+    isFilterPanelOpen,
+    setIsFilterPanelOpen,
+  } = useSearch();
 
   const isHomeActive = pathname === '/';
   const isBookmarksActive = pathname === '/bookmarks';
@@ -74,6 +80,14 @@ export default function VerticalNavigation() {
         onScrollToSection={handleScrollToSection}
       />
       {!shouldHideSearch && <DesktopSearch />}
+      {/* One panel for both layouts: the desktop header and the mobile bar
+          each have a filter button, and both open this. */}
+      {!shouldHideSearch && (
+        <TagFilterPanel
+          isOpen={isFilterPanelOpen}
+          onClose={() => setIsFilterPanelOpen(false)}
+        />
+      )}
     </>
   );
 }

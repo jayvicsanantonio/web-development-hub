@@ -14,7 +14,7 @@ import {
   isFiltering,
   resultSummary,
 } from '@/lib/utils/search';
-import ResourceCard from '@/components/ui/resource-card';
+import ResourceGrid from '@/components/ui/resource-grid';
 
 interface SearchWrapperProps {
   children: React.ReactNode;
@@ -69,14 +69,7 @@ export function SearchWrapper({ children }: SearchWrapperProps) {
                 <h2 className="text-2xl font-bold tracking-tight">
                   {section}
                 </h2>
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                  {resources.map((resource) => (
-                    <ResourceCard
-                      key={resource.href}
-                      resource={resource}
-                    />
-                  ))}
-                </div>
+                <ResourceGrid resources={resources} />
               </section>
             ))}
           </div>

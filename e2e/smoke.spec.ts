@@ -2,13 +2,11 @@ import { test, expect } from '@playwright/test';
 import { SECTIONS } from '../constants/sections';
 import { toSectionId } from '../lib/utils/navigation';
 
+// Section pages come from the dataset, so a section added there is checked
+// here without a second edit.
 const ROUTES = [
   '/',
-  '/learning-resources',
-  '/developer-tools',
-  '/frameworks-and-libraries',
-  '/communities',
-  '/blogs',
+  ...SECTIONS.map((section) => section.href),
   '/bookmarks',
   '/privacy-policy',
   '/terms-of-service',
@@ -135,6 +133,43 @@ test.describe('theme', () => {
     await expect(page.locator('html')).not.toHaveClass(/dark/);
     await context.close();
   });
+
+  test('ignores a stored value that is not a theme', async ({
+    browser,
+  }) => {
+    const context = await browser.newContext({
+      colorScheme: 'light',
+    });
+    const page = await context.newPage();
+    await page.addInitScript(() =>
+      localStorage.setItem('theme', 'chartreuse')
+    );
+    await page.goto('/');
+    await expect(page.locator('html')).not.toHaveClass(/dark/);
+    await context.close();
+  });
+
+  test('the toggle flips the theme and remembers it', async ({
+    page,
+  }) => {
+    await page.addInitScript(() => {
+      if (!sessionStorage.getItem('seeded')) {
+        localStorage.setItem('theme', 'dark');
+        sessionStorage.setItem('seeded', '1');
+      }
+    });
+    await page.goto('/');
+    await expect(page.locator('html')).toHaveClass(/dark/);
+
+    await page
+      .getByRole('button', { name: /Switch between light and dark/ })
+      .filter({ visible: true })
+      .click();
+    await expect(page.locator('html')).not.toHaveClass(/dark/);
+
+    await page.reload();
+    await expect(page.locator('html')).not.toHaveClass(/dark/);
+  });
 });
 
 test.describe('metadata', () => {
@@ -228,6 +263,36 @@ test.describe('tag filtering', () => {
     await expect(page.getByText(/^Found \d+ results?$/)).toBeVisible();
     expect(await cards.count()).toBeLessThan(before);
   });
+
+  for (const viewport of [
+    { name: 'desktop', width: 1280, height: 900 },
+    { name: 'mobile', width: 390, height: 844 },
+  ]) {
+    test(`renders one filter panel on ${viewport.name}`, async ({
+      page,
+    }) => {
+      // The header and the mobile bar each rendered their own panel, one of
+      // them hidden by CSS but still mounted and listening for clicks.
+      await page.setViewportSize(viewport);
+      await page.goto('/');
+
+      await page
+        .locator('button[aria-label^="Filter resources"]:visible')
+        .first()
+        .click();
+
+      const panels = page.locator('h2', { hasText: 'Filter by Tags' });
+      await expect(panels).toHaveCount(1);
+      await expect(panels).toBeVisible();
+
+      // Selecting a tag must leave the panel open.
+      await page
+        .getByRole('button', { name: 'free', exact: true })
+        .first()
+        .click();
+      await expect(panels).toBeVisible();
+    });
+  }
 });
 
 test.describe('bookmarks', () => {

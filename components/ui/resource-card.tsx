@@ -4,27 +4,18 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import { cn } from '@/lib/utils';
 import { BookmarkButton } from '@/components/ui/bookmark-button';
-import {
-  determineSection,
-  getResourceIcon,
-} from '@/lib/data/resource-mappings';
 import { generateResourceId } from '@/lib/utils/resource-card';
 import { getTagIconName } from '@/lib/utils/tag-icons';
-import type { CardResource } from '@/lib/types';
+import type { ResourceLink } from '@/lib/types';
 
 type ResourceCardProps = {
-  resource: CardResource;
+  resource: ResourceLink;
 };
 
 export default function ResourceCard({
   resource,
 }: ResourceCardProps) {
-  const resourceWithSection = {
-    ...resource,
-    section: resource.section || determineSection(resource.title),
-  };
   const resourceId = generateResourceId(resource.title);
-  const iconName = getResourceIcon(resource.title);
 
   return (
     <article
@@ -36,7 +27,7 @@ export default function ResourceCard({
         <div className="flex items-center gap-3">
           <div className="relative">
             <Icon
-              icon={iconName}
+              icon={resource.icon}
               className="h-8 w-8"
               aria-hidden="true"
             />
@@ -59,7 +50,8 @@ export default function ResourceCard({
           </h3>
         </div>
         <BookmarkButton
-          resource={resourceWithSection}
+          href={resource.href}
+          title={resource.title}
           size="md"
           className="relative z-10"
         />
@@ -69,7 +61,7 @@ export default function ResourceCard({
           {resource.description}
         </p>
 
-        {resource.tags && resource.tags.length > 0 && (
+        {resource.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 pt-2">
             {resource.tags.map((tag) => {
               const tagIcon = getTagIconName(tag);

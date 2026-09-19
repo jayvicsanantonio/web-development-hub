@@ -1,7 +1,6 @@
 // The nav's view of the sections: the id each one renders under, and which of
 // them a given result set covers.
 import { SECTIONS, SECTION_TITLES } from '@/constants/sections';
-import { getResourceIcon } from '@/lib/data/resource-mappings';
 
 export interface NavigationItem {
   id: string;
@@ -25,16 +24,12 @@ export function toSectionId(title: string): string {
   return `section-${toSlug(title)}`;
 }
 
-function toNavigationItem(title: string): NavigationItem {
-  return {
-    id: toSectionId(title),
-    title,
-    iconName: getResourceIcon(title),
-  };
-}
-
 export const DEFAULT_NAV_ITEMS: NavigationItem[] = SECTIONS.map(
-  (section) => toNavigationItem(section.title)
+  (section) => ({
+    id: toSectionId(section.title),
+    title: section.title,
+    iconName: section.icon,
+  })
 );
 
 /**

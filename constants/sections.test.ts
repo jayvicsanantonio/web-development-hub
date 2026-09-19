@@ -2,12 +2,8 @@ import { describe, it, expect } from 'vitest';
 import {
   SECTIONS,
   SECTION_TITLES,
-  sectionByTitle,
+  sectionBySlug,
 } from './sections';
-import {
-  determineSection,
-  getResourceIcon,
-} from '@/lib/data/resource-mappings';
 
 const allResources = SECTIONS.flatMap((section) =>
   section.links.map((link) => ({ ...link, section: section.title }))
@@ -28,31 +24,19 @@ describe('resource dataset integrity', () => {
     expect(duplicates).toEqual([]);
   });
 
-  it('resolves every resource to its own section', () => {
-    // determineSection() reads RESOURCE_SECTIONS, a hand-maintained second copy
-    // of this list. A title missing from it falls through to 'Other', and the
-    // bookmarks page then stores the entry without ever rendering it, which
-    // also makes it impossible to un-bookmark. Shipped once, as "Vercel Blog".
-    const misfiled = allResources
-      .filter((r) => determineSection(r.title) !== r.section)
-      .map((r) => ({
-        title: r.title,
-        expected: r.section,
-        actual: determineSection(r.title),
-      }));
-    expect(misfiled).toEqual([]);
-  });
-
-  it('gives every resource a non-placeholder icon', () => {
-    const withoutIcon = allResources
-      .filter((r) => getResourceIcon(r.title) === 'material-symbols:list')
-      .map((r) => r.title);
-    expect(withoutIcon).toEqual([]);
+  it('gives every resource and section an Iconify icon name', () => {
+    // Iconify renders an empty box for a name it cannot resolve, so a typo
+    // here fails quietly on the page rather than loudly in the build.
+    const ICON_NAME = /^[a-z0-9-]+:[a-z0-9-]+$/;
+    const invalid = [...SECTIONS, ...allResources]
+      .filter((entry) => !ICON_NAME.test(entry.icon ?? ''))
+      .map((entry) => `${entry.title}: ${entry.icon}`);
+    expect(invalid).toEqual([]);
   });
 
   it('has no duplicate titles', () => {
-    // Titles are the lookup key into RESOURCE_SECTIONS and ICON_MAP, so two
-    // resources sharing one cannot be told apart by either.
+    // A card's DOM id is its slugged title, so two resources sharing one would
+    // render two elements with the same id on any page listing both.
     const titles = allResources.map((r) => r.title);
     expect(titles).toHaveLength(new Set(titles).size);
   });
@@ -71,14 +55,14 @@ describe('section lookup', () => {
     expect(SECTION_TITLES).toEqual(SECTIONS.map((s) => s.title));
   });
 
-  it('returns the section a title names', () => {
-    expect(sectionByTitle('Communities').href).toBe('/communities');
+  it('returns the section served at a slug', () => {
+    expect(sectionBySlug('communities').title).toBe('Communities');
   });
 
-  it('throws rather than returning undefined for an unknown title', () => {
-    // Pages call this at module scope, so an unknown title should fail the
-    // build instead of prerendering an empty grid.
-    expect(() => sectionByTitle('Nope')).toThrow(/No section titled/);
+  it('throws rather than returning undefined for an unknown slug', () => {
+    // The section route calls this while generating each page, so an unknown
+    // slug should fail the build instead of prerendering an empty grid.
+    expect(() => sectionBySlug('nope')).toThrow(/No section at/);
   });
 
   it('gives every section a tagline the pages can render', () => {

@@ -5,10 +5,7 @@
 
 import { useMemo } from 'react';
 import Link from 'next/link';
-import {
-  useBookmarks,
-  type Resource,
-} from '@/contexts/bookmarks-context';
+import { useBookmarks } from '@/contexts/bookmarks-context';
 import {
   groupBySection,
   toSectionId,
@@ -18,8 +15,9 @@ import {
   isFiltering,
   resultSummary,
 } from '@/lib/utils/search';
-import ResourceCard from '@/components/ui/resource-card';
+import ResourceGrid from '@/components/ui/resource-grid';
 import { useSearch } from '@/contexts/search-context';
+import type { Resource } from '@/lib/types';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -154,11 +152,7 @@ const BookmarksSection = ({
 }) => (
   <section id={toSectionId(section)} className="space-y-6">
     <h2 className="text-2xl font-bold tracking-tight">{section}</h2>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {bookmarks.map((bookmark) => (
-        <ResourceCard key={bookmark.href} resource={bookmark} />
-      ))}
-    </div>
+    <ResourceGrid resources={bookmarks} />
   </section>
 );
 
