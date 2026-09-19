@@ -77,9 +77,7 @@ test.describe('the deployed static export', () => {
     ).toHaveAttribute('href', /icon/);
   });
 
-  test('serves the manifest at the path the service worker precaches', async ({
-    request,
-  }) => {
+  test('serves the web app manifest', async ({ request }) => {
     expect((await request.get('/manifest.webmanifest')).status()).toBe(
       200
     );
@@ -97,6 +95,39 @@ test.describe('the deployed static export', () => {
         `sitemap lists ${path}`
       ).toBe(200);
     }
+  });
+});
+
+test.describe('service worker', () => {
+  const registrations = () =>
+    navigator.serviceWorker
+      .getRegistrations()
+      .then((all) => all.length);
+
+  test('the site registers none', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForLoadState('networkidle');
+
+    expect(await page.evaluate(registrations)).toBe(0);
+  });
+
+  test('the worker left at /sw.js removes itself and its caches', async ({
+    page,
+  }) => {
+    // Visitors who installed a worker from this path keep it registered, and
+    // their browser fetches /sw.js on its next update check. What it finds
+    // there has to clear out the old worker's caches and unregister.
+    await page.goto('/');
+    await page.evaluate(async () => {
+      const cache = await caches.open('web-dev-hub-v3');
+      await cache.put('/cached-page', new Response('stale'));
+      await navigator.serviceWorker.register('/sw.js');
+    });
+
+    await expect.poll(() => page.evaluate(registrations)).toBe(0);
+    await expect
+      .poll(() => page.evaluate(() => caches.keys()))
+      .toEqual([]);
   });
 });
 
