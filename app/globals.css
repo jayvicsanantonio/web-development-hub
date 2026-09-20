@@ -57,19 +57,7 @@
   --radius-md: 0.5rem;
   --radius-sm: 0.25rem;
 
-  --animate-slide-in-from-bottom: slide-in-from-bottom 0.3s ease-out;
   --animate-scale-in: scale-in 0.15s ease-out;
-
-  @keyframes slide-in-from-bottom {
-    0% {
-      transform: translateY(20px);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
 
   @keyframes scale-in {
     0% {

@@ -5,7 +5,7 @@
 import { useEffect, useRef } from 'react';
 import { useSearch } from '@/contexts/search-context';
 import { X, Star } from 'lucide-react';
-import { Icon } from '@iconify/react';
+import { Icon } from '@/lib/icons';
 import { ALL_TAGS } from '@/constants/sections';
 import { getTagIconName } from '@/lib/utils/tag-icons';
 

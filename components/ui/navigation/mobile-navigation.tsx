@@ -9,7 +9,7 @@ import { Menu, Search, BookmarkIcon, Moon, Sun } from 'lucide-react';
 import { toggleTheme } from '@/lib/theme';
 import { SearchInput } from '@/components/ui/search-input';
 import { FilterButton } from '@/components/ui/filter-button';
-import { Icon } from '@iconify/react';
+import { Icon } from '@/lib/icons';
 import { type NavigationItem as NavigationItemType } from '@/lib/utils/navigation';
 import { cn } from '@/lib/utils';
 

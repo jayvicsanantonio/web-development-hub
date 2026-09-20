@@ -42,8 +42,9 @@ test.describe('the deployed static export', () => {
     expect(csp).toContain("default-src 'self'");
     expect(csp).toContain("frame-ancestors 'none'");
     expect(csp).toContain("object-src 'none'");
-    // Iconify is the only origin the page is allowed to talk to.
-    expect(csp).toContain('https://api.iconify.design');
+    // Icons come from the build, so the page talks to no other origin.
+    expect(csp).toContain("connect-src 'self';");
+    expect(csp).not.toContain('iconify');
 
     expect(headers['permissions-policy']).toContain('geolocation=()');
   });
@@ -77,9 +78,7 @@ test.describe('the deployed static export', () => {
     ).toHaveAttribute('href', /icon/);
   });
 
-  test('serves the manifest at the path the service worker precaches', async ({
-    request,
-  }) => {
+  test('serves the web app manifest', async ({ request }) => {
     expect((await request.get('/manifest.webmanifest')).status()).toBe(
       200
     );
@@ -97,6 +96,74 @@ test.describe('the deployed static export', () => {
         `sitemap lists ${path}`
       ).toBe(200);
     }
+  });
+});
+
+test.describe('icons', () => {
+  test('are in the static HTML, before any script runs', async ({
+    request,
+  }) => {
+    // Rendered from the bundle during the build, so a card never shows an
+    // empty box while its icon is fetched.
+    const section = SECTIONS[0];
+    const html = await (await request.get(section.href)).text();
+    const cards = html.split('<article').slice(1);
+
+    expect(cards).toHaveLength(section.links.length);
+    // Matched by the class Iconify gives the SVG it renders: every card also
+    // holds the bookmark button's own SVG, which proves nothing here.
+    for (const card of cards) {
+      expect(card.split('</article>')[0]).toMatch(
+        /<svg[^>]*class="iconify iconify--[a-z-]+[^"]*"[^>]*>\s*<path/
+      );
+    }
+  });
+
+  test('are never fetched from Iconify', async ({ page }) => {
+    const iconRequests: string[] = [];
+    page.on('request', (request) => {
+      if (request.url().includes('iconify')) {
+        iconRequests.push(request.url());
+      }
+    });
+
+    await page.goto(SECTIONS[1].href);
+    await page.waitForLoadState('networkidle');
+
+    expect(iconRequests).toEqual([]);
+  });
+});
+
+test.describe('service worker', () => {
+  const registrations = () =>
+    navigator.serviceWorker
+      .getRegistrations()
+      .then((all) => all.length);
+
+  test('the site registers none', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForLoadState('networkidle');
+
+    expect(await page.evaluate(registrations)).toBe(0);
+  });
+
+  test('the worker left at /sw.js removes itself and its caches', async ({
+    page,
+  }) => {
+    // Visitors who installed a worker from this path keep it registered, and
+    // their browser fetches /sw.js on its next update check. What it finds
+    // there has to clear out the old worker's caches and unregister.
+    await page.goto('/');
+    await page.evaluate(async () => {
+      const cache = await caches.open('web-dev-hub-v3');
+      await cache.put('/cached-page', new Response('stale'));
+      await navigator.serviceWorker.register('/sw.js');
+    });
+
+    await expect.poll(() => page.evaluate(registrations)).toBe(0);
+    await expect
+      .poll(() => page.evaluate(() => caches.keys()))
+      .toEqual([]);
   });
 });
 

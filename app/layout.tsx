@@ -6,7 +6,6 @@ import { Inter, JetBrains_Mono } from 'next/font/google';
 import Footer from '@/components/ui/footer';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
 import LayoutWrapper from '@/components/ui/layout-wrapper';
-import ServiceWorkerRegistration from '@/components/service-worker-registration';
 import './globals.css';
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 const jetbrainsMono = JetBrains_Mono({
@@ -111,19 +110,10 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }}
         />
-
-        {/* Preconnect to external domains */}
-        <link
-          rel="preconnect"
-          href="https://api.iconify.design"
-          crossOrigin=""
-        />
-        <link rel="dns-prefetch" href="https://api.iconify.design" />
       </head>
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-background text-foreground min-h-screen overflow-x-hidden`}
       >
-        <ServiceWorkerRegistration />
         <BookmarksProvider>
           <LayoutWrapper>{children}</LayoutWrapper>
           <Footer />
