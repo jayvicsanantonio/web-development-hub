@@ -717,7 +717,7 @@ export const SECTIONS = [
       },
       {
         title: 'Claude Docs',
-        href: 'https://docs.claude.com/',
+        href: 'https://platform.claude.com/docs',
         icon: 'simple-icons:claude',
         description:
           'Reference for the Claude API, tool use, context management, and the Agent SDK, alongside prompting guides and model comparisons.',
@@ -1058,7 +1058,7 @@ export const SECTIONS = [
       },
       {
         title: 'Codex Docs',
-        href: 'https://developers.openai.com/codex/cli',
+        href: 'https://learn.chatgpt.com/docs/codex/cli',
         icon: 'simple-icons:openai',
         description:
           'Setup and configuration for the Codex CLI, covering approval modes, sandboxing, and running the agent against your own repository.',
@@ -5001,7 +5001,7 @@ export const SECTIONS = [
       },
       {
         title: 'Codex SDK',
-        href: 'https://developers.openai.com/codex/sdk',
+        href: 'https://learn.chatgpt.com/docs/codex-sdk',
         icon: 'simple-icons:openai',
         description:
           'Programmatic control of the Codex agent from TypeScript or Python, for CI pipelines and coding tasks inside your own tools.',
