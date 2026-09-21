@@ -9,12 +9,16 @@
 //   pnpm check:links --section "Learning Resources"
 //   pnpm check:links --json > report.json
 //
-// Exit code 1 means at least one link is genuinely broken. Bot-protection
-// responses (403/429) are reported as INCONCLUSIVE and never fail the run —
-// plenty of these hosts reject any non-browser client.
+// Run it through pnpm: the script raises Node's response header limit, since
+// some hosts send more than its 16 KB default and fetch fails on them.
+//
+// Exit code 1 means at least one link is genuinely broken. Responses that only
+// mean a script was turned away - 401, 403 and 429, and redirect loops through
+// a sign-in page - are reported as INCONCLUSIVE and never fail the run: plenty
+// of these hosts reject any non-browser client.
 
 import { readFile } from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -110,13 +114,19 @@ async function request(url, method) {
   }
 }
 
-async function check(link) {
+// What a live page answers when it will not show itself to a script: a
+// sign-in or challenge page (401), a bot wall (403), a rate limit (429).
+const BLOCKED = new Set([401, 403, 429]);
+
+export async function check(link, send = request) {
   const started = Date.now();
   try {
-    // HEAD first: cheap, but a fair number of hosts answer 405/501 to it.
-    let response = await request(link.href, 'HEAD');
-    if (response.status === 405 || response.status === 501) {
-      response = await request(link.href, 'GET');
+    // HEAD first, as it is cheap. Anything short of success is retried as a
+    // GET: plenty of hosts answer HEAD with 404, 405 or 500, or not at all,
+    // for pages that load fine.
+    let response = await send(link.href, 'HEAD').catch(() => null);
+    if (!response?.ok) {
+      response = await send(link.href, 'GET');
     }
 
     const finalUrl = response.url || link.href;
@@ -129,8 +139,12 @@ async function check(link) {
       ms: Date.now() - started,
     };
 
-    if (response.status === 403 || response.status === 429) {
-      return { ...result, verdict: 'INCONCLUSIVE', note: 'bot protection' };
+    if (BLOCKED.has(response.status)) {
+      return {
+        ...result,
+        verdict: 'INCONCLUSIVE',
+        note: 'blocked: bot protection or sign-in',
+      };
     }
     if (!response.ok) {
       return { ...result, verdict: 'BROKEN' };
@@ -140,6 +154,17 @@ async function check(link) {
       verdict: redirected ? 'REDIRECT' : 'OK',
     };
   } catch (error) {
+    // A client without cookies can bounce between a site and its sign-in page
+    // until fetch gives up, where a browser, keeping the cookies, gets through.
+    if (error.cause?.message === 'redirect count exceeded') {
+      return {
+        ...link,
+        status: null,
+        verdict: 'INCONCLUSIVE',
+        note: 'redirect loop, likely through a sign-in page',
+        ms: Date.now() - started,
+      };
+    }
     return {
       ...link,
       status: null,
@@ -168,57 +193,65 @@ async function pool(items, worker, limit) {
   return results;
 }
 
-const source = await readFile(SOURCE, 'utf8');
-const sections = parseResources(source).filter(
-  (section) => !sectionFilter || section.title === sectionFilter
-);
-
-if (sections.length === 0) {
-  console.error(
-    sectionFilter
-      ? `No section titled ${JSON.stringify(sectionFilter)} in ${SOURCE}.`
-      : `No resources parsed out of ${SOURCE}.`
+// Run only when invoked directly, so the tests can import check() without
+// setting off a request to every link in the dataset.
+async function main() {
+  const source = await readFile(SOURCE, 'utf8');
+  const sections = parseResources(source).filter(
+    (section) => !sectionFilter || section.title === sectionFilter
   );
-  process.exit(2);
-}
 
-const report = [];
-for (const section of sections) {
-  const results = await pool(section.links, check, CONCURRENCY);
-  report.push({ section: section.title, results });
-}
+  if (sections.length === 0) {
+    console.error(
+      sectionFilter
+        ? `No section titled ${JSON.stringify(sectionFilter)} in ${SOURCE}.`
+        : `No resources parsed out of ${SOURCE}.`
+    );
+    process.exit(2);
+  }
 
-if (asJson) {
-  console.log(JSON.stringify(report, null, 2));
-} else {
-  const symbol = {
-    OK: '  ok  ',
-    REDIRECT: ' moved',
-    INCONCLUSIVE: '  ??  ',
-    BROKEN: 'BROKEN',
-  };
-  for (const { section, results } of report) {
-    console.log(`\n${section}`);
-    for (const r of results) {
-      const status = r.status ?? '---';
-      let line = `  [${symbol[r.verdict]}] ${status} ${r.title} — ${r.href}`;
-      if (r.verdict === 'REDIRECT') line += `\n           → ${r.finalUrl}`;
-      if (r.note) line += ` (${r.note})`;
-      console.log(line);
+  const report = [];
+  for (const section of sections) {
+    const results = await pool(section.links, check, CONCURRENCY);
+    report.push({ section: section.title, results });
+  }
+
+  if (asJson) {
+    console.log(JSON.stringify(report, null, 2));
+  } else {
+    const symbol = {
+      OK: '  ok  ',
+      REDIRECT: ' moved',
+      INCONCLUSIVE: '  ??  ',
+      BROKEN: 'BROKEN',
+    };
+    for (const { section, results } of report) {
+      console.log(`\n${section}`);
+      for (const r of results) {
+        const status = r.status ?? '---';
+        let line = `  [${symbol[r.verdict]}] ${status} ${r.title} — ${r.href}`;
+        if (r.verdict === 'REDIRECT') line += `\n           → ${r.finalUrl}`;
+        if (r.note) line += ` (${r.note})`;
+        console.log(line);
+      }
     }
   }
+
+  const flat = report.flatMap((r) => r.results);
+  const broken = flat.filter((r) => r.verdict === 'BROKEN');
+  const moved = flat.filter((r) => r.verdict === 'REDIRECT');
+  const unknown = flat.filter((r) => r.verdict === 'INCONCLUSIVE');
+
+  if (!asJson) {
+    console.log(
+      `\n${flat.length} links: ${flat.length - broken.length - moved.length - unknown.length} ok, ` +
+        `${moved.length} redirected, ${unknown.length} inconclusive, ${broken.length} broken`
+    );
+  }
+
+  process.exit(broken.length > 0 ? 1 : 0);
 }
 
-const flat = report.flatMap((r) => r.results);
-const broken = flat.filter((r) => r.verdict === 'BROKEN');
-const moved = flat.filter((r) => r.verdict === 'REDIRECT');
-const unknown = flat.filter((r) => r.verdict === 'INCONCLUSIVE');
-
-if (!asJson) {
-  console.log(
-    `\n${flat.length} links: ${flat.length - broken.length - moved.length - unknown.length} ok, ` +
-      `${moved.length} redirected, ${unknown.length} inconclusive, ${broken.length} broken`
-  );
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+  await main();
 }
-
-process.exit(broken.length > 0 ? 1 : 0);

@@ -15,7 +15,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "check:links": "node scripts/check-links.mjs",
+    "check:links": "node --max-http-header-size=65536 scripts/check-links.mjs",
     "icons": "node scripts/build-icons.mjs",
     "preview": "next build && wrangler dev",
     "deploy": "next build && wrangler deploy",

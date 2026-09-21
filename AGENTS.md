@@ -19,8 +19,9 @@ directly.
   and test runs already do this, so it is only needed mid-session
 - `pnpm check:links` - Check every resource URL in `constants/sections.ts` (add
   `--section "Learning Resources"` to scope it, `--json` for machine output).
-  Exits non-zero only on genuinely broken links; 403/429 bot-protection
-  responses are reported as inconclusive
+  Exits non-zero only on genuinely broken links. Responses that only mean a
+  script was turned away (401/403/429, and redirect loops through a sign-in
+  page) are reported as inconclusive
 
 Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
 
