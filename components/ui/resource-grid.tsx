@@ -2,7 +2,7 @@
 // being filtered.
 'use client';
 
-import React from 'react';
+import React, { memo } from 'react';
 import ResourceCard from '@/components/ui/resource-card';
 import { resultSummary } from '@/lib/utils/search';
 import type { ResourceLink } from '@/lib/types';
@@ -11,11 +11,14 @@ interface ResourceGridProps {
   resources: ResourceLink[];
   /** Whether a query or a tag is narrowing the list. */
   filtering?: boolean;
-  /** The query as typed, for the count to quote. */
+  /** The query the list was filtered on, for the count to quote. */
   query?: string;
 }
 
-export default function ResourceGrid({
+// Memoised so a keystroke's own render stops here. The views filter on the
+// deferred query and pass only what that produced, so until the deferred
+// render runs, every prop is unchanged and no card re-renders.
+export default memo(function ResourceGrid({
   resources,
   filtering = false,
   query = '',
@@ -35,4 +38,4 @@ export default function ResourceGrid({
       </div>
     </>
   );
-}
+});

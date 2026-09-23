@@ -20,7 +20,7 @@ import { toggleTheme } from '@/lib/theme';
  */
 export function useKeyboardShortcuts() {
   const router = useRouter();
-  const { clearSearch, searchQuery, toggleFilterPanel } = useSearch();
+  const { clearSearch, toggleFilterPanel } = useSearch();
 
   useEffect(() => {
     const focusSearchInput = () => {
@@ -52,16 +52,16 @@ export function useKeyboardShortcuts() {
     const handleEscape = () => {
       const element = activeElement();
 
-      // If search input is focused, clear it and blur
+      // Clearing an empty query changes nothing, so this needs no check on
+      // the query - and reading it would rebind this effect on every key.
+      clearSearch();
+
+      // If search input is focused, also blur it
       if (
         element?.tagName === 'INPUT' &&
         element.getAttribute('type') === 'search'
       ) {
-        clearSearch();
         element.blur();
-      } else if (searchQuery) {
-        // If there's a search query but input isn't focused, just clear search
-        clearSearch();
       }
     };
 
@@ -132,5 +132,5 @@ export function useKeyboardShortcuts() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [router, clearSearch, searchQuery, toggleFilterPanel]);
+  }, [router, clearSearch, toggleFilterPanel]);
 }

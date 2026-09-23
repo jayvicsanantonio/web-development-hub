@@ -9,6 +9,20 @@ vi.mock('next/navigation', () => ({
   usePathname: () => '/developer-tools',
 }));
 
+// Counts card renders while still rendering the real card, so every test here
+// sees the page exactly as it ships.
+const cardRenders = vi.hoisted(() => ({ count: 0 }));
+vi.mock('@/components/ui/resource-card', async (importOriginal) => {
+  const { default: ResourceCard } =
+    await importOriginal<typeof import('@/components/ui/resource-card')>();
+  return {
+    default: (props: Parameters<typeof ResourceCard>[0]) => {
+      cardRenders.count++;
+      return <ResourceCard {...props} />;
+    },
+  };
+});
+
 import { CategoryPage } from './category-page';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
 import {
@@ -53,7 +67,7 @@ const wrapper = ({ children }: { children: ReactNode }) => (
 );
 
 const renderPage = () =>
-  render(<CategoryPage section={section} />, { wrapper });
+  render(<CategoryPage slug="developer-tools" />, { wrapper });
 
 describe('heading', () => {
   it('takes its title and tagline from the section', () => {
@@ -169,5 +183,25 @@ describe('searching', () => {
         screen.getByText(/No results found for/)
       ).toBeInTheDocument()
     );
+  });
+});
+
+describe('rendering', () => {
+  it('leaves the cards on screen alone while a keystroke is pending', async () => {
+    // The filter runs on the deferred query. When the keystroke's own render
+    // reached the grid, all of this section's cards re-rendered on every key.
+    const user = userEvent.setup();
+    renderPage();
+    cardRenders.count = 0;
+
+    // Matches nothing, so any card render is one the keystroke caused.
+    await user.type(screen.getByLabelText('query'), '¶');
+
+    await waitFor(() =>
+      expect(
+        screen.getByText('No results found for "¶"')
+      ).toBeInTheDocument()
+    );
+    expect(cardRenders.count).toBe(0);
   });
 });

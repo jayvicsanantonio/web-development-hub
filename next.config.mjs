@@ -11,11 +11,6 @@ const nextConfig = {
   // assets with no Worker script. See wrangler.jsonc.
   output: 'export',
 
-  // Optimize performance
-  experimental: {
-    optimizePackageImports: ['@iconify/react'],
-  },
-
   images: {
     // The Next image optimizer needs a server; nothing in this app imports
     // next/image, so opt out rather than ship an optimizer that cannot run.

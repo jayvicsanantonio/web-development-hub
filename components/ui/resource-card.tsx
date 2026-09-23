@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Icon } from '@/lib/icons';
-import { cn } from '@/lib/utils';
 import { BookmarkButton } from '@/components/ui/bookmark-button';
 import { generateResourceId } from '@/lib/utils/resource-card';
 import { getTagIconName } from '@/lib/utils/tag-icons';
@@ -19,7 +18,7 @@ export default function ResourceCard({
 
   return (
     <article
-      className="relative flex flex-col h-full rounded-lg transition-all bg-card border border-border hover:shadow-lg hover:scale-[1.01]"
+      className="relative flex flex-col h-full rounded-lg transition-[box-shadow,scale] bg-card border border-border hover:shadow-lg hover:scale-[1.01]"
       id={resourceId}
       aria-labelledby={`title-${resourceId}`}
     >
@@ -68,13 +67,7 @@ export default function ResourceCard({
               return (
                 <span
                   key={`${resourceId}-tag-${tag}`}
-                  className={cn(
-                    'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium',
-                    'transition-colors duration-200 ease-in-out',
-                    'border border-border/50',
-                    'bg-secondary/5 text-secondary border-secondary/30 hover:bg-secondary/10',
-                    'dark:bg-secondary/30 dark:text-secondary-foreground dark:border-secondary/95 dark:hover:bg-secondary/80',
-                  )}
+                  className="tag-chip"
                   title={`Filter by ${tag}`}
                 >
                   {tagIcon && (

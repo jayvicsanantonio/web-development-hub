@@ -134,6 +134,97 @@ test.describe('icons', () => {
   });
 });
 
+test.describe('payload', () => {
+  test('a section page carries its resources once, as HTML', async ({
+    request,
+  }) => {
+    // The route used to pass the whole section into a client component, which
+    // serialised every resource into the page's payload beside the HTML the
+    // prerender already produced - and the client bundle holds them a third
+    // time. Descriptions with no quotes or escapes read identically in both.
+    const section = SECTIONS[0];
+    const plain = section.links.find((l) =>
+      /^[\w ,.()-]+$/.test(l.description)
+    )!;
+    const slug = section.href.slice(1);
+
+    const html = await (await request.get(section.href)).text();
+    expect(
+      html.split(plain.description).length - 1,
+      'times the description appears in the HTML'
+    ).toBe(1);
+
+    const payload = await (await request.get(`/${slug}.txt`)).text();
+    expect(payload).not.toContain(plain.description);
+  });
+});
+
+test.describe('rendering cost', () => {
+  test('tag chips take their style from the tag-chip utility', async ({
+    page,
+  }) => {
+    // One class in globals.css now carries what each chip repeated inline, so
+    // a typo there would leave every chip unstyled without failing the build.
+    await page.goto('/developer-tools');
+    const chip = page.locator('main article .tag-chip').first();
+
+    await expect(chip).toHaveCSS('align-items', 'center');
+    await expect(chip).toHaveCSS('font-size', '12px');
+    await expect(chip).toHaveCSS('padding-left', '10px');
+    await expect(chip).toHaveCSS('border-top-width', '1px');
+    await expect(chip).not.toHaveCSS(
+      'background-color',
+      'rgba(0, 0, 0, 0)'
+    );
+  });
+
+  test('forces no element onto a layer of its own', async ({ page }) => {
+    // transform-gpu and will-change gave every tag button in the filter
+    // panel, and every nav tooltip, a compositor layer whether or not it was
+    // animating. The browser promotes an element itself while it animates.
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/');
+    await page
+      .locator('button[aria-label^="Filter resources"]:visible')
+      .first()
+      .click();
+    await expect(
+      page.locator('h2', { hasText: 'Filter by Tags' })
+    ).toBeVisible();
+
+    // Polled so the panel's opening animation has finished.
+    await expect
+      .poll(() =>
+        page.evaluate(() =>
+          [...document.querySelectorAll('body *')]
+            .filter((element) => {
+              const style = getComputedStyle(element);
+              return (
+                style.transform !== 'none' || style.willChange !== 'auto'
+              );
+            })
+            .map(
+              (element) =>
+                `<${element.tagName.toLowerCase()}> ${element.textContent
+                  ?.trim()
+                  .slice(0, 24)}`
+            )
+        )
+      )
+      .toEqual([]);
+  });
+
+  test('a card animates its lift, not its colours', async ({ page }) => {
+    // transition-all animated every property on every card, so toggling the
+    // theme faded the colours of a whole section page of cards at once.
+    await page.goto('/developer-tools');
+    await expect(page.locator('main article').first()).toHaveCSS(
+      'transition-property',
+      'box-shadow, scale'
+    );
+  });
+});
+
 test.describe('service worker', () => {
   const registrations = () =>
     navigator.serviceWorker

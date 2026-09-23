@@ -50,6 +50,9 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
   `app/[section]/page.tsx` renders `components/category-page.tsx`). Keeping a
   route `'use client'` costs it its metadata, so the whole site shares one
   title
+- Props passed to a client component are serialised into the page's payload.
+  The client bundle already holds the dataset, so pass an identifier (the
+  section page passes its slug) rather than the resources themselves
 - Components are server components by default. Mark one `'use client'` only
   when it needs state, effects, event handlers or browser APIs
 
@@ -72,7 +75,10 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
     resolved against the dataset, so a bookmark shows the current entry
   - `SearchProvider` - the query, the selected tags and the filter panel's
     state. It holds the request, not the answer: each view filters its own
-    list with `filterResources()` from `lib/utils/search.ts`
+    list with `filterResources()` from `lib/utils/search.ts`. Views render
+    from `deferredQuery`, never `searchQuery` (that one is for the input), and
+    `ResourceGrid` is memoised, so a keystroke re-renders no cards until the
+    deferred filter has a new list for them
 - The theme is not React state. The blocking script in `app/layout.tsx`
   resolves it before first paint, and `toggleTheme()` in `lib/theme.ts` flips
   whatever the page currently shows
@@ -110,6 +116,12 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
 - Tailwind CSS 4.x, configured CSS-first: design tokens and theme layers live
   in `app/globals.css`, with CSS variables for theming. Style with Tailwind
   utilities and the shadcn tokens; avoid inline styles unless necessary
+- Markup a page repeats hundreds of times gets one `@utility` in
+  `app/globals.css` rather than a long class list per element; the resource
+  card's `tag-chip` is the example
+- Leave layer promotion to the browser: no `transform-gpu` or `will-change` on
+  elements that are not animating, and name the properties a transition
+  covers on anything rendered once per resource
 - Font stack: Inter (sans) + JetBrains Mono (monospace)
 - Responsive design with mobile-first approach
 
