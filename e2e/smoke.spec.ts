@@ -1,3 +1,5 @@
+// Playwright smoke tests against the built static export, served by wrangler
+// as Cloudflare serves it: routes, headers, payload and the visitor flows.
 import { test, expect } from '@playwright/test';
 import { SECTIONS } from '../constants/sections';
 import { toSectionId } from '../lib/utils/navigation';
@@ -135,36 +137,56 @@ test.describe('icons', () => {
 });
 
 test.describe('payload', () => {
-  test('a section page carries its resources once, as HTML', async ({
-    request,
-  }) => {
-    // The route used to pass the whole section into a client component, which
-    // serialised every resource into the page's payload beside the HTML the
-    // prerender already produced - and the client bundle holds them a third
-    // time. Descriptions with no quotes or escapes read identically in both.
-    const section = SECTIONS[0];
-    const plain = section.links.find((l) =>
-      /^[\w ,.()-]+$/.test(l.description)
-    )!;
-    const slug = section.href.slice(1);
+  // Props a server component hands a client component are serialised into
+  // the page's payload beside the prerendered HTML, and the client bundle
+  // already holds the dataset. So a resource belongs in the HTML only.
+  const PAGES = [
+    // The home page previews the first resources of every section.
+    {
+      path: '/',
+      payload: '/index.txt',
+      links: SECTIONS.map((section) => section.links[0]),
+    },
+    {
+      path: SECTIONS[0].href,
+      payload: `${SECTIONS[0].href}.txt`,
+      links: SECTIONS[0].links,
+    },
+  ];
 
-    const html = await (await request.get(section.href)).text();
-    expect(
-      html.split(plain.description).length - 1,
-      'times the description appears in the HTML'
-    ).toBe(1);
+  for (const { path, payload, links } of PAGES) {
+    test(`${path} carries its resources once, as HTML`, async ({
+      request,
+    }) => {
+      // A description with no quotes or escapes reads the same in the HTML
+      // and in the payload, so a plain substring search finds it in both.
+      const plain = links.find((link) =>
+        /^[\w ,.()-]+$/.test(link.description)
+      );
+      if (!plain) {
+        throw new Error(
+          `No resource on ${path} has a description free of quotes and escapes`
+        );
+      }
 
-    const payload = await (await request.get(`/${slug}.txt`)).text();
-    expect(payload).not.toContain(plain.description);
-  });
+      const html = await (await request.get(path)).text();
+      expect(
+        html.split(plain.description).length - 1,
+        'times the description appears in the HTML'
+      ).toBe(1);
+
+      const body = await (await request.get(payload)).text();
+      expect(body).not.toContain(plain.description);
+    });
+  }
 });
 
 test.describe('rendering cost', () => {
   test('tag chips take their style from the tag-chip utility', async ({
     page,
   }) => {
-    // One class in globals.css now carries what each chip repeated inline, so
-    // a typo there would leave every chip unstyled without failing the build.
+    // One class in globals.css carries every chip's styling, so a typo there
+    // would leave every chip unstyled without failing the build.
     await page.goto('/developer-tools');
     const chip = page.locator('main article .tag-chip').first();
 
@@ -179,9 +201,9 @@ test.describe('rendering cost', () => {
   });
 
   test('forces no element onto a layer of its own', async ({ page }) => {
-    // transform-gpu and will-change gave every tag button in the filter
-    // panel, and every nav tooltip, a compositor layer whether or not it was
-    // animating. The browser promotes an element itself while it animates.
+    // A standing transform or will-change hint keeps an element on its own
+    // compositor layer whether or not it is animating. The browser promotes
+    // an element itself while it animates, so at rest none should need one.
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto('/');
     await page
@@ -215,8 +237,8 @@ test.describe('rendering cost', () => {
   });
 
   test('a card animates its lift, not its colours', async ({ page }) => {
-    // transition-all animated every property on every card, so toggling the
-    // theme faded the colours of a whole section page of cards at once.
+    // A transition on every property would fade the colours of a whole
+    // section page of cards at once whenever the theme is toggled.
     await page.goto('/developer-tools');
     await expect(page.locator('main article').first()).toHaveCSS(
       'transition-property',

@@ -1,3 +1,5 @@
+// The full-screen banner that opens the landing page: a tagline, the headline
+// and its description, and a cue to scroll on to the sections below.
 interface HeroBannerProps {
   title: string;
   description: string;

@@ -1,3 +1,5 @@
+// Runs before every Vitest file: jest-dom's matchers, cleanup between tests,
+// and stand-ins for the browser APIs jsdom does not implement.
 import '@testing-library/jest-dom/vitest';
 import { afterEach, vi } from 'vitest';
 import { cleanup } from '@testing-library/react';

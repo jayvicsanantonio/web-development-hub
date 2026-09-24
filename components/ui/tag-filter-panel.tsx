@@ -1,3 +1,5 @@
+// The tag filter panel: every tag in the dataset as a toggle on SearchProvider's
+// selection, with a featured few first. Escape or a click outside closes it.
 'use client';
 
 // The tags on offer come from the dataset, so a tag a resource gains is

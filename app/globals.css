@@ -1,3 +1,5 @@
+/* The site's global styles: Tailwind, the theme tokens with their light and
+   dark values, and the utilities markup repeats too often to spell out. */
 @import 'tailwindcss';
 
 /* Critical CSS for above-the-fold content */
@@ -97,8 +99,8 @@
 }
 
 /* A resource card's tag. One class rather than the list inline: a section page
-   renders hundreds of these, and the list repeated on each was a third of the
-   page's HTML. */
+   renders hundreds of these, and the list repeated on each would be a third of
+   the page's HTML. */
 @utility tag-chip {
   @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium;
   @apply transition-colors duration-200 ease-in-out;

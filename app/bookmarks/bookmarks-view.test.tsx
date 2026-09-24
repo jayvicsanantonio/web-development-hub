@@ -9,49 +9,30 @@ vi.mock('next/navigation', () => ({
   usePathname: () => '/bookmarks',
 }));
 
-// Counts card renders while still rendering the real card.
-const cardRenders = vi.hoisted(() => ({ count: 0 }));
-vi.mock('@/components/ui/resource-card', async (importOriginal) => {
-  const { default: ResourceCard } =
-    await importOriginal<typeof import('@/components/ui/resource-card')>();
-  return {
-    default: (props: Parameters<typeof ResourceCard>[0]) => {
-      cardRenders.count++;
-      return <ResourceCard {...props} />;
-    },
-  };
-});
+// Records each card render while still rendering the real card.
+vi.mock('@/components/ui/resource-card', { spy: true });
 
+import ResourceCard from '@/components/ui/resource-card';
 import { BookmarksView } from './bookmarks-view';
+import { SearchInput } from '@/components/ui/search-input';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
-import {
-  SearchProvider,
-  useSearch,
-} from '@/contexts/search-context';
+import { SearchProvider } from '@/contexts/search-context';
 import { SECTIONS } from '@/constants/sections';
 
 // One resource from each of the first two sections.
 const SAVED = [SECTIONS[0].links[0], SECTIONS[1].links[0]];
 
-function QueryInput() {
-  const { searchQuery, setSearchQuery } = useSearch();
-  return (
-    <input
-      aria-label="query"
-      value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)}
-    />
-  );
-}
-
 const wrapper = ({ children }: { children: ReactNode }) => (
   <BookmarksProvider>
     <SearchProvider>
-      <QueryInput />
+      <SearchInput />
       {children}
     </SearchProvider>
   </BookmarksProvider>
 );
+
+const searchBox = () =>
+  screen.getByRole('searchbox', { name: 'Search resources' });
 
 const renderSaved = () => {
   localStorage.setItem(
@@ -85,7 +66,7 @@ describe('searching', () => {
     renderSaved();
     await screen.findByRole('heading', { level: 3, name: SAVED[0].title });
 
-    await user.type(screen.getByLabelText('query'), '¶');
+    await user.type(searchBox(), '¶');
 
     await waitFor(() =>
       expect(
@@ -95,21 +76,21 @@ describe('searching', () => {
   });
 
   it('leaves the cards on screen alone while a keystroke is pending', async () => {
-    // The bookmarks are filtered on the deferred query. When the keystroke's
-    // own render reached the grids, every saved card re-rendered on every key.
+    // The bookmarks are filtered on the deferred query and each grid is
+    // memoised, so a keystroke's own render must stop before the cards.
     const user = userEvent.setup();
     renderSaved();
     await screen.findByRole('heading', { level: 3, name: SAVED[0].title });
-    cardRenders.count = 0;
+    vi.mocked(ResourceCard).mockClear();
 
     // Matches nothing, so any card render is one the keystroke caused.
-    await user.type(screen.getByLabelText('query'), '¶');
+    await user.type(searchBox(), '¶');
 
     await waitFor(() =>
       expect(
         screen.getByText('No bookmarks found for "¶"')
       ).toBeInTheDocument()
     );
-    expect(cardRenders.count).toBe(0);
+    expect(ResourceCard).not.toHaveBeenCalled();
   });
 });

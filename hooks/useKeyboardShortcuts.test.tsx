@@ -144,8 +144,8 @@ describe('escape', () => {
 
 describe('binding', () => {
   it('keeps one keydown listener however much is typed', async () => {
-    // The effect depended on the query, so every keystroke unbound the
-    // document listener and bound a fresh one.
+    // Were the effect to depend on the query, every keystroke would unbind
+    // the document listener and bind a fresh one.
     const user = userEvent.setup();
     mount();
     const add = vi.spyOn(document, 'addEventListener');

@@ -79,8 +79,8 @@ describe('tags', () => {
   });
 
   it('styles each chip with the one tag-chip utility', () => {
-    // Cards render hundreds of chips a page, and each carried the same
-    // ~300-byte list of classes: a third of a large section page's HTML.
+    // Cards render hundreds of chips a page. Spelled out on each chip, the
+    // ~300-byte class list would be a third of a large section page's HTML.
     renderCard({ ...RESOURCE, tags: ['documentation'] });
     expect(screen.getByText('documentation')).toHaveAttribute(
       'class',

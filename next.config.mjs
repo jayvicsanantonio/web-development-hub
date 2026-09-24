@@ -1,3 +1,5 @@
+// Next.js configuration: a fully static export for Cloudflare Workers to serve,
+// built against a freshly generated icon bundle.
 import { writeIconBundle } from './scripts/build-icons.mjs';
 
 // Every build and dev server starts from an icon bundle that matches the

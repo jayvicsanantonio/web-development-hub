@@ -48,7 +48,7 @@ describe('the client boundary', () => {
   it('hands the client component only the slug, not the section', async () => {
     // Props crossing into a client component are serialised into the page's
     // payload. The client bundle already carries the dataset, so passing the
-    // section shipped every one of its resources a second time.
+    // section would ship every one of its resources a second time.
     const element = await Page(params('developer-tools'));
     expect(element.props).toEqual({ slug: 'developer-tools' });
   });

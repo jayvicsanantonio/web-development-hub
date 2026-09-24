@@ -1,3 +1,5 @@
+// One resource as a card: its icon, linked title, description and tags, with
+// a bookmark toggle. Every resource grid on the site is built from these.
 'use client';
 
 import React from 'react';

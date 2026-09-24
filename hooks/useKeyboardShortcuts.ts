@@ -120,7 +120,7 @@ export function useKeyboardShortcuts() {
         return;
       }
 
-      // ESC to clear search and go home
+      // ESC to clear search
       if (event.key === 'Escape') {
         handleEscape();
         return;

@@ -52,7 +52,8 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
   title
 - Props passed to a client component are serialised into the page's payload.
   The client bundle already holds the dataset, so pass an identifier (the
-  section page passes its slug) rather than the resources themselves
+  section page and the home page's previews pass a slug) rather than the
+  resources themselves
 - Components are server components by default. Mark one `'use client'` only
   when it needs state, effects, event handlers or browser APIs
 
