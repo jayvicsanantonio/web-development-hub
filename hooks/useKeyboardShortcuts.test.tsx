@@ -128,4 +128,34 @@ describe('escape', () => {
     await user.keyboard('{Escape}');
     expect(screen.getByTestId('query')).toBeEmptyDOMElement();
   });
+
+  it('clears the query when the search box is not focused', async () => {
+    const user = userEvent.setup();
+    mount();
+
+    await user.click(searchBox());
+    await user.keyboard('react');
+    searchBox().blur();
+
+    await user.keyboard('{Escape}');
+    expect(screen.getByTestId('query')).toBeEmptyDOMElement();
+  });
+});
+
+describe('binding', () => {
+  it('keeps one keydown listener however much is typed', async () => {
+    // Were the effect to depend on the query, every keystroke would unbind
+    // the document listener and bind a fresh one.
+    const user = userEvent.setup();
+    mount();
+    const add = vi.spyOn(document, 'addEventListener');
+    const remove = vi.spyOn(document, 'removeEventListener');
+
+    await user.click(searchBox());
+    await user.keyboard('react');
+
+    const keydown = ([type]: unknown[]) => type === 'keydown';
+    expect(add.mock.calls.filter(keydown)).toHaveLength(0);
+    expect(remove.mock.calls.filter(keydown)).toHaveLength(0);
+  });
 });

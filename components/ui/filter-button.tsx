@@ -33,7 +33,6 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
           backdrop-blur flex items-center gap-2
           md:border 
           md:shadow-md transition-all duration-300 
-          transform-gpu
           ${
             isFilterPanelOpen
               ? 'border-accent-neon'
@@ -69,7 +68,6 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
             rounded-full flex items-center justify-center
             transition-colors duration-200
             animate-scale-in
-            transform-gpu
           "
           aria-label="Clear all filters"
         >

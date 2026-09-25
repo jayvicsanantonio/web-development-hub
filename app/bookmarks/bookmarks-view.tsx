@@ -31,13 +31,13 @@ import {
 } from '@/components/ui/alert-dialog';
 
 const BookmarksHeader = ({
-  searchQuery,
+  query,
   filtering,
   displayedBookmarks,
   bookmarks,
   onClearAll,
 }: {
-  searchQuery: string;
+  query: string;
   filtering: boolean;
   displayedBookmarks: Resource[];
   bookmarks: Resource[];
@@ -47,7 +47,7 @@ const BookmarksHeader = ({
     if (filtering) {
       return resultSummary(
         displayedBookmarks.length,
-        searchQuery,
+        query,
         'bookmark',
       );
     }
@@ -81,7 +81,6 @@ const BookmarksHeader = ({
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
                 hover:border-border/80
                 shadow-sm hover:shadow-md
-                transform-gpu
                 disabled:pointer-events-none disabled:opacity-50
               "
               aria-label="Clear all bookmarks"
@@ -158,7 +157,7 @@ const BookmarksSection = ({
 
 export function BookmarksView() {
   const { bookmarks, clearBookmarks } = useBookmarks();
-  const { searchQuery, deferredQuery, selectedTags } = useSearch();
+  const { deferredQuery, selectedTags } = useSearch();
 
   const filtering = isFiltering(deferredQuery, selectedTags);
 
@@ -179,7 +178,7 @@ export function BookmarksView() {
   return (
     <div className="container mx-auto md:mt-20 mt-8 py-12 space-y-12">
       <BookmarksHeader
-        searchQuery={searchQuery}
+        query={deferredQuery}
         filtering={filtering}
         displayedBookmarks={displayedBookmarks}
         bookmarks={bookmarks}

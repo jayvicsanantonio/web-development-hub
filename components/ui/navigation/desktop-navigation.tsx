@@ -32,14 +32,14 @@ function NavTooltip({
   return (
     <div
       className={cn(
-        'absolute top-1/2 transform -translate-y-1/2 transition-opacity duration-200 whitespace-nowrap will-change-[opacity,transform] pointer-events-none',
+        'absolute top-1/2 transform -translate-y-1/2 transition-opacity duration-200 whitespace-nowrap pointer-events-none',
         offsetClassName,
         'opacity-0 group-hover:opacity-100 group-has-[:focus-visible]:opacity-100',
       )}
       role="tooltip"
       aria-hidden={ariaHidden}
     >
-      <div className="bg-popover/90 backdrop-blur-[20px] px-3 py-2 rounded-md text-sm font-medium text-popover-foreground flex items-center gap-2 border border-border shadow-md transform-gpu">
+      <div className="bg-popover/90 backdrop-blur-[20px] px-3 py-2 rounded-md text-sm font-medium text-popover-foreground flex items-center gap-2 border border-border shadow-md">
         {label}
         {shortcut && (
           <div
@@ -98,7 +98,7 @@ export function DesktopNavigation({
   return (
     <nav
       aria-label="Page sections navigation"
-      className="fixed right-10 top-1/2 transform -translate-y-1/2 z-30 hidden md:flex p-3 bg-background-primary/1 backdrop-blur rounded-2xl shadow-md border border-border/20 transition-all duration-300 transform-gpu"
+      className="fixed right-10 top-1/2 transform -translate-y-1/2 z-30 hidden md:flex p-3 bg-background-primary/1 backdrop-blur rounded-2xl shadow-md border border-border/20 transition-all duration-300"
       role="navigation"
     >
       <span id="nav-description" className="sr-only">

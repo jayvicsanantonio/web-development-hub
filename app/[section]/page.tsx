@@ -1,5 +1,7 @@
 // Every section page, from one route: a static page per section in the
-// dataset, each a server component so it carries its own metadata.
+// dataset, each a server component so it carries its own metadata. The client
+// component gets only the slug: its props are serialised into the page's
+// payload, and the client bundle already holds the dataset.
 import type { Metadata } from 'next';
 import { CategoryPage } from '@/components/category-page';
 import { SECTIONS, sectionBySlug } from '@/constants/sections';
@@ -33,6 +35,5 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: Props) {
-  const section = sectionBySlug((await params).section);
-  return <CategoryPage section={section} />;
+  return <CategoryPage slug={(await params).section} />;
 }

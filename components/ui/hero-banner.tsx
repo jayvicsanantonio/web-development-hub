@@ -1,3 +1,5 @@
+// The full-screen banner that opens the landing page: a tagline, the headline
+// and its description, and a cue to scroll on to the sections below.
 interface HeroBannerProps {
   title: string;
   description: string;
@@ -13,17 +15,17 @@ export function HeroBanner({
     <div className="min-h-[100vh] w-full">
       <section className="container mx-auto h-screen flex flex-col items-center justify-center text-center space-y-6 px-4">
         {tagline && (
-          <div className="inline-block rounded-full bg-accent-neon/10 px-4 py-1.5 text-sm font-medium text-accent-neon mb-4 transform-gpu">
+          <div className="inline-block rounded-full bg-accent-neon/10 px-4 py-1.5 text-sm font-medium text-accent-neon mb-4">
             {tagline}
           </div>
         )}
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter max-w-3xl transform-gpu">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter max-w-3xl">
           {title}
         </h1>
-        <p className="text-lg md:text-xl text-muted-foreground max-w-[700px] mt-4 transform-gpu">
+        <p className="text-lg md:text-xl text-muted-foreground max-w-[700px] mt-4">
           {description}
         </p>
-        <div className="mt-8 transform-gpu">
+        <div className="mt-8">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

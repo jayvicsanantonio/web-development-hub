@@ -9,6 +9,11 @@ vi.mock('next/navigation', () => ({
   usePathname: () => '/developer-tools',
 }));
 
+// Records each card render while still rendering the real card, so every test
+// here sees the page exactly as it ships.
+vi.mock('@/components/ui/resource-card', { spy: true });
+
+import ResourceCard from '@/components/ui/resource-card';
 import { CategoryPage } from './category-page';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
 import {
@@ -53,7 +58,7 @@ const wrapper = ({ children }: { children: ReactNode }) => (
 );
 
 const renderPage = () =>
-  render(<CategoryPage section={section} />, { wrapper });
+  render(<CategoryPage slug="developer-tools" />, { wrapper });
 
 describe('heading', () => {
   it('takes its title and tagline from the section', () => {
@@ -169,5 +174,25 @@ describe('searching', () => {
         screen.getByText(/No results found for/)
       ).toBeInTheDocument()
     );
+  });
+});
+
+describe('rendering', () => {
+  it('leaves the cards on screen alone while a keystroke is pending', async () => {
+    // The grid is filtered on the deferred query and memoised, so a
+    // keystroke's own render must stop before it reaches the cards.
+    const user = userEvent.setup();
+    renderPage();
+    vi.mocked(ResourceCard).mockClear();
+
+    // Matches nothing, so any card render is one the keystroke caused.
+    await user.type(screen.getByLabelText('query'), '¶');
+
+    await waitFor(() =>
+      expect(
+        screen.getByText('No results found for "¶"')
+      ).toBeInTheDocument()
+    );
+    expect(ResourceCard).not.toHaveBeenCalled();
   });
 });

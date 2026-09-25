@@ -78,6 +78,16 @@ describe('tags', () => {
     expect(screen.getByText('ci cd tools')).toBeInTheDocument();
   });
 
+  it('styles each chip with the one tag-chip utility', () => {
+    // Cards render hundreds of chips a page. Spelled out on each chip, the
+    // ~300-byte class list would be a third of a large section page's HTML.
+    renderCard({ ...RESOURCE, tags: ['documentation'] });
+    expect(screen.getByText('documentation')).toHaveAttribute(
+      'class',
+      'tag-chip'
+    );
+  });
+
   it('renders no tag row when there are no tags', () => {
     const { container } = renderCard({
       ...RESOURCE,

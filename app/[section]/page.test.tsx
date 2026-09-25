@@ -1,7 +1,7 @@
 // Covers the one route every section page is generated from: which pages it
 // emits, what each one declares about itself, and what it refuses.
 import { describe, it, expect } from 'vitest';
-import {
+import Page, {
   dynamicParams,
   generateMetadata,
   generateStaticParams,
@@ -41,5 +41,15 @@ describe('metadata', () => {
     await expect(
       generateMetadata(params('no-such-section'))
     ).rejects.toThrow(/No section at/);
+  });
+});
+
+describe('the client boundary', () => {
+  it('hands the client component only the slug, not the section', async () => {
+    // Props crossing into a client component are serialised into the page's
+    // payload. The client bundle already carries the dataset, so passing the
+    // section would ship every one of its resources a second time.
+    const element = await Page(params('developer-tools'));
+    expect(element.props).toEqual({ slug: 'developer-tools' });
   });
 });
