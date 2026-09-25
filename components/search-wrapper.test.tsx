@@ -36,7 +36,7 @@ const renderHome = () =>
     <SearchWrapper>
       <p>home content</p>
     </SearchWrapper>,
-    { wrapper }
+    { wrapper },
   );
 
 describe('before anything is typed', () => {
@@ -44,7 +44,7 @@ describe('before anything is typed', () => {
     renderHome();
     expect(screen.getByText('home content')).toBeInTheDocument();
     expect(
-      screen.queryByRole('heading', { name: 'Search Results' })
+      screen.queryByRole('heading', { name: 'Search Results' }),
     ).not.toBeInTheDocument();
   });
 });
@@ -59,12 +59,14 @@ describe('searching', () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText(new RegExp(`results? for "${target}"`))
-      ).toBeInTheDocument()
+        screen.getByText(new RegExp(`results? for "${target}"`)),
+      ).toBeInTheDocument(),
     );
-    expect(screen.queryByText('home content')).not.toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { level: 3, name: target })
+      screen.queryByText('home content'),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 3, name: target }),
     ).toBeInTheDocument();
   });
 
@@ -76,7 +78,9 @@ describe('searching', () => {
 
     await user.type(searchBox(), 'react');
     await waitFor(() =>
-      expect(screen.getByText(/results? for "react"/)).toBeInTheDocument()
+      expect(
+        screen.getByText(/results? for "react"/),
+      ).toBeInTheDocument(),
     );
     vi.mocked(ResourceCard).mockClear();
 
@@ -85,8 +89,8 @@ describe('searching', () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText('No results found for "react¶"')
-      ).toBeInTheDocument()
+        screen.getByText('No results found for "react¶"'),
+      ).toBeInTheDocument(),
     );
     expect(ResourceCard).not.toHaveBeenCalled();
   });

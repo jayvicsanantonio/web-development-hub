@@ -37,7 +37,7 @@ const searchBox = () =>
 const renderSaved = () => {
   localStorage.setItem(
     'web-dev-hub-bookmarks',
-    JSON.stringify(SAVED.map((link) => link.href))
+    JSON.stringify(SAVED.map((link) => link.href)),
   );
   return render(<BookmarksView />, { wrapper });
 };
@@ -48,13 +48,16 @@ describe('listing', () => {
 
     for (const [index, link] of SAVED.entries()) {
       expect(
-        await screen.findByRole('heading', { level: 3, name: link.title })
+        await screen.findByRole('heading', {
+          level: 3,
+          name: link.title,
+        }),
       ).toBeInTheDocument();
       expect(
         screen.getByRole('heading', {
           level: 2,
           name: SECTIONS[index].title,
-        })
+        }),
       ).toBeInTheDocument();
     }
   });
@@ -64,14 +67,17 @@ describe('searching', () => {
   it('reports a search that matches no bookmark', async () => {
     const user = userEvent.setup();
     renderSaved();
-    await screen.findByRole('heading', { level: 3, name: SAVED[0].title });
+    await screen.findByRole('heading', {
+      level: 3,
+      name: SAVED[0].title,
+    });
 
     await user.type(searchBox(), '¶');
 
     await waitFor(() =>
       expect(
-        screen.getByText('No bookmarks found for "¶"')
-      ).toBeInTheDocument()
+        screen.getByText('No bookmarks found for "¶"'),
+      ).toBeInTheDocument(),
     );
   });
 
@@ -80,7 +86,10 @@ describe('searching', () => {
     // memoised, so a keystroke's own render must stop before the cards.
     const user = userEvent.setup();
     renderSaved();
-    await screen.findByRole('heading', { level: 3, name: SAVED[0].title });
+    await screen.findByRole('heading', {
+      level: 3,
+      name: SAVED[0].title,
+    });
     vi.mocked(ResourceCard).mockClear();
 
     // Matches nothing, so any card render is one the keystroke caused.
@@ -88,8 +97,8 @@ describe('searching', () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText('No bookmarks found for "¶"')
-      ).toBeInTheDocument()
+        screen.getByText('No bookmarks found for "¶"'),
+      ).toBeInTheDocument(),
     );
     expect(ResourceCard).not.toHaveBeenCalled();
   });
