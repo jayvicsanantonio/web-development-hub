@@ -6,10 +6,8 @@ import { SECTIONS } from '@/constants/sections';
 import type { Section } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { toSectionId, toSlug } from '@/lib/utils/navigation';
-import ResourceGrid from '@/components/ui/resource-grid';
+import { SectionPreviewGrid } from '@/components/section-preview-grid';
 import { SearchWrapper } from '@/components/search-wrapper';
-
-const PREVIEW_COUNT = 6;
 
 // Homepage-only call-to-action copy. The section's own title, description,
 // href and links are read from the dataset rather than repeated here.
@@ -22,7 +20,7 @@ const VIEW_ALL_TEXT: Record<string, string> = {
 };
 
 const ResourceSection = ({ section }: { section: Section }) => {
-  const { title, description, href, links } = section;
+  const { title, description, href } = section;
   const viewAllText = VIEW_ALL_TEXT[title] ?? `View all ${title}`;
 
   const formattedTitle = toSlug(title);
@@ -51,7 +49,7 @@ const ResourceSection = ({ section }: { section: Section }) => {
         </h2>
         <p className="text-muted-foreground">{description}</p>
       </div>
-      <ResourceGrid resources={links.slice(0, PREVIEW_COUNT)} />
+      <SectionPreviewGrid slug={href.slice(1)} />
       <div className="flex justify-center" id={skipLinkId}>
         <Link
           href={href}

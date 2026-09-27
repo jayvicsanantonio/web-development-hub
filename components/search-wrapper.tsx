@@ -21,7 +21,7 @@ interface SearchWrapperProps {
 }
 
 export function SearchWrapper({ children }: SearchWrapperProps) {
-  const { searchQuery, deferredQuery, selectedTags } = useSearch();
+  const { deferredQuery, selectedTags } = useSearch();
 
   const filtering = isFiltering(deferredQuery, selectedTags);
 
@@ -54,7 +54,7 @@ export function SearchWrapper({ children }: SearchWrapperProps) {
             Search Results
           </h1>
           <p className="text-muted-foreground">
-            {resultSummary(results.length, searchQuery)}
+            {resultSummary(results.length, deferredQuery)}
           </p>
         </div>
 

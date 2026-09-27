@@ -1,3 +1,5 @@
+// Playwright smoke tests against the built static export, served by wrangler
+// as Cloudflare serves it: routes, headers, payload and the visitor flows.
 import { test, expect } from '@playwright/test';
 import { SECTIONS } from '../constants/sections';
 import { toSectionId } from '../lib/utils/navigation';
@@ -131,6 +133,117 @@ test.describe('icons', () => {
     await page.waitForLoadState('networkidle');
 
     expect(iconRequests).toEqual([]);
+  });
+});
+
+test.describe('payload', () => {
+  // Props a server component hands a client component are serialised into
+  // the page's payload beside the prerendered HTML, and the client bundle
+  // already holds the dataset. So a resource belongs in the HTML only.
+  const PAGES = [
+    // The home page previews the first resources of every section.
+    {
+      path: '/',
+      payload: '/index.txt',
+      links: SECTIONS.map((section) => section.links[0]),
+    },
+    {
+      path: SECTIONS[0].href,
+      payload: `${SECTIONS[0].href}.txt`,
+      links: SECTIONS[0].links,
+    },
+  ];
+
+  for (const { path, payload, links } of PAGES) {
+    test(`${path} carries its resources once, as HTML`, async ({
+      request,
+    }) => {
+      // A description with no quotes or escapes reads the same in the HTML
+      // and in the payload, so a plain substring search finds it in both.
+      const plain = links.find((link) =>
+        /^[\w ,.()-]+$/.test(link.description)
+      );
+      if (!plain) {
+        throw new Error(
+          `No resource on ${path} has a description free of quotes and escapes`
+        );
+      }
+
+      const html = await (await request.get(path)).text();
+      expect(
+        html.split(plain.description).length - 1,
+        'times the description appears in the HTML'
+      ).toBe(1);
+
+      const body = await (await request.get(payload)).text();
+      expect(body).not.toContain(plain.description);
+    });
+  }
+});
+
+test.describe('rendering cost', () => {
+  test('tag chips take their style from the tag-chip utility', async ({
+    page,
+  }) => {
+    // One class in globals.css carries every chip's styling, so a typo there
+    // would leave every chip unstyled without failing the build.
+    await page.goto('/developer-tools');
+    const chip = page.locator('main article .tag-chip').first();
+
+    await expect(chip).toHaveCSS('align-items', 'center');
+    await expect(chip).toHaveCSS('font-size', '12px');
+    await expect(chip).toHaveCSS('padding-left', '10px');
+    await expect(chip).toHaveCSS('border-top-width', '1px');
+    await expect(chip).not.toHaveCSS(
+      'background-color',
+      'rgba(0, 0, 0, 0)'
+    );
+  });
+
+  test('forces no element onto a layer of its own', async ({ page }) => {
+    // A standing transform or will-change hint keeps an element on its own
+    // compositor layer whether or not it is animating. The browser promotes
+    // an element itself while it animates, so at rest none should need one.
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/');
+    await page
+      .locator('button[aria-label^="Filter resources"]:visible')
+      .first()
+      .click();
+    await expect(
+      page.locator('h2', { hasText: 'Filter by Tags' })
+    ).toBeVisible();
+
+    // Polled so the panel's opening animation has finished.
+    await expect
+      .poll(() =>
+        page.evaluate(() =>
+          [...document.querySelectorAll('body *')]
+            .filter((element) => {
+              const style = getComputedStyle(element);
+              return (
+                style.transform !== 'none' || style.willChange !== 'auto'
+              );
+            })
+            .map(
+              (element) =>
+                `<${element.tagName.toLowerCase()}> ${element.textContent
+                  ?.trim()
+                  .slice(0, 24)}`
+            )
+        )
+      )
+      .toEqual([]);
+  });
+
+  test('a card animates its lift, not its colours', async ({ page }) => {
+    // A transition on every property would fade the colours of a whole
+    // section page of cards at once whenever the theme is toggled.
+    await page.goto('/developer-tools');
+    await expect(page.locator('main article').first()).toHaveCSS(
+      'transition-property',
+      'box-shadow, scale'
+    );
   });
 });
 

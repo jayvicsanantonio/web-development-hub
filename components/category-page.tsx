@@ -5,11 +5,12 @@
 import { useMemo } from 'react';
 import ResourceGrid from '@/components/ui/resource-grid';
 import { useSearch } from '@/contexts/search-context';
+import { sectionBySlug } from '@/constants/sections';
 import { filterResources, isFiltering } from '@/lib/utils/search';
-import type { Section } from '@/lib/types';
 
-export function CategoryPage({ section }: { section: Section }) {
-  const { searchQuery, deferredQuery, selectedTags } = useSearch();
+export function CategoryPage({ slug }: { slug: string }) {
+  const section = sectionBySlug(slug);
+  const { deferredQuery, selectedTags } = useSearch();
 
   const filtering = isFiltering(deferredQuery, selectedTags);
 
@@ -33,7 +34,7 @@ export function CategoryPage({ section }: { section: Section }) {
       <ResourceGrid
         resources={displayedResources}
         filtering={filtering}
-        query={searchQuery}
+        query={deferredQuery}
       />
     </div>
   );
