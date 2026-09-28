@@ -8,7 +8,7 @@ describe('RETIRED_HREFS', () => {
   it('points every old href at a resource that exists', () => {
     const ids = new Set(ALL_RESOURCES.map((r) => r.id));
     const dangling = Object.entries(RETIRED_HREFS).filter(
-      ([, id]) => !ids.has(id)
+      ([, id]) => !ids.has(id),
     );
     expect(dangling).toEqual([]);
   });
@@ -18,7 +18,7 @@ describe('RETIRED_HREFS', () => {
     // weight or, pointing elsewhere, a second answer for the same href.
     const current = new Set(ALL_RESOURCES.map((r) => r.href));
     const live = Object.keys(RETIRED_HREFS).filter((href) =>
-      current.has(href)
+      current.has(href),
     );
     expect(live).toEqual([]);
   });

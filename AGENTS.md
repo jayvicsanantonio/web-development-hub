@@ -72,8 +72,12 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
 
 ### State Management
 - React Context for global state, with each provider kept small:
-  - `BookmarksProvider` - the saved hrefs, persisted to localStorage and
-    resolved against the dataset, so a bookmark shows the current entry
+  - `BookmarksProvider` - the saved resource ids, resolved against the
+    dataset so a bookmark shows the current entry. It reads them through
+    `lib/bookmarks-store.ts`, which keeps localStorage as the source of truth:
+    every change applies to what storage holds now, other tabs' changes
+    arrive through the `storage` event, and an entry that no longer resolves
+    stays stored rather than being dropped
   - `SearchProvider` - the query, the selected tags and the filter panel's
     state. It holds the request, not the answer: each view filters its own
     list with `filterResources()` from `lib/utils/search.ts`. Views render

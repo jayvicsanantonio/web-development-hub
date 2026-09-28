@@ -50,7 +50,7 @@ export default function ResourceCard({
           </h3>
         </div>
         <BookmarkButton
-          href={resource.href}
+          resourceId={resource.id}
           title={resource.title}
           size="md"
           className="relative z-10"

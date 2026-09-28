@@ -10,6 +10,7 @@ import {
 import userEvent from '@testing-library/user-event';
 import ResourceCard from './resource-card';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
+import { STORAGE_KEY } from '@/lib/bookmarks-store';
 import type { ResourceLink } from '@/lib/types';
 
 const RESOURCE: ResourceLink = {
@@ -119,7 +120,7 @@ describe('bookmarking', () => {
     ).toBeInTheDocument();
   });
 
-  it('saves the resource by its href', async () => {
+  it('saves the resource by its id', async () => {
     const user = userEvent.setup();
     renderCard();
 
@@ -129,8 +130,8 @@ describe('bookmarking', () => {
 
     await waitFor(() =>
       expect(
-        JSON.parse(localStorage.getItem('web-dev-hub-bookmarks') ?? '[]')
-      ).toEqual([RESOURCE.href])
+        JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]')
+      ).toEqual([RESOURCE.id])
     );
   });
 });

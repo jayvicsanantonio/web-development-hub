@@ -16,6 +16,7 @@ import ResourceCard from '@/components/ui/resource-card';
 import { BookmarksView } from './bookmarks-view';
 import { SearchInput } from '@/components/ui/search-input';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
+import { STORAGE_KEY } from '@/lib/bookmarks-store';
 import { SearchProvider } from '@/contexts/search-context';
 import { SECTIONS } from '@/constants/sections';
 
@@ -36,8 +37,8 @@ const searchBox = () =>
 
 const renderSaved = () => {
   localStorage.setItem(
-    'web-dev-hub-bookmarks',
-    JSON.stringify(SAVED.map((link) => link.href)),
+    STORAGE_KEY,
+    JSON.stringify(SAVED.map((link) => link.id)),
   );
   return render(<BookmarksView />, { wrapper });
 };
