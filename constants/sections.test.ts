@@ -10,10 +10,23 @@ const allResources = SECTIONS.flatMap((section) =>
 );
 
 describe('resource dataset integrity', () => {
+  it('gives every resource a unique id in the permanent format', () => {
+    // Bookmarks are stored by id and a card's DOM id is built from it, so a
+    // duplicate would merge two resources in both places.
+    const ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+    const malformed = allResources
+      .filter((r) => !ID.test(r.id))
+      .map((r) => `${r.title}: ${r.id}`);
+    expect(malformed).toEqual([]);
+
+    const ids = allResources.map((r) => r.id);
+    expect(ids).toHaveLength(new Set(ids).size);
+  });
+
   it('has no duplicate hrefs', () => {
-    // A resource's href is both its React list key and its bookmark identity,
-    // so a duplicate collides in reconciliation and in localStorage. Shipped
-    // once, as two entries for https://ai-sdk.dev/.
+    // Two entries for one page would list it twice, and a bookmark saved by
+    // that href before ids existed could resolve to either. Shipped once, as
+    // two entries for https://ai-sdk.dev/.
     const seen = new Map<string, string[]>();
     for (const r of allResources) {
       seen.set(r.href, [...(seen.get(r.href) ?? []), r.title]);
@@ -35,8 +48,8 @@ describe('resource dataset integrity', () => {
   });
 
   it('has no duplicate titles', () => {
-    // A card's DOM id is its slugged title, so two resources sharing one would
-    // render two elements with the same id on any page listing both.
+    // Two cards with one title cannot be told apart, least of all by someone
+    // moving between cards by their headings.
     const titles = allResources.map((r) => r.title);
     expect(titles).toHaveLength(new Set(titles).size);
   });

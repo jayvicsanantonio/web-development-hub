@@ -13,6 +13,7 @@ import { BookmarksProvider } from '@/contexts/bookmarks-context';
 import type { ResourceLink } from '@/lib/types';
 
 const RESOURCE: ResourceLink = {
+  id: 'mdn-web-docs',
   title: 'MDN Web Docs',
   href: 'https://developer.mozilla.org/',
   icon: 'simple-icons:mdnwebdocs',
@@ -54,11 +55,13 @@ describe('content', () => {
     );
   });
 
-  it('gives the card a slugged id to address it by', () => {
-    renderCard();
+  it('addresses the card by the resource id', () => {
+    // Not the slugged title: titles like 'shadcn/ui' and 'r/webdev' made ids
+    // no CSS selector could match, and a rename changed the anchor.
+    renderCard({ ...RESOURCE, id: 'shadcn-ui', title: 'shadcn/ui' });
     expect(screen.getByRole('article')).toHaveAttribute(
       'id',
-      'mdn-web-docs'
+      'shadcn-ui'
     );
   });
 });

@@ -5,7 +5,6 @@
 import React from 'react';
 import { Icon } from '@/lib/icons';
 import { BookmarkButton } from '@/components/ui/bookmark-button';
-import { generateResourceId } from '@/lib/utils/resource-card';
 import { getTagIconName } from '@/lib/utils/tag-icons';
 import type { ResourceLink } from '@/lib/types';
 
@@ -16,7 +15,7 @@ type ResourceCardProps = {
 export default function ResourceCard({
   resource,
 }: ResourceCardProps) {
-  const resourceId = generateResourceId(resource.title);
+  const resourceId = resource.id;
 
   return (
     <article

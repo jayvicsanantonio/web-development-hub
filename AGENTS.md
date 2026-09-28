@@ -95,6 +95,13 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
   is a data-only change
 - Every resource and section carries its own Iconify `icon`. The field is
   required, so an entry without one fails typecheck
+- Every resource has a permanent `id` (lowercase words joined by hyphens).
+  Bookmarks are stored by it and a card's DOM id is built from it, so never
+  change or reuse one, even when the title or href changes. A new resource
+  takes its id from its title
+- When a resource's `href` changes, add the old href to
+  `constants/retired-hrefs.ts`, mapped to the resource's id: bookmarks saved
+  before ids existed are stored by href and find their resource through it
 - Shared shapes (`Section`, `ResourceLink`, `Resource`) live in
   `lib/types.ts`; do not redeclare them per file
 - Utility functions in `/lib/utils/` and `/lib/utils.ts`

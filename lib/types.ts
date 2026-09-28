@@ -2,6 +2,12 @@
 // SECTIONS is checked against these, so a malformed entry fails typecheck.
 
 export type ResourceLink = {
+  /**
+   * Permanent: bookmarks are stored by it, so it must never change or be
+   * reused, even when the resource's title or href does. Lowercase words
+   * joined by hyphens, such as `mdn-web-docs`.
+   */
+  id: string;
   title: string;
   href: string;
   /** An Iconify icon name, such as `simple-icons:react`. */
