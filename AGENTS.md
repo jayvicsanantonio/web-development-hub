@@ -9,6 +9,8 @@ directly.
 ### Development
 - `pnpm dev` - Start development server with Turbopack
 - `pnpm build` - Build the static export to `out/`
+- `pnpm build:checked` - Lint, type-check and run Vitest, then build. The
+  Workers Builds build command (see Deployment below)
 - `pnpm lint` - Run ESLint over the whole repo (flat config, warnings fail);
   `pnpm lint --fix` applies the automatic fixes
 - `pnpm format` - Format with Prettier
@@ -153,13 +155,20 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
   `cloudflare-workers-and-pages` bot
 - Preview URLs are `<branch>-web-development-hub.hi-00e.workers.dev`. A version
   is not a deployment, so a preview cannot shift production traffic
-- The build command lives in the Cloudflare dashboard, not in this repo. The
+- The build command lives in the Cloudflare dashboard, not in this repo, and
+  should be `pnpm build:checked`: lint, typecheck and Vitest, then the build.
+  A commit that fails them then gets no version, preview or production. The
   Worker's own config - assets, routes, custom domain - still comes from
   `wrangler.jsonc`, so only the build step is dashboard state
-- `.github/workflows/ci.yml` deploys nothing. It is the test gate: lint,
-  typecheck, Vitest, the static-export check and the Playwright suite. Workers
-  Builds runs none of these, so a red CI job is the only thing standing
-  between a broken commit and production
+- `.github/workflows/ci.yml` deploys nothing. It runs lint, typecheck,
+  Vitest, the static-export check and the Playwright suite on every pull
+  request and every push to `main`. Workers Builds does not wait for it:
+  every push to `main` deploys, and CI on `main` runs alongside that deploy
+  rather than before it. CI gates production only when a ruleset on `main`
+  requires a pull request whose `build` check has passed. That ruleset is
+  repository settings, like the build command, and neither shows in code
+- The Playwright suite runs only in CI, since Workers Builds has no browser,
+  so only the ruleset keeps an end-to-end failure out of production
 - Security headers live in `public/_headers`, which Workers parses natively
 - `public/sw.js` is not a working service worker. It removes itself: browsers
   that registered a worker at that path pick it up on their next update check,

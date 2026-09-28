@@ -5,9 +5,11 @@ name: CI
 # webdevhub.link, and every other branch is uploaded as a Worker version and
 # gets its preview URLs posted to the pull request.
 #
-# So nothing here deploys. What it does is fail a pull request that Workers
-# Builds would happily ship, because Workers Builds runs the build and
-# nothing else - no lint, no typecheck, no tests.
+# So nothing here deploys, and Workers Builds does not wait for this
+# workflow. What it does is fail a pull request, which keeps it out of
+# production only when a ruleset on main requires this job's `build` check
+# before merging. Workers Builds' build command, `pnpm build:checked`,
+# repeats lint, typecheck and Vitest; the Playwright suite runs only here.
 
 on:
   push:
@@ -16,7 +18,9 @@ on:
 
 concurrency:
   group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  # A newer push supersedes a pull request's run. On main every push deploys,
+  # so each one keeps its own result rather than being cancelled by the next.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
