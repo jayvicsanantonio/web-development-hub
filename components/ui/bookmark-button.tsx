@@ -7,14 +7,15 @@ import { cn } from '@/lib/utils';
 import { useBookmarks } from '@/contexts/bookmarks-context';
 
 interface BookmarkButtonProps {
-  href: string;
+  /** What a bookmark stores. */
+  resourceId: string;
   title: string;
   className?: string;
   size?: 'sm' | 'md' | 'lg';
 }
 
 export function BookmarkButton({
-  href,
+  resourceId,
   title,
   className,
   size = 'md',
@@ -25,7 +26,7 @@ export function BookmarkButton({
     removeBookmark: removeFavorite,
   } = useBookmarks();
 
-  const isBookmarked = isFavorite(href);
+  const isBookmarked = isFavorite(resourceId);
 
   const handleToggleBookmark = (
     e: React.MouseEvent<HTMLButtonElement>
@@ -34,9 +35,9 @@ export function BookmarkButton({
     e.stopPropagation();
 
     if (isBookmarked) {
-      removeFavorite(href);
+      removeFavorite(resourceId);
     } else {
-      addFavorite(href);
+      addFavorite(resourceId);
     }
   };
 

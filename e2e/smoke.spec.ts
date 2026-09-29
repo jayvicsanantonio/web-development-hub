@@ -2,6 +2,7 @@
 // as Cloudflare serves it: routes, headers, payload and the visitor flows.
 import { test, expect } from '@playwright/test';
 import { SECTIONS } from '../constants/sections';
+import { LEGACY_STORAGE_KEY } from '../lib/bookmarks-store';
 import { toSectionId } from '../lib/utils/navigation';
 
 // Section pages come from the dataset, so a section added there is checked
@@ -517,5 +518,56 @@ test.describe('bookmarks', () => {
     await expect(page.locator('a[href^="http"]')).toHaveCount(
       afterAdd
     );
+  });
+
+  test('a bookmark saved in one tab shows in another without a reload', async ({
+    context,
+  }) => {
+    // Two pages of one context share localStorage and receive each other's
+    // storage events, as two tabs do.
+    const { title } = SECTIONS[0].links[0];
+    const [saving, watching] = [
+      await context.newPage(),
+      await context.newPage(),
+    ];
+    for (const tab of [saving, watching]) {
+      await tab.goto('/');
+      await tab.waitForLoadState('networkidle');
+    }
+
+    await saving
+      .getByRole('button', {
+        name: `Add ${title} to bookmarks`,
+        exact: true,
+      })
+      .click();
+
+    await expect(
+      watching.getByRole('button', {
+        name: `Remove ${title} from bookmarks`,
+        exact: true,
+      })
+    ).toBeVisible();
+  });
+
+  test('a bookmark saved by href before a link moved still shows', async ({
+    page,
+  }) => {
+    // Earlier versions stored hrefs, and Claude Docs has since moved from
+    // docs.claude.com. Loading one of these used to delete it.
+    await page.goto('/bookmarks');
+    await page.evaluate(
+      (key) =>
+        localStorage.setItem(
+          key,
+          JSON.stringify(['https://docs.claude.com/'])
+        ),
+      LEGACY_STORAGE_KEY
+    );
+    await page.reload();
+
+    await expect(
+      page.getByRole('link', { name: 'Claude Docs', exact: true })
+    ).toBeVisible();
   });
 });

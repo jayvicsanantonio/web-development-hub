@@ -44,9 +44,17 @@ jobs:
 
       - name: Check every resource URL
         id: check
+        # An explicit `bash` runs with -o pipefail. The default shell does not,
+        # so the pipe into tee reported tee's exit status and a run with broken
+        # links passed.
+        shell: bash
+        # Passed through the environment rather than interpolated into the
+        # script, where a crafted input would run as shell.
+        env:
+          SECTION: ${{ inputs.section }}
         run: |
-          if [ -n "${{ inputs.section }}" ]; then
-            pnpm check:links --section "${{ inputs.section }}" | tee report.txt
+          if [ -n "$SECTION" ]; then
+            pnpm check:links --section "$SECTION" | tee report.txt
           else
             pnpm check:links | tee report.txt
           fi
@@ -61,13 +69,17 @@ jobs:
 
       # The script exits non-zero only for genuinely broken links; 403/429
       # bot-protection responses are reported as inconclusive and ignored.
+      # Keyed on the check step itself, so a failed install or checkout does
+      # not file a link-rot issue.
       - name: Open an issue for broken links
-        if: failure() && github.event_name == 'schedule'
+        if: failure() && steps.check.outcome == 'failure' && github.event_name == 'schedule'
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
-            const report = fs.readFileSync('report.txt', 'utf8');
+            const report = fs.existsSync('report.txt')
+              ? fs.readFileSync('report.txt', 'utf8')
+              : '(the check wrote no report)';
             const broken = report
               .split('\n')
               .filter((line) => line.includes('[BROKEN]'))

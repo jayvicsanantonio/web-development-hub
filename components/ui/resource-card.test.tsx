@@ -10,9 +10,11 @@ import {
 import userEvent from '@testing-library/user-event';
 import ResourceCard from './resource-card';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
+import { STORAGE_KEY } from '@/lib/bookmarks-store';
 import type { ResourceLink } from '@/lib/types';
 
 const RESOURCE: ResourceLink = {
+  id: 'mdn-web-docs',
   title: 'MDN Web Docs',
   href: 'https://developer.mozilla.org/',
   icon: 'simple-icons:mdnwebdocs',
@@ -54,11 +56,13 @@ describe('content', () => {
     );
   });
 
-  it('gives the card a slugged id to address it by', () => {
-    renderCard();
+  it('addresses the card by the resource id', () => {
+    // Not the slugged title: titles like 'shadcn/ui' and 'r/webdev' made ids
+    // no CSS selector could match, and a rename changed the anchor.
+    renderCard({ ...RESOURCE, id: 'shadcn-ui', title: 'shadcn/ui' });
     expect(screen.getByRole('article')).toHaveAttribute(
       'id',
-      'mdn-web-docs'
+      'shadcn-ui'
     );
   });
 });
@@ -116,7 +120,7 @@ describe('bookmarking', () => {
     ).toBeInTheDocument();
   });
 
-  it('saves the resource by its href', async () => {
+  it('saves the resource by its id', async () => {
     const user = userEvent.setup();
     renderCard();
 
@@ -126,8 +130,8 @@ describe('bookmarking', () => {
 
     await waitFor(() =>
       expect(
-        JSON.parse(localStorage.getItem('web-dev-hub-bookmarks') ?? '[]')
-      ).toEqual([RESOURCE.href])
+        JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]')
+      ).toEqual([RESOURCE.id])
     );
   });
 });

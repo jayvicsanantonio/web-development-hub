@@ -11,6 +11,7 @@ export const SECTIONS = [
       'Start or advance your web development journey with these educational resources',
     links: [
       {
+        id: 'master-dev',
         title: 'Master.dev',
         href: 'https://master.dev/',
         icon: 'mdi:school-outline',
@@ -27,6 +28,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'epic-web',
         title: 'Epic Web',
         href: 'https://epicweb.dev/',
         icon: 'simple-icons:rocket',
@@ -44,6 +46,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'mdn-web-docs',
         title: 'MDN Web Docs',
         href: 'https://developer.mozilla.org/',
         icon: 'simple-icons:mdnwebdocs',
@@ -60,6 +63,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'freecodecamp',
         title: 'FreeCodeCamp',
         href: 'https://www.freecodecamp.org/',
         icon: 'simple-icons:freecodecamp',
@@ -76,6 +80,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'codecademy',
         title: 'Codecademy',
         href: 'https://www.codecademy.com/',
         icon: 'simple-icons:codecademy',
@@ -92,6 +97,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'web-dev',
         title: 'web.dev',
         href: 'https://web.dev/',
         icon: 'simple-icons:google',
@@ -108,6 +114,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'testing-javascript',
         title: 'Testing JavaScript',
         href: 'https://www.testingjavascript.com/',
         icon: 'simple-icons:testinglibrary',
@@ -123,6 +130,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'epic-react',
         title: 'Epic React',
         href: 'https://www.epicreact.dev/',
         icon: 'simple-icons:react',
@@ -139,6 +147,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'great-frontend',
         title: 'Great Frontend',
         href: 'https://www.greatfrontend.com/',
         icon: 'simple-icons:frontendmentor',
@@ -155,6 +164,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'design-gurus',
         title: 'Design Gurus',
         href: 'https://www.designgurus.io/',
         icon: 'mdi:pencil-ruler',
@@ -170,6 +180,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'codetv',
         title: 'CodeTV',
         href: 'https://codetv.dev/',
         icon: 'mdi:television-play',
@@ -186,6 +197,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'css-tricks',
         title: 'CSS-Tricks',
         href: 'https://css-tricks.com/',
         icon: 'simple-icons:css3',
@@ -203,6 +215,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'smashing-magazine',
         title: 'Smashing Magazine',
         href: 'https://www.smashingmagazine.com/',
         icon: 'simple-icons:smashingmagazine',
@@ -219,6 +232,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'frontend-at-scale',
         title: 'Frontend At Scale',
         href: 'https://frontendatscale.com/',
         icon: 'mdi:scale-balance',
@@ -234,6 +248,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'frontend-interview-handbook',
         title: 'Frontend Interview Handbook',
         href: 'https://www.frontendinterviewhandbook.com/',
         icon: 'mdi:book-open-page-variant',
@@ -250,6 +265,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'leetcode',
         title: 'LeetCode',
         href: 'https://leetcode.com/',
         icon: 'simple-icons:leetcode',
@@ -266,6 +282,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'algoexpert',
         title: 'AlgoExpert',
         href: 'https://www.algoexpert.io/',
         icon: 'mdi:brain',
@@ -282,6 +299,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'system-design-primer',
         title: 'System Design Primer',
         href: 'https://github.com/donnemartin/system-design-primer',
         icon: 'mdi:file-document',
@@ -297,6 +315,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'javascript-info',
         title: 'JavaScript.info',
         href: 'https://javascript.info/',
         icon: 'mdi:language-javascript',
@@ -312,6 +331,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'react-tutorial',
         title: 'React Tutorial',
         href: 'https://react.dev/learn',
         icon: 'simple-icons:react',
@@ -327,6 +347,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'typescript-handbook',
         title: 'TypeScript Handbook',
         href: 'https://www.typescriptlang.org/docs/',
         icon: 'simple-icons:typescript',
@@ -342,6 +363,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'css-reference',
         title: 'CSS Reference',
         href: 'https://cssreference.io/',
         icon: 'simple-icons:css3',
@@ -357,6 +379,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'html-reference',
         title: 'HTML Reference',
         href: 'https://htmlreference.io/',
         icon: 'simple-icons:html5',
@@ -371,6 +394,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'web-dev-learn',
         title: 'Web.dev Learn',
         href: 'https://web.dev/learn/',
         icon: 'simple-icons:google',
@@ -388,6 +412,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'frontend-mentor',
         title: 'Frontend Mentor',
         href: 'https://www.frontendmentor.io/',
         icon: 'simple-icons:frontendmentor',
@@ -405,6 +430,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'codewars',
         title: 'Codewars',
         href: 'https://www.codewars.com/',
         icon: 'simple-icons:codewars',
@@ -420,6 +446,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'exercism',
         title: 'Exercism',
         href: 'https://exercism.org/',
         icon: 'simple-icons:exercism',
@@ -435,6 +462,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'the-odin-project',
         title: 'The Odin Project',
         href: 'https://www.theodinproject.com/',
         icon: 'simple-icons:odin',
@@ -451,6 +479,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'full-stack-open',
         title: 'Full Stack Open',
         href: 'https://fullstackopen.com/',
         icon: 'mdi:code-braces',
@@ -468,6 +497,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'javascript30',
         title: 'JavaScript30',
         href: 'https://javascript30.com/',
         icon: 'mdi:language-javascript',
@@ -483,6 +513,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'css-grid-garden',
         title: 'CSS Grid Garden',
         href: 'https://cssgridgarden.com/',
         icon: 'mdi:grid',
@@ -497,6 +528,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'flexbox-froggy',
         title: 'Flexbox Froggy',
         href: 'https://flexboxfroggy.com/',
         icon: 'simple-icons:css3',
@@ -511,6 +543,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'ai-tutor',
         title: 'AI Tutor',
         href: 'https://roadmap.sh/ai',
         icon: 'mdi:robot-happy',
@@ -526,6 +559,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'roadmap-sh',
         title: 'roadmap.sh',
         href: 'https://roadmap.sh/',
         icon: 'mdi:map-marker-path',
@@ -542,6 +576,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'total-typescript',
         title: 'Total TypeScript',
         href: 'https://www.totaltypescript.com/',
         icon: 'simple-icons:typescript',
@@ -558,6 +593,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'patterns-dev',
         title: 'Patterns.dev',
         href: 'https://www.patterns.dev/',
         icon: 'mdi:puzzle-outline',
@@ -574,6 +610,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'scrimba',
         title: 'Scrimba',
         href: 'https://scrimba.com/',
         icon: 'mdi:play-box-outline',
@@ -591,6 +628,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'josh-w-comeau-courses',
         title: 'Josh W. Comeau Courses',
         href: 'https://www.joshwcomeau.com/courses/',
         icon: 'mdi:palette-outline',
@@ -607,6 +645,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'practical-accessibility',
         title: 'Practical Accessibility',
         href: 'https://practical-accessibility.today/',
         icon: 'mdi:human',
@@ -623,6 +662,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'the-a11y-project',
         title: 'The A11Y Project',
         href: 'https://www.a11yproject.com/',
         icon: 'mdi:checkbox-marked-circle-outline',
@@ -638,6 +678,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'defensive-css',
         title: 'Defensive CSS',
         href: 'https://defensivecss.dev/',
         icon: 'mdi:shield-outline',
@@ -653,6 +694,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'learn-git-branching',
         title: 'Learn Git Branching',
         href: 'https://learngitbranching.js.org/',
         icon: 'simple-icons:git',
@@ -668,6 +710,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'bfe-dev',
         title: 'BFE.dev',
         href: 'https://bigfrontend.dev/',
         icon: 'mdi:code-tags-check',
@@ -685,6 +728,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'neetcode',
         title: 'NeetCode',
         href: 'https://neetcode.io/',
         icon: 'mdi:sitemap-outline',
@@ -701,6 +745,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'anthropic-academy',
         title: 'Anthropic Academy',
         href: 'https://academy.claude.com/',
         icon: 'simple-icons:anthropic',
@@ -716,6 +761,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'claude-docs',
         title: 'Claude Docs',
         href: 'https://platform.claude.com/docs',
         icon: 'simple-icons:claude',
@@ -731,6 +777,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'deeplearning-ai',
         title: 'DeepLearning.AI',
         href: 'https://www.deeplearning.ai/',
         icon: 'mdi:school',
@@ -746,6 +793,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'hugging-face-learn',
         title: 'Hugging Face Learn',
         href: 'https://huggingface.co/learn',
         icon: 'simple-icons:huggingface',
@@ -761,6 +809,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'prompt-engineering-guide',
         title: 'Prompt Engineering Guide',
         href: 'https://www.promptingguide.ai/',
         icon: 'mdi:message-text-outline',
@@ -776,6 +825,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'openai-cookbook',
         title: 'OpenAI Cookbook',
         href: 'https://developers.openai.com/cookbook',
         icon: 'simple-icons:openai',
@@ -791,6 +841,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'claude-cookbooks',
         title: 'Claude Cookbooks',
         href: 'https://github.com/anthropics/claude-cookbooks',
         icon: 'simple-icons:anthropic',
@@ -806,6 +857,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'openai-platform-docs',
         title: 'OpenAI Platform Docs',
         href: 'https://developers.openai.com/api/docs',
         icon: 'simple-icons:openai',
@@ -822,6 +874,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'gemini-api-docs',
         title: 'Gemini API Docs',
         href: 'https://ai.google.dev/gemini-api/docs',
         icon: 'simple-icons:googlegemini',
@@ -838,6 +891,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'gemini-cookbook',
         title: 'Gemini Cookbook',
         href: 'https://github.com/google-gemini/cookbook',
         icon: 'simple-icons:googlegemini',
@@ -853,6 +907,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'mistral-ai-docs',
         title: 'Mistral AI Docs',
         href: 'https://docs.mistral.ai/',
         icon: 'simple-icons:mistralai',
@@ -869,6 +924,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'grok-api-docs',
         title: 'Grok API Docs',
         href: 'https://docs.x.ai/',
         icon: 'simple-icons:x',
@@ -884,6 +940,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'deepseek-api-docs',
         title: 'DeepSeek API Docs',
         href: 'https://api-docs.deepseek.com/',
         icon: 'simple-icons:deepseek',
@@ -899,6 +956,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'cohere-docs',
         title: 'Cohere Docs',
         href: 'https://docs.cohere.com/',
         icon: 'mdi:alpha-c-circle-outline',
@@ -914,6 +972,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'hugging-face-transformers',
         title: 'Hugging Face Transformers',
         href: 'https://huggingface.co/docs/transformers',
         icon: 'simple-icons:huggingface',
@@ -930,6 +989,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'microsoft-foundry-docs',
         title: 'Microsoft Foundry Docs',
         href: 'https://learn.microsoft.com/en-us/azure/foundry/',
         icon: 'mdi:microsoft-azure',
@@ -945,6 +1005,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'pytorch-tutorials',
         title: 'PyTorch Tutorials',
         href: 'https://docs.pytorch.org/tutorials/',
         icon: 'simple-icons:pytorch',
@@ -961,6 +1022,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'model-context-protocol',
         title: 'Model Context Protocol',
         href: 'https://modelcontextprotocol.io/',
         icon: 'mdi:transit-connection-variant',
@@ -977,6 +1039,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'agents-md',
         title: 'AGENTS.md',
         href: 'https://agents.md/',
         icon: 'mdi:file-document-edit-outline',
@@ -993,6 +1056,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'agent-skills',
         title: 'Agent Skills',
         href: 'https://agentskills.io/',
         icon: 'mdi:puzzle-outline',
@@ -1009,6 +1073,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'claude-code-docs',
         title: 'Claude Code Docs',
         href: 'https://code.claude.com/docs/en/overview',
         icon: 'simple-icons:anthropic',
@@ -1025,6 +1090,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'cursor-docs',
         title: 'Cursor Docs',
         href: 'https://cursor.com/docs',
         icon: 'simple-icons:cursor',
@@ -1041,6 +1107,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'github-copilot-docs',
         title: 'GitHub Copilot Docs',
         href: 'https://docs.github.com/en/copilot',
         icon: 'simple-icons:githubcopilot',
@@ -1057,6 +1124,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'codex-docs',
         title: 'Codex Docs',
         href: 'https://learn.chatgpt.com/docs/codex/cli',
         icon: 'simple-icons:openai',
@@ -1073,6 +1141,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'aider-docs',
         title: 'Aider Docs',
         href: 'https://aider.chat/docs/',
         icon: 'mdi:console',
@@ -1089,6 +1158,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'cline-docs',
         title: 'Cline Docs',
         href: 'https://docs.cline.bot/',
         icon: 'mdi:robot-excited',
@@ -1105,6 +1175,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'continue-docs',
         title: 'Continue Docs',
         href: 'https://docs.continue.dev/',
         icon: 'mdi:arrow-right-circle-outline',
@@ -1121,6 +1192,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'opencode-docs',
         title: 'OpenCode Docs',
         href: 'https://opencode.ai/docs/',
         icon: 'simple-icons:opencode',
@@ -1137,6 +1209,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'kiro-docs',
         title: 'Kiro Docs',
         href: 'https://kiro.dev/docs/',
         icon: 'mdi:robot-industrial',
@@ -1153,6 +1226,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'ollama-docs',
         title: 'Ollama Docs',
         href: 'https://docs.ollama.com/',
         icon: 'simple-icons:ollama',
@@ -1169,6 +1243,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'langfuse-docs',
         title: 'Langfuse Docs',
         href: 'https://langfuse.com/docs',
         icon: 'mdi:chart-timeline-variant-shimmer',
@@ -1185,6 +1260,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'fast-ai',
         title: 'fast.ai',
         href: 'https://www.fast.ai/',
         icon: 'mdi:rocket-launch-outline',
@@ -1200,6 +1276,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'web-platform-status',
         title: 'Web Platform Status',
         href: 'https://webstatus.dev/',
         icon: 'mdi:chart-timeline-variant',
@@ -1216,6 +1293,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'codecrafters',
         title: 'CodeCrafters',
         href: 'https://codecrafters.io/',
         icon: 'mdi:hammer-wrench',
@@ -1231,6 +1309,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'next-js-learn',
         title: 'Next.js Learn',
         href: 'https://nextjs.org/learn',
         icon: 'simple-icons:nextdotjs',
@@ -1247,6 +1326,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'svelte-tutorial',
         title: 'Svelte Tutorial',
         href: 'https://svelte.dev/tutorial',
         icon: 'simple-icons:svelte',
@@ -1262,6 +1342,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'can-i-use',
         title: 'Can I Use',
         href: 'https://caniuse.com/',
         icon: 'mdi:table-check',
@@ -1277,6 +1358,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'mdn-curriculum',
         title: 'MDN Curriculum',
         href: 'https://developer.mozilla.org/en-US/curriculum/',
         icon: 'simple-icons:mdnwebdocs',
@@ -1293,6 +1375,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'state-of-js',
         title: 'State of JS',
         href: 'https://stateofjs.com/',
         icon: 'mdi:poll',
@@ -1307,6 +1390,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'web-almanac',
         title: 'Web Almanac',
         href: 'https://almanac.httparchive.org/',
         icon: 'mdi:book-open-variant',
@@ -1321,6 +1405,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'tc39-proposals',
         title: 'TC39 Proposals',
         href: 'https://github.com/tc39/proposals',
         icon: 'simple-icons:javascript',
@@ -1336,6 +1421,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'fireship',
         title: 'Fireship',
         href: 'https://fireship.dev/',
         icon: 'mdi:fire',
@@ -1351,6 +1437,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'kevin-powell',
         title: 'Kevin Powell',
         href: 'https://www.kevinpowell.co/',
         icon: 'mdi:account',
@@ -1366,6 +1453,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'every-layout',
         title: 'Every Layout',
         href: 'https://every-layout.dev/',
         icon: 'mdi:view-grid-outline',
@@ -1381,6 +1469,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'the-copenhagen-book',
         title: 'The Copenhagen Book',
         href: 'https://thecopenhagenbook.com/',
         icon: 'mdi:shield-key-outline',
@@ -1396,6 +1485,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'advent-of-code',
         title: 'Advent of Code',
         href: 'https://adventofcode.com/',
         icon: 'mdi:pine-tree',
@@ -1419,6 +1509,7 @@ export const SECTIONS = [
       'Essential tools to streamline your development workflow',
     links: [
       {
+        id: 'visual-studio-code',
         title: 'Visual Studio Code',
         href: 'https://code.visualstudio.com/',
         icon: 'simple-icons:visualstudiocode',
@@ -1436,6 +1527,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'github',
         title: 'GitHub',
         href: 'https://github.com/',
         icon: 'simple-icons:github',
@@ -1451,6 +1543,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'figma',
         title: 'Figma',
         href: 'https://www.figma.com/',
         icon: 'simple-icons:figma',
@@ -1466,6 +1559,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'vercel',
         title: 'Vercel',
         href: 'https://vercel.com/',
         icon: 'simple-icons:vercel',
@@ -1481,6 +1575,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'amazon-web-services',
         title: 'Amazon Web Services',
         href: 'https://aws.amazon.com/',
         icon: 'simple-icons:amazonaws',
@@ -1496,6 +1591,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'google-cloud',
         title: 'Google Cloud',
         href: 'https://cloud.google.com/',
         icon: 'simple-icons:googlecloud',
@@ -1512,6 +1608,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'unsplash',
         title: 'Unsplash',
         href: 'https://unsplash.com/',
         icon: 'simple-icons:unsplash',
@@ -1520,6 +1617,7 @@ export const SECTIONS = [
         tags: ['design', 'free', 'platform', 'beginner-friendly'],
       },
       {
+        id: 'turso',
         title: 'Turso',
         href: 'https://turso.tech/',
         icon: 'simple-icons:sqlite',
@@ -1535,6 +1633,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'netlify',
         title: 'Netlify',
         href: 'https://www.netlify.com/',
         icon: 'simple-icons:netlify',
@@ -1550,6 +1649,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'clerk',
         title: 'Clerk',
         href: 'https://clerk.com/',
         icon: 'simple-icons:clerk',
@@ -1565,6 +1665,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'cloudinary',
         title: 'Cloudinary',
         href: 'https://cloudinary.com/',
         icon: 'simple-icons:cloudinary',
@@ -1580,6 +1681,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'sanity',
         title: 'Sanity',
         href: 'https://www.sanity.io/',
         icon: 'simple-icons:sanity',
@@ -1595,6 +1697,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'frontmatter',
         title: 'Frontmatter',
         href: 'https://frontmatter.codes/',
         icon: 'mdi:markdown',
@@ -1603,6 +1706,7 @@ export const SECTIONS = [
         tags: ['cms', 'free', 'tool', 'open-source'],
       },
       {
+        id: 'adobe-express',
         title: 'Adobe Express',
         href: 'https://www.adobe.com/express/',
         icon: 'simple-icons:adobe',
@@ -1618,6 +1722,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'turborepo',
         title: 'Turborepo',
         href: 'https://turborepo.dev/',
         icon: 'simple-icons:turborepo',
@@ -1633,6 +1738,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'webpack',
         title: 'Webpack',
         href: 'https://webpack.js.org/',
         icon: 'simple-icons:webpack',
@@ -1648,6 +1754,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'rollup',
         title: 'Rollup',
         href: 'https://rollupjs.org/',
         icon: 'simple-icons:rollupdotjs',
@@ -1663,6 +1770,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'parcel',
         title: 'Parcel',
         href: 'https://parceljs.org/',
         icon: 'mdi:package-variant',
@@ -1678,6 +1786,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'swc',
         title: 'SWC',
         href: 'https://swc.rs/',
         icon: 'simple-icons:swc',
@@ -1694,6 +1803,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'esbuild',
         title: 'Esbuild',
         href: 'https://esbuild.github.io/',
         icon: 'simple-icons:esbuild',
@@ -1709,6 +1819,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'vite',
         title: 'Vite',
         href: 'https://vite.dev/',
         icon: 'simple-icons:vite',
@@ -1725,6 +1836,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'turbopack',
         title: 'Turbopack',
         href: 'https://nextjs.org/docs/app/api-reference/turbopack',
         icon: 'simple-icons:turborepo',
@@ -1741,6 +1853,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'biome',
         title: 'Biome',
         href: 'https://biomejs.dev/',
         icon: 'simple-icons:biome',
@@ -1757,6 +1870,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'rush',
         title: 'Rush',
         href: 'https://rushjs.io/',
         icon: 'mdi:package-variant',
@@ -1771,6 +1885,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'yarn',
         title: 'Yarn',
         href: 'https://yarnpkg.com/',
         icon: 'simple-icons:yarn',
@@ -1786,6 +1901,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'lerna',
         title: 'Lerna',
         href: 'https://lerna.js.org/',
         icon: 'simple-icons:lerna',
@@ -1801,6 +1917,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'npm',
         title: 'NPM',
         href: 'https://www.npmjs.com/',
         icon: 'simple-icons:npm',
@@ -1816,6 +1933,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'pnpm',
         title: 'PNPM',
         href: 'https://pnpm.io/',
         icon: 'simple-icons:pnpm',
@@ -1831,6 +1949,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'nx',
         title: 'Nx',
         href: 'https://nx.dev/',
         icon: 'simple-icons:nx',
@@ -1847,6 +1966,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'chatgpt',
         title: 'ChatGPT',
         href: 'https://chatgpt.com/',
         icon: 'simple-icons:openai',
@@ -1862,6 +1982,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'google-gemini',
         title: 'Google Gemini',
         href: 'https://gemini.google.com/',
         icon: 'simple-icons:google',
@@ -1877,6 +1998,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'github-copilot',
         title: 'GitHub Copilot',
         href: 'https://github.com/features/copilot',
         icon: 'simple-icons:github',
@@ -1885,6 +2007,7 @@ export const SECTIONS = [
         tags: ['ai', 'paid', 'tool', 'trending', 'modern'],
       },
       {
+        id: 'cursor',
         title: 'Cursor',
         href: 'https://cursor.com/',
         icon: 'mdi:cursor-default',
@@ -1893,6 +2016,7 @@ export const SECTIONS = [
         tags: ['ai', 'free', 'paid', 'tool', 'trending', 'modern'],
       },
       {
+        id: 'figma-ai',
         title: 'Figma AI',
         href: 'https://www.figma.com/ai',
         icon: 'simple-icons:figma',
@@ -1909,6 +2033,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'adobe-firefly',
         title: 'Adobe Firefly',
         href: 'https://www.adobe.com/products/firefly.html',
         icon: 'simple-icons:adobe',
@@ -1926,6 +2051,7 @@ export const SECTIONS = [
       },
 
       {
+        id: 'amazon-bedrock',
         title: 'Amazon Bedrock',
         href: 'https://aws.amazon.com/bedrock/',
         icon: 'simple-icons:amazonaws',
@@ -1934,6 +2060,7 @@ export const SECTIONS = [
         tags: ['ai', 'paid', 'platform', 'advanced', 'modern'],
       },
       {
+        id: 'google-ai-studio',
         title: 'Google AI Studio',
         href: 'https://aistudio.google.com/',
         icon: 'simple-icons:google',
@@ -1949,6 +2076,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'docker',
         title: 'Docker',
         href: 'https://www.docker.com/',
         icon: 'simple-icons:docker',
@@ -1964,6 +2092,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'kubernetes',
         title: 'Kubernetes',
         href: 'https://kubernetes.io/',
         icon: 'simple-icons:kubernetes',
@@ -1979,6 +2108,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'gitlab',
         title: 'GitLab',
         href: 'https://about.gitlab.com/',
         icon: 'simple-icons:gitlab',
@@ -1994,6 +2124,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'bitbucket',
         title: 'Bitbucket',
         href: 'https://bitbucket.org/',
         icon: 'simple-icons:bitbucket',
@@ -2002,6 +2133,7 @@ export const SECTIONS = [
         tags: ['platform', 'free', 'paid', 'deployment', 'community'],
       },
       {
+        id: 'codesandbox',
         title: 'CodeSandbox',
         href: 'https://codesandbox.io/',
         icon: 'simple-icons:codesandbox',
@@ -2018,6 +2150,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'stackblitz',
         title: 'StackBlitz',
         href: 'https://stackblitz.com/',
         icon: 'simple-icons:stackblitz',
@@ -2035,6 +2168,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'replit',
         title: 'Replit',
         href: 'https://replit.com/',
         icon: 'simple-icons:replit',
@@ -2052,6 +2186,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'postman',
         title: 'Postman',
         href: 'https://www.postman.com/',
         icon: 'simple-icons:postman',
@@ -2068,6 +2203,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'insomnia',
         title: 'Insomnia',
         href: 'https://insomnia.rest/',
         icon: 'simple-icons:insomnia',
@@ -2083,6 +2219,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'mongodb-atlas',
         title: 'MongoDB Atlas',
         href: 'https://www.mongodb.com/products/platform/atlas-database',
         icon: 'simple-icons:mongodb',
@@ -2098,6 +2235,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'supabase',
         title: 'Supabase',
         href: 'https://supabase.com/',
         icon: 'simple-icons:supabase',
@@ -2115,6 +2253,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'planetscale',
         title: 'PlanetScale',
         href: 'https://planetscale.com/',
         icon: 'simple-icons:planetscale',
@@ -2129,6 +2268,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'firebase',
         title: 'Firebase',
         href: 'https://firebase.google.com/',
         icon: 'simple-icons:firebase',
@@ -2145,6 +2285,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'auth0',
         title: 'Auth0',
         href: 'https://auth0.com/',
         icon: 'simple-icons:auth0',
@@ -2159,6 +2300,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'stripe',
         title: 'Stripe',
         href: 'https://stripe.com/',
         icon: 'simple-icons:stripe',
@@ -2167,6 +2309,7 @@ export const SECTIONS = [
         tags: ['platform', 'paid', 'api', 'advanced', 'trending'],
       },
       {
+        id: 'datadog',
         title: 'Datadog',
         href: 'https://www.datadoghq.com/',
         icon: 'simple-icons:datadog',
@@ -2182,6 +2325,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'sentry',
         title: 'Sentry',
         href: 'https://sentry.io/',
         icon: 'simple-icons:sentry',
@@ -2197,6 +2341,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'new-relic',
         title: 'New Relic',
         href: 'https://newrelic.com/',
         icon: 'simple-icons:newrelic',
@@ -2212,6 +2357,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'lighthouse',
         title: 'Lighthouse',
         href: 'https://developer.chrome.com/docs/lighthouse/overview/',
         icon: 'simple-icons:lighthouse',
@@ -2229,6 +2375,7 @@ export const SECTIONS = [
       },
 
       {
+        id: 'cloudinary-ai',
         title: 'Cloudinary AI',
         href: 'https://cloudinary.com/products/cloudinary_ai',
         icon: 'simple-icons:cloudinary',
@@ -2245,6 +2392,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'convex',
         title: 'Convex',
         href: 'https://www.convex.dev/',
         icon: 'mdi:database',
@@ -2262,6 +2410,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'kiro',
         title: 'Kiro',
         href: 'https://kiro.dev/',
         icon: 'mdi:robot-industrial',
@@ -2279,6 +2428,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'claude-code',
         title: 'Claude Code',
         href: 'https://claude.com/product/claude-code',
         icon: 'mdi:console',
@@ -2296,6 +2446,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'warp',
         title: 'Warp',
         href: 'https://www.warp.dev/',
         icon: 'mdi:lightning-bolt',
@@ -2314,6 +2465,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'devin-desktop',
         title: 'Devin Desktop',
         href: 'https://devin.ai/desktop',
         icon: 'mdi:wind-power',
@@ -2332,6 +2484,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'zed',
         title: 'Zed',
         href: 'https://zed.dev/',
         icon: 'mdi:code-braces-box',
@@ -2350,6 +2503,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'jules',
         title: 'Jules',
         href: 'https://jules.google/',
         icon: 'simple-icons:google',
@@ -2367,6 +2521,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'cline',
         title: 'Cline',
         href: 'https://cline.bot/',
         icon: 'mdi:robot-excited',
@@ -2385,6 +2540,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'augment-code',
         title: 'Augment Code',
         href: 'https://www.augmentcode.com/',
         icon: 'mdi:code-greater-than',
@@ -2402,6 +2558,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'bolt',
         title: 'Bolt',
         href: 'https://bolt.new/',
         icon: 'mdi:flash',
@@ -2419,6 +2576,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'lovable',
         title: 'Lovable',
         href: 'https://lovable.dev/',
         icon: 'mdi:heart',
@@ -2436,6 +2594,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'v0',
         title: 'v0',
         href: 'https://v0.app/',
         icon: 'simple-icons:vercel',
@@ -2453,6 +2612,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'eslint',
         title: 'ESLint',
         href: 'https://eslint.org/',
         icon: 'simple-icons:eslint',
@@ -2467,6 +2627,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'prettier',
         title: 'Prettier',
         href: 'https://prettier.io/',
         icon: 'simple-icons:prettier',
@@ -2482,6 +2643,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'bun',
         title: 'Bun',
         href: 'https://bun.com/',
         icon: 'simple-icons:bun',
@@ -2499,6 +2661,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'neon',
         title: 'Neon',
         href: 'https://neon.com/',
         icon: 'simple-icons:neon',
@@ -2514,6 +2677,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'prisma',
         title: 'Prisma',
         href: 'https://www.prisma.io/',
         icon: 'simple-icons:prisma',
@@ -2530,6 +2694,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'cloudflare-workers',
         title: 'Cloudflare Workers',
         href: 'https://www.cloudflare.com/products/workers/',
         icon: 'simple-icons:cloudflareworkers',
@@ -2546,6 +2711,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'railway',
         title: 'Railway',
         href: 'https://railway.com/',
         icon: 'simple-icons:railway',
@@ -2561,6 +2727,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'bruno',
         title: 'Bruno',
         href: 'https://www.usebruno.com/',
         icon: 'simple-icons:bruno',
@@ -2575,6 +2742,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'excalidraw',
         title: 'Excalidraw',
         href: 'https://excalidraw.com/',
         icon: 'simple-icons:excalidraw',
@@ -2590,6 +2758,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'posthog',
         title: 'PostHog',
         href: 'https://posthog.com/',
         icon: 'simple-icons:posthog',
@@ -2605,6 +2774,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'better-auth',
         title: 'Better Auth',
         href: 'https://better-auth.com/',
         icon: 'simple-icons:betterauth',
@@ -2620,6 +2790,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'ghostty',
         title: 'Ghostty',
         href: 'https://ghostty.org/',
         icon: 'simple-icons:ghostty',
@@ -2634,6 +2805,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'google-antigravity',
         title: 'Google Antigravity',
         href: 'https://antigravity.google/',
         icon: 'simple-icons:google',
@@ -2650,6 +2822,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'resend',
         title: 'Resend',
         href: 'https://resend.com/',
         icon: 'simple-icons:resend',
@@ -2665,6 +2838,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'claude',
         title: 'Claude',
         href: 'https://claude.ai/',
         icon: 'simple-icons:claude',
@@ -2681,6 +2855,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'openai-codex',
         title: 'OpenAI Codex',
         href: 'https://openai.com/codex/',
         icon: 'simple-icons:openai',
@@ -2696,6 +2871,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'antigravity-cli',
         title: 'Antigravity CLI',
         href: 'https://antigravity.google/product/antigravity-cli/',
         icon: 'simple-icons:google',
@@ -2712,6 +2888,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'github-copilot-cli',
         title: 'GitHub Copilot CLI',
         href: 'https://github.com/features/copilot/cli',
         icon: 'simple-icons:githubcopilot',
@@ -2727,6 +2904,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'factory-droid',
         title: 'Factory Droid',
         href: 'https://factory.ai/',
         icon: 'mdi:factory',
@@ -2742,6 +2920,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'kilo-code',
         title: 'Kilo Code',
         href: 'https://kilo.ai/',
         icon: 'mdi:alpha-k-box-outline',
@@ -2758,6 +2937,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'qwen-code',
         title: 'Qwen Code',
         href: 'https://github.com/QwenLM/qwen-code',
         icon: 'simple-icons:qwen',
@@ -2773,6 +2953,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'crush',
         title: 'Crush',
         href: 'https://github.com/charmbracelet/crush',
         icon: 'mdi:star-four-points-outline',
@@ -2788,6 +2969,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'pi',
         title: 'Pi',
         href: 'https://pi.dev/',
         icon: 'mdi:pi',
@@ -2805,6 +2987,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'goose',
         title: 'goose',
         href: 'https://goose-docs.ai/',
         icon: 'mdi:bird',
@@ -2821,6 +3004,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'openhands',
         title: 'OpenHands',
         href: 'https://www.openhands.dev/',
         icon: 'mdi:hand-back-right-outline',
@@ -2837,6 +3021,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'hermes-agent',
         title: 'Hermes Agent',
         href: 'https://hermes-agent.nousresearch.com/',
         icon: 'mdi:feather',
@@ -2852,6 +3037,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'openclaw',
         title: 'OpenClaw',
         href: 'https://openclaw.ai/',
         icon: 'mdi:robot-love-outline',
@@ -2867,6 +3053,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'amp',
         title: 'Amp',
         href: 'https://ampcode.com/',
         icon: 'mdi:lightning-bolt-outline',
@@ -2882,6 +3069,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'opencode',
         title: 'OpenCode',
         href: 'https://opencode.ai/',
         icon: 'mdi:console-line',
@@ -2898,6 +3086,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'aider',
         title: 'Aider',
         href: 'https://aider.chat/',
         icon: 'mdi:console',
@@ -2913,6 +3102,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'continue',
         title: 'Continue',
         href: 'https://continue.dev/',
         icon: 'mdi:arrow-right-circle-outline',
@@ -2928,6 +3118,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'conductor',
         title: 'Conductor',
         href: 'https://www.conductor.build/',
         icon: 'mdi:view-parallel-outline',
@@ -2944,6 +3135,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 't3-code',
         title: 'T3 Code',
         href: 'https://t3.codes/',
         icon: 'mdi:view-dashboard-variant-outline',
@@ -2960,6 +3152,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'superpowers',
         title: 'Superpowers',
         href: 'https://github.com/obra/superpowers',
         icon: 'mdi:lightning-bolt-circle',
@@ -2976,6 +3169,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'spec-kit',
         title: 'Spec Kit',
         href: 'https://github.com/github/spec-kit',
         icon: 'mdi:clipboard-text-outline',
@@ -2992,6 +3186,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'context7',
         title: 'Context7',
         href: 'https://context7.com/',
         icon: 'mdi:book-sync-outline',
@@ -3008,6 +3203,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'coderabbit',
         title: 'CodeRabbit',
         href: 'https://www.coderabbit.ai/',
         icon: 'mdi:rabbit',
@@ -3023,6 +3219,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'greptile',
         title: 'Greptile',
         href: 'https://www.greptile.com/',
         icon: 'mdi:magnify-scan',
@@ -3037,6 +3234,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'graphite',
         title: 'Graphite',
         href: 'https://graphite.com/',
         icon: 'mdi:source-branch',
@@ -3052,6 +3250,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'hugging-face',
         title: 'Hugging Face',
         href: 'https://huggingface.co/',
         icon: 'simple-icons:huggingface',
@@ -3067,6 +3266,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'ollama',
         title: 'Ollama',
         href: 'https://ollama.com/',
         icon: 'simple-icons:ollama',
@@ -3082,6 +3282,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'lm-studio',
         title: 'LM Studio',
         href: 'https://lmstudio.ai/',
         icon: 'mdi:desktop-classic',
@@ -3096,6 +3297,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'openrouter',
         title: 'OpenRouter',
         href: 'https://openrouter.ai/',
         icon: 'mdi:router-network',
@@ -3111,6 +3313,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'groq',
         title: 'Groq',
         href: 'https://groq.com/',
         icon: 'mdi:chip',
@@ -3126,6 +3329,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'replicate',
         title: 'Replicate',
         href: 'https://replicate.com/',
         icon: 'mdi:play-network-outline',
@@ -3141,6 +3345,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'fal',
         title: 'fal',
         href: 'https://fal.ai/',
         icon: 'mdi:image-auto-adjust',
@@ -3156,6 +3361,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'modal',
         title: 'Modal',
         href: 'https://modal.com/',
         icon: 'mdi:cube-outline',
@@ -3171,6 +3377,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'langfuse',
         title: 'Langfuse',
         href: 'https://langfuse.com/',
         icon: 'mdi:chart-timeline-variant-shimmer',
@@ -3186,6 +3393,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'braintrust',
         title: 'Braintrust',
         href: 'https://www.braintrust.dev/',
         icon: 'mdi:flask-outline',
@@ -3201,6 +3409,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'langsmith',
         title: 'LangSmith',
         href: 'https://www.langchain.com/langsmith',
         icon: 'simple-icons:langchain',
@@ -3216,6 +3425,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'e2b',
         title: 'E2B',
         href: 'https://e2b.dev/',
         icon: 'mdi:shield-lock-outline',
@@ -3232,6 +3442,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'daytona',
         title: 'Daytona',
         href: 'https://www.daytona.io/',
         icon: 'mdi:cube-send',
@@ -3247,6 +3458,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'mcp-registry',
         title: 'MCP Registry',
         href: 'https://registry.modelcontextprotocol.io/',
         icon: 'mdi:server-network-outline',
@@ -3262,6 +3474,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'vercel-ai-gateway',
         title: 'Vercel AI Gateway',
         href: 'https://vercel.com/ai-gateway',
         icon: 'simple-icons:vercel',
@@ -3278,6 +3491,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'litellm',
         title: 'LiteLLM',
         href: 'https://docs.litellm.ai/',
         icon: 'mdi:swap-horizontal',
@@ -3293,6 +3507,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'together-ai',
         title: 'Together AI',
         href: 'https://www.together.ai/',
         icon: 'mdi:server-network-outline',
@@ -3307,6 +3522,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'artificial-analysis',
         title: 'Artificial Analysis',
         href: 'https://artificialanalysis.ai/',
         icon: 'mdi:gauge',
@@ -3321,6 +3537,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'arena-ai',
         title: 'Arena AI',
         href: 'https://arena.ai/',
         icon: 'mdi:trophy-outline',
@@ -3335,6 +3552,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'terminal-bench',
         title: 'Terminal-Bench',
         href: 'https://www.tbench.ai/',
         icon: 'mdi:console-network-outline',
@@ -3350,6 +3568,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'swe-bench',
         title: 'SWE-bench',
         href: 'https://www.swebench.com/',
         icon: 'mdi:trophy-award',
@@ -3365,6 +3584,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'pinecone',
         title: 'Pinecone',
         href: 'https://www.pinecone.io/',
         icon: 'mdi:pine-tree',
@@ -3379,6 +3599,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'chroma',
         title: 'Chroma',
         href: 'https://www.trychroma.com/',
         icon: 'mdi:database-search-outline',
@@ -3393,6 +3614,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'qdrant',
         title: 'Qdrant',
         href: 'https://qdrant.tech/',
         icon: 'mdi:vector-triangle',
@@ -3408,6 +3630,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'oxc',
         title: 'Oxc',
         href: 'https://oxc.rs/',
         icon: 'mdi:rocket-launch',
@@ -3424,6 +3647,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'rolldown',
         title: 'Rolldown',
         href: 'https://rolldown.rs/',
         icon: 'mdi:package-variant-closed',
@@ -3440,6 +3664,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'rspack',
         title: 'Rspack',
         href: 'https://rspack.rs/',
         icon: 'mdi:speedometer-medium',
@@ -3455,6 +3680,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'upstash',
         title: 'Upstash',
         href: 'https://upstash.com/',
         icon: 'simple-icons:upstash',
@@ -3470,6 +3696,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'node-js',
         title: 'Node.js',
         href: 'https://nodejs.org/',
         icon: 'simple-icons:nodedotjs',
@@ -3485,6 +3712,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'deno',
         title: 'Deno',
         href: 'https://deno.com/',
         icon: 'simple-icons:deno',
@@ -3500,6 +3728,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'zero',
         title: 'Zero',
         href: 'https://zero.rocicorp.dev/',
         icon: 'mdi:sync',
@@ -3515,6 +3744,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'electric',
         title: 'Electric',
         href: 'https://electric.ax/',
         icon: 'mdi:flash-outline',
@@ -3530,6 +3760,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'liveblocks',
         title: 'Liveblocks',
         href: 'https://liveblocks.io/',
         icon: 'mdi:account-multiple-outline',
@@ -3545,6 +3776,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'inngest',
         title: 'Inngest',
         href: 'https://www.inngest.com/',
         icon: 'mdi:cog-sync-outline',
@@ -3561,6 +3793,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'trigger-dev',
         title: 'Trigger.dev',
         href: 'https://trigger.dev/',
         icon: 'mdi:play-circle-outline',
@@ -3577,6 +3810,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'browserbase',
         title: 'Browserbase',
         href: 'https://www.browserbase.com/',
         icon: 'mdi:web-box',
@@ -3592,6 +3826,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'browser-use',
         title: 'Browser Use',
         href: 'https://browser-use.com/',
         icon: 'mdi:web-box',
@@ -3607,6 +3842,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'stagehand',
         title: 'Stagehand',
         href: 'https://www.stagehand.dev/',
         icon: 'mdi:hand-back-right-outline',
@@ -3623,6 +3859,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'firecrawl',
         title: 'Firecrawl',
         href: 'https://www.firecrawl.dev/',
         icon: 'mdi:spider-web',
@@ -3639,6 +3876,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'playwright-mcp',
         title: 'Playwright MCP',
         href: 'https://github.com/microsoft/playwright-mcp',
         icon: 'simple-icons:playwright',
@@ -3655,6 +3893,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'elevenlabs',
         title: 'ElevenLabs',
         href: 'https://elevenlabs.io/',
         icon: 'mdi:waveform',
@@ -3670,6 +3909,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'workos',
         title: 'WorkOS',
         href: 'https://workos.com/',
         icon: 'mdi:office-building-outline',
@@ -3685,6 +3925,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'polar',
         title: 'Polar',
         href: 'https://polar.sh/',
         icon: 'mdi:cash-multiple',
@@ -3700,6 +3941,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'clickhouse',
         title: 'ClickHouse',
         href: 'https://clickhouse.com/',
         icon: 'simple-icons:clickhouse',
@@ -3715,6 +3957,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'duckdb',
         title: 'DuckDB',
         href: 'https://duckdb.org/',
         icon: 'simple-icons:duckdb',
@@ -3729,6 +3972,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'framer',
         title: 'Framer',
         href: 'https://www.framer.com/',
         icon: 'simple-icons:framer',
@@ -3744,6 +3988,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'penpot',
         title: 'Penpot',
         href: 'https://penpot.app/',
         icon: 'simple-icons:penpot',
@@ -3758,6 +4003,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'rive',
         title: 'Rive',
         href: 'https://rive.app/',
         icon: 'simple-icons:rive',
@@ -3773,6 +4019,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'spline',
         title: 'Spline',
         href: 'https://spline.design/',
         icon: 'mdi:cube-scan',
@@ -3788,6 +4035,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'webpagetest',
         title: 'WebPageTest',
         href: 'https://www.webpagetest.org/',
         icon: 'mdi:timer-outline',
@@ -3803,6 +4051,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'axe-devtools',
         title: 'axe DevTools',
         href: 'https://www.deque.com/axe/devtools/',
         icon: 'mdi:axe',
@@ -3818,6 +4067,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'polypane',
         title: 'Polypane',
         href: 'https://polypane.app/',
         icon: 'mdi:monitor-multiple',
@@ -3833,6 +4083,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'changesets',
         title: 'Changesets',
         href: 'https://github.com/changesets/changesets',
         icon: 'mdi:file-document-edit-outline',
@@ -3847,6 +4098,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'fumadocs',
         title: 'Fumadocs',
         href: 'https://www.fumadocs.dev/',
         icon: 'mdi:book-open-outline',
@@ -3862,6 +4114,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'starlight',
         title: 'Starlight',
         href: 'https://starlight.astro.build/',
         icon: 'simple-icons:astro',
@@ -3877,6 +4130,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'mintlify',
         title: 'Mintlify',
         href: 'https://www.mintlify.com/',
         icon: 'mdi:leaf',
@@ -3901,6 +4155,7 @@ export const SECTIONS = [
       'Powerful frameworks and libraries to build modern web applications',
     links: [
       {
+        id: 'react',
         title: 'React',
         href: 'https://react.dev/',
         icon: 'simple-icons:react',
@@ -3916,6 +4171,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'vue-js',
         title: 'Vue.js',
         href: 'https://vuejs.org/',
         icon: 'simple-icons:vuedotjs',
@@ -3931,6 +4187,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'svelte',
         title: 'Svelte',
         href: 'https://svelte.dev/',
         icon: 'simple-icons:svelte',
@@ -3946,6 +4203,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'angular',
         title: 'Angular',
         href: 'https://angular.dev/',
         icon: 'simple-icons:angular',
@@ -3961,6 +4219,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'preact',
         title: 'Preact',
         href: 'https://preactjs.com/',
         icon: 'simple-icons:preact',
@@ -3976,6 +4235,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'solidjs',
         title: 'SolidJS',
         href: 'https://www.solidjs.com/',
         icon: 'simple-icons:solid',
@@ -3991,6 +4251,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'qwik',
         title: 'Qwik',
         href: 'https://qwik.dev/',
         icon: 'simple-icons:qwik',
@@ -4006,6 +4267,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'alpine-js',
         title: 'Alpine.js',
         href: 'https://alpinejs.dev/',
         icon: 'simple-icons:alpinedotjs',
@@ -4020,6 +4282,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'lit',
         title: 'Lit',
         href: 'https://lit.dev/',
         icon: 'simple-icons:lit',
@@ -4035,6 +4298,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'htmx',
         title: 'HTMX',
         href: 'https://htmx.org/',
         icon: 'simple-icons:html5',
@@ -4051,6 +4315,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'next-js',
         title: 'Next.js',
         href: 'https://nextjs.org/',
         icon: 'simple-icons:nextdotjs',
@@ -4067,6 +4332,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'remix',
         title: 'Remix',
         href: 'https://remix.run/',
         icon: 'simple-icons:remix',
@@ -4083,6 +4349,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'nuxt',
         title: 'Nuxt',
         href: 'https://nuxt.com/',
         icon: 'simple-icons:nuxtdotjs',
@@ -4099,6 +4366,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'react-router',
         title: 'React Router',
         href: 'https://reactrouter.com/',
         icon: 'simple-icons:reactrouter',
@@ -4114,6 +4382,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'sveltekit',
         title: 'SvelteKit',
         href: 'https://svelte.dev/docs/kit/introduction',
         icon: 'simple-icons:svelte',
@@ -4130,6 +4399,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'astro',
         title: 'Astro',
         href: 'https://astro.build/',
         icon: 'simple-icons:astro',
@@ -4146,6 +4416,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'deno-fresh',
         title: 'Deno Fresh',
         href: 'https://usefresh.dev/',
         icon: 'simple-icons:deno',
@@ -4161,6 +4432,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'docusaurus',
         title: 'Docusaurus',
         href: 'https://docusaurus.io/',
         icon: 'simple-icons:docusaurus',
@@ -4176,6 +4448,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'solidstart',
         title: 'SolidStart',
         href: 'https://start.solidjs.com/',
         icon: 'simple-icons:solid',
@@ -4192,6 +4465,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'eleventy',
         title: 'Eleventy',
         href: 'https://www.11ty.dev/',
         icon: 'simple-icons:eleventy',
@@ -4207,6 +4481,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'express',
         title: 'Express',
         href: 'https://expressjs.com/',
         icon: 'simple-icons:express',
@@ -4222,6 +4497,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'fastify',
         title: 'Fastify',
         href: 'https://fastify.dev/',
         icon: 'simple-icons:fastify',
@@ -4238,6 +4514,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'hono',
         title: 'Hono',
         href: 'https://hono.dev/',
         icon: 'simple-icons:hono',
@@ -4254,6 +4531,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'nestjs',
         title: 'NestJS',
         href: 'https://nestjs.com/',
         icon: 'simple-icons:nestjs',
@@ -4269,6 +4547,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'jest',
         title: 'Jest',
         href: 'https://jestjs.io/',
         icon: 'simple-icons:jest',
@@ -4284,6 +4563,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'mocha',
         title: 'Mocha',
         href: 'https://mochajs.org/',
         icon: 'simple-icons:mocha',
@@ -4299,6 +4579,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'storybook',
         title: 'Storybook',
         href: 'https://storybook.js.org/',
         icon: 'simple-icons:storybook',
@@ -4316,6 +4597,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'cypress',
         title: 'Cypress',
         href: 'https://www.cypress.io/',
         icon: 'simple-icons:cypress',
@@ -4331,6 +4613,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'puppeteer',
         title: 'Puppeteer',
         href: 'https://pptr.dev/',
         icon: 'simple-icons:puppeteer',
@@ -4346,6 +4629,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'testing-library',
         title: 'Testing Library',
         href: 'https://testing-library.com/',
         icon: 'simple-icons:testinglibrary',
@@ -4362,6 +4646,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'playwright',
         title: 'Playwright',
         href: 'https://playwright.dev/',
         icon: 'simple-icons:playwright',
@@ -4378,6 +4663,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'webdriverio',
         title: 'WebdriverIO',
         href: 'https://webdriver.io/',
         icon: 'simple-icons:webdriverio',
@@ -4394,6 +4680,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'vitest',
         title: 'Vitest',
         href: 'https://vitest.dev/',
         icon: 'simple-icons:vitest',
@@ -4410,6 +4697,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'testcafe',
         title: 'TestCafé',
         href: 'https://testcafe.io/',
         icon: 'simple-icons:testcafe',
@@ -4425,6 +4713,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'electron',
         title: 'Electron',
         href: 'https://www.electronjs.org/',
         icon: 'simple-icons:electron',
@@ -4440,6 +4729,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'react-native',
         title: 'React Native',
         href: 'https://reactnative.dev/',
         icon: 'simple-icons:react',
@@ -4455,6 +4745,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'expo',
         title: 'Expo',
         href: 'https://expo.dev/',
         icon: 'simple-icons:expo',
@@ -4471,6 +4762,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'capacitor',
         title: 'Capacitor',
         href: 'https://capacitorjs.com/',
         icon: 'simple-icons:capacitor',
@@ -4486,6 +4778,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'ionic-framework',
         title: 'Ionic Framework',
         href: 'https://ionicframework.com/',
         icon: 'simple-icons:ionic',
@@ -4501,6 +4794,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'quasar',
         title: 'Quasar',
         href: 'https://quasar.dev/',
         icon: 'simple-icons:quasar',
@@ -4517,6 +4811,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'tauri',
         title: 'Tauri',
         href: 'https://tauri.app/',
         icon: 'simple-icons:tauri',
@@ -4533,6 +4828,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'tailwind-css',
         title: 'Tailwind CSS',
         href: 'https://tailwindcss.com/',
         icon: 'simple-icons:tailwindcss',
@@ -4549,6 +4845,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'bootstrap',
         title: 'Bootstrap',
         href: 'https://getbootstrap.com/',
         icon: 'simple-icons:bootstrap',
@@ -4564,6 +4861,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'shadcn-ui',
         title: 'shadcn/ui',
         href: 'https://ui.shadcn.com/',
         icon: 'simple-icons:shadcnui',
@@ -4581,6 +4879,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'radix-ui',
         title: 'Radix UI',
         href: 'https://www.radix-ui.com/',
         icon: 'simple-icons:radixui',
@@ -4597,6 +4896,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'mantine',
         title: 'Mantine',
         href: 'https://mantine.dev/',
         icon: 'simple-icons:mantine',
@@ -4613,6 +4913,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'redux',
         title: 'Redux',
         href: 'https://redux.js.org/',
         icon: 'simple-icons:redux',
@@ -4628,6 +4929,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'zustand',
         title: 'Zustand',
         href: 'https://zustand-demo.pmnd.rs/',
         icon: 'simple-icons:react',
@@ -4644,6 +4946,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'jotai',
         title: 'Jotai',
         href: 'https://jotai.org/',
         icon: 'simple-icons:react',
@@ -4659,6 +4962,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'xstate',
         title: 'XState',
         href: 'https://stately.ai/docs/xstate',
         icon: 'simple-icons:xstate',
@@ -4674,6 +4978,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'tanstack-query',
         title: 'TanStack Query',
         href: 'https://tanstack.com/query/latest',
         icon: 'simple-icons:reactquery',
@@ -4690,6 +4995,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'tanstack-router',
         title: 'TanStack Router',
         href: 'https://tanstack.com/router/latest',
         icon: 'simple-icons:tanstack',
@@ -4705,6 +5011,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'zod',
         title: 'Zod',
         href: 'https://zod.dev/',
         icon: 'simple-icons:zod',
@@ -4720,6 +5027,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'react-hook-form',
         title: 'React Hook Form',
         href: 'https://react-hook-form.com/',
         icon: 'simple-icons:reacthookform',
@@ -4735,6 +5043,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'drizzle-orm',
         title: 'Drizzle ORM',
         href: 'https://orm.drizzle.team/',
         icon: 'simple-icons:drizzle',
@@ -4750,6 +5059,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'motion',
         title: 'Motion',
         href: 'https://motion.dev/',
         icon: 'mdi:motion-play-outline',
@@ -4767,6 +5077,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'three-js',
         title: 'Three.js',
         href: 'https://threejs.org/',
         icon: 'simple-icons:threedotjs',
@@ -4782,6 +5093,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'd3-js',
         title: 'D3.js',
         href: 'https://d3js.org/',
         icon: 'simple-icons:d3dotjs',
@@ -4797,6 +5109,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'chart-js',
         title: 'Chart.js',
         href: 'https://www.chartjs.org/',
         icon: 'simple-icons:chartdotjs',
@@ -4812,6 +5125,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'gsap',
         title: 'GSAP',
         href: 'https://gsap.com/',
         icon: 'simple-icons:greensock',
@@ -4827,6 +5141,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'chakra-ui',
         title: 'Chakra UI',
         href: 'https://chakra-ui.com/',
         icon: 'simple-icons:chakraui',
@@ -4843,6 +5158,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'mui',
         title: 'MUI',
         href: 'https://mui.com/',
         icon: 'simple-icons:mui',
@@ -4859,6 +5175,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'ai-sdk',
         title: 'AI SDK',
         href: 'https://ai-sdk.dev/',
         icon: 'mdi:robot-outline',
@@ -4876,6 +5193,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'mastra',
         title: 'Mastra',
         href: 'https://mastra.ai/',
         icon: 'mdi:robot-outline',
@@ -4892,6 +5210,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'langchain-js',
         title: 'LangChain.js',
         href: 'https://docs.langchain.com/oss/javascript/langchain/overview',
         icon: 'simple-icons:langchain',
@@ -4908,6 +5227,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'mcp-typescript-sdk',
         title: 'MCP TypeScript SDK',
         href: 'https://github.com/modelcontextprotocol/typescript-sdk',
         icon: 'mdi:transit-connection-variant',
@@ -4924,6 +5244,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'openai-agents-sdk',
         title: 'OpenAI Agents SDK',
         href: 'https://openai.github.io/openai-agents-js/',
         icon: 'simple-icons:openai',
@@ -4939,6 +5260,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'langgraph',
         title: 'LangGraph',
         href: 'https://docs.langchain.com/oss/javascript/langgraph/overview',
         icon: 'simple-icons:langgraph',
@@ -4955,6 +5277,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'agent-development-kit',
         title: 'Agent Development Kit',
         href: 'https://adk.dev/',
         icon: 'simple-icons:google',
@@ -4970,6 +5293,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'llamaindex-ts',
         title: 'LlamaIndex.TS',
         href: 'https://developers.llamaindex.ai/typescript/framework/',
         icon: 'mdi:text-box-search-outline',
@@ -4985,6 +5309,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'claude-agent-sdk',
         title: 'Claude Agent SDK',
         href: 'https://code.claude.com/docs/en/agent-sdk/overview',
         icon: 'simple-icons:anthropic',
@@ -5000,6 +5325,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'codex-sdk',
         title: 'Codex SDK',
         href: 'https://learn.chatgpt.com/docs/codex-sdk',
         icon: 'simple-icons:openai',
@@ -5014,6 +5340,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'deep-agents',
         title: 'Deep Agents',
         href: 'https://docs.langchain.com/oss/javascript/deepagents/overview',
         icon: 'simple-icons:langchain',
@@ -5030,6 +5357,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'transformers-js',
         title: 'Transformers.js',
         href: 'https://huggingface.co/docs/transformers.js',
         icon: 'simple-icons:huggingface',
@@ -5045,6 +5373,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'genkit',
         title: 'Genkit',
         href: 'https://genkit.dev/',
         icon: 'simple-icons:google',
@@ -5060,6 +5389,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'copilotkit',
         title: 'CopilotKit',
         href: 'https://www.copilotkit.ai/',
         icon: 'mdi:robot-happy-outline',
@@ -5075,6 +5405,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'assistant-ui',
         title: 'assistant-ui',
         href: 'https://www.assistant-ui.com/',
         icon: 'mdi:chat-processing-outline',
@@ -5091,6 +5422,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'tanstack-start',
         title: 'TanStack Start',
         href: 'https://tanstack.com/start/latest',
         icon: 'simple-icons:tanstack',
@@ -5107,6 +5439,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'base-ui',
         title: 'Base UI',
         href: 'https://base-ui.com/',
         icon: 'mdi:widgets-outline',
@@ -5123,6 +5456,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'react-aria',
         title: 'React Aria',
         href: 'https://react-aria.adobe.com/',
         icon: 'simple-icons:adobe',
@@ -5138,6 +5472,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'effect',
         title: 'Effect',
         href: 'https://effect.website/',
         icon: 'mdi:function-variant',
@@ -5153,6 +5488,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'valibot',
         title: 'Valibot',
         href: 'https://valibot.dev/',
         icon: 'mdi:check-decagram-outline',
@@ -5168,6 +5504,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'nitro',
         title: 'Nitro',
         href: 'https://nitro.build/',
         icon: 'mdi:engine-outline',
@@ -5184,6 +5521,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'elysia',
         title: 'Elysia',
         href: 'https://elysiajs.com/',
         icon: 'mdi:butterfly-outline',
@@ -5199,6 +5537,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'kysely',
         title: 'Kysely',
         href: 'https://kysely.dev/',
         icon: 'mdi:database-cog-outline',
@@ -5214,6 +5553,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'tanstack-form',
         title: 'TanStack Form',
         href: 'https://tanstack.com/form/latest',
         icon: 'simple-icons:tanstack',
@@ -5229,6 +5569,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'pinia',
         title: 'Pinia',
         href: 'https://pinia.vuejs.org/',
         icon: 'simple-icons:pinia',
@@ -5244,6 +5585,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'unocss',
         title: 'UnoCSS',
         href: 'https://unocss.dev/',
         icon: 'simple-icons:unocss',
@@ -5259,6 +5601,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'panda-css',
         title: 'Panda CSS',
         href: 'https://panda-css.com/',
         icon: 'mdi:panda',
@@ -5274,6 +5617,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'vanilla-extract',
         title: 'vanilla-extract',
         href: 'https://vanilla-extract.style/',
         icon: 'mdi:ice-cream',
@@ -5289,6 +5633,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'open-props',
         title: 'Open Props',
         href: 'https://open-props.style/',
         icon: 'mdi:palette-swatch-outline',
@@ -5304,6 +5649,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'mock-service-worker',
         title: 'Mock Service Worker',
         href: 'https://mswjs.io/',
         icon: 'mdi:server-network',
@@ -5319,6 +5665,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'yjs',
         title: 'Yjs',
         href: 'https://yjs.dev/',
         icon: 'mdi:file-tree-outline',
@@ -5334,6 +5681,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'automerge',
         title: 'Automerge',
         href: 'https://automerge.org/',
         icon: 'mdi:source-merge',
@@ -5349,6 +5697,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'tanstack-db',
         title: 'TanStack DB',
         href: 'https://tanstack.com/db/latest',
         icon: 'simple-icons:tanstack',
@@ -5365,6 +5714,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'tanstack-table',
         title: 'TanStack Table',
         href: 'https://tanstack.com/table/latest',
         icon: 'simple-icons:tanstack',
@@ -5380,6 +5730,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'ark-ui',
         title: 'Ark UI',
         href: 'https://ark-ui.com/',
         icon: 'mdi:toy-brick-outline',
@@ -5396,6 +5747,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'react-three-fiber',
         title: 'React Three Fiber',
         href: 'https://r3f.docs.pmnd.rs/',
         icon: 'simple-icons:threedotjs',
@@ -5411,6 +5763,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'pixijs',
         title: 'PixiJS',
         href: 'https://pixijs.com/',
         icon: 'mdi:gamepad-variant-outline',
@@ -5426,6 +5779,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'apache-echarts',
         title: 'Apache ECharts',
         href: 'https://echarts.apache.org/',
         icon: 'mdi:chart-bar',
@@ -5441,6 +5795,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'observable-plot',
         title: 'Observable Plot',
         href: 'https://observablehq.com/plot/',
         icon: 'mdi:chart-scatter-plot',
@@ -5466,6 +5821,7 @@ export const SECTIONS = [
       'Connect with fellow developers in these vibrant communities',
     links: [
       {
+        id: 'dev-to',
         title: 'Dev.to',
         href: 'https://dev.to/',
         icon: 'simple-icons:devdotto',
@@ -5481,6 +5837,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'r-webdev',
         title: 'r/webdev',
         href: 'https://www.reddit.com/r/webdev/',
         icon: 'simple-icons:reddit',
@@ -5495,6 +5852,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'icodethis',
         title: 'iCodeThis',
         href: 'https://icodethis.com/',
         icon: 'mdi:code-braces',
@@ -5510,6 +5868,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'stack-overflow',
         title: 'Stack Overflow',
         href: 'https://stackoverflow.com/',
         icon: 'simple-icons:stackoverflow',
@@ -5524,6 +5883,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'github-explore',
         title: 'GitHub Explore',
         href: 'https://github.com/explore',
         icon: 'simple-icons:github',
@@ -5539,6 +5899,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'hashnode',
         title: 'Hashnode',
         href: 'https://hashnode.com/community',
         icon: 'simple-icons:hashnode',
@@ -5553,6 +5914,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'indie-hackers',
         title: 'Indie Hackers',
         href: 'https://www.indiehackers.com/',
         icon: 'mdi:rocket',
@@ -5567,6 +5929,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'hackerrank',
         title: 'HackerRank',
         href: 'https://www.hackerrank.com/',
         icon: 'simple-icons:hackerrank',
@@ -5583,6 +5946,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'daily-dev',
         title: 'daily.dev',
         href: 'https://daily.dev/',
         icon: 'simple-icons:dailydotdev',
@@ -5597,6 +5961,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'freecodecamp-forum',
         title: 'freeCodeCamp Forum',
         href: 'https://forum.freecodecamp.org/',
         icon: 'simple-icons:freecodecamp',
@@ -5611,6 +5976,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'the-coding-den',
         title: 'The Coding Den',
         href: 'https://discord.com/invite/code',
         icon: 'simple-icons:discord',
@@ -5625,6 +5991,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'reactiflux',
         title: 'Reactiflux',
         href: 'https://www.reactiflux.com/',
         icon: 'simple-icons:react',
@@ -5641,6 +6008,7 @@ export const SECTIONS = [
       },
 
       {
+        id: 'hacker-news',
         title: 'Hacker News',
         href: 'https://news.ycombinator.com/',
         icon: 'simple-icons:ycombinator',
@@ -5655,6 +6023,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'lobsters',
         title: 'Lobsters',
         href: 'https://lobste.rs/',
         icon: 'simple-icons:lobsters',
@@ -5663,6 +6032,7 @@ export const SECTIONS = [
         tags: ['community', 'free', 'advanced', 'trending'],
       },
       {
+        id: 'product-hunt',
         title: 'Product Hunt',
         href: 'https://www.producthunt.com/',
         icon: 'simple-icons:producthunt',
@@ -5677,6 +6047,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'codenewbie',
         title: 'CodeNewbie',
         href: 'https://www.codenewbie.org/',
         icon: 'mdi:account-school',
@@ -5691,6 +6062,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'web-accessibility-initiative',
         title: 'Web Accessibility Initiative',
         href: 'https://www.w3.org/WAI/about/participating/',
         icon: 'simple-icons:w3c',
@@ -5705,6 +6077,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'r-localllama',
         title: 'r/LocalLLaMA',
         href: 'https://www.reddit.com/r/LocalLLaMA/',
         icon: 'simple-icons:reddit',
@@ -5719,6 +6092,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'r-claudeai',
         title: 'r/ClaudeAI',
         href: 'https://www.reddit.com/r/ClaudeAI/',
         icon: 'simple-icons:reddit',
@@ -5733,6 +6107,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'r-reactjs',
         title: 'r/reactjs',
         href: 'https://www.reddit.com/r/reactjs/',
         icon: 'simple-icons:reddit',
@@ -5746,6 +6121,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'r-experienceddevs',
         title: 'r/ExperiencedDevs',
         href: 'https://www.reddit.com/r/ExperiencedDevs/',
         icon: 'simple-icons:reddit',
@@ -5759,6 +6135,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'openai-developer-community',
         title: 'OpenAI Developer Community',
         href: 'https://community.openai.com/',
         icon: 'simple-icons:openai',
@@ -5773,6 +6150,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'hugging-face-forums',
         title: 'Hugging Face Forums',
         href: 'https://discuss.huggingface.co/',
         icon: 'simple-icons:huggingface',
@@ -5787,6 +6165,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'codepen',
         title: 'CodePen',
         href: 'https://codepen.io/',
         icon: 'simple-icons:codepen',
@@ -5802,6 +6181,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'ai-engineer',
         title: 'AI Engineer',
         href: 'https://www.ai.engineer/',
         icon: 'mdi:presentation',
@@ -5817,6 +6197,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'agentic-ai-foundation',
         title: 'Agentic AI Foundation',
         href: 'https://aaif.io/',
         icon: 'simple-icons:linuxfoundation',
@@ -5831,6 +6212,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'kaggle',
         title: 'Kaggle',
         href: 'https://www.kaggle.com/',
         icon: 'simple-icons:kaggle',
@@ -5846,6 +6228,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'vercel-community',
         title: 'Vercel Community',
         href: 'https://community.vercel.com/',
         icon: 'simple-icons:vercel',
@@ -5860,6 +6243,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'astro-discord',
         title: 'Astro Discord',
         href: 'https://astro.build/chat',
         icon: 'simple-icons:astro',
@@ -5873,6 +6257,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'svelte-discord',
         title: 'Svelte Discord',
         href: 'https://svelte.dev/chat',
         icon: 'simple-icons:svelte',
@@ -5886,6 +6271,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'r-nextjs',
         title: 'r/nextjs',
         href: 'https://www.reddit.com/r/nextjs/',
         icon: 'simple-icons:reddit',
@@ -5900,6 +6286,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'typescript-discord',
         title: 'TypeScript Discord',
         href: 'https://discord.com/invite/typescript',
         icon: 'simple-icons:typescript',
@@ -5913,6 +6300,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'vue-land',
         title: 'Vue Land',
         href: 'https://chat.vuejs.org/',
         icon: 'simple-icons:vuedotjs',
@@ -5927,6 +6315,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'devpost',
         title: 'Devpost',
         href: 'https://devpost.com/',
         icon: 'simple-icons:devpost',
@@ -5941,6 +6330,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'anitab-org',
         title: 'AnitaB.org',
         href: 'https://anitab.org/',
         icon: 'mdi:account-group-outline',
@@ -5963,6 +6353,7 @@ export const SECTIONS = [
       'Stay updated with insights from industry experts and thought leaders',
     links: [
       {
+        id: 'josh-w-comeau',
         title: 'Josh W Comeau',
         href: 'https://www.joshwcomeau.com/',
         icon: 'mdi:account',
@@ -5979,6 +6370,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'lee-robinson',
         title: 'Lee Robinson',
         href: 'https://leerob.com/',
         icon: 'mdi:account',
@@ -5994,6 +6386,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'alex-kondov',
         title: 'Alex Kondov',
         href: 'https://alexkondov.com/',
         icon: 'mdi:account',
@@ -6009,6 +6402,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'rafael-camargo',
         title: 'Rafael Camargo',
         href: 'https://www.cmrg.me/',
         icon: 'mdi:account',
@@ -6023,6 +6417,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'nico-prananta',
         title: 'Nico Prananta',
         href: 'https://www.nico.fyi/',
         icon: 'mdi:account',
@@ -6038,6 +6433,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'dan-abramov',
         title: 'Dan Abramov',
         href: 'https://overreacted.io/',
         icon: 'mdi:account',
@@ -6053,6 +6449,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'kent-c-dodds',
         title: 'Kent C. Dodds',
         href: 'https://kentcdodds.com/blog',
         icon: 'mdi:account',
@@ -6069,6 +6466,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'sarah-drasner',
         title: 'Sarah Drasner',
         href: 'https://sarah.dev/writing',
         icon: 'mdi:account',
@@ -6085,6 +6483,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'addy-osmani',
         title: 'Addy Osmani',
         href: 'https://addyosmani.com/',
         icon: 'mdi:account',
@@ -6100,6 +6499,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'chris-coyier',
         title: 'Chris Coyier',
         href: 'https://chriscoyier.net/',
         icon: 'mdi:account',
@@ -6115,6 +6515,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'wes-bos',
         title: 'Wes Bos',
         href: 'https://wesbos.com/blog',
         icon: 'mdi:account',
@@ -6131,6 +6532,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'surma',
         title: 'Surma',
         href: 'https://surma.dev/',
         icon: 'mdi:account',
@@ -6139,6 +6541,7 @@ export const SECTIONS = [
         tags: ['performance', 'blog', 'free', 'advanced', 'modern'],
       },
       {
+        id: 'jake-archibald',
         title: 'Jake Archibald',
         href: 'https://jakearchibald.com/',
         icon: 'mdi:account',
@@ -6147,6 +6550,7 @@ export const SECTIONS = [
         tags: ['performance', 'blog', 'free', 'advanced', 'modern'],
       },
       {
+        id: 'una-kravets',
         title: 'Una Kravets',
         href: 'https://una.im/',
         icon: 'mdi:account',
@@ -6162,6 +6566,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'phil-hawksworth',
         title: 'Phil Hawksworth',
         href: 'https://www.hawksworx.com/blog/',
         icon: 'mdi:account',
@@ -6176,6 +6581,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'svelte-blog',
         title: 'Svelte Blog',
         href: 'https://svelte.dev/blog',
         icon: 'simple-icons:svelte',
@@ -6191,6 +6597,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'guillermo-rauch',
         title: 'Guillermo Rauch',
         href: 'https://rauchg.com/',
         icon: 'mdi:account',
@@ -6207,6 +6614,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'mark-erikson',
         title: 'Mark Erikson',
         href: 'https://blog.isquaredsoftware.com/',
         icon: 'mdi:account',
@@ -6222,6 +6630,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'michelle-barker',
         title: 'Michelle Barker',
         href: 'https://css-irl.info/',
         icon: 'mdi:account',
@@ -6237,6 +6646,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'max-stoiber',
         title: 'Max Stoiber',
         href: 'https://mxstbr.com/',
         icon: 'mdi:account',
@@ -6253,6 +6663,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'lea-verou',
         title: 'Lea Verou',
         href: 'https://lea.verou.me/',
         icon: 'mdi:account',
@@ -6268,6 +6679,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'paul-irish',
         title: 'Paul Irish',
         href: 'https://www.paulirish.com/',
         icon: 'mdi:account',
@@ -6282,6 +6694,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'david-walsh',
         title: 'David Walsh',
         href: 'https://davidwalsh.name/',
         icon: 'mdi:account',
@@ -6290,6 +6703,7 @@ export const SECTIONS = [
         tags: ['javascript', 'blog', 'free', 'tutorial', 'advanced'],
       },
       {
+        id: 'sara-soueidan',
         title: 'Sara Soueidan',
         href: 'https://www.sarasoueidan.com/blog/',
         icon: 'mdi:account',
@@ -6305,6 +6719,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'harry-roberts',
         title: 'Harry Roberts',
         href: 'https://csswizardry.com/',
         icon: 'mdi:account',
@@ -6320,6 +6735,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'robin-rendle',
         title: 'Robin Rendle',
         href: 'https://robinrendle.com/',
         icon: 'mdi:account',
@@ -6335,6 +6751,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'ben-frain',
         title: 'Ben Frain',
         href: 'https://benfrain.com/',
         icon: 'mdi:account',
@@ -6350,6 +6767,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'jeremy-keith',
         title: 'Jeremy Keith',
         href: 'https://adactio.com/journal/',
         icon: 'mdi:account',
@@ -6364,6 +6782,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'rachel-andrew',
         title: 'Rachel Andrew',
         href: 'https://rachelandrew.co.uk/archives/',
         icon: 'mdi:account',
@@ -6379,6 +6798,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'vercel-blog',
         title: 'Vercel Blog',
         href: 'https://vercel.com/blog',
         icon: 'simple-icons:vercel',
@@ -6394,6 +6814,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'syntax',
         title: 'Syntax',
         href: 'https://syntax.fm/snackpack',
         icon: 'mdi:podcast',
@@ -6408,6 +6829,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'codesmith',
         title: 'Codesmith',
         href: 'https://codesmith.io/blog',
         icon: 'mdi:school',
@@ -6423,6 +6845,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'unwind-ai',
         title: 'unwind ai',
         href: 'https://www.theunwindai.com/',
         icon: 'mdi:email-newsletter',
@@ -6439,6 +6862,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'javascript-weekly',
         title: 'JavaScript Weekly',
         href: 'https://javascriptweekly.com/',
         icon: 'mdi:email-newsletter',
@@ -6454,6 +6878,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'frontend-focus',
         title: 'Frontend Focus',
         href: 'https://frontendfoc.us/',
         icon: 'mdi:email-newsletter',
@@ -6469,6 +6894,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'react-status',
         title: 'React Status',
         href: 'https://react.statuscode.com/',
         icon: 'simple-icons:react',
@@ -6477,6 +6903,7 @@ export const SECTIONS = [
         tags: ['react', 'newsletter', 'free', 'weekly', 'modern'],
       },
       {
+        id: 'node-weekly',
         title: 'Node Weekly',
         href: 'https://nodeweekly.com/',
         icon: 'simple-icons:nodedotjs',
@@ -6492,6 +6919,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'bytes',
         title: 'Bytes',
         href: 'https://bytes.dev/',
         icon: 'simple-icons:javascript',
@@ -6506,6 +6934,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'css-weekly',
         title: 'CSS Weekly',
         href: 'https://css-weekly.com/',
         icon: 'simple-icons:css3',
@@ -6521,6 +6950,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'chrome-for-developers',
         title: 'Chrome for Developers',
         href: 'https://developer.chrome.com/blog',
         icon: 'simple-icons:googlechrome',
@@ -6536,6 +6966,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'webkit-blog',
         title: 'WebKit Blog',
         href: 'https://webkit.org/blog/',
         icon: 'simple-icons:safari',
@@ -6551,6 +6982,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'mozilla-hacks',
         title: 'Mozilla Hacks',
         href: 'https://hacks.mozilla.org/',
         icon: 'simple-icons:firefoxbrowser',
@@ -6566,6 +6998,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'react-blog',
         title: 'React Blog',
         href: 'https://react.dev/blog',
         icon: 'simple-icons:react',
@@ -6581,6 +7014,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'ahmad-shadeed',
         title: 'Ahmad Shadeed',
         href: 'https://ishadeed.com/',
         icon: 'mdi:account',
@@ -6596,6 +7030,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'bramus-van-damme',
         title: 'Bramus Van Damme',
         href: 'https://www.bram.us/',
         icon: 'mdi:account',
@@ -6611,6 +7046,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'jim-nielsen',
         title: 'Jim Nielsen',
         href: 'https://blog.jim-nielsen.com/',
         icon: 'mdi:account',
@@ -6625,6 +7061,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'simon-willison',
         title: 'Simon Willison',
         href: 'https://simonwillison.net/',
         icon: 'mdi:robot-outline',
@@ -6640,6 +7077,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'adrian-roselli',
         title: 'Adrian Roselli',
         href: 'https://adrianroselli.com/',
         icon: 'mdi:human-wheelchair',
@@ -6655,6 +7093,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'piccalilli',
         title: 'Piccalilli',
         href: 'https://piccalil.li/blog/',
         icon: 'mdi:book-open-variant',
@@ -6670,6 +7109,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'tkdodo',
         title: 'TkDodo',
         href: 'https://tkdodo.eu/blog',
         icon: 'simple-icons:react',
@@ -6685,6 +7125,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'anthony-fu',
         title: 'Anthony Fu',
         href: 'https://antfu.me/',
         icon: 'simple-icons:vuedotjs',
@@ -6701,6 +7142,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'alex-russell',
         title: 'Alex Russell',
         href: 'https://infrequently.org/',
         icon: 'mdi:speedometer',
@@ -6715,6 +7157,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'manuel-matuzovic',
         title: 'Manuel Matuzovic',
         href: 'https://www.matuzo.at/blog/',
         icon: 'mdi:language-html5',
@@ -6730,6 +7173,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'latent-space',
         title: 'Latent Space',
         href: 'https://www.latent.space/',
         icon: 'mdi:podcast',
@@ -6746,6 +7190,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'anthropic-engineering',
         title: 'Anthropic Engineering',
         href: 'https://www.anthropic.com/engineering',
         icon: 'simple-icons:anthropic',
@@ -6761,6 +7206,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'openai-news',
         title: 'OpenAI News',
         href: 'https://openai.com/news/',
         icon: 'simple-icons:openai',
@@ -6774,6 +7220,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'google-deepmind-blog',
         title: 'Google DeepMind Blog',
         href: 'https://deepmind.google/blog/',
         icon: 'simple-icons:google',
@@ -6788,6 +7235,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'the-batch',
         title: 'The Batch',
         href: 'https://www.deeplearning.ai/the-batch',
         icon: 'mdi:newspaper-variant-outline',
@@ -6802,6 +7250,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'lilian-weng',
         title: 'Lilian Weng',
         href: 'https://lilianweng.github.io/',
         icon: 'mdi:book-open-variant',
@@ -6816,6 +7265,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'ahead-of-ai',
         title: 'Ahead of AI',
         href: 'https://magazine.sebastianraschka.com/',
         icon: 'mdi:brain',
@@ -6830,6 +7280,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'import-ai',
         title: 'Import AI',
         href: 'https://importai.substack.com/',
         icon: 'mdi:email-newsletter',
@@ -6844,6 +7295,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'interconnects',
         title: 'Interconnects',
         href: 'https://www.interconnects.ai/',
         icon: 'mdi:vector-link',
@@ -6859,6 +7311,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'tldr-ai',
         title: 'TLDR AI',
         href: 'https://tldr.tech/ai',
         icon: 'mdi:email-fast-outline',
@@ -6872,6 +7325,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'hugging-face-blog',
         title: 'Hugging Face Blog',
         href: 'https://huggingface.co/blog',
         icon: 'simple-icons:huggingface',
@@ -6886,6 +7340,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'this-week-in-react',
         title: 'This Week in React',
         href: 'https://thisweekinreact.com/',
         icon: 'simple-icons:react',
@@ -6900,6 +7355,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'master-dev-blog',
         title: 'Master.dev Blog',
         href: 'https://blog.master.dev/',
         icon: 'mdi:school-outline',
@@ -6914,6 +7370,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'stefan-judis',
         title: 'Stefan Judis',
         href: 'https://www.stefanjudis.com/',
         icon: 'mdi:account',
@@ -6929,6 +7386,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'nolan-lawson',
         title: 'Nolan Lawson',
         href: 'https://nolanlawson.com/',
         icon: 'mdi:account',
@@ -6943,6 +7401,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'cassidy-williams',
         title: 'Cassidy Williams',
         href: 'https://cassidoo.co/',
         icon: 'mdi:account',
@@ -6958,6 +7417,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'typescript-blog',
         title: 'TypeScript Blog',
         href: 'https://devblogs.microsoft.com/typescript/',
         icon: 'simple-icons:typescript',
@@ -6972,6 +7432,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'next-js-blog',
         title: 'Next.js Blog',
         href: 'https://nextjs.org/blog',
         icon: 'simple-icons:nextdotjs',
@@ -6986,6 +7447,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'astro-blog',
         title: 'Astro Blog',
         href: 'https://astro.build/blog/',
         icon: 'simple-icons:astro',
@@ -7000,6 +7462,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'the-pragmatic-engineer',
         title: 'The Pragmatic Engineer',
         href: 'https://newsletter.pragmaticengineer.com/',
         icon: 'mdi:email-newsletter',
@@ -7015,6 +7478,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'bytebytego',
         title: 'ByteByteGo',
         href: 'https://blog.bytebytego.com/',
         icon: 'mdi:sitemap-outline',
@@ -7030,6 +7494,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'console-dev',
         title: 'Console.dev',
         href: 'https://console.dev/',
         icon: 'mdi:toolbox-outline',
@@ -7044,6 +7509,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'the-changelog',
         title: 'The Changelog',
         href: 'https://changelog.com/',
         icon: 'mdi:podcast',
@@ -7058,6 +7524,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'shoptalk-show',
         title: 'ShopTalk Show',
         href: 'https://shoptalkshow.com/',
         icon: 'mdi:microphone-outline',
@@ -7073,6 +7540,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'hamel-husain',
         title: 'Hamel Husain',
         href: 'https://hamel.dev/',
         icon: 'mdi:account',
@@ -7087,6 +7555,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'chip-huyen',
         title: 'Chip Huyen',
         href: 'https://huyenchip.com/',
         icon: 'mdi:account',
@@ -7101,6 +7570,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'eugene-yan',
         title: 'Eugene Yan',
         href: 'https://eugeneyan.com/',
         icon: 'mdi:account',
@@ -7115,6 +7585,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'node-js-blog',
         title: 'Node.js Blog',
         href: 'https://nodejs.org/en/blog',
         icon: 'simple-icons:nodedotjs',
@@ -7129,6 +7600,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'deno-blog',
         title: 'Deno Blog',
         href: 'https://deno.com/blog',
         icon: 'simple-icons:deno',
@@ -7144,6 +7616,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'tailwind-css-blog',
         title: 'Tailwind CSS Blog',
         href: 'https://tailwindcss.com/blog',
         icon: 'simple-icons:tailwindcss',
@@ -7159,6 +7632,7 @@ export const SECTIONS = [
         ],
       },
       {
+        id: 'vue-js-blog',
         title: 'Vue.js Blog',
         href: 'https://blog.vuejs.org/',
         icon: 'simple-icons:vuedotjs',

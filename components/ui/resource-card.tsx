@@ -5,7 +5,6 @@
 import React from 'react';
 import { Icon } from '@/lib/icons';
 import { BookmarkButton } from '@/components/ui/bookmark-button';
-import { generateResourceId } from '@/lib/utils/resource-card';
 import { getTagIconName } from '@/lib/utils/tag-icons';
 import type { ResourceLink } from '@/lib/types';
 
@@ -16,7 +15,7 @@ type ResourceCardProps = {
 export default function ResourceCard({
   resource,
 }: ResourceCardProps) {
-  const resourceId = generateResourceId(resource.title);
+  const resourceId = resource.id;
 
   return (
     <article
@@ -51,7 +50,7 @@ export default function ResourceCard({
           </h3>
         </div>
         <BookmarkButton
-          href={resource.href}
+          resourceId={resource.id}
           title={resource.title}
           size="md"
           className="relative z-10"
