@@ -1,3 +1,5 @@
+// The chrome around every page: the search state, the global keyboard
+// shortcuts, the navigation, and a skip link to the main content.
 'use client';
 
 import { usePathname } from 'next/navigation';

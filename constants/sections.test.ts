@@ -1,3 +1,5 @@
+// Covers the dataset's integrity - permanent ids, and no duplicate hrefs or
+// titles - and looking a section up by its slug.
 import { describe, it, expect } from 'vitest';
 import {
   SECTIONS,

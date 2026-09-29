@@ -1,4 +1,5 @@
-
+// Icons for the tags that have one, drawn beside the tag on resource cards and
+// in the filter panel. A tag missing from the map shows no icon.
 export const TAG_ICON_MAP: Record<string, string> = {
   ai: 'mdi:robot',
   'interview-prep': 'mdi:account-tie',

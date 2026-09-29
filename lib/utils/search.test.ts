@@ -1,3 +1,5 @@
+// Covers filtering by query and tags, and the summary line the results report
+// their count in.
 import { describe, it, expect } from 'vitest';
 import {
   filterResources,

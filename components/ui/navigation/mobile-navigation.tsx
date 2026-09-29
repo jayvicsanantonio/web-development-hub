@@ -1,3 +1,5 @@
+// The mobile top bar - search, bookmarks, the theme toggle - and its menu of
+// the home page and the section pages. Hidden from the md breakpoint up.
 'use client';
 
 import { SECTIONS } from '@/constants/sections';

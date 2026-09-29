@@ -1,3 +1,5 @@
+// The shadcn/ui text input, styled with the theme tokens. The search box is
+// built on it.
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 const Input = React.forwardRef<

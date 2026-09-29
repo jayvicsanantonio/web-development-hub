@@ -1,3 +1,5 @@
+// robots.txt, written at build time: every path may be crawled, and crawlers
+// are pointed at the sitemap.
 import { MetadataRoute } from 'next';
 
 // Required by `output: 'export'`: metadata routes must opt in to static

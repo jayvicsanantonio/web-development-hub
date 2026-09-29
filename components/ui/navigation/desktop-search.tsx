@@ -1,3 +1,5 @@
+// The desktop search box, fixed at the top centre of the page. Hidden below
+// the md breakpoint, where the mobile bar opens its own.
 'use client';
 
 import { SearchInput } from '@/components/ui/search-input';
