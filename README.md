@@ -1,4 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Web Development Hub
+
+A curated directory of web development links, live at
+[webdevhub.link](https://webdevhub.link): documentation, courses, tools,
+frameworks, communities, blogs and newsletters, grouped into five sections -
+Learning Resources, Developer Tools, Frameworks and Libraries, Communities, and
+Blogs and Newsletters.
+
+Visitors can search every resource at once, narrow a page by tag, bookmark
+resources and switch between light and dark themes. Bookmarks and the theme
+are kept in the visitor's own browser; there are no accounts.
+
+Keyboard shortcuts (`Cmd` on macOS, `Ctrl` elsewhere):
+
+| Shortcut | Action |
+| --- | --- |
+| `Cmd+K` | Focus search (`/` or `F` too, when not typing in a field) |
+| `Cmd+F` | Open or close the tag filter |
+| `Cmd+B` | Go to bookmarks |
+| `Cmd+H` | Go home |
+| `Cmd+Shift+L` | Switch between light and dark |
+| `Esc` | Clear the search |
+
+It is a Next.js 15 static export served by Cloudflare Workers, with no server
+runtime and no database.
 
 ## Getting Started
 
@@ -31,18 +55,30 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Every section and resource lives in `constants/sections.ts`, so adding or
+editing a resource is a data-only change. Before making one, read
+[AGENTS.md](AGENTS.md): it holds the commands, the architecture and the
+conventions - permanent resource ids, retired hrefs, bundled icons - for people
+and coding agents alike.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Checks
 
-## Learn More
+Run these before opening a pull request:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm lint
+pnpm typecheck
+pnpm test
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`pnpm test:e2e` runs the Playwright suite against the static export, served
+through wrangler the way production serves it. It builds the export itself;
+install its browser once with `pnpm exec playwright install chromium`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Every resource is an external link, so links break without anything in this
+repository changing. `pnpm check:links` checks them all, and
+`.github/workflows/check-links.yml` runs it every Monday, opening or commenting
+on a `link-rot` issue when a link is genuinely broken.
 
 ## Deployment
 

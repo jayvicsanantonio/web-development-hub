@@ -6,8 +6,10 @@ Current documentation lives at the repository root:
 - `AGENTS.md` — commands, architecture and the conventions to work within,
   for people and every coding agent alike (`CLAUDE.md` imports it)
 
-`modern_css_concepts_guide.md` is a reference on the CSS features this project
-uses; it is not tied to a particular change.
+`modern_css_concepts_guide.md` is a general reference on modern CSS and the
+Tailwind v4 directives, written for the Tailwind v4 migration. Its examples
+illustrate the features rather than quote this project's styles; where they
+differ from the Styling System rules in `AGENTS.md`, those rules win.
 
 `archive/` holds superseded point-in-time documents. They record why past
 decisions were made and are not maintained.

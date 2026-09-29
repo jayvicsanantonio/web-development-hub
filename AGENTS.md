@@ -13,17 +13,24 @@ directly.
   Workers Builds build command (see Deployment below)
 - `pnpm lint` - Run ESLint over the whole repo (flat config, warnings fail);
   `pnpm lint --fix` applies the automatic fixes
-- `pnpm format` - Format with Prettier
+- `pnpm format` - Format with Prettier (`pnpm format:check` reports without
+  writing)
 - `pnpm typecheck` - Type-check without emitting
 - `pnpm test` - Run the Vitest suite once (`pnpm test:watch` to rerun on change)
-- `pnpm test:e2e` - Playwright smoke tests against the built export via wrangler
+- `pnpm test:e2e` - Playwright smoke tests. It builds the export and serves it
+  through wrangler itself, except outside CI when a server is already
+  listening on port 8788: that one is tested as it is, without a rebuild.
+  Install the browser once with `pnpm exec playwright install chromium`, or
+  point `PLAYWRIGHT_CHROMIUM_PATH` at a Chromium already on the machine
 - `pnpm icons` - Rebuild the icon bundle (see Icons below). Builds, dev starts
   and test runs already do this, so it is only needed mid-session
 - `pnpm check:links` - Check every resource URL in `constants/sections.ts` (add
   `--section "Learning Resources"` to scope it, `--json` for machine output).
   Exits non-zero only on genuinely broken links. Responses that only mean a
   script was turned away (401/403/429, and redirect loops through a sign-in
-  page) are reported as inconclusive
+  page) are reported as inconclusive. `.github/workflows/check-links.yml` runs
+  it every Monday and opens, or comments on, a `link-rot` issue when a link is
+  broken; it can also be run by hand from the Actions tab
 
 Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
 

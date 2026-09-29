@@ -1114,15 +1114,21 @@ div > ul > li > a { }           /* Slow descendant chain */
 [data-role*="component"] { }     /* Slow attribute matching */
 ```
 
-#### **2. Hardware Acceleration**
+#### **2. Compositor-Friendly Animation**
 ```css
 .optimized-animation {
-  /* Properties that trigger GPU acceleration */
+  /* Animate transform, scale and opacity: the compositor can run them
+     without layout or paint, and the browser promotes the element to its
+     own layer for as long as it animates. Name the properties rather than
+     transitioning `all`. */
+  transition: scale 0.3s ease, opacity 0.3s ease;
+}
+
+/* Avoid forcing a layer on an element at rest: translateZ(0) and a standing
+   will-change hold a layer, and its memory, whether or not anything moves. */
+.forced-layer {
   transform: translateZ(0);
   will-change: transform, opacity;
-  
-  /* Use transform instead of position changes */
-  transition: transform 0.3s ease;
 }
 
 /* Avoid these for animations */
@@ -1304,15 +1310,19 @@ div > ul > li > a { }           /* Slow descendant chain */
 
 ### Browser Support Matrix
 
+Support levels are as of September 2026. [Baseline](https://web.dev/baseline)
+calls a feature *widely available* once every major browser has shipped it for
+30 months; check it for anything not listed here.
+
 | Feature | Chrome | Firefox | Safari | Edge | Support Level |
 |---------|--------|---------|--------|------|---------------|
-| **CSS Custom Properties** | 49+ | 31+ | 9.1+ | 16+ | ✅ Universal |
-| **CSS Grid** | 57+ | 52+ | 10.1+ | 16+ | ✅ Universal |
-| **Container Queries** | 105+ | 110+ | 16+ | 105+ | ⚠️ Modern |
-| **Logical Properties** | 69+ | 66+ | 12.1+ | 79+ | ⚠️ Modern |
-| **:focus-visible** | 86+ | 85+ | 15.4+ | 86+ | ⚠️ Modern |
-| **:has()** | 105+ | 121+ | 15.4+ | 105+ | ⚠️ Modern |
-| **Cascade Layers** | 99+ | 97+ | 15.4+ | 99+ | ⚠️ Modern |
+| **CSS Custom Properties** | 49+ | 31+ | 9.1+ | 16+ | ✅ Widely available |
+| **CSS Grid** | 57+ | 52+ | 10.1+ | 16+ | ✅ Widely available |
+| **Container Queries** | 105+ | 110+ | 16+ | 105+ | ✅ Widely available |
+| **Logical Properties** | 69+ | 66+ | 12.1+ | 79+ | ✅ Widely available |
+| **:focus-visible** | 86+ | 85+ | 15.4+ | 86+ | ✅ Widely available |
+| **:has()** | 105+ | 121+ | 15.4+ | 105+ | ✅ Widely available |
+| **Cascade Layers** | 99+ | 97+ | 15.4+ | 99+ | ✅ Widely available |
 
 ---
 
