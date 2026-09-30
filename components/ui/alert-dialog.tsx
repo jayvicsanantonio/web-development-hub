@@ -1,3 +1,5 @@
+// The shadcn/ui alert dialog, built on Radix. The bookmarks page asks it to
+// confirm before clearing every bookmark.
 'use client';
 
 import * as React from 'react';

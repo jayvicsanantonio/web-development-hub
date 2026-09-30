@@ -1,3 +1,5 @@
+// Playwright configuration: the e2e suite runs in Chromium against the static
+// export, built and then served through wrangler as production serves it.
 import { defineConfig, devices } from '@playwright/test';
 
 const PORT = 8788;

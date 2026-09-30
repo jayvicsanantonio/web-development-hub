@@ -1,3 +1,5 @@
+// The site footer: the copyright line and links to the privacy policy and
+// terms of service.
 import Link from 'next/link';
 
 export default function Footer() {

@@ -1,3 +1,5 @@
+// The web app manifest, written at build time to /manifest.webmanifest: the
+// site's name, colours and install icons.
 import { MetadataRoute } from 'next';
 
 // Required by `output: 'export'`: metadata routes must opt in to static

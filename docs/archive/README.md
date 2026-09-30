@@ -1,7 +1,7 @@
 # Archive
 
 Point-in-time documents, kept for the reasoning they record. **None of them
-describe the codebase as it is now** — read `CLAUDE.md`, `README.md` and the
+describe the codebase as it is now** — read `AGENTS.md`, `README.md` and the
 code before trusting anything here.
 
 - `tailwind_v4_*.md`, `case-study-tailwind-v4-migration.md`,

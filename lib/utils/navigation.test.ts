@@ -1,3 +1,5 @@
+// Covers the section ids and nav items: every id the nav points at must be one
+// a page renders, listed in the dataset's order.
 import { describe, it, expect } from 'vitest';
 import { SECTIONS } from '@/constants/sections';
 import {

@@ -1,3 +1,5 @@
+// Vitest configuration: unit and component tests run in jsdom, with the same
+// `@/` alias and icon bundle the app builds with.
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import { writeIconBundle } from './scripts/build-icons.mjs';

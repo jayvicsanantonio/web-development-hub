@@ -73,7 +73,7 @@ const currentColor = getComputedStyle(document.documentElement)
 ```
 
 #### 3. **Fallback Values**
-Provide fallbacks for better browser support:
+Supply a value to use when the property is not defined:
 
 ```css
 .element {
@@ -253,19 +253,37 @@ CSS directives (at-rules) are statements that begin with `@` and provide instruc
 /* Dark mode variant */
 @custom-variant dark (&:is(.dark *));
 
-/* Group hover variant */
-@custom-variant group-hover (&:is(.group:hover *));
+/* Hover on an ancestor. Pick a name Tailwind does not already use:
+   redefining a built-in such as group-hover replaces it everywhere */
+@custom-variant card-hover (&:is(.card:hover *));
 
 /* Custom state variant */
 @custom-variant loading (&:is([data-loading="true"] *));
 
-/* Complex variant with multiple conditions */
-@custom-variant mobile-dark (&:is(.dark *)) {
-  @media (max-width: 767px) {
-    /* Styles for mobile dark mode */
+/* Several conditions need the block form: @slot marks where the
+   utility's declarations go */
+@custom-variant mobile-dark {
+  &:is(.dark *) {
+    @media (width < 768px) {
+      @slot;
+    }
   }
 }
 ```
+
+#### **@apply** - Utilities Inside Custom CSS
+```css
+/* Markup repeated hundreds of times can carry one class instead of a
+   long utility list; this is the resource card's tag-chip */
+@utility tag-chip {
+  @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium;
+  @apply dark:bg-secondary/30 dark:text-secondary-foreground;
+}
+```
+
+`@apply` accepts Tailwind's utilities, including variants such as `dark:` and
+`hover:`, and custom utilities registered with `@utility`. It cannot apply an
+ordinary class defined elsewhere in the stylesheet.
 
 ### Advanced Directive Patterns
 
@@ -301,8 +319,8 @@ CSS directives (at-rules) are statements that begin with `@` and provide instruc
   }
 }
 
-/* High contrast mode support */
-@media (prefers-contrast: high) {
+/* Higher contrast when the visitor asks for it */
+@media (prefers-contrast: more) {
   .card {
     border: 2px solid black;
   }
@@ -478,16 +496,8 @@ Container queries allow you to style elements based on the size of their contain
 }
 ```
 
-#### **block-size**
-```css
-.container {
-  container-type: block-size; /* Height only */
-}
-
-@container (height >= 300px) {
-  /* Responds to height changes */
-}
-```
+There is no `block-size` value: a container that should answer height queries
+uses `size`.
 
 #### **size**
 ```css
@@ -500,11 +510,19 @@ Container queries allow you to style elements based on the size of their contain
 }
 ```
 
+`size` contains the element in both axes, so its height no longer comes from
+its content: give it one explicitly, or it collapses to zero.
+
+#### **normal**
+The default. The element answers style queries only, never size queries.
+
 ### Advanced Container Query Patterns
 
 #### **Responsive Component Design**
 ```css
-.article-card {
+/* A container query styles the container's descendants, never the container
+   itself, so the card sits inside a wrapper that is the container. */
+.article-card-wrapper {
   container-type: inline-size;
   container-name: article;
 }
@@ -579,6 +597,10 @@ Container queries allow you to style elements based on the size of their contain
 }
 ```
 
+An `inline-size` container has no block size to measure, so `cqh` and `cqb`
+here fall back to the small viewport units (`svh`, `svb`). They measure the
+container only when it is `container-type: size`.
+
 ### Container Queries vs Media Queries
 
 | Feature | Container Queries | Media Queries |
@@ -587,7 +609,7 @@ Container queries allow you to style elements based on the size of their contain
 | **Modularity** | ✅ High | ❌ Limited |
 | **Reusability** | ✅ Context-aware | ❌ Global only |
 | **Component Design** | ✅ Perfect fit | ❌ Breaks modularity |
-| **Browser Support** | ⚠️ Modern browsers | ✅ Universal |
+| **Browser Support** | ✅ Widely available | ✅ Universal |
 
 ### Practical Use Cases
 
@@ -695,7 +717,7 @@ left   → inset-inline-start
 /* Shorthand */
 inset-block: 10px 20px;   /* block-start block-end */
 inset-inline: 10px 20px;  /* inline-start inline-end */
-inset: 10px 20px 30px 40px; /* all four directions */
+inset: 10px 20px 30px 40px; /* physical: top right bottom left */
 ```
 
 #### **Sizing**
@@ -742,7 +764,7 @@ max-height → max-block-size
 ```css
 .card {
   margin-inline: 1rem;  /* Adapts to text direction */
-  padding-block: 2rem;  /* Always vertical in writing mode */
+  padding-block: 2rem;  /* Top and bottom, or left and right in vertical text */
   border-inline-start: 3px solid blue; /* Leading edge */
 }
 
@@ -802,7 +824,10 @@ max-height → max-block-size
   }
 }
 
-/* In RTL, the arrow automatically becomes ← and spacing flips */
+/* In RTL the spacing flips, but the → character does not: give RTL its own */
+.nav-link:dir(rtl)::after {
+  content: '←';
+}
 ```
 
 ### Browser Support Considerations
@@ -912,7 +937,8 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
-/* Hide focus ring for mouse users */
+/* Browsers already draw their default ring on :focus-visible only, so this
+   is needed only to undo a custom ring someone set on plain :focus */
 button:focus:not(:focus-visible) {
   outline: none;
 }
@@ -1032,7 +1058,7 @@ input:invalid {
   --primary-dark: hsl(var(--primary-hue) var(--primary-saturation) 30%);
 }
 
-/* OKLCH - perceptually uniform (future) */
+/* OKLCH - perceptually uniform; Tailwind v4's default palette is written in it */
 .modern-colors {
   color: oklch(0.7 0.15 180); /* Lightness, Chroma, Hue */
 }
@@ -1088,12 +1114,18 @@ input:invalid {
   transform-origin: center bottom;
 }
 
-/* Hardware acceleration */
-.gpu-accelerated {
-  transform: translateZ(0); /* Trigger hardware acceleration */
-  will-change: transform;   /* Hint to browser */
+/* Individual transform properties: each can be set, and transitioned, on
+   its own without restating the others */
+.tilted {
+  translate: 50px 0;
+  rotate: 45deg;
+  scale: 1.2;
 }
 ```
+
+Leave layer promotion to the browser rather than forcing it with
+`translateZ(0)` or a standing `will-change`; see
+[Performance & Optimization](#performance--optimization).
 
 ---
 
@@ -1114,15 +1146,21 @@ div > ul > li > a { }           /* Slow descendant chain */
 [data-role*="component"] { }     /* Slow attribute matching */
 ```
 
-#### **2. Hardware Acceleration**
+#### **2. Compositor-Friendly Animation**
 ```css
 .optimized-animation {
-  /* Properties that trigger GPU acceleration */
+  /* Animate transform, scale and opacity: the compositor can run them
+     without layout or paint, and the browser promotes the element to its
+     own layer for as long as it animates. Name the properties rather than
+     transitioning `all`. */
+  transition: scale 0.3s ease, opacity 0.3s ease;
+}
+
+/* Avoid forcing a layer on an element at rest: translateZ(0) and a standing
+   will-change hold a layer, and its memory, whether or not anything moves. */
+.forced-layer {
   transform: translateZ(0);
   will-change: transform, opacity;
-  
-  /* Use transform instead of position changes */
-  transition: transform 0.3s ease;
 }
 
 /* Avoid these for animations */
@@ -1143,7 +1181,9 @@ div > ul > li > a { }           /* Slow descendant chain */
   min-height: 100vh;
 }
 
-/* Load non-critical styles later */
+/* Styles only wider screens need. A media query in the same stylesheet
+   still downloads with it; to defer these, move them to their own
+   stylesheet linked with a media attribute */
 @media (min-width: 768px) {
   .enhanced-layout {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -1192,18 +1232,17 @@ div > ul > li > a { }           /* Slow descendant chain */
 
 #### **Utility-First with Custom Properties**
 ```css
-/* Base utilities */
-.p-4 { padding: var(--spacing-4); }
-.p-inline-4 { padding-inline: var(--spacing-4); }
-.p-block-4 { padding-block: var(--spacing-4); }
+/* Theme values become utilities: --color-primary gives text-primary,
+   bg-primary, border-primary and the rest */
+@theme {
+  --color-primary: hsl(200 100% 50%);
+}
 
-.text-primary { color: var(--color-primary); }
-.bg-primary { background-color: var(--color-primary); }
-
-/* Component compositions */
+/* Tailwind v4's px-* and py-* are already logical: they set
+   padding-inline and padding-block */
 .btn {
-  @apply p-inline-4 p-block-2 text-primary bg-white border border-primary;
-  transition: all 0.2s ease;
+  @apply px-4 py-2 text-primary bg-white border border-primary;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .btn:hover {
@@ -1304,15 +1343,19 @@ div > ul > li > a { }           /* Slow descendant chain */
 
 ### Browser Support Matrix
 
+Support levels are as of September 2026. [Baseline](https://web.dev/baseline)
+calls a feature *widely available* once every major browser has shipped it for
+30 months; check it for anything not listed here.
+
 | Feature | Chrome | Firefox | Safari | Edge | Support Level |
 |---------|--------|---------|--------|------|---------------|
-| **CSS Custom Properties** | 49+ | 31+ | 9.1+ | 16+ | ✅ Universal |
-| **CSS Grid** | 57+ | 52+ | 10.1+ | 16+ | ✅ Universal |
-| **Container Queries** | 105+ | 110+ | 16+ | 105+ | ⚠️ Modern |
-| **Logical Properties** | 69+ | 66+ | 12.1+ | 79+ | ⚠️ Modern |
-| **:focus-visible** | 86+ | 85+ | 15.4+ | 86+ | ⚠️ Modern |
-| **:has()** | 105+ | 121+ | 15.4+ | 105+ | ⚠️ Modern |
-| **Cascade Layers** | 99+ | 97+ | 15.4+ | 99+ | ⚠️ Modern |
+| **CSS Custom Properties** | 49+ | 31+ | 9.1+ | 16+ | ✅ Widely available |
+| **CSS Grid** | 57+ | 52+ | 10.1+ | 16+ | ✅ Widely available |
+| **Container Queries** | 105+ | 110+ | 16+ | 105+ | ✅ Widely available |
+| **Logical Properties** | 69+ | 66+ | 12.1+ | 79+ | ✅ Widely available |
+| **:focus-visible** | 86+ | 85+ | 15.4+ | 86+ | ✅ Widely available |
+| **:has()** | 105+ | 121+ | 15.4+ | 105+ | ✅ Widely available |
+| **Cascade Layers** | 99+ | 97+ | 15.4+ | 99+ | ✅ Widely available |
 
 ---
 
@@ -1323,11 +1366,14 @@ div > ul > li > a { }           /* Slow descendant chain */
 ```css
 /* Component using modern CSS features */
 @layer components {
-  .article-card {
-    /* Container for container queries */
+  /* The container. The queries below restyle the card inside it: an
+     element cannot answer its own container query */
+  .article-card-wrapper {
     container-type: inline-size;
     container-name: article-card;
-    
+  }
+
+  .article-card {
     /* Base styles with logical properties */
     padding-block: var(--spacing-md);
     padding-inline: var(--spacing-md);
@@ -1339,12 +1385,12 @@ div > ul > li > a { }           /* Slow descendant chain */
     border: 1px solid var(--card-border, #e5e5e5);
     border-radius: var(--radius-md);
     
-    /* Performance optimization */
-    will-change: transform;
+    /* Transform runs on the compositor; the browser promotes the card to
+       its own layer only while it moves */
     transition: transform 0.2s ease;
   }
   
-  /* Hover state with hardware acceleration */
+  /* Hover lift */
   .article-card:hover {
     transform: translateY(-2px);
   }
@@ -1480,7 +1526,7 @@ div > ul > li > a { }           /* Slow descendant chain */
   }
   
   /* High contrast theme */
-  @media (prefers-contrast: high) {
+  @media (prefers-contrast: more) {
     :root {
       --color-primary: hsl(var(--hue-primary) 100% 40%);
       --color-secondary: hsl(var(--hue-secondary) 100% 50%);
