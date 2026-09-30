@@ -1,10 +1,20 @@
 # Web Development Hub
 
+[![CI](https://github.com/jayvicsanantonio/web-development-hub/actions/workflows/ci.yml/badge.svg)](https://github.com/jayvicsanantonio/web-development-hub/actions/workflows/ci.yml)
+
 A curated directory of web development links, live at
 [webdevhub.link](https://webdevhub.link): documentation, courses, tools,
 frameworks, communities, blogs and newsletters, grouped into five sections -
 Learning Resources, Developer Tools, Frameworks and Libraries, Communities, and
-Blogs and Newsletters.
+Blogs and Newsletters. It is a Next.js 15 static export served by Cloudflare
+Workers, with no server runtime and no database.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/section-dark.png">
+  <img src="docs/images/section-light.png" alt="The Learning Resources page: a search box and tag filter above a grid of resource cards, each with an icon, a description, tags and a bookmark button">
+</picture>
+
+## Using the Site
 
 Visitors can search every resource at once, narrow a page by tag, bookmark
 resources and switch between light and dark themes. Bookmarks and the theme
@@ -15,23 +25,51 @@ Keyboard shortcuts (`Cmd` on macOS, `Ctrl` elsewhere):
 | Shortcut | Action |
 | --- | --- |
 | `Cmd+K` | Focus search (`/` or `F` too, when not typing in a field) |
-| `Cmd+F` | Open or close the tag filter |
+| `Cmd+F` | Open or close the tag filter, in place of the browser's find |
 | `Cmd+B` | Go to bookmarks |
 | `Cmd+H` | Go home |
 | `Cmd+Shift+L` | Switch between light and dark |
 | `Esc` | Clear the search |
 
-It is a Next.js 15 static export served by Cloudflare Workers, with no server
-runtime and no database.
+## Suggesting a Resource
+
+[Open an issue](https://github.com/jayvicsanantonio/web-development-hub/issues/new)
+with the link, the section it belongs in and a line on why it is worth adding.
+
+Or add it yourself. Every section and resource lives in
+`constants/sections.ts`, so adding one is a data-only change. An entry looks
+like this:
+
+```ts
+{
+  id: 'mdn-web-docs',
+  title: 'MDN Web Docs',
+  href: 'https://developer.mozilla.org/',
+  icon: 'simple-icons:mdnwebdocs',
+  description:
+    'The definitive resource for web technologies including HTML, CSS, JavaScript APIs, and progressive web app development.',
+  tags: ['documentation', 'free', 'html', 'css', 'javascript'],
+},
+```
+
+- `id` is permanent: bookmarks are stored by it, so take it from the title and
+  never change or reuse it. When an existing resource's `href` changes, add the
+  old one to `constants/retired-hrefs.ts`.
+- `icon` names an icon in an installed Iconify set (the `@iconify-json/*`
+  packages in `package.json`); browse them at
+  [icon-sets.iconify.design](https://icon-sets.iconify.design). A name no
+  installed set has fails the build.
+- Check the link with `pnpm check:links --section "<section title>"`.
 
 ## Getting Started
 
 ### Prerequisites
 
-This project uses [pnpm](https://pnpm.io/) for package management and [fnm](https://github.com/Schniz/fnm) for Node.js version management:
-
-- Install pnpm: `brew install pnpm` (or visit https://pnpm.io/installation for other methods)
-- Install fnm: `brew install fnm` (or visit https://github.com/Schniz/fnm#installation for other methods)
+- Node.js 22, pinned in `.node-version`. The setup below selects it with
+  [fnm](https://github.com/Schniz/fnm): `brew install fnm` (or visit
+  https://github.com/Schniz/fnm#installation for other methods)
+- [pnpm](https://pnpm.io/) 11, the major CI pins: `brew install pnpm` (or visit
+  https://pnpm.io/installation for other methods)
 
 ### Setup
 
@@ -55,11 +93,10 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Every section and resource lives in `constants/sections.ts`, so adding or
-editing a resource is a data-only change. Before making one, read
-[AGENTS.md](AGENTS.md): it holds the commands, the architecture and the
-conventions - permanent resource ids, retired hrefs, bundled icons - for people
-and coding agents alike.
+Before changing anything, read [AGENTS.md](AGENTS.md): it holds the commands,
+the architecture and the conventions - permanent resource ids, retired hrefs,
+bundled icons - for people and coding agents alike. [docs/](docs/README.md)
+holds a modern CSS reference and the archived design documents.
 
 ## Checks
 
@@ -71,9 +108,14 @@ pnpm typecheck
 pnpm test
 ```
 
+`pnpm build:checked` runs all three and then builds, as Cloudflare's build
+does.
+
 `pnpm test:e2e` runs the Playwright suite against the static export, served
-through wrangler the way production serves it. It builds the export itself;
-install its browser once with `pnpm exec playwright install chromium`.
+through wrangler the way production serves it. It builds the export and starts
+wrangler on port 8788 itself, except outside CI when a server is already
+listening there: that one is tested as it is, without a rebuild. Install its
+browser once with `pnpm exec playwright install chromium`.
 
 Every resource is an external link, so links break without anything in this
 repository changing. `pnpm check:links` checks them all, and
@@ -97,17 +139,10 @@ deploying:
 A preview publishes a Worker *version*, not a deployment, so it cannot shift
 production traffic. Preview URLs are commented on each pull request.
 
-`.github/workflows/ci.yml` does not deploy. It runs lint, typecheck, Vitest,
-the static-export check and the Playwright smoke suite on every pull request
-and every push to `main`. Workers Builds does not wait for it, so two settings,
-neither visible in code, decide whether a broken commit can reach production:
-
-- The Workers Builds build command, which should be `pnpm build:checked`. It
-  runs lint, typecheck and Vitest before building, so a commit that fails them
-  gets no version at all.
-- A ruleset on `main` requiring a pull request whose `build` check has passed.
-  Without one, every push to `main` deploys whatever CI says, and the
-  Playwright suite, which needs a browser and runs only in CI, gates nothing.
+`.github/workflows/ci.yml` does not deploy, and Workers Builds does not wait
+for it. Two settings outside the code - the Workers Builds build command and a
+ruleset on `main` - decide whether a broken commit can reach production;
+[AGENTS.md](AGENTS.md#deployment) describes both.
 
 To deploy by hand: `pnpm preview` serves the built export locally through
 wrangler, `pnpm upload` uploads a version without shifting traffic, and

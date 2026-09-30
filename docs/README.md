@@ -11,5 +11,8 @@ Tailwind v4 directives, written for the Tailwind v4 migration. Its examples
 illustrate the features rather than quote this project's styles; where they
 differ from the Styling System rules in `AGENTS.md`, those rules win.
 
+`images/` holds the screenshots the root `README.md` shows, taken from the
+Learning Resources page at a 1440 by 900 viewport.
+
 `archive/` holds superseded point-in-time documents. They record why past
 decisions were made and are not maintained.
