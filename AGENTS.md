@@ -54,8 +54,9 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
   `SECTIONS`, with `dynamicParams` off so any other path is the 404 page
 - Global layout in `app/layout.tsx` with providers, font configuration and the
   blocking script that applies the theme before first paint
-- Each route is a server component that exports its own `metadata`; the
-  interactive part is a client component it renders (e.g.
+- Each route is a server component that exports its own `metadata` (the home
+  page uses the root layout's defaults); the interactive part is a client
+  component it renders (e.g.
   `app/[section]/page.tsx` renders `components/category-page.tsx`). Keeping a
   route `'use client'` costs it its metadata, so the whole site shares one
   title
@@ -67,8 +68,12 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
   when it needs state, effects, event handlers or browser APIs
 
 ### Component Organization
-- UI components in `/components/ui/` following atomic design patterns
-- Shared components in `/components/` root
+- `/components/ui/` holds the building blocks and the site chrome: the shadcn
+  primitives, resource cards and grids, the search box and filter panel, the
+  footer, and the navigation (its desktop and mobile renderers in
+  `navigation/`)
+- `/components/` root holds the bodies routes render: `category-page`,
+  `search-wrapper` and `section-preview-grid`
 - Uses shadcn/ui component library with Radix UI primitives; add or update
   components with the shadcn CLI, which reads `components.json`
 - Tailwind CSS for styling with CSS custom properties for theming
@@ -96,7 +101,9 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
 - The theme is not React state. The blocking script in `app/layout.tsx`
   resolves it before first paint, and `toggleTheme()` in `lib/theme.ts` flips
   whatever the page currently shows
-- Custom hooks in `/hooks/`; smaller presentational ones in `/lib/hooks/`
+- Hooks that wire up site behaviour (`useKeyboardShortcuts`) live in
+  `/hooks/`; small hooks that read browser state (`useIntersectionObserver`,
+  `useIsMac`) in `/lib/hooks/`
 
 ### Data Layer
 - `constants/sections.ts` is the single source of truth: five sections and

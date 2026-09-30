@@ -1,5 +1,5 @@
-// Covers the body all five category routes share. They were five near-copies
-// of this file, differing only in three strings.
+// Covers the body every section page renders from its slug. The five pages
+// were once five near-copies of this file, differing only in three strings.
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

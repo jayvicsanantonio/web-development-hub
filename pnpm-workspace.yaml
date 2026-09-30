@@ -3,9 +3,10 @@
 # those approvals only from here — not from package.json's "pnpm" field and not
 # from .npmrc. Left absent, pnpm 10+ regenerates it without a `packages` key.
 #
-# `packages` is required: Vercel builds this project with pnpm 9 (it pins the
-# version by project creation date), and pnpm 9 rejects a workspace file that
-# has no `packages`, failing the install with "packages field missing or empty".
+# `packages` keeps the file valid for pnpm 9, which rejects a workspace file
+# that has no `packages` and fails the install with "packages field missing or
+# empty". Declaring only the root changes nothing for pnpm 10+: the lockfile is
+# identical with or without it.
 packages:
   - '.'
 

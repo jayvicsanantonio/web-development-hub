@@ -97,15 +97,17 @@ deploying:
 A preview publishes a Worker *version*, not a deployment, so it cannot shift
 production traffic. Preview URLs are commented on each pull request.
 
-`.github/workflows/ci.yml` does not deploy. It runs lint, typecheck, Vitest and
-the Playwright smoke suite on every pull request and every push to `main`.
-Workers Builds does not wait for it, so two repository settings, neither
-visible in code, are what keep a broken commit out of production:
+`.github/workflows/ci.yml` does not deploy. It runs lint, typecheck, Vitest,
+the static-export check and the Playwright smoke suite on every pull request
+and every push to `main`. Workers Builds does not wait for it, so two settings,
+neither visible in code, decide whether a broken commit can reach production:
 
+- The Workers Builds build command, which should be `pnpm build:checked`. It
+  runs lint, typecheck and Vitest before building, so a commit that fails them
+  gets no version at all.
 - A ruleset on `main` requiring a pull request whose `build` check has passed.
-- The Workers Builds build command set to `pnpm build:checked`, which runs lint,
-  typecheck and Vitest before building, so a commit that fails them gets no
-  version at all. Playwright needs a browser and runs only in CI.
+  Without one, every push to `main` deploys whatever CI says, and the
+  Playwright suite, which needs a browser and runs only in CI, gates nothing.
 
 To deploy by hand: `pnpm preview` serves the built export locally through
 wrangler, `pnpm upload` uploads a version without shifting traffic, and

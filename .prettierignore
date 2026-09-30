@@ -9,6 +9,6 @@ test-results
 pnpm-lock.yaml
 tsconfig.tsbuildinfo
 
-# The resource dataset is machine-uniform by design: scripts/check-links.mjs
-# parses it with indentation-anchored regexes. Prettier already agrees with its
-# current shape, so this is a guard rather than an exemption.
+# constants/sections.ts is deliberately not listed. scripts/check-links.mjs
+# parses it with regexes anchored to its indentation, and Prettier keeps that
+# indentation uniform, so formatting the dataset leaves the parse intact.
