@@ -16,3 +16,11 @@ allowBuilds:
   esbuild: true
   workerd: true
   sharp: false
+
+# next 15 pins postcss to exactly 8.4.31, which has the sourceMappingURL file
+# disclosure and </style> escaping advisories fixed in 8.5.23. postcss only
+# runs during `next build` and 8.5 is a compatible minor, so next gets the
+# same patched postcss as the rest of the tree. Drop this once next's own
+# pin reaches 8.5.23.
+overrides:
+  'next>postcss': ^8.5.23
