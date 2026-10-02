@@ -12,14 +12,12 @@ import { FilterButton } from './filter-button';
 interface SearchInputProps {
   isMobile?: boolean;
   onSubmit?: () => void;
-  className?: string;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export function SearchInput({
   isMobile = false,
   onSubmit,
-  className = '',
   onKeyDown,
 }: SearchInputProps) {
   const { searchQuery, setSearchQuery, clearSearch } = useSearch();
@@ -70,7 +68,7 @@ export function SearchInput({
               isMobile
                 ? 'w-full pr-10'
                 : 'w-64 h-10 pl-9 pr-16 backdrop-blur-md rounded-full shadow-md border-border/20 transition-all duration-300 dark:hover:bg-background-primary/90'
-            } ${className} [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none`}
+            } [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none`}
             aria-label="Search resources"
             autoComplete="off"
             onKeyDown={handleKeyDown}

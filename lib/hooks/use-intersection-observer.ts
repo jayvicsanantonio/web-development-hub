@@ -1,6 +1,7 @@
 // Tracks which section is nearest the middle of the viewport, for the nav's
 // active highlight.
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 interface UseIntersectionObserverOptions {
   rootMargin?: string;
@@ -8,12 +9,18 @@ interface UseIntersectionObserverOptions {
   root?: Element | null;
 }
 
+/**
+ * The observer watches the elements the ids name when it is built. The nav
+ * using this stays mounted while pages render their sections afresh, so it is
+ * rebuilt on every route change and whenever `sectionIds` is a new array:
+ * callers memoise it, and pass a new one when they render a new list.
+ */
 export const useIntersectionObserver = (
   sectionIds: string[],
   options: UseIntersectionObserverOptions = {}
 ) => {
   const [activeSection, setActiveSection] = useState<string>('');
-  const observerRef = useRef<IntersectionObserver | null>(null);
+  const pathname = usePathname();
 
   const {
     rootMargin = '-20% 0px -20% 0px',
@@ -21,16 +28,10 @@ export const useIntersectionObserver = (
     root = null,
   } = options;
 
-  // Keyed on the ids themselves rather than the array's identity. Callers
-  // build this list inline, and depending on the array meant the observer was
-  // disconnected and rebuilt on every render of the nav.
-  const sectionKey = sectionIds.join('|');
-
   useEffect(() => {
-    const ids = sectionKey ? sectionKey.split('|') : [];
-    if (ids.length === 0) return;
+    if (sectionIds.length === 0) return;
 
-    observerRef.current = new IntersectionObserver(
+    const observer = new IntersectionObserver(
       (entries) => {
         const visibleSections = entries
           .filter((entry) => entry.isIntersecting)
@@ -68,19 +69,15 @@ export const useIntersectionObserver = (
       }
     );
 
-    ids.forEach((id) => {
+    sectionIds.forEach((id) => {
       const element = document.getElementById(id);
-      if (element && observerRef.current) {
-        observerRef.current.observe(element);
+      if (element) {
+        observer.observe(element);
       }
     });
 
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, [sectionKey, rootMargin, threshold, root]);
+    return () => observer.disconnect();
+  }, [sectionIds, pathname, rootMargin, threshold, root]);
 
   return activeSection;
 };

@@ -19,11 +19,6 @@ const PRIORITY_TAGS = [
   'trending',
 ].filter((tag) => ALL_TAGS.includes(tag));
 
-interface TagFilterPanelProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
 const tagLabel = (tag: string) => tag.replaceAll('-', ' ');
 
 const getTagIcon = (tag: string) => {
@@ -33,30 +28,41 @@ const getTagIcon = (tag: string) => {
   ) : null;
 };
 
-export function TagFilterPanel({
-  isOpen,
-  onClose,
-}: TagFilterPanelProps) {
-  const { selectedTags, toggleTag, clearFilters } = useSearch();
+export function TagFilterPanel() {
+  const {
+    selectedTags,
+    toggleTag,
+    clearFilters,
+    isFilterPanelOpen: isOpen,
+    setIsFilterPanelOpen,
+  } = useSearch();
   const isTagSelected = (tag: string) => selectedTags.includes(tag);
   const panelRef = useRef<HTMLDivElement>(null);
 
+  const onClose = () => setIsFilterPanelOpen(false);
+
+  // Depends only on the open state and the state setter, which never changes,
+  // so the listeners are bound once per opening rather than on every render.
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      // The path as the click found it. By the time this runs, the click may
+      // have removed its own target - Clear All removes the active filters it
+      // sits in - so the target's current ancestors cannot say where it was.
+      const path = event.composedPath();
       // Small delay to ensure button onClick handlers complete first
       setTimeout(() => {
         if (
           panelRef.current &&
-          !panelRef.current.contains(event.target as Node)
+          !path.includes(panelRef.current)
         ) {
-          onClose();
+          setIsFilterPanelOpen(false);
         }
       }, 0);
     };
 
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        onClose();
+        setIsFilterPanelOpen(false);
       }
     };
 
@@ -70,7 +76,7 @@ export function TagFilterPanel({
       document.removeEventListener('click', handleClickOutside);
       document.removeEventListener('keydown', handleEscapeKey);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, setIsFilterPanelOpen]);
 
   if (!isOpen) return null;
 

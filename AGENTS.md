@@ -77,10 +77,13 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
 - Uses shadcn/ui component library with Radix UI primitives; add or update
   components with the shadcn CLI, which reads `components.json`
 - Tailwind CSS for styling with CSS custom properties for theming
-- `LayoutWrapper` provides `SearchProvider` and the navigation chrome around
-  every page. `VerticalNavigation` chooses the section list for the current
-  page and renders the one tag filter panel for both layouts; the desktop
-  search bar and the mobile bar each have a `FilterButton` that only opens it
+- The root layout provides `BookmarksProvider` and `SearchProvider`;
+  `LayoutWrapper` mounts the keyboard shortcuts and the navigation chrome
+  around every page. `VerticalNavigation` chooses the side rail's sections
+  from the list the current page renders, and renders the one tag filter
+  panel for both layouts; the desktop search bar and the mobile bar each have
+  a `FilterButton` that only opens it. The mobile menu always links every
+  section page
 - `SearchWrapper` swaps the home page's content for grouped results while a
   query or a tag is active
 

@@ -5,6 +5,7 @@ import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import Footer from '@/components/ui/footer';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
+import { SearchProvider } from '@/contexts/search-context';
 import LayoutWrapper from '@/components/ui/layout-wrapper';
 import './globals.css';
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
@@ -115,8 +116,10 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-background text-foreground min-h-screen overflow-x-hidden`}
       >
         <BookmarksProvider>
-          <LayoutWrapper>{children}</LayoutWrapper>
-          <Footer />
+          <SearchProvider>
+            <LayoutWrapper>{children}</LayoutWrapper>
+            <Footer />
+          </SearchProvider>
         </BookmarksProvider>
       </body>
     </html>

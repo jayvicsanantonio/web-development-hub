@@ -11,22 +11,17 @@ interface BookmarkButtonProps {
   resourceId: string;
   title: string;
   className?: string;
-  size?: 'sm' | 'md' | 'lg';
 }
 
 export function BookmarkButton({
   resourceId,
   title,
   className,
-  size = 'md',
 }: BookmarkButtonProps) {
-  const {
-    isBookmarked: isFavorite,
-    addBookmark: addFavorite,
-    removeBookmark: removeFavorite,
-  } = useBookmarks();
+  const { isBookmarked: isSaved, addBookmark, removeBookmark } =
+    useBookmarks();
 
-  const isBookmarked = isFavorite(resourceId);
+  const isBookmarked = isSaved(resourceId);
 
   const handleToggleBookmark = (
     e: React.MouseEvent<HTMLButtonElement>
@@ -35,19 +30,11 @@ export function BookmarkButton({
     e.stopPropagation();
 
     if (isBookmarked) {
-      removeFavorite(resourceId);
+      removeBookmark(resourceId);
     } else {
-      addFavorite(resourceId);
+      addBookmark(resourceId);
     }
   };
-
-  const sizeClasses = {
-    sm: 'h-4 w-4',
-    md: 'h-5 w-5',
-    lg: 'h-6 w-6',
-  };
-
-  const iconSize = sizeClasses[size];
 
   return (
     <button
@@ -64,14 +51,9 @@ export function BookmarkButton({
       }
     >
       {isBookmarked ? (
-        <BookmarkCheck className={cn('text-accent-neon', iconSize)} />
+        <BookmarkCheck className="text-accent-neon h-5 w-5" />
       ) : (
-        <Bookmark
-          className={cn(
-            'text-muted-foreground group-hover:text-foreground',
-            iconSize
-          )}
-        />
+        <Bookmark className="text-muted-foreground group-hover:text-foreground h-5 w-5" />
       )}
       <span className="sr-only">
         {isBookmarked ? 'Remove from bookmarks' : 'Add to bookmarks'}

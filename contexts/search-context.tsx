@@ -10,7 +10,6 @@ import React, {
   useState,
   useCallback,
   useDeferredValue,
-  useEffect,
   useMemo,
   ReactNode,
 } from 'react';
@@ -45,6 +44,15 @@ export function SearchProvider({
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
   const pathname = usePathname();
+  const [queryPathname, setQueryPathname] = useState(pathname);
+
+  // A query belongs to the page it was typed on, so a new page starts without
+  // one. Reset while rendering rather than in an effect: an effect runs after
+  // the new page has already rendered, filtered by the old page's query.
+  if (pathname !== queryPathname) {
+    setQueryPathname(pathname);
+    setSearchQuery('');
+  }
 
   // Keeps typing responsive while the scan over every resource runs at a lower
   // priority, without a timer to clean up.
@@ -69,10 +77,6 @@ export function SearchProvider({
   const toggleFilterPanel = useCallback(() => {
     setIsFilterPanelOpen((prev) => !prev);
   }, []);
-
-  useEffect(() => {
-    clearSearch();
-  }, [pathname, clearSearch]);
 
   const contextValue = useMemo(
     () => ({

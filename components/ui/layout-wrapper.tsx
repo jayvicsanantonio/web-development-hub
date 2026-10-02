@@ -1,19 +1,17 @@
-// The chrome around every page: the search state, the global keyboard
-// shortcuts, the navigation, and a skip link to the main content.
+// The chrome around every page: the global keyboard shortcuts, the navigation,
+// and a skip link to the main content.
 'use client';
 
-import { usePathname } from 'next/navigation';
 import VerticalNavigation from './vertical-navigation';
-import { SearchProvider } from '@/contexts/search-context';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 
 interface LayoutWrapperProps {
   children: React.ReactNode;
 }
 
-function LayoutWrapperContent({ children }: LayoutWrapperProps) {
-  const pathname = usePathname();
-
+export default function LayoutWrapper({
+  children,
+}: LayoutWrapperProps) {
   useKeyboardShortcuts();
 
   return (
@@ -31,15 +29,5 @@ function LayoutWrapperContent({ children }: LayoutWrapperProps) {
         </main>
       </div>
     </div>
-  );
-}
-
-export default function LayoutWrapper({
-  children,
-}: LayoutWrapperProps) {
-  return (
-    <SearchProvider>
-      <LayoutWrapperContent>{children}</LayoutWrapperContent>
-    </SearchProvider>
   );
 }

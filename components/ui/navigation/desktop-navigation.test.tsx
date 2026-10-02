@@ -6,7 +6,6 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DesktopNavigation } from './desktop-navigation';
-import { BookmarksProvider } from '@/contexts/bookmarks-context';
 import type { NavigationItem } from '@/lib/utils/navigation';
 
 const NAV_ITEMS: NavigationItem[] = [
@@ -19,16 +18,18 @@ function renderNav(props: Partial<
   React.ComponentProps<typeof DesktopNavigation>
 > = {}) {
   return render(
-    <BookmarksProvider>
+    <>
       <DesktopNavigation
         navItems={NAV_ITEMS}
         activeSection="section-one"
         isHomeActive
         isBookmarksActive={false}
-        onScrollToSection={vi.fn()}
         {...props}
       />
-    </BookmarksProvider>
+      {NAV_ITEMS.map((item) => (
+        <section key={item.id} id={item.id} />
+      ))}
+    </>
   );
 }
 
@@ -100,14 +101,17 @@ describe('roving focus', () => {
 });
 
 describe('activation', () => {
-  it('scrolls to the section it was told to scroll to', async () => {
+  it('scrolls its own section into view', async () => {
     const user = userEvent.setup();
-    const onScrollToSection = vi.fn();
-    renderNav({ onScrollToSection });
+    renderNav();
+    const scrolled = vi.spyOn(Element.prototype, 'scrollIntoView');
 
     await user.click(sectionButton('Two'));
 
-    expect(onScrollToSection).toHaveBeenCalledWith('section-two');
+    expect(scrolled).toHaveBeenCalledOnce();
+    expect(scrolled.mock.contexts[0]).toBe(
+      document.getElementById('section-two')
+    );
   });
 
   it('marks the active section as the current page', () => {

@@ -3,7 +3,7 @@
 // each view calls on its own list.
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook, act, waitFor } from '@testing-library/react';
-import type { ReactNode } from 'react';
+import { startTransition, type ReactNode } from 'react';
 
 const pathname = vi.hoisted(() => ({ current: '/' }));
 vi.mock('next/navigation', () => ({
@@ -47,6 +47,54 @@ describe('the query', () => {
     act(() => result.current.clearSearch());
 
     expect(result.current.searchQuery).toBe('');
+  });
+
+  it('clears before the next page renders, so no page shows the last one’s query', async () => {
+    // Next.js navigates inside a transition, so the route change renders as
+    // one. Every render of the new page must already see an empty query.
+    const seen: { pathname: string; query: string; deferred: string }[] =
+      [];
+    const { result, rerender } = renderHook(
+      () => {
+        const search = useSearch();
+        seen.push({
+          pathname: pathname.current,
+          query: search.searchQuery,
+          deferred: search.deferredQuery,
+        });
+        return search;
+      },
+      { wrapper }
+    );
+    act(() => result.current.setSearchQuery('react'));
+    await waitFor(() =>
+      expect(result.current.deferredQuery).toBe('react')
+    );
+
+    pathname.current = '/bookmarks';
+    act(() => startTransition(() => rerender()));
+
+    const onNewPage = seen.filter(
+      (render) => render.pathname === '/bookmarks'
+    );
+    expect(onNewPage.length).toBeGreaterThan(0);
+    for (const render of onNewPage) {
+      expect(render).toEqual({
+        pathname: '/bookmarks',
+        query: '',
+        deferred: '',
+      });
+    }
+  });
+
+  it('keeps the selected tags across pages', () => {
+    const { result, rerender } = mount();
+    act(() => result.current.toggleTag('free'));
+
+    pathname.current = '/bookmarks';
+    rerender();
+
+    expect(result.current.selectedTags).toEqual(['free']);
   });
 });
 

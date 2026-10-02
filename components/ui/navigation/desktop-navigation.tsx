@@ -6,9 +6,11 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { BookmarkIcon, HomeIcon, Moon, Sun } from 'lucide-react';
 import { toggleTheme } from '@/lib/theme';
-import { type NavigationItem as NavigationItemType } from '@/lib/utils/navigation';
-import { useCallback, useRef, useMemo } from 'react';
-import { useBookmarks } from '@/contexts/bookmarks-context';
+import {
+  scrollToSection,
+  type NavigationItem as NavigationItemType,
+} from '@/lib/utils/navigation';
+import { useRef } from 'react';
 import { useIsMac } from '@/lib/hooks/use-is-mac';
 
 /**
@@ -57,11 +59,11 @@ function NavTooltip({
 }
 
 interface DesktopNavigationProps {
+  /** The sections the page renders, as VerticalNavigation chose them. */
   navItems: NavigationItemType[];
   activeSection: string;
   isHomeActive: boolean;
   isBookmarksActive: boolean;
-  onScrollToSection: (id: string) => void;
 }
 
 export function DesktopNavigation({
@@ -69,31 +71,13 @@ export function DesktopNavigation({
   activeSection,
   isHomeActive,
   isBookmarksActive,
-  onScrollToSection,
 }: DesktopNavigationProps) {
   const isMac = useIsMac();
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const { bookmarks } = useBookmarks();
-
-  const favoritedSections = useMemo(() => {
-    const sections = new Set<string>();
-    bookmarks.forEach((favorite) => {
-      sections.add(favorite.section);
-    });
-    return sections;
-  }, [bookmarks]);
-
-  // The bookmarks page only lists sections the visitor actually saved into.
-  const filteredNavItems = useMemo(() => {
-    return isBookmarksActive
-      ? navItems.filter((item) => favoritedSections.has(item.title))
-      : navItems;
-  }, [navItems, favoritedSections, isBookmarksActive]);
-
-  const focusItem = useCallback((index: number) => {
+  const focusItem = (index: number) => {
     itemRefs.current[index]?.focus();
-  }, []);
+  };
 
   return (
     <nav
@@ -153,7 +137,7 @@ export function DesktopNavigation({
         </li>
 
         {(isHomeActive || isBookmarksActive) &&
-          filteredNavItems.length > 0 && (
+          navItems.length > 0 && (
             <li className="w-full">
               <div
                 className="h-px w-6 bg-border/50 mx-auto"
@@ -163,13 +147,13 @@ export function DesktopNavigation({
           )}
 
         {(isHomeActive || isBookmarksActive) &&
-          filteredNavItems.map((item, index) => (
+          navItems.map((item, index) => (
             <li key={item.id} className="relative group">
               <button
                 ref={(el) => {
                   itemRefs.current[index] = el;
                 }}
-                onClick={() => onScrollToSection(item.id)}
+                onClick={() => scrollToSection(item.id)}
                 className={cn(
                   'cursor-pointer w-3 h-3 rounded-full transition-all duration-300  focus:ring-2 focus:ring-accent-neon focus:ring-offset-2',
                   activeSection === item.id
@@ -193,10 +177,7 @@ export function DesktopNavigation({
                     case 'ArrowDown':
                       e.preventDefault();
                       focusItem(
-                        Math.min(
-                          filteredNavItems.length - 1,
-                          index + 1,
-                        ),
+                        Math.min(navItems.length - 1, index + 1),
                       );
                       break;
                     case 'Home':
@@ -205,7 +186,7 @@ export function DesktopNavigation({
                       break;
                     case 'End':
                       e.preventDefault();
-                      focusItem(filteredNavItems.length - 1);
+                      focusItem(navItems.length - 1);
                       break;
                   }
                 }}
