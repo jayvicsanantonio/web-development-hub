@@ -22,21 +22,37 @@ export const useIntersectionObserver = (
   const [activeSection, setActiveSection] = useState<string>('');
   const pathname = usePathname();
 
+  // A section counts as soon as any of it is inside the band rootMargin
+  // leaves. A ratio threshold is out of reach for a section taller than the
+  // band divided by it: 0.4 of a 60% band never counted a section taller
+  // than 1.5 viewports, so the highlight never reached it.
   const {
     rootMargin = '-20% 0px -20% 0px',
-    threshold = 0.4,
+    threshold = 0,
     root = null,
   } = options;
 
   useEffect(() => {
     if (sectionIds.length === 0) return;
 
+    // Each callback names only the sections whose intersection just changed,
+    // so a section already in view when its neighbour arrives is missing
+    // from it. This remembers every section in view across callbacks.
+    const intersecting = new Set<string>();
+
     const observer = new IntersectionObserver(
       (entries) => {
-        const visibleSections = entries
-          .filter((entry) => entry.isIntersecting)
-          .map((entry) => entry.target.id)
-          .filter((id) => id.startsWith('section-'));
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            intersecting.add(entry.target.id);
+          } else {
+            intersecting.delete(entry.target.id);
+          }
+        });
+
+        const visibleSections = [...intersecting].filter((id) =>
+          id.startsWith('section-')
+        );
 
         if (visibleSections.length > 0) {
           const viewportCenter = window.innerHeight / 2;
@@ -47,9 +63,12 @@ export const useIntersectionObserver = (
             const element = document.getElementById(sectionId);
             if (element) {
               const rect = element.getBoundingClientRect();
-              const sectionCenter = rect.top + rect.height / 2;
-              const distance = Math.abs(
-                sectionCenter - viewportCenter
+              // Zero for the section the middle runs through, however tall,
+              // so a short neighbour's nearer centre cannot outrank it.
+              const distance = Math.max(
+                rect.top - viewportCenter,
+                viewportCenter - rect.bottom,
+                0
               );
 
               if (distance < minDistance) {
