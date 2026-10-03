@@ -52,7 +52,6 @@ export default function ResourceCard({
         <BookmarkButton
           resourceId={resource.id}
           title={resource.title}
-          size="md"
           className="relative z-10"
         />
       </div>

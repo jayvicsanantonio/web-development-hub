@@ -14,7 +14,6 @@ vi.mock('next/navigation', () => ({
 import { MobileNavigation } from './mobile-navigation';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
 import { SearchProvider } from '@/contexts/search-context';
-import { DEFAULT_NAV_ITEMS } from '@/lib/utils/navigation';
 import { SECTIONS } from '@/constants/sections';
 
 const wrapper = ({ children }: { children: ReactNode }) => (
@@ -23,15 +22,7 @@ const wrapper = ({ children }: { children: ReactNode }) => (
   </BookmarksProvider>
 );
 
-const renderNav = () =>
-  render(
-    <MobileNavigation
-      navItems={DEFAULT_NAV_ITEMS}
-      activeSection=""
-      onScrollToSection={vi.fn()}
-    />,
-    { wrapper }
-  );
+const renderNav = () => render(<MobileNavigation />, { wrapper });
 
 const menu = () => document.getElementById('mobile-menu')!;
 

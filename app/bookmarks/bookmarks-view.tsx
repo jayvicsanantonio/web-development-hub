@@ -171,10 +171,6 @@ export function BookmarksView() {
     [displayedBookmarks],
   );
 
-  const handleClearAll = () => {
-    clearBookmarks();
-  };
-
   return (
     <div className="container mx-auto md:mt-20 mt-8 py-12 space-y-12">
       <BookmarksHeader
@@ -182,7 +178,7 @@ export function BookmarksView() {
         filtering={filtering}
         displayedBookmarks={displayedBookmarks}
         bookmarks={bookmarks}
-        onClearAll={handleClearAll}
+        onClearAll={clearBookmarks}
       />
 
       {displayedBookmarks.length === 0 ? (

@@ -7,16 +7,12 @@ import { Filter, X } from 'lucide-react';
 import { useSearch } from '@/contexts/search-context';
 import { useIsMac } from '@/lib/hooks/use-is-mac';
 
-interface FilterButtonProps {
-  className?: string;
-}
-
-export function FilterButton({ className = '' }: FilterButtonProps) {
+export function FilterButton() {
   const {
     selectedTags,
     clearFilters,
     isFilterPanelOpen,
-    setIsFilterPanelOpen,
+    toggleFilterPanel,
   } = useSearch();
 
   const isMac = useIsMac();
@@ -26,7 +22,7 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
   return (
     <div className="flex items-center">
       <button
-        onClick={() => setIsFilterPanelOpen(!isFilterPanelOpen)}
+        onClick={toggleFilterPanel}
         data-filter-button="true"
         className={`
           relative cursor-pointer h-10 px-3 rounded-full 
@@ -38,7 +34,6 @@ export function FilterButton({ className = '' }: FilterButtonProps) {
               ? 'border-accent-neon'
               : 'border-border/20'
           }
-          ${className}
         `}
         aria-label={`Filter resources${
           hasFilters ? ` (${selectedTags.length} active)` : ''

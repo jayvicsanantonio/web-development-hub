@@ -34,6 +34,22 @@ const RESOURCE_BY_ID = new Map(
   ALL_RESOURCES.map((resource) => [resource.id, resource]),
 );
 
+// The changes go straight to the store, which tells every subscriber, so they
+// need nothing from a render and are the same functions throughout.
+function addBookmark(id: string) {
+  updateEntries((current) =>
+    current.includes(id) ? current : [...current, id],
+  );
+}
+
+function removeBookmark(id: string) {
+  updateEntries((current) => current.filter((entry) => entry !== id));
+}
+
+function clearBookmarks() {
+  updateEntries(() => []);
+}
+
 const BookmarksContext = createContext<
   BookmarksContextType | undefined
 >(undefined);
@@ -56,26 +72,10 @@ export function BookmarksProvider({
     [entries],
   );
 
-  const addBookmark = useCallback((id: string) => {
-    updateEntries((current) =>
-      current.includes(id) ? current : [...current, id],
-    );
-  }, []);
-
-  const removeBookmark = useCallback((id: string) => {
-    updateEntries((current) =>
-      current.filter((entry) => entry !== id),
-    );
-  }, []);
-
   const isBookmarked = useCallback(
     (id: string) => saved.has(id),
     [saved],
   );
-
-  const clearBookmarks = useCallback(() => {
-    updateEntries(() => []);
-  }, []);
 
   const contextValue = useMemo(
     () => ({
@@ -85,13 +85,7 @@ export function BookmarksProvider({
       isBookmarked,
       clearBookmarks,
     }),
-    [
-      bookmarks,
-      addBookmark,
-      removeBookmark,
-      isBookmarked,
-      clearBookmarks,
-    ],
+    [bookmarks, isBookmarked],
   );
 
   return (

@@ -3,8 +3,7 @@
 'use client';
 
 import { SECTIONS } from '@/constants/sections';
-import { toSectionId } from '@/lib/utils/navigation';
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, Search, BookmarkIcon, Moon, Sun } from 'lucide-react';
@@ -12,14 +11,7 @@ import { toggleTheme } from '@/lib/theme';
 import { SearchInput } from '@/components/ui/search-input';
 import { FilterButton } from '@/components/ui/filter-button';
 import { Icon } from '@/lib/icons';
-import { type NavigationItem as NavigationItemType } from '@/lib/utils/navigation';
 import { cn } from '@/lib/utils';
-
-// Keyed by the same rule the sections are rendered with, so a renamed section
-// cannot leave this map pointing at an id that no longer exists.
-const URL_BY_SECTION_ID: Record<string, string> = Object.fromEntries(
-  SECTIONS.map((section) => [toSectionId(section.title), section.href])
-);
 
 /** One row of the mobile menu: the page's icon and title, as a link. */
 function MenuLink({
@@ -71,16 +63,10 @@ function MenuLink({
 }
 
 interface MobileNavigationProps {
-  navItems: NavigationItemType[];
-  activeSection: string;
-  onScrollToSection: (id: string) => void;
   hideSearch?: boolean;
 }
 
 export function MobileNavigation({
-  navItems,
-  activeSection,
-  onScrollToSection,
   hideSearch = false,
 }: MobileNavigationProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -98,36 +84,29 @@ export function MobileNavigation({
     setIsMobileMenuOpen(false);
   };
 
-  const getPageUrl = (sectionId: string) => {
-    return URL_BY_SECTION_ID[sectionId] || '/';
-  };
-
-  const focusNextItem = useCallback((currentIndex: number) => {
+  const focusNextItem = (currentIndex: number) => {
     const nextIndex = currentIndex + 1;
     if (nextIndex < navItemRefs.current.length) {
       navItemRefs.current[nextIndex]?.focus();
     }
-  }, []);
+  };
 
-  const focusPreviousItem = useCallback((currentIndex: number) => {
+  const focusPreviousItem = (currentIndex: number) => {
     const prevIndex = currentIndex - 1;
     if (prevIndex >= 0) {
       navItemRefs.current[prevIndex]?.focus();
     }
-  }, []);
+  };
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent, index: number) => {
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        focusNextItem(index);
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        focusPreviousItem(index);
-      }
-    },
-    [focusNextItem, focusPreviousItem]
-  );
+  const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      focusNextItem(index);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      focusPreviousItem(index);
+    }
+  };
 
   return (
     <>
@@ -142,7 +121,7 @@ export function MobileNavigation({
           {!hideSearch && (
             <>
               <button
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                onClick={() => setIsSearchOpen((open) => !open)}
                 className="p-2 rounded-full transition-colors  cursor-pointer"
                 aria-expanded={isSearchOpen}
                 aria-label="Search resources"
@@ -185,7 +164,7 @@ export function MobileNavigation({
             />
           </button>
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
             className="p-2 rounded-full transition-colors  cursor-pointer"
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
@@ -240,18 +219,16 @@ export function MobileNavigation({
                 }}
               />
             </li>
-            {navItems.map((item, index) => {
-              const pageUrl = getPageUrl(item.id);
-              const isActive = pathname === pageUrl;
+            {SECTIONS.map((section, index) => {
               const itemIndex = index + 1;
 
               return (
-                <li key={item.id}>
+                <li key={section.href}>
                   <MenuLink
-                    title={item.title}
-                    iconName={item.iconName}
-                    href={pageUrl}
-                    isActive={isActive}
+                    title={section.title}
+                    iconName={section.icon}
+                    href={section.href}
+                    isActive={pathname === section.href}
                     onClick={handleNavigationClick}
                     onKeyDown={(e) => handleKeyDown(e, itemIndex)}
                     ref={(el) => {

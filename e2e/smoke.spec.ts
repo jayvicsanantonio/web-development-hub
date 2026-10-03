@@ -389,6 +389,39 @@ test.describe('navigation', () => {
       ).toHaveCount(1);
     }
   });
+
+  test('highlights the section in view after leaving the home page and returning', async ({
+    page,
+  }) => {
+    // The rail stays mounted across routes. Its observer kept watching the
+    // sections the first visit rendered, so after a round trip to another
+    // page the highlight no longer followed the scroll.
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/');
+    await page.locator(`main a[href="${SECTIONS[0].href}"]`).click();
+    await page.waitForURL((url) => url.pathname === SECTIONS[0].href);
+    await page.getByRole('link', { name: /^Return to home page/ }).click();
+    await page.waitForURL((url) => url.pathname === '/');
+
+    const section = SECTIONS[1];
+    await page
+      .locator(`#${toSectionId(section.title)}`)
+      .evaluate((element) =>
+        window.scrollTo(
+          0,
+          element.getBoundingClientRect().top +
+            window.scrollY +
+            element.clientHeight / 2 -
+            window.innerHeight / 2
+        )
+      );
+
+    await expect(
+      page.getByRole('button', {
+        name: `Navigate to ${section.title} section`,
+      })
+    ).toHaveAttribute('aria-current', 'page');
+  });
 });
 
 test.describe('search', () => {
@@ -474,6 +507,33 @@ test.describe('tag filtering', () => {
       await expect(panels).toBeVisible();
     });
   }
+
+  test('stays open while its active filters are cleared', async ({
+    page,
+  }) => {
+    // Clear All sits in the active-filters row it removes, so by the time the
+    // outside-click check runs, the click's own target has left the panel.
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/');
+    await page
+      .locator('button[aria-label^="Filter resources"]:visible')
+      .first()
+      .click();
+    await page
+      .getByRole('button', { name: 'free', exact: true })
+      .first()
+      .click();
+
+    await page.getByRole('button', { name: 'Clear All', exact: true }).click();
+    await expect(page.getByText(/^0 of \d+ tags selected$/)).toBeVisible();
+    // The outside-click check runs on a timer the click started; one queued
+    // after it has run once this resolves.
+    await page.evaluate(() => new Promise((resolve) => setTimeout(resolve)));
+
+    await expect(
+      page.locator('h2', { hasText: 'Filter by Tags' })
+    ).toBeVisible();
+  });
 });
 
 test.describe('bookmarks', () => {
