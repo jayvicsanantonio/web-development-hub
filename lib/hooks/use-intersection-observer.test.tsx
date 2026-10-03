@@ -1,6 +1,7 @@
-// Covers which elements the active-section observer watches. The nav that uses
-// it stays mounted across routes, so it has to follow the page's sections when
-// they are rendered afresh rather than keep watching the ones it started with.
+// Covers which elements the active-section observer watches, and which of them
+// it reports. The nav that uses it stays mounted across routes, so it has to
+// follow the page's sections when they are rendered afresh rather than keep
+// watching the ones it started with.
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { act, render, screen } from '@testing-library/react';
 
@@ -117,6 +118,30 @@ describe('the elements it watches', () => {
 });
 
 describe('the active section', () => {
+  // jsdom lays nothing out, so each test places its sections itself, in an
+  // 800px viewport whose middle is 400px down.
+  beforeEach(() => vi.stubGlobal('innerHeight', 800));
+
+  const place = (id: string, top: number, bottom: number) => {
+    document.getElementById(id)!.getBoundingClientRect = () =>
+      ({ top, bottom, height: bottom - top }) as DOMRect;
+  };
+
+  // One callback, carrying only the sections whose intersection changed.
+  const report = (changes: Record<string, boolean>) =>
+    act(() =>
+      latestObserver().callback(
+        Object.entries(changes).map(
+          ([id, isIntersecting]) =>
+            ({
+              isIntersecting,
+              target: document.getElementById(id)!,
+            }) as unknown as IntersectionObserverEntry
+        ),
+        latestObserver() as unknown as IntersectionObserver
+      )
+    );
+
   it('reports the section that came into view', () => {
     render(<Layout ids={IDS} page="/" />);
 
@@ -133,5 +158,51 @@ describe('the active section', () => {
     );
 
     expect(screen.getByRole('status')).toHaveTextContent('section-two');
+  });
+
+  it('keeps the section in the middle when a neighbour comes into view', () => {
+    render(<Layout ids={[...IDS, 'section-three']} page="/" />);
+    place('section-one', 250, 550);
+    place('section-two', 600, 750);
+    place('section-three', 850, 1000);
+    report({
+      'section-one': true,
+      'section-two': true,
+      'section-three': false,
+    });
+
+    // Scrolled 250px: two is in the middle now, and only three crossed
+    // into view, so it is the only section the callback names.
+    place('section-one', 0, 300);
+    place('section-two', 350, 500);
+    place('section-three', 550, 700);
+    report({ 'section-three': true });
+
+    expect(screen.getByRole('status')).toHaveTextContent('section-two');
+  });
+
+  it('moves on when the highlighted section leaves the view', () => {
+    render(<Layout ids={IDS} page="/" />);
+    place('section-one', 100, 500);
+    place('section-two', 550, 700);
+    report({ 'section-one': true, 'section-two': true });
+
+    // Scrolled 400px: one left the view and nothing came into it.
+    place('section-one', -300, 100);
+    place('section-two', 150, 300);
+    report({ 'section-one': false });
+
+    expect(screen.getByRole('status')).toHaveTextContent('section-two');
+  });
+
+  it('prefers the section the middle falls in, however tall', () => {
+    render(<Layout ids={IDS} page="/" />);
+    // One's centre is 650px from the middle and two's only 190px, but the
+    // middle of the viewport is inside one.
+    place('section-one', -1000, 500);
+    place('section-two', 540, 640);
+    report({ 'section-one': true, 'section-two': true });
+
+    expect(screen.getByRole('status')).toHaveTextContent('section-one');
   });
 });

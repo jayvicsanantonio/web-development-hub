@@ -422,6 +422,100 @@ test.describe('navigation', () => {
       })
     ).toHaveAttribute('aria-current', 'page');
   });
+
+  test('highlights a section taller than one and a half viewports', async ({
+    page,
+  }) => {
+    // A section counted as in view only once 40% of it was inside the
+    // middle 60% of the viewport, which one taller than 1.5 viewports can
+    // never reach, so the highlight never moved to it.
+    await page.setViewportSize({ width: 1280, height: 480 });
+    await page.goto('/');
+
+    const section = SECTIONS[1];
+    const element = page.locator(`#${toSectionId(section.title)}`);
+    expect((await element.boundingBox())!.height).toBeGreaterThan(
+      1.5 * 480
+    );
+    await element.evaluate((element) =>
+      window.scrollTo(
+        0,
+        element.getBoundingClientRect().top +
+          window.scrollY +
+          element.clientHeight / 2 -
+          window.innerHeight / 2
+      )
+    );
+
+    await expect(
+      page.getByRole('button', {
+        name: `Navigate to ${section.title} section`,
+      })
+    ).toHaveAttribute('aria-current', 'page');
+  });
+
+  test('highlights the section in the middle while a search leaves several in view', async ({
+    page,
+  }) => {
+    // A few results per section put several sections in view at once. Each
+    // observer callback names only the sections that just crossed into or
+    // out of view, and choosing among those alone often highlighted a
+    // neighbour of the section in the middle.
+    await page.setViewportSize({ width: 1280, height: 1600 });
+    await page.goto('/');
+    await page
+      .getByRole('searchbox', { name: /search resources/i })
+      .fill('team');
+    await expect(
+      page.getByRole('heading', { name: 'Search Results' })
+    ).toBeVisible();
+
+    const ids = await page
+      .locator('main section[id^="section-"]')
+      .evaluateAll((sections) => sections.map((section) => section.id));
+    expect(ids.length).toBeGreaterThan(1);
+
+    // Down the page and back up: the wrong neighbour lit up both ways.
+    for (const id of [...ids, ...[...ids].reverse()]) {
+      const middleId = await page.evaluate(
+        ({ id, ids }) => {
+          const { top, height } = document
+            .getElementById(id)!
+            .getBoundingClientRect();
+          // Instant, as the page scrolls smoothly and the middle is read
+          // straight after.
+          window.scrollTo({
+            top:
+              window.scrollY + top + height / 2 - window.innerHeight / 2,
+            behavior: 'instant',
+          });
+          // The first and last sections cannot always reach the middle, so
+          // name the section the middle actually landed in.
+          const middle = window.innerHeight / 2;
+          return ids.find((sectionId) => {
+            const rect = document
+              .getElementById(sectionId)!
+              .getBoundingClientRect();
+            return rect.top <= middle && middle <= rect.bottom;
+          });
+        },
+        { id, ids }
+      );
+      const section = SECTIONS.find(
+        (section) => toSectionId(section.title) === middleId
+      );
+      expect(
+        section,
+        `the section in the middle after scrolling to ${id}`
+      ).toBeDefined();
+
+      await expect(
+        page.getByRole('button', {
+          name: `Navigate to ${section!.title} section`,
+        })
+      ).toHaveAttribute('aria-current', 'page');
+    }
+  });
 });
 
 test.describe('search', () => {
