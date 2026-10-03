@@ -15,8 +15,10 @@ export default defineConfig({
     setupFiles: ['./vitest.setup.ts'],
     // Tests live beside the code they cover, per AGENTS.md. e2e/ is Playwright's
     // and must not be picked up here — it uses a different test runner.
+    // .claude/ holds Claude Code's git worktrees, other checkouts whose tests
+    // are not this one's.
     include: ['**/*.test.{ts,tsx}'],
-    exclude: ['node_modules', '.next', 'out', 'e2e'],
+    exclude: ['node_modules', '.next', 'out', 'e2e', '.claude/**'],
   },
   resolve: {
     alias: { '@': import.meta.dirname },
