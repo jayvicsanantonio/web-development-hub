@@ -20,8 +20,7 @@
     "icons": "node scripts/build-icons.mjs",
     "preview": "next build && wrangler dev",
     "deploy": "next build && wrangler deploy",
-    "upload": "next build && wrangler versions upload",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "upload": "next build && wrangler versions upload"
   },
   "dependencies": {
     "@iconify/react": "^6.0.0",
