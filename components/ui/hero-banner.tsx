@@ -3,22 +3,15 @@
 interface HeroBannerProps {
   title: string;
   description: string;
-  tagline?: string;
 }
 
-export function HeroBanner({
-  title,
-  description,
-  tagline = 'Web Development Hub',
-}: HeroBannerProps) {
+export function HeroBanner({ title, description }: HeroBannerProps) {
   return (
     <div className="min-h-[100vh] w-full">
       <section className="container mx-auto h-screen flex flex-col items-center justify-center text-center space-y-6 px-4">
-        {tagline && (
-          <div className="inline-block rounded-full bg-accent-neon/10 px-4 py-1.5 text-sm font-medium text-accent-neon mb-4">
-            {tagline}
-          </div>
-        )}
+        <div className="inline-block rounded-full bg-accent-neon/10 px-4 py-1.5 text-sm font-medium text-accent-neon mb-4">
+          Web Development Hub
+        </div>
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter max-w-3xl">
           {title}
         </h1>
