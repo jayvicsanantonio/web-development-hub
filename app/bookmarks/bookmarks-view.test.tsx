@@ -1,7 +1,13 @@
 // Covers the bookmarks view: the saved resources grouped by section, narrowed
-// by search, and re-rendered only when what it shows changes.
+// by search, re-rendered only when what it shows changes, and cleared only
+// once the visitor confirms.
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { ReactNode } from 'react';
 
@@ -102,5 +108,65 @@ describe('searching', () => {
       ).toBeInTheDocument(),
     );
     expect(ResourceCard).not.toHaveBeenCalled();
+  });
+});
+
+describe('clearing', () => {
+  const savedIds = () => SAVED.map((link) => link.id);
+  const stored = () =>
+    JSON.parse(localStorage.getItem(STORAGE_KEY) ?? 'null');
+  const confirmation = () =>
+    screen.getByRole('alertdialog', { name: 'Clear All Bookmarks' });
+
+  it('asks first, and Cancel keeps every bookmark', async () => {
+    const user = userEvent.setup();
+    renderSaved();
+
+    // A closed dialog is in the DOM but hidden, so no role query finds it.
+    expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
+    await user.click(
+      await screen.findByRole('button', {
+        name: 'Clear all bookmarks',
+      }),
+    );
+
+    expect(confirmation()).toHaveAccessibleDescription(
+      'Are you sure you want to clear all your bookmarks? This action cannot be undone.',
+    );
+    await user.click(
+      within(confirmation()).getByRole('button', { name: 'Cancel' }),
+    );
+
+    expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
+    expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(
+      SAVED.length,
+    );
+    expect(stored()).toEqual(savedIds());
+  });
+
+  it('removes every bookmark once confirmed', async () => {
+    const user = userEvent.setup();
+    renderSaved();
+
+    await user.click(
+      await screen.findByRole('button', {
+        name: 'Clear all bookmarks',
+      }),
+    );
+    // A string name matches the whole name, so not "Clear all bookmarks".
+    await user.click(
+      within(confirmation()).getByRole('button', {
+        name: 'Clear All',
+      }),
+    );
+
+    expect(
+      await screen.findByText("You haven't added any bookmarks yet."),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Clear all bookmarks' }),
+    ).not.toBeInTheDocument();
+    expect(stored()).toEqual([]);
   });
 });

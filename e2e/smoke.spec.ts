@@ -2,7 +2,10 @@
 // as Cloudflare serves it: routes, headers, payload and the visitor flows.
 import { test, expect } from '@playwright/test';
 import { SECTIONS } from '../constants/sections';
-import { LEGACY_STORAGE_KEY } from '../lib/bookmarks-store';
+import {
+  LEGACY_STORAGE_KEY,
+  STORAGE_KEY,
+} from '../lib/bookmarks-store';
 import { toSectionId } from '../lib/utils/navigation';
 
 // Section pages come from the dataset, so a section added there is checked
@@ -702,6 +705,66 @@ test.describe('bookmarks', () => {
         exact: true,
       })
     ).toBeVisible();
+  });
+
+  test('Clear All asks first, in a dialog the page cannot be reached behind', async ({
+    page,
+  }) => {
+    // One resource per section, so the page is tall enough to scroll.
+    await page.goto('/bookmarks');
+    await page.evaluate(
+      ({ key, ids }) =>
+        localStorage.setItem(key, JSON.stringify(ids)),
+      {
+        key: STORAGE_KEY,
+        ids: SECTIONS.map((section) => section.links[0].id),
+      }
+    );
+    await page.reload();
+
+    const cards = page.locator('article');
+    const trigger = page.getByRole('button', {
+      name: 'Clear all bookmarks',
+    });
+    const dialog = page.getByRole('alertdialog', {
+      name: 'Clear All Bookmarks',
+    });
+    const rootOverflow = () =>
+      page.evaluate(
+        () => getComputedStyle(document.documentElement).overflow
+      );
+    await expect(cards).toHaveCount(SECTIONS.length);
+
+    await trigger.click();
+    await expect(dialog).toBeVisible();
+    // Focus starts on the choice that loses nothing.
+    const cancel = dialog.getByRole('button', { name: 'Cancel' });
+    await expect(cancel).toBeFocused();
+    // The page behind is inert: it cannot take focus even from a script.
+    await trigger.evaluate((element) => element.focus());
+    await expect(cancel).toBeFocused();
+    // Nor scroll while the dialog is open.
+    expect(await rootOverflow()).toBe('hidden');
+
+    // A click on the backdrop dismisses nothing.
+    await page.mouse.click(5, 5);
+    await expect(dialog).toBeVisible();
+
+    // Escape does, and hands focus back to the button that opened it.
+    await page.keyboard.press('Escape');
+    await expect(dialog).toBeHidden();
+    await expect(trigger).toBeFocused();
+    expect(await rootOverflow()).toBe('visible');
+    await expect(cards).toHaveCount(SECTIONS.length);
+
+    await trigger.click();
+    await dialog
+      .getByRole('button', { name: 'Clear All', exact: true })
+      .click();
+    await expect(
+      page.getByText("You haven't added any bookmarks yet.")
+    ).toBeVisible();
+    await expect(cards).toHaveCount(0);
   });
 
   test('a bookmark saved by href before a link moved still shows', async ({
