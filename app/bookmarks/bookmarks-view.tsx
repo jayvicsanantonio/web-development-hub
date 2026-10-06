@@ -3,7 +3,7 @@
 // localStorage through BookmarksProvider.
 'use client';
 
-import { useMemo } from 'react';
+import { useId, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { useBookmarks } from '@/contexts/bookmarks-context';
 import {
@@ -18,17 +18,108 @@ import {
 import ResourceGrid from '@/components/ui/resource-grid';
 import { useSearch } from '@/contexts/search-context';
 import type { Resource } from '@/lib/types';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+
+/**
+ * Clear All, behind a confirmation in a native <dialog>. showModal() does what
+ * a dialog library would: the dialog sits above the whole page, the page
+ * behind it is inert, Escape closes it, and focus moves to its first button
+ * (Cancel, the safe choice) and back to this one when it closes. A click on
+ * the backdrop does nothing, as an alert dialog should. The page's scroll is
+ * held still by a rule in app/globals.css.
+ */
+const ClearAllButton = ({ onConfirm }: { onConfirm: () => void }) => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const titleId = useId();
+  const descriptionId = useId();
+
+  const close = () => dialogRef.current?.close();
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => dialogRef.current?.showModal()}
+        className="
+          cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-md 
+          border border-border/50 
+          text-muted-foreground hover:text-foreground 
+          bg-background hover:bg-muted/50 
+          transition-all duration-200 ease-in-out
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
+          hover:border-border/80
+          shadow-sm hover:shadow-md
+          disabled:pointer-events-none disabled:opacity-50
+        "
+        aria-label="Clear all bookmarks"
+        aria-haspopup="dialog"
+      >
+        <svg
+          className="h-4 w-4"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+          />
+        </svg>
+        Clear All
+      </button>
+
+      {/* Tailwind's preflight zeroes every margin, so m-auto restores the
+          centring the browser gives a modal dialog. The dialog sets no
+          display of its own: that would show it while closed. The backdrop's
+          colour is a literal, not a theme colour: those are custom
+          properties, which ::backdrop only inherits in browsers from around
+          2024 on, and an older one would leave the page undimmed. */}
+      <dialog
+        ref={dialogRef}
+        role="alertdialog"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        className="m-auto w-full max-w-lg border bg-background p-6 text-foreground shadow-lg backdrop:bg-[rgb(0_0_0/0.8)] sm:rounded-lg"
+      >
+        <div className="grid gap-4">
+          <div className="flex flex-col space-y-2 text-center sm:text-left">
+            <h2 id={titleId} className="text-lg font-semibold">
+              Clear All Bookmarks
+            </h2>
+            <p
+              id={descriptionId}
+              className="text-sm text-muted-foreground"
+            >
+              Are you sure you want to clear all your bookmarks? This
+              action cannot be undone.
+            </p>
+          </div>
+          <div className="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
+            <button
+              type="button"
+              onClick={close}
+              className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent-neon dark:hover:text-primary-foreground hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                close();
+                onConfirm();
+              }}
+              className="inline-flex h-10 items-center justify-center rounded-md bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground ring-offset-background transition-colors hover:bg-destructive/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+            >
+              Clear All
+            </button>
+          </div>
+        </div>
+      </dialog>
+    </>
+  );
+};
 
 const BookmarksHeader = ({
   query,
@@ -69,58 +160,7 @@ const BookmarksHeader = ({
       </div>
 
       {bookmarks.length > 0 && (
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <button
-              className="
-                cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-md 
-                border border-border/50 
-                text-muted-foreground hover:text-foreground 
-                bg-background hover:bg-muted/50 
-                transition-all duration-200 ease-in-out
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
-                hover:border-border/80
-                shadow-sm hover:shadow-md
-                disabled:pointer-events-none disabled:opacity-50
-              "
-              aria-label="Clear all bookmarks"
-            >
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                />
-              </svg>
-              Clear All
-            </button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Clear All Bookmarks</AlertDialogTitle>
-              <AlertDialogDescription>
-                Are you sure you want to clear all your bookmarks?
-                This action cannot be undone.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction
-                onClick={onClearAll}
-                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-              >
-                Clear All
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <ClearAllButton onConfirm={onClearAll} />
       )}
     </div>
   );

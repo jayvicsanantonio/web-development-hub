@@ -15,3 +15,20 @@ afterEach(() => {
 if (!Element.prototype.scrollIntoView) {
   Element.prototype.scrollIntoView = () => {};
 }
+
+// jsdom has <dialog> and its open state, which hides a closed one, but not
+// the methods that open and close it. These keep that state and nothing more:
+// focus, the top layer and the inert page behind are a real browser's, so
+// the e2e suite covers them.
+if (!HTMLDialogElement.prototype.showModal) {
+  HTMLDialogElement.prototype.showModal = function (
+    this: HTMLDialogElement,
+  ) {
+    this.open = true;
+  };
+  HTMLDialogElement.prototype.close = function (
+    this: HTMLDialogElement,
+  ) {
+    this.open = false;
+  };
+}

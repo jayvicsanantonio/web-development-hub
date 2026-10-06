@@ -187,4 +187,11 @@
     outline: 2px solid var(--color-ring);
     outline-offset: 2px;
   }
+
+  /* A modal dialog makes the page behind it inert but leaves it scrollable,
+     so the wheel or Page Down would move it out from under the dialog. The
+     lock lasts exactly as long as a dialog is open, however it closes. */
+  html:has(dialog:modal) {
+    overflow: hidden;
+  }
 }

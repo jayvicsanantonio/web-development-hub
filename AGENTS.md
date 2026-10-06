@@ -73,8 +73,15 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
   `navigation/`)
 - `/components/` root holds the bodies routes render: `category-page`,
   `search-wrapper` and `section-preview-grid`
-- Uses shadcn/ui component library with Radix UI primitives; add or update
-  components with the shadcn CLI, which reads `components.json`
+- shadcn/ui supplies the primitives in `/components/ui/` (the text input
+  today); add or update them with the shadcn CLI, which reads
+  `components.json`
+- A confirmation is a native `<dialog>` opened with `showModal()`, as the
+  bookmarks page's Clear All is: the browser makes the page behind it inert,
+  moves focus in and back out, and closes it on Escape, and a rule in
+  `app/globals.css` keeps the page from scrolling while one is open. jsdom
+  lacks `showModal()` and `close()`; `vitest.setup.ts` stubs them to keep the
+  open state only, so focus and inertness are tested in `e2e/`
 - Tailwind CSS for styling with CSS custom properties for theming
 - The root layout provides `BookmarksProvider` and `SearchProvider`;
   `LayoutWrapper` mounts the keyboard shortcuts and the navigation chrome
