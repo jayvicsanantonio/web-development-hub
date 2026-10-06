@@ -83,7 +83,6 @@ export function DesktopNavigation({
     <nav
       aria-label="Page sections navigation"
       className="fixed right-10 top-1/2 transform -translate-y-1/2 z-30 hidden md:flex p-3 bg-background-primary/1 backdrop-blur rounded-2xl shadow-md border border-border/20 transition-all duration-300"
-      role="navigation"
     >
       <span id="nav-description" className="sr-only">
         Use up and down arrow keys to navigate between sections
@@ -92,7 +91,7 @@ export function DesktopNavigation({
         <li className="relative group">
           <Link
             href="/"
-            className="desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
+            className="flex items-center justify-center w-10 h-10 transition-all duration-300"
             aria-label={`Return to home page (${
               isMac ? '⌘H' : 'Ctrl+H'
             })`}
@@ -115,7 +114,7 @@ export function DesktopNavigation({
         <li className="relative group">
           <Link
             href="/bookmarks"
-            className="desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
+            className="flex items-center justify-center w-10 h-10 transition-all duration-300"
             aria-label={`Navigate to bookmarks (${
               isMac ? '⌘B' : 'Ctrl+B'
             })`}
@@ -209,7 +208,7 @@ export function DesktopNavigation({
         <li className="relative group">
           <button
             onClick={toggleTheme}
-            className="cursor-pointer desktop-nav-button-link flex items-center justify-center w-10 h-10 transition-all duration-300"
+            className="cursor-pointer flex items-center justify-center w-10 h-10 transition-all duration-300"
             aria-label={`Switch between light and dark mode (${
               isMac ? '⌘⇧L' : 'Ctrl+Shift+L'
             })`}

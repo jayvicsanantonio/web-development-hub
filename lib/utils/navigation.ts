@@ -82,10 +82,6 @@ export function groupBySection<T extends { section: string }>(
   ]);
 }
 
-export function scrollToSection(id: string, onComplete?: () => void) {
-  const element = document.getElementById(id);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
-    onComplete?.();
-  }
+export function scrollToSection(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 }

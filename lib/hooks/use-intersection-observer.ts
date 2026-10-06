@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
-interface UseIntersectionObserverOptions {
-  rootMargin?: string;
-  threshold?: number | number[];
-  root?: Element | null;
-}
+// A section counts as soon as any of it is inside the band this leaves, so the
+// observer's threshold is 0. A ratio threshold is out of reach for a section
+// taller than the band divided by it: 0.4 of a 60% band never counted a
+// section taller than 1.5 viewports, so the highlight never reached it.
+const ROOT_MARGIN = '-20% 0px -20% 0px';
 
 /**
  * The observer watches the elements the ids name when it is built. The nav
@@ -15,22 +15,9 @@ interface UseIntersectionObserverOptions {
  * rebuilt on every route change and whenever `sectionIds` is a new array:
  * callers memoise it, and pass a new one when they render a new list.
  */
-export const useIntersectionObserver = (
-  sectionIds: string[],
-  options: UseIntersectionObserverOptions = {}
-) => {
+export const useIntersectionObserver = (sectionIds: string[]) => {
   const [activeSection, setActiveSection] = useState<string>('');
   const pathname = usePathname();
-
-  // A section counts as soon as any of it is inside the band rootMargin
-  // leaves. A ratio threshold is out of reach for a section taller than the
-  // band divided by it: 0.4 of a 60% band never counted a section taller
-  // than 1.5 viewports, so the highlight never reached it.
-  const {
-    rootMargin = '-20% 0px -20% 0px',
-    threshold = 0,
-    root = null,
-  } = options;
 
   useEffect(() => {
     if (sectionIds.length === 0) return;
@@ -81,11 +68,7 @@ export const useIntersectionObserver = (
           setActiveSection(closestSection);
         }
       },
-      {
-        rootMargin,
-        threshold,
-        root,
-      }
+      { rootMargin: ROOT_MARGIN, threshold: 0 }
     );
 
     sectionIds.forEach((id) => {
@@ -96,7 +79,7 @@ export const useIntersectionObserver = (
     });
 
     return () => observer.disconnect();
-  }, [sectionIds, pathname, rootMargin, threshold, root]);
+  }, [sectionIds, pathname]);
 
   return activeSection;
 };

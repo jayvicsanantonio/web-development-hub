@@ -23,7 +23,6 @@ export function FilterButton() {
     <div className="flex items-center">
       <button
         onClick={toggleFilterPanel}
-        data-filter-button="true"
         className={`
           relative cursor-pointer h-10 px-3 rounded-full 
           backdrop-blur flex items-center gap-2

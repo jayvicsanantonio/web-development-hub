@@ -2,17 +2,13 @@
 // blocking script that settles the theme before the first paint.
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import Footer from '@/components/ui/footer';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
 import { SearchProvider } from '@/contexts/search-context';
 import LayoutWrapper from '@/components/ui/layout-wrapper';
 import './globals.css';
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono',
-});
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -113,7 +109,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-background text-foreground min-h-screen overflow-x-hidden`}
+        className={`${inter.variable} font-sans bg-background text-foreground min-h-screen overflow-x-hidden`}
       >
         <BookmarksProvider>
           <SearchProvider>

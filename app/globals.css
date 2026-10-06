@@ -122,7 +122,6 @@
     --primary: 150 100% 40%;
     --primary-foreground: 0 0% 100%;
 
-    /* --secondary: 280 100% 50%; */
     --secondary: 280 60% 50%;
     --secondary-foreground: 0 0% 100%;
 
@@ -141,8 +140,6 @@
     --border: 0 0% 80%;
     --input: 0 0% 80%;
     --ring: 150 100% 40%;
-
-    --radius: 0.5rem;
   }
 
   .dark {

@@ -38,7 +38,6 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
 - `pnpm preview` - Build and serve the static export locally via `wrangler dev`
 - `pnpm deploy` - Build and deploy the static export to Cloudflare Workers
 - `pnpm upload` - Build and upload a new version without shifting traffic
-- `pnpm cf-typegen` - Generate Cloudflare environment types
 
 ### Environment
 - Node 22.x, as `engines` in `package.json` and `.node-version` require;
@@ -153,7 +152,9 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
 - Leave layer promotion to the browser: no `transform-gpu` or `will-change` on
   elements that are not animating, and name the properties a transition
   covers on anything rendered once per resource
-- Font stack: Inter (sans) + JetBrains Mono (monospace)
+- Font: Inter, self-hosted through `next/font`; monospace falls back to the
+  system stack. A font loaded in the root layout is preloaded on every page,
+  so add one only together with markup that renders in it
 - Responsive design with mobile-first approach
 
 ### Performance
