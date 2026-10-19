@@ -1,6 +1,6 @@
-// Covers what the nav lists for the page being viewed: the side rail follows
-// the sections the page actually renders, and the mobile menu always links
-// every section page.
+// Covers what the nav lists for the page being viewed: the header's section
+// strip follows the sections the page actually renders, and the mobile menu
+// always links every section page.
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -11,7 +11,7 @@ vi.mock('next/navigation', () => ({
   usePathname: () => pathname.current,
 }));
 
-import VerticalNavigation from './vertical-navigation';
+import SiteNavigation from './site-navigation';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
 import { SearchProvider } from '@/contexts/search-context';
 import { STORAGE_KEY } from '@/lib/bookmarks-store';
@@ -23,9 +23,9 @@ const wrapper = ({ children }: { children: ReactNode }) => (
   </BookmarksProvider>
 );
 
-const renderNav = () => render(<VerticalNavigation />, { wrapper });
+const renderNav = () => render(<SiteNavigation />, { wrapper });
 
-const railSections = () =>
+const stripSections = () =>
   within(
     screen.getByRole('navigation', { name: 'Page sections navigation' })
   )
@@ -56,7 +56,7 @@ beforeEach(() => {
   return () => vi.unstubAllGlobals();
 });
 
-describe('the side rail on the bookmarks page', () => {
+describe('the section strip on the bookmarks page', () => {
   // One saved resource in each of the first two sections.
   const SAVED = [SECTIONS[0].links[0], SECTIONS[1].links[0]];
 
@@ -71,7 +71,7 @@ describe('the side rail on the bookmarks page', () => {
   it('lists the sections the visitor saved into', () => {
     renderNav();
 
-    expect(railSections()).toEqual([
+    expect(stripSections()).toEqual([
       SECTIONS[0].title,
       SECTIONS[1].title,
     ]);
@@ -86,7 +86,7 @@ describe('the side rail on the bookmarks page', () => {
 
     await searchFor(unsaved.title);
 
-    expect(railSections()).toEqual([]);
+    expect(stripSections()).toEqual([]);
   });
 });
 
@@ -105,5 +105,25 @@ describe('the mobile menu', () => {
         })
       ).toHaveAttribute('href', section.href);
     }
+  });
+});
+
+describe('the desktop header', () => {
+  it('holds the search box', () => {
+    renderNav();
+
+    const header = screen.getByRole('banner', { name: 'Site header' });
+    expect(
+      within(header).getByRole('searchbox', { name: 'Search resources' })
+    ).toBeInTheDocument();
+  });
+
+  it('leaves the search out on the pages that offer none', () => {
+    pathname.current = '/privacy-policy';
+    renderNav();
+
+    expect(
+      screen.queryByRole('searchbox', { name: 'Search resources' })
+    ).not.toBeInTheDocument();
   });
 });

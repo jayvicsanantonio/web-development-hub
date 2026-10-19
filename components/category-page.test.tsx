@@ -21,6 +21,7 @@ import {
   useSearch,
 } from '@/contexts/search-context';
 import { SECTIONS, sectionBySlug } from '@/constants/sections';
+import { sectionNumber } from '@/lib/utils/navigation';
 
 const section = sectionBySlug('developer-tools');
 
@@ -68,6 +69,24 @@ describe('heading', () => {
     ).toHaveTextContent(section.title);
     expect(
       screen.getByText(section.description)
+    ).toBeInTheDocument();
+  });
+
+  it('places the section in the index', () => {
+    renderPage();
+    expect(
+      screen.getByText(
+        `No. ${sectionNumber(section.title)} / ${String(
+          SECTIONS.length
+        ).padStart(2, '0')}`
+      )
+    ).toBeInTheDocument();
+  });
+
+  it('counts the resources the section holds', () => {
+    renderPage();
+    expect(
+      screen.getByText(`${section.links.length} resources`)
     ).toBeInTheDocument();
   });
 });

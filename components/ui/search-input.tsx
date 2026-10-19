@@ -51,24 +51,27 @@ export function SearchInput({
     <form onSubmit={handleSearchSubmit}>
       <div
         className={`${
-          isMobile ? 'relative' : 'flex items-center gap-3'
+          isMobile ? 'relative' : 'flex items-center gap-2'
         }`}
       >
         <div className="relative flex-1">
           {!isMobile && (
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground opacity-70 z-10 pointer-events-none" />
+            <Search
+              className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground z-10 pointer-events-none"
+              aria-hidden="true"
+            />
           )}
           <Input
             ref={inputRef}
             type="search"
-            placeholder="Find resources..."
+            placeholder="Search the index"
             value={searchQuery}
             onChange={handleSearchChange}
             className={`${
               isMobile
-                ? 'w-full pr-10'
-                : 'w-64 h-10 pl-9 pr-16 backdrop-blur-md rounded-full shadow-md border-border/20 transition-all duration-300 dark:hover:bg-background-primary/90'
-            } [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none`}
+                ? 'w-full h-11 pr-10 border-foreground'
+                : 'w-64 lg:w-72 h-9 pl-9 pr-16 border-border hover:border-foreground'
+            } rounded-sm bg-card shadow-none font-mono text-[0.8125rem] md:text-[0.8125rem] placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none`}
             aria-label="Search resources"
             autoComplete="off"
             onKeyDown={handleKeyDown}
@@ -83,9 +86,7 @@ export function SearchInput({
                   inputRef.current?.focus();
                 }
               }}
-              className={`absolute right-3 top-1/2 transform -translate-y-1/2 ${
-                searchQuery ? 'h-5 w-8' : 'h-5 w-10'
-              } rounded-md bg-muted border border-border/50 flex items-center justify-center text-[10px] font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all cursor-pointer px-1 tracking-tight leading-none`}
+              className="absolute right-2 top-1/2 -translate-y-1/2 h-5 rounded-xs border border-border bg-background flex items-center justify-center font-mono text-[0.625rem] text-muted-foreground hover:border-foreground hover:text-foreground cursor-pointer px-1.5 leading-none"
               aria-label={
                 searchQuery
                   ? 'Clear search (press ESC)'

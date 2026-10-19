@@ -1,5 +1,5 @@
-// A responsive grid of resource cards, with a count above it while the list is
-// being filtered.
+// The list of resource rows every view renders, with a count above it while
+// the list is being filtered.
 'use client';
 
 import React, { memo } from 'react';
@@ -26,12 +26,12 @@ export default memo(function ResourceGrid({
   return (
     <>
       {filtering && (
-        <p className="text-sm text-muted-foreground">
+        <p className="eyebrow border-b border-border py-3 text-muted-foreground">
           {resultSummary(resources.length, query)}
         </p>
       )}
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div>
         {resources.map((resource) => (
           <ResourceCard key={resource.id} resource={resource} />
         ))}

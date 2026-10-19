@@ -5,8 +5,9 @@
 import { useMemo } from 'react';
 import ResourceGrid from '@/components/ui/resource-grid';
 import { useSearch } from '@/contexts/search-context';
-import { sectionBySlug } from '@/constants/sections';
+import { SECTIONS, sectionBySlug } from '@/constants/sections';
 import { filterResources, isFiltering } from '@/lib/utils/search';
+import { sectionNumber } from '@/lib/utils/navigation';
 
 export function CategoryPage({ slug }: { slug: string }) {
   const section = sectionBySlug(slug);
@@ -21,15 +22,24 @@ export function CategoryPage({ slug }: { slug: string }) {
   );
 
   return (
-    <div className="container mx-auto md:mt-20 mt-8 py-12 px-4 md:px-6 flex flex-col gap-10">
-      <div className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight">
-          {section.title}
-        </h1>
-        <p className="text-muted-foreground max-w-[700px]">
-          {section.description}
+    <div className="container pt-10 pb-8 md:pt-16">
+      <header className="grid gap-x-10 gap-y-6 border-b border-foreground pb-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+        <div>
+          <p className="eyebrow text-accent">
+            No. {sectionNumber(section.title)} /{' '}
+            {String(SECTIONS.length).padStart(2, '0')}
+          </p>
+          <h1 className="mt-4 font-serif text-5xl leading-[0.95] tracking-tight md:text-7xl lg:text-8xl">
+            {section.title}
+          </h1>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+            {section.description}
+          </p>
+        </div>
+        <p className="eyebrow text-muted-foreground">
+          {section.links.length} resources
         </p>
-      </div>
+      </header>
 
       <ResourceGrid
         resources={displayedResources}

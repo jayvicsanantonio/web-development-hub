@@ -1,5 +1,5 @@
-// Chooses what the side nav lists for the current page and search state, and
-// renders the desktop rail, the mobile bar, the desktop search and the one
+// Chooses what the header's section strip lists for the current page and
+// search state, and renders the desktop header, the mobile bar and the one
 // filter panel both layouts open.
 'use client';
 
@@ -21,7 +21,7 @@ import { TagFilterPanel } from '@/components/ui/tag-filter-panel';
 
 const EXCLUDED_SEARCH_ROUTES = ['/privacy-policy', '/terms-of-service'];
 
-export default function VerticalNavigation() {
+export default function SiteNavigation() {
   const pathname = usePathname();
   const { deferredQuery, selectedTags } = useSearch();
   const { bookmarks } = useBookmarks();
@@ -31,9 +31,9 @@ export default function VerticalNavigation() {
 
   const shouldHideSearch = EXCLUDED_SEARCH_ROUTES.includes(pathname);
 
-  // The rail lists the sections the page renders. The bookmarks page groups the
-  // saved resources the filter leaves; the home page groups the catalogue's
-  // results while filtering, and otherwise shows every section.
+  // The strip lists the sections the page renders. The bookmarks page groups
+  // the saved resources the filter leaves; the home page groups the
+  // catalogue's results while filtering, and otherwise shows every section.
   const filtering = isFiltering(deferredQuery, selectedTags);
 
   const navItems = useMemo(() => {
@@ -66,23 +66,20 @@ export default function VerticalNavigation() {
   return (
     <>
       <MobileNavigation hideSearch={shouldHideSearch} />
+      {/* The header is hidden below md, where the mobile bar opens its own
+          search. */}
       <DesktopNavigation
         navItems={navItems}
         activeSection={activeSection}
         isHomeActive={isHomeActive}
         isBookmarksActive={isBookmarksActive}
+        pathname={pathname}
+        search={shouldHideSearch ? undefined : <SearchInput />}
+        savedCount={bookmarks.length}
       />
-      {!shouldHideSearch && (
-        <>
-          {/* Hidden below md, where the mobile bar opens its own. */}
-          <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-40 hidden md:block">
-            <SearchInput />
-          </div>
-          {/* One panel for both layouts: the desktop header and the mobile bar
-              each have a filter button, and both open this. */}
-          <TagFilterPanel />
-        </>
-      )}
+      {/* One panel for both layouts: the desktop header and the mobile bar
+          each have a filter button, and both open this. */}
+      {!shouldHideSearch && <TagFilterPanel />}
     </>
   );
 }

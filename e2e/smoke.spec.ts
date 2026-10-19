@@ -27,6 +27,17 @@ test.describe('the deployed static export', () => {
     });
   }
 
+  for (const path of ROUTES) {
+    test(`prerenders ${path} without a NaN`, async ({ request }) => {
+      // A value a server component imports from a 'use client' module
+      // arrives as a client reference, not the value, and any arithmetic
+      // on it prints NaN into the page. The unit tests cannot see this:
+      // there, every module is a plain one.
+      const html = await (await request.get(path)).text();
+      expect(html).not.toContain('NaN');
+    });
+  }
+
   test('serves 404.html for an unknown path', async ({ page }) => {
     const response = await page.goto('/no-such-page');
     expect(response?.status()).toBe(404);
@@ -195,8 +206,9 @@ test.describe('rendering cost', () => {
     const chip = page.locator('main article .tag-chip').first();
 
     await expect(chip).toHaveCSS('align-items', 'center');
-    await expect(chip).toHaveCSS('font-size', '12px');
-    await expect(chip).toHaveCSS('padding-left', '10px');
+    await expect(chip).toHaveCSS('font-size', '11px');
+    await expect(chip).toHaveCSS('padding-left', '6px');
+    await expect(chip).toHaveCSS('text-transform', 'uppercase');
     await expect(chip).toHaveCSS('border-top-width', '1px');
     await expect(chip).not.toHaveCSS(
       'background-color',
@@ -240,13 +252,19 @@ test.describe('rendering cost', () => {
       .toEqual([]);
   });
 
-  test('a card animates its lift, not its colours', async ({ page }) => {
-    // A transition on every property would fade the colours of a whole
-    // section page of cards at once whenever the theme is toggled.
+  test('a row animates only its arrow, never its colours', async ({
+    page,
+  }) => {
+    // A colour transition on every row would fade a whole section page of
+    // them at once whenever the theme is toggled.
+    await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto('/developer-tools');
-    await expect(page.locator('main article').first()).toHaveCSS(
+    const row = page.locator('main article').first();
+
+    await expect(row).toHaveCSS('transition-duration', '0s');
+    await expect(row.locator('svg.lucide-arrow-up-right')).toHaveCSS(
       'transition-property',
-      'box-shadow, scale'
+      'translate'
     );
   });
 });
@@ -401,7 +419,9 @@ test.describe('navigation', () => {
     // page the highlight no longer followed the scroll.
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto('/');
-    await page.locator(`main a[href="${SECTIONS[0].href}"]`).click();
+    await page
+      .getByRole('link', { name: `View all ${SECTIONS[0].title}` })
+      .click();
     await page.waitForURL((url) => url.pathname === SECTIONS[0].href);
     await page.getByRole('link', { name: /^Return to home page/ }).click();
     await page.waitForURL((url) => url.pathname === '/');
@@ -518,6 +538,55 @@ test.describe('navigation', () => {
         })
       ).toHaveAttribute('aria-current', 'page');
     }
+  });
+});
+
+test.describe('the header', () => {
+  for (const viewport of [
+    { name: 'desktop', width: 1280, height: 900 },
+    { name: 'mobile', width: 390, height: 844 },
+  ]) {
+    test(`stays at the top of the page on ${viewport.name}`, async ({
+      page,
+    }) => {
+      await page.setViewportSize(viewport);
+      await page.goto(SECTIONS[0].href);
+      const header = page.locator('header:visible').first();
+
+      await page.evaluate(() => window.scrollTo(0, 2000));
+      await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(
+        2000
+      );
+
+      expect((await header.boundingBox())!.y).toBe(0);
+    });
+  }
+
+  test('a section the strip jumps to lands below it, not under it', async ({
+    page,
+  }) => {
+    // The header stays in place, so a section scrolled to the very top of
+    // the viewport would have its heading hidden behind it.
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/');
+    const section = SECTIONS[2];
+
+    await page
+      .getByRole('button', { name: `Navigate to ${section.title} section` })
+      .click();
+
+    const heading = page.getByRole('heading', {
+      level: 2,
+      name: section.title,
+    });
+    await expect
+      .poll(async () => (await heading.boundingBox())!.y)
+      .toBeLessThan(400);
+    const headerBottom = await page
+      .locator('header:visible')
+      .first()
+      .evaluate((element) => element.getBoundingClientRect().bottom);
+    expect((await heading.boundingBox())!.y).toBeGreaterThan(headerBottom);
   });
 });
 

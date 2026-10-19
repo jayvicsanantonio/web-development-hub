@@ -1,40 +1,66 @@
-// The full-screen banner that opens the landing page: a tagline, the headline
-// and its description, and a cue to scroll on to the sections below.
+// The intro that opens the landing page: a line counting the index, the
+// headline and its description, and beside them the contents, linking every
+// section page with its count. It is short, so the first section shows below
+// it without a scroll.
+import Link from 'next/link';
+import { ALL_RESOURCES, SECTIONS } from '@/constants/sections';
+import { sectionNumber } from '@/lib/utils/navigation';
+
 interface HeroBannerProps {
-  title: string;
+  title: React.ReactNode;
   description: string;
 }
 
 export function HeroBanner({ title, description }: HeroBannerProps) {
   return (
-    <div className="min-h-[100vh] w-full">
-      <section className="container mx-auto h-screen flex flex-col items-center justify-center text-center space-y-6 px-4">
-        <div className="inline-block rounded-full bg-accent-neon/10 px-4 py-1.5 text-sm font-medium text-accent-neon mb-4">
-          Web Development Hub
-        </div>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter max-w-3xl">
+    <section
+      aria-labelledby="intro-heading"
+      className="grid gap-12 border-b border-foreground pt-10 pb-12 md:pt-16 md:pb-16 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-16"
+    >
+      <div>
+        <p className="eyebrow text-muted-foreground">
+          An index of {ALL_RESOURCES.length} resources in{' '}
+          {SECTIONS.length} sections
+        </p>
+        <h1
+          id="intro-heading"
+          className="mt-6 max-w-4xl font-serif text-[3.25rem] leading-[0.95] tracking-tight md:text-7xl lg:text-[6.5rem]"
+        >
           {title}
         </h1>
-        <p className="text-lg md:text-xl text-muted-foreground max-w-[700px] mt-4">
+        <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
           {description}
         </p>
-        <div className="mt-8">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="opacity-50 animate-pulse"
-          >
-            <path d="m6 9 6 6 6-6"></path>
-          </svg>
-        </div>
-      </section>
-    </div>
+      </div>
+
+      <nav aria-label="Contents" className="hidden self-end lg:block">
+        <p className="eyebrow border-b border-foreground pb-2 text-muted-foreground">
+          Contents
+        </p>
+        <ol className="m-0 list-none p-0">
+          {SECTIONS.map((section) => (
+            <li key={section.href}>
+              <Link
+                href={section.href}
+                className="group flex items-baseline gap-3 border-b border-border py-2.5 hover:text-accent"
+              >
+                <span
+                  aria-hidden="true"
+                  className="font-mono text-xs text-muted-foreground"
+                >
+                  {sectionNumber(section.title)}
+                </span>
+                <span className="font-serif text-xl leading-tight">
+                  {section.title}
+                </span>
+                <span className="ml-auto font-mono text-xs text-muted-foreground">
+                  {section.links.length}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </section>
   );
 }

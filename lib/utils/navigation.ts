@@ -24,6 +24,16 @@ export function toSectionId(title: string): string {
   return `section-${toSlug(title)}`;
 }
 
+/**
+ * A section's place in the index, in two digits ('01'), as the header, the
+ * home page and the section pages print it. A title the dataset no longer has
+ * gets no number.
+ */
+export function sectionNumber(title: string): string {
+  const index = SECTION_TITLES.indexOf(title);
+  return index === -1 ? '' : String(index + 1).padStart(2, '0');
+}
+
 export const DEFAULT_NAV_ITEMS: NavigationItem[] = SECTIONS.map(
   (section) => ({
     id: toSectionId(section.title),

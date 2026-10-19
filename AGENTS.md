@@ -68,9 +68,9 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
 
 ### Component Organization
 - `/components/ui/` holds the building blocks and the site chrome: the shadcn
-  primitives, resource cards and grids, the search box and filter panel, the
-  footer, and the navigation (its desktop and mobile renderers in
-  `navigation/`)
+  primitives, the resource rows (`ResourceCard`) and the lists of them
+  (`ResourceGrid`), the search box and filter panel, the footer, and the
+  navigation (its desktop header and mobile bar in `navigation/`)
 - `/components/` root holds the bodies routes render: `category-page`,
   `search-wrapper` and `section-preview-grid`
 - shadcn/ui supplies the primitives in `/components/ui/` (the text input
@@ -85,11 +85,15 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
 - Tailwind CSS for styling with CSS custom properties for theming
 - The root layout provides `BookmarksProvider` and `SearchProvider`;
   `LayoutWrapper` mounts the keyboard shortcuts and the navigation chrome
-  around every page. `VerticalNavigation` chooses the side rail's sections
-  from the list the current page renders, and renders the one tag filter
-  panel for both layouts; the desktop search bar and the mobile bar each have
-  a `FilterButton` that only opens it. The mobile menu always links every
-  section page
+  around every page. `SiteNavigation` chooses the sections the desktop
+  header's strip lists from the ones the current page renders, and renders
+  the one tag filter panel for both layouts; the desktop header's search and
+  the mobile bar each have a `FilterButton` that only opens it. On the home
+  and bookmarks pages the strip jumps between the page's sections; elsewhere,
+  and when the page has none to list, it links every section page, as the
+  mobile menu always does
+- Both headers are sticky, and `scroll-padding-top` in `app/globals.css`
+  keeps anything scrolled to below them: change the two together
 - `SearchWrapper` swaps the home page's content for grouped results while a
   query or a tag is active
 
@@ -155,13 +159,21 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
   utilities and the shadcn tokens; avoid inline styles unless necessary
 - Markup a page repeats hundreds of times gets one `@utility` in
   `app/globals.css` rather than a long class list per element; the resource
-  card's `tag-chip` is the example
+  row's `tag-chip` is the example
 - Leave layer promotion to the browser: no `transform-gpu` or `will-change` on
   elements that are not animating, and name the properties a transition
   covers on anything rendered once per resource
-- Font: Inter, self-hosted through `next/font`; monospace falls back to the
-  system stack. A font loaded in the root layout is preloaded on every page,
-  so add one only together with markup that renders in it
+- The look is an editorial index: paper and ink in light mode, cream on warm
+  charcoal in dark, and one vermilion accent (`accent`) in both. Rules
+  (`border-foreground` for the strong ones, `border-border` between rows)
+  separate content rather than cards and shadows, and sections carry their
+  number in the index (`sectionNumber()` in `lib/utils/navigation.ts`)
+- Fonts, all self-hosted through `next/font` in the root layout: Instrument
+  Serif (`font-serif`) for the headline, page and section titles and resource
+  names; Inter (`font-sans`) for body text; IBM Plex Mono (`font-mono`) for
+  labels - the `eyebrow` utility, tags and keyboard hints. A font loaded in
+  the root layout is preloaded on every page, so add one only together with
+  markup that renders in it
 - Responsive design with mobile-first approach
 
 ### Performance

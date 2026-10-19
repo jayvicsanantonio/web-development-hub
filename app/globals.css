@@ -48,16 +48,9 @@
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
 
-  --color-accent-neon: hsl(var(--accent-neon));
-  --color-accent-purple: hsl(var(--accent-purple));
-
-  --color-background-secondary: hsl(215 28% 17%);
-  --color-background-muted: hsl(210 38% 15%);
-  --color-background-primary: hsl(222 47% 14%);
-
-  --radius-lg: 0.75rem;
-  --radius-md: 0.5rem;
-  --radius-sm: 0.25rem;
+  --radius-lg: 0.375rem;
+  --radius-md: 0.25rem;
+  --radius-sm: 0.125rem;
 
   --animate-scale-in: scale-in 0.15s ease-out;
 
@@ -75,7 +68,11 @@
 
 @utility container {
   margin-inline: auto;
-  padding-inline: 2rem;
+  padding-inline: 1.25rem;
+
+  @media (width >= 768px) {
+    padding-inline: 2rem;
+  }
 
   @media (width >= 640px) {
     max-width: 640px;
@@ -102,76 +99,79 @@
    renders hundreds of these, and the list repeated on each would be a third of
    the page's HTML. */
 @utility tag-chip {
-  @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium;
-  @apply transition-colors duration-200 ease-in-out;
-  @apply border bg-secondary/5 text-secondary border-secondary/30 hover:bg-secondary/10;
-  @apply dark:bg-secondary/30 dark:text-secondary-foreground dark:border-secondary/95 dark:hover:bg-secondary/80;
+  @apply inline-flex items-center gap-1 px-1.5 py-0.5 rounded-xs;
+  @apply font-mono text-[0.6875rem] leading-4 uppercase tracking-wider;
+  @apply border border-border bg-background text-muted-foreground;
+}
+
+/* The small monospaced label the index is annotated with: section numbers,
+   counts and the lines above headings. */
+@utility eyebrow {
+  @apply font-mono text-xs uppercase tracking-[0.18em];
 }
 
 @layer base {
+  /* Light is paper and ink; dark is the same page at night, cream on warm
+     charcoal. Vermilion is the one accent in both. The muted ink and the
+     accent each keep 4.5:1 against the page and the row hover tint alike. */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 10%;
+    --background: 43 35% 92%;
+    --foreground: 40 7% 8%;
 
-    --card: 0 0% 98%;
-    --card-foreground: 0 0% 10%;
+    --card: 42 45% 96%;
+    --card-foreground: 40 7% 8%;
 
-    --popover: 0 0% 98%;
-    --popover-foreground: 0 0% 10%;
+    --popover: 42 45% 96%;
+    --popover-foreground: 40 7% 8%;
 
-    --primary: 150 100% 40%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 40 7% 8%;
+    --primary-foreground: 43 35% 92%;
 
-    --secondary: 280 60% 50%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 43 25% 86%;
+    --secondary-foreground: 40 7% 8%;
 
-    --muted: 0 0% 95%;
-    --muted-foreground: 0 0% 20%;
+    --muted: 43 26% 87%;
+    --muted-foreground: 40 6% 34%;
 
-    --accent: 150 100% 50%; /* Improved neon green */
-    --accent-foreground: 0 0% 100%;
+    --accent: 10 76% 41%;
+    --accent-foreground: 43 35% 96%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 70% 40%;
+    --destructive-foreground: 43 35% 96%;
 
-    --accent-neon: 150 85% 35%; /* Improved neon green for light mode */
-    --accent-purple: 280 90% 45%; /* Improved neon purple for light mode */
-
-    --border: 0 0% 80%;
-    --input: 0 0% 80%;
-    --ring: 150 100% 40%;
+    --border: 42 18% 76%;
+    --input: 42 18% 72%;
+    --ring: 10 76% 41%;
   }
 
   .dark {
-    --background: 222 47% 11%;
-    --foreground: 0 0% 98%;
+    --background: 40 7% 8%;
+    --foreground: 42 38% 88%;
 
-    --card: 222 47% 14%;
-    --card-foreground: 0 0% 98%;
+    --card: 36 8% 11%;
+    --card-foreground: 42 38% 88%;
 
-    --popover: 222 47% 14%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 36 8% 11%;
+    --popover-foreground: 42 38% 88%;
 
-    --primary: 150 100% 50%;
-    --primary-foreground: 222 47% 11%;
+    --primary: 42 38% 88%;
+    --primary-foreground: 40 7% 8%;
 
-    --secondary: 274.32 94% 21%;
-    --secondary-foreground: 271.08 100% 85%;
-    --muted: 215 28% 22%;
-    --muted-foreground: 0 0% 80%;
+    --secondary: 36 8% 16%;
+    --secondary-foreground: 42 38% 88%;
 
-    --accent: 150 100% 50%;
-    --accent-foreground: 222 47% 11%;
+    --muted: 36 8% 14%;
+    --muted-foreground: 40 10% 62%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --accent: 12 100% 64%;
+    --accent-foreground: 40 7% 8%;
 
-    --accent-neon: 150 100% 50%; /* Keep original neon green for dark mode */
-    --accent-purple: 280 100% 60%; /* Keep original neon purple for dark mode */
+    --destructive: 0 72% 58%;
+    --destructive-foreground: 40 7% 8%;
 
-    --border: 215 28% 35%;
-    --input: 215 28% 25%;
-    --ring: 150 100% 50%;
+    --border: 36 9% 22%;
+    --input: 36 9% 26%;
+    --ring: 12 100% 64%;
   }
 
   * {
@@ -186,6 +186,21 @@
   :focus-visible {
     outline: 2px solid var(--color-ring);
     outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-foreground);
+  }
+
+  /* The header stays at the top of the page, so anything scrolled to - a
+     section the nav jumps to, a resource's anchor - stops below it. */
+  html {
+    scroll-padding-top: 5rem;
+
+    @media (width >= 768px) {
+      scroll-padding-top: 7.5rem;
+    }
   }
 
   /* A modal dialog makes the page behind it inert but leaves it scrollable,

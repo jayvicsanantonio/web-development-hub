@@ -15,6 +15,7 @@ import {
   resultSummary,
 } from '@/lib/utils/search';
 import ResourceGrid from '@/components/ui/resource-grid';
+import { GroupHeading } from '@/components/ui/group-heading';
 
 interface SearchWrapperProps {
   children: React.ReactNode;
@@ -47,41 +48,42 @@ export function SearchWrapper({ children }: SearchWrapperProps) {
   }
 
   return (
-    <div className="flex flex-col w-full space-y-24 px-4 md:px-6">
-      <section className="container mx-auto py-12 md:py-12 flex flex-col gap-10">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight mb-2">
-            Search Results
-          </h1>
-          <p className="text-muted-foreground">
-            {resultSummary(results.length, deferredQuery)}
+    <div className="container pt-10 pb-8 md:pt-16">
+      <header className="border-b border-foreground pb-8">
+        <p className="eyebrow text-accent">Search the index</p>
+        <h1 className="mt-4 font-serif text-5xl leading-[0.95] tracking-tight md:text-7xl">
+          Search Results
+        </h1>
+        <p className="mt-6 text-lg text-muted-foreground">
+          {resultSummary(results.length, deferredQuery)}
+        </p>
+      </header>
+
+      {results.length > 0 ? (
+        groupedResults.map(([section, resources]) => (
+          <section
+            id={toSectionId(section)}
+            key={section}
+            className="pt-12 md:pt-16"
+          >
+            <GroupHeading
+              section={section}
+              count={resources.length}
+            />
+            <ResourceGrid resources={resources} />
+          </section>
+        ))
+      ) : (
+        <div className="py-20 text-center">
+          <p className="font-serif text-3xl md:text-4xl">
+            Nothing in the index matches.
+          </p>
+          <p className="mt-4 text-muted-foreground">
+            Try adjusting your search terms to find what you&apos;re
+            looking for.
           </p>
         </div>
-
-        {results.length > 0 ? (
-          <div className="flex flex-col gap-12">
-            {groupedResults.map(([section, resources]) => (
-              <section
-                id={toSectionId(section)}
-                key={section}
-                className="flex flex-col gap-6"
-              >
-                <h2 className="text-2xl font-bold tracking-tight">
-                  {section}
-                </h2>
-                <ResourceGrid resources={resources} />
-              </section>
-            ))}
-          </div>
-        ) : (
-          <div className="py-12 text-center">
-            <p>
-              Try adjusting your search terms to find what you&apos;re
-              looking for.
-            </p>
-          </div>
-        )}
-      </section>
+      )}
     </div>
   );
 }

@@ -81,75 +81,73 @@ export function TagFilterPanel() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center md:inset-auto md:top-20 md:left-1/2 md:-translate-x-1/2">
+    <div className="fixed inset-0 z-50 flex items-start justify-center md:inset-auto md:top-[7.5rem] md:left-0 md:right-0">
       <div
         ref={panelRef}
         className="
-          w-full max-h-[90vh] md:max-h-[75vh] overflow-y-auto
-          md:w-auto md:min-w-[80vw] lg:min-w-[70vw] xl:min-w-[60vw]
-          bg-card/90 backdrop-blur
-          border border-border/20 rounded-2xl
-          shadow-lg
-          p-4 md:p-6
+          w-full h-dvh md:h-auto md:max-h-[70vh] overflow-y-auto
+          md:w-[min(60rem,calc(100vw-4rem))]
+          bg-popover text-popover-foreground
+          md:border md:border-foreground md:rounded-sm
+          md:shadow-[0_32px_64px_-32px_rgb(0_0_0/0.45)]
+          p-5 md:p-8
           animate-scale-in
         "
       >
-        <div className="flex items-center justify-between mb-4 md:mb-6">
-          <h2 className="text-lg md:text-xl font-semibold text-foreground">
-            Filter by Tags
-          </h2>
+        <div className="flex items-start justify-between gap-4 border-b border-foreground pb-4 mb-6">
+          <div>
+            <p className="eyebrow text-accent">Refine the index</p>
+            <h2 className="mt-2 font-serif text-3xl md:text-4xl leading-none">
+              Filter by Tags
+            </h2>
+          </div>
           <button
             onClick={onClose}
             className="
-              p-1.5 md:p-2 rounded-lg hover:bg-muted/60
-              transition-colors duration-200
-              text-muted-foreground hover:text-foreground
+              flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center
+              rounded-sm border border-border hover:border-foreground
             "
             aria-label="Close filter panel"
           >
-            <X className="h-4 w-4 md:h-5 md:w-5" />
+            <X className="h-4 w-4" />
           </button>
         </div>
 
         {selectedTags.length > 0 && (
-          <div className="mb-4 md:mb-5">
-            <div className="flex items-center justify-between mb-1.5 md:mb-2">
-              <span className="text-xs md:text-sm font-medium text-foreground">
+          <div className="mb-6">
+            <div className="flex items-center justify-between mb-2">
+              <span className="eyebrow text-muted-foreground">
                 Active Filters ({selectedTags.length})
               </span>
               <button
                 onClick={clearFilters}
                 className="
-                  px-1.5 md:px-2 py-0.5 md:py-1 text-xs rounded-md
-                  text-muted-foreground hover:text-foreground
-                  hover:bg-muted/60 transition-colors
-                  cursor-pointer
+                  font-mono text-xs uppercase tracking-wider
+                  underline underline-offset-4 decoration-border
+                  hover:decoration-foreground cursor-pointer
                 "
               >
                 Clear All
               </button>
             </div>
-            <div className="flex flex-wrap gap-1 md:gap-1.5">
+            <div className="flex flex-wrap gap-1.5">
               {selectedTags.map((tag) => (
                 <span
                   key={tag}
                   className="
-                    inline-flex items-center gap-0.5 md:gap-1 px-1.5 md:px-2 py-0.5 md:py-1
-                    bg-accent-neon/5 text-accent-neon text-[10px] md:text-xs rounded-md
-                    border border-accent-neon/20
+                    inline-flex items-center gap-1 h-7 pl-2.5 pr-1 rounded-xs
+                    bg-foreground text-background
+                    font-mono text-[0.6875rem] uppercase tracking-wider
                   "
                 >
                   {getTagIcon(tag)}
                   {tagLabel(tag)}
                   <button
                     onClick={() => toggleTag(tag)}
-                    className="
-                      ml-0.5 hover:bg-accent-neon/20 rounded-full p-0.5
-                      transition-colors duration-200
-                    "
+                    className="ml-1 rounded-xs p-1 hover:bg-background/20 cursor-pointer"
                     aria-label={`Remove ${tag} filter`}
                   >
-                    <X className="h-2.5 w-2.5" />
+                    <X className="h-3 w-3" />
                   </button>
                 </span>
               ))}
@@ -157,28 +155,29 @@ export function TagFilterPanel() {
           </div>
         )}
 
-        <div className="space-y-4 md:space-y-6">
+        <div className="space-y-6">
           <div>
-            <div className="flex items-center gap-1.5 md:gap-2 mb-2 md:mb-4">
-              <Star className="h-3.5 w-3.5 md:h-4 md:w-4 text-accent-purple" />
-              <span className="text-sm md:text-base font-semibold text-foreground">
+            <div className="flex items-center gap-2 mb-3">
+              <Star className="h-3.5 w-3.5 fill-accent text-accent" />
+              <span className="eyebrow text-muted-foreground">
                 Featured Tags
               </span>
             </div>
-            <div className="flex flex-wrap gap-1.5 md:gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {PRIORITY_TAGS.map((tag) => {
                 const isSelected = isTagSelected(tag);
                 return (
                   <button
                     key={tag}
                     onClick={() => toggleTag(tag)}
+                    aria-pressed={isSelected}
                     className={`
-                      inline-flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 md:py-1.5 rounded-full text-[10px] md:text-xs font-medium
-                      transition duration-200 border hover:scale-105
+                      inline-flex items-center gap-1.5 h-8 px-3 rounded-xs border cursor-pointer
+                      font-mono text-[0.6875rem] uppercase tracking-wider
                       ${
                         isSelected
-                          ? 'bg-accent-neon/20 text-accent-neon border-accent-neon/40 ring-1 md:ring-2 ring-accent-neon/30 shadow-md md:shadow-lg'
-                          : 'bg-muted/40 text-foreground/80 border-border/40 hover:bg-muted/60 hover:border-border/60 hover:shadow-md'
+                          ? 'bg-foreground text-background border-foreground'
+                          : 'border-foreground/60 hover:bg-muted'
                       }
                     `}
                   >
@@ -191,24 +190,24 @@ export function TagFilterPanel() {
           </div>
 
           <div>
-            <span className="text-sm md:text-base font-semibold text-foreground mb-2 md:mb-4 block">
+            <span className="eyebrow text-muted-foreground mb-3 block">
               All Tags
             </span>
-            <div className="flex flex-wrap gap-1.5 md:gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {ALL_TAGS.filter(
                 (tag) => !PRIORITY_TAGS.includes(tag)
               ).map((tag) => (
                 <button
                   key={tag}
                   onClick={() => toggleTag(tag)}
+                  aria-pressed={isTagSelected(tag)}
                   className={`
-                    inline-flex items-center px-2 md:px-2.5 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-medium border
-                    transition duration-200 hover:scale-105
-                     focus:ring-1 focus:ring-accent-neon/50
+                    inline-flex items-center h-7 px-2.5 rounded-xs border cursor-pointer
+                    font-mono text-[0.6875rem] uppercase tracking-wider
                     ${
                       isTagSelected(tag)
-                        ? 'bg-accent-neon/20 text-accent-neon border-accent-neon/40 ring-1 ring-accent-neon/30 shadow-md'
-                        : 'bg-muted/40 text-foreground/70 border-border/40 hover:bg-muted/60 hover:border-border/60 hover:shadow-sm'
+                        ? 'bg-foreground text-background border-foreground'
+                        : 'border-border text-muted-foreground hover:border-foreground hover:text-foreground'
                     }
                   `}
                 >
@@ -219,7 +218,7 @@ export function TagFilterPanel() {
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-[10px] md:text-xs text-muted-foreground pt-2 border-t border-border/20">
+        <div className="mt-6 flex items-center justify-between gap-4 border-t border-border pt-3 font-mono text-[0.6875rem] uppercase tracking-wider text-muted-foreground">
           <span>Click tags to add or remove filters</span>
           <span>
             {selectedTags.length} of {ALL_TAGS.length} tags selected

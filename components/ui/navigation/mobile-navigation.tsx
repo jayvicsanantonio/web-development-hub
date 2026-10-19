@@ -12,10 +12,15 @@ import { SearchInput } from '@/components/ui/search-input';
 import { FilterButton } from '@/components/ui/filter-button';
 import { Icon } from '@/lib/icons';
 import { cn } from '@/lib/utils';
+import { sectionNumber } from '@/lib/utils/navigation';
 
-/** One row of the mobile menu: the page's icon and title, as a link. */
+/**
+ * One row of the mobile menu: the page's number in the index, its icon and
+ * its title, as a link.
+ */
 function MenuLink({
   title,
+  number,
   iconName,
   href,
   isActive,
@@ -24,6 +29,7 @@ function MenuLink({
   ref,
 }: {
   title: string;
+  number: string;
   iconName: string;
   href: string;
   isActive: boolean;
@@ -37,30 +43,38 @@ function MenuLink({
       href={href}
       onClick={onClick}
       onKeyDown={onKeyDown}
-      className={cn(
-        'flex w-full items-center gap-3 p-3 rounded-md transition-all duration-200  focus:ring-2 focus:ring-accent-neon',
-        isActive
-          ? 'bg-background-muted/50 border-l-2 border-accent-neon text-accent-neon font-medium'
-          : 'hover:bg-background-muted/30 border-l-2 border-transparent'
-      )}
+      className="flex w-full items-center gap-4 border-b border-border py-4"
       aria-current={isActive ? 'page' : undefined}
     >
+      <span
+        aria-hidden="true"
+        className={cn(
+          'w-6 font-mono text-xs',
+          isActive ? 'text-accent' : 'text-muted-foreground'
+        )}
+      >
+        {number}
+      </span>
       <Icon
         icon={iconName}
-        className={cn(
-          'h-5 w-5',
-          isActive
-            ? 'text-foreground opacity-90'
-            : 'text-foreground opacity-70'
-        )}
+        className="h-5 w-5 shrink-0 text-muted-foreground"
         aria-hidden="true"
       />
-      <span className={cn(isActive ? 'font-medium' : 'font-normal')}>
+      <span
+        className={cn(
+          'font-serif text-[1.75rem] leading-tight',
+          isActive &&
+            'underline decoration-accent decoration-2 underline-offset-[6px]'
+        )}
+      >
         {title}
       </span>
     </Link>
   );
 }
+
+const barButtonClassName =
+  'flex h-9 w-9 cursor-pointer items-center justify-center rounded-sm';
 
 interface MobileNavigationProps {
   hideSearch?: boolean;
@@ -110,19 +124,25 @@ export function MobileNavigation({
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 bg-background md:hidden">
+      <header
+        aria-label="Mobile site header"
+        className="sticky top-0 z-50 flex h-16 items-center justify-between gap-3 border-b border-foreground bg-background px-4 md:hidden"
+      >
         <Link
           href="/"
-          className="text-foreground font-bold text-xl  focus:ring-2 focus:ring-accent-neon focus:rounded-md"
+          className="min-w-0 truncate font-serif text-[1.4rem] leading-none tracking-tight"
         >
-          Web Development Hub
+          {/* The full name leaves no room for the five buttons beside it on a
+              phone, so the narrowest screens get the short one. */}
+          <span className="sm:hidden">Web Dev Hub</span>
+          <span className="hidden sm:inline">Web Development Hub</span>
         </Link>
-        <div className="flex gap-2">
+        <div className="flex shrink-0 items-center gap-0.5">
           {!hideSearch && (
             <>
               <button
                 onClick={() => setIsSearchOpen((open) => !open)}
-                className="p-2 rounded-full transition-colors  cursor-pointer"
+                className={barButtonClassName}
                 aria-expanded={isSearchOpen}
                 aria-label="Search resources"
               >
@@ -136,14 +156,15 @@ export function MobileNavigation({
           )}
           <Link
             href="/bookmarks"
-            className="p-2 rounded-full transition-colors  flex items-center justify-center"
+            className={barButtonClassName}
             aria-label="View bookmarks"
+            aria-current={pathname === '/bookmarks' ? 'page' : undefined}
           >
             <BookmarkIcon
               className={cn(
                 'h-5 w-5',
                 pathname === '/bookmarks'
-                  ? 'text-accent-neon'
+                  ? 'fill-accent text-accent'
                   : 'text-foreground'
               )}
               aria-hidden="true"
@@ -151,7 +172,7 @@ export function MobileNavigation({
           </Link>
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full transition-colors  cursor-pointer"
+            className={barButtonClassName}
             aria-label="Switch between light and dark mode"
           >
             <Sun
@@ -165,7 +186,7 @@ export function MobileNavigation({
           </button>
           <button
             onClick={() => setIsMobileMenuOpen((open) => !open)}
-            className="p-2 rounded-full transition-colors  cursor-pointer"
+            className={barButtonClassName}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
             aria-label="Main menu"
@@ -180,7 +201,7 @@ export function MobileNavigation({
 
       {!hideSearch && isSearchOpen && (
         <div
-          className="fixed top-16 left-0 right-0 z-50 p-4 bg-background md:hidden"
+          className="fixed top-16 left-0 right-0 z-50 border-b border-foreground bg-background p-4 md:hidden"
           id="mobile-search"
           role="search"
         >
@@ -198,17 +219,21 @@ export function MobileNavigation({
 
       <div
         id="mobile-menu"
-        className={`fixed top-16 left-0 right-0 z-40 bg-background p-4 shadow-lg md:hidden transform transition-transform duration-300 ${
+        className={`fixed top-16 left-0 right-0 bottom-0 z-40 overflow-y-auto bg-background px-5 pb-8 md:hidden transition-[translate] duration-300 ${
           isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
         role="navigation"
         inert={!isMobileMenuOpen}
       >
         <nav aria-label="Site sections">
-          <ul className="flex flex-col gap-4 list-none m-0 p-0 min-h-[calc(100vh-8rem)]">
+          <p className="eyebrow pt-6 pb-2 text-muted-foreground">
+            Contents
+          </p>
+          <ul className="m-0 flex list-none flex-col p-0">
             <li>
               <MenuLink
                 title="Home"
+                number="—"
                 iconName="mdi:home-outline"
                 href="/"
                 isActive={pathname === '/'}
@@ -226,6 +251,7 @@ export function MobileNavigation({
                 <li key={section.href}>
                   <MenuLink
                     title={section.title}
+                    number={sectionNumber(section.title)}
                     iconName={section.icon}
                     href={section.href}
                     isActive={pathname === section.href}

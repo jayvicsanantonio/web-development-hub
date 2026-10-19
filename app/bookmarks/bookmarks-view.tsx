@@ -16,6 +16,7 @@ import {
   resultSummary,
 } from '@/lib/utils/search';
 import ResourceGrid from '@/components/ui/resource-grid';
+import { GroupHeading } from '@/components/ui/group-heading';
 import { useSearch } from '@/contexts/search-context';
 import type { Resource } from '@/lib/types';
 
@@ -40,14 +41,9 @@ const ClearAllButton = ({ onConfirm }: { onConfirm: () => void }) => {
         type="button"
         onClick={() => dialogRef.current?.showModal()}
         className="
-          cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-md 
-          border border-border/50 
-          text-muted-foreground hover:text-foreground 
-          bg-background hover:bg-muted/50 
-          transition-all duration-200 ease-in-out
-          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
-          hover:border-border/80
-          shadow-sm hover:shadow-md
+          cursor-pointer inline-flex h-9 items-center gap-2 px-3 rounded-sm
+          border border-border hover:border-foreground
+          font-mono text-xs uppercase tracking-wider
           disabled:pointer-events-none disabled:opacity-50
         "
         aria-label="Clear all bookmarks"
@@ -81,26 +77,29 @@ const ClearAllButton = ({ onConfirm }: { onConfirm: () => void }) => {
         role="alertdialog"
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
-        className="m-auto w-full max-w-lg border bg-background p-6 text-foreground shadow-lg backdrop:bg-[rgb(0_0_0/0.8)] sm:rounded-lg"
+        className="m-auto w-[calc(100%-2.5rem)] max-w-lg rounded-sm border border-foreground bg-popover p-6 text-popover-foreground backdrop:bg-[rgb(0_0_0/0.6)] md:p-8"
       >
         <div className="grid gap-4">
-          <div className="flex flex-col space-y-2 text-center sm:text-left">
-            <h2 id={titleId} className="text-lg font-semibold">
+          <div className="flex flex-col space-y-3">
+            <h2
+              id={titleId}
+              className="font-serif text-3xl leading-none"
+            >
               Clear All Bookmarks
             </h2>
             <p
               id={descriptionId}
-              className="text-sm text-muted-foreground"
+              className="text-muted-foreground"
             >
               Are you sure you want to clear all your bookmarks? This
               action cannot be undone.
             </p>
           </div>
-          <div className="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
+          <div className="mt-2 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
             <button
               type="button"
               onClick={close}
-              className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent-neon dark:hover:text-primary-foreground hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+              className="inline-flex h-10 cursor-pointer items-center justify-center rounded-sm border border-foreground px-4 font-mono text-xs uppercase tracking-wider hover:bg-muted disabled:pointer-events-none disabled:opacity-50"
             >
               Cancel
             </button>
@@ -110,7 +109,7 @@ const ClearAllButton = ({ onConfirm }: { onConfirm: () => void }) => {
                 close();
                 onConfirm();
               }}
-              className="inline-flex h-10 items-center justify-center rounded-md bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground ring-offset-background transition-colors hover:bg-destructive/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+              className="inline-flex h-10 cursor-pointer items-center justify-center rounded-sm bg-destructive px-4 font-mono text-xs uppercase tracking-wider text-destructive-foreground hover:bg-destructive/90 disabled:pointer-events-none disabled:opacity-50"
             >
               Clear All
             </button>
@@ -151,33 +150,37 @@ const BookmarksHeader = ({
   };
 
   return (
-    <div className="flex items-center justify-between">
+    <header className="grid gap-x-10 gap-y-6 border-b border-foreground pb-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
       <div>
-        <h1 className="text-4xl font-bold tracking-tight mb-2">
+        <p className="eyebrow text-accent">Your shelf</p>
+        <h1 className="mt-4 font-serif text-5xl leading-[0.95] tracking-tight md:text-7xl lg:text-8xl">
           My Bookmarks
         </h1>
-        <p className="text-muted-foreground">{getDescription()}</p>
+        <p className="mt-6 text-lg text-muted-foreground">
+          {getDescription()}
+        </p>
       </div>
 
       {bookmarks.length > 0 && (
         <ClearAllButton onConfirm={onClearAll} />
       )}
-    </div>
+    </header>
   );
 };
 
 const EmptyState = ({ filtering }: { filtering: boolean }) => (
-  <div className="py-12 text-center">
-    <p className="text-lg mb-6">
+  <div className="py-20 text-center">
+    <p className="mx-auto max-w-xl font-serif text-3xl leading-tight md:text-4xl">
       {filtering
         ? "Try adjusting your search terms to find what you're looking for."
         : 'Bookmark resources to add them to your bookmarks list.'}
     </p>
     <Link
       href="/"
-      className="inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background ring-offset-background disabled:pointer-events-none disabled:opacity-50 border hover:bg-accent/10 h-10 px-4 py-2 rounded-full border-accent-neon text-accent-neon focus-visible:ring-accent-neon hover:text-accent-neon/80"
+      className="mt-8 inline-flex items-center gap-2 border-b border-foreground pb-1 font-mono text-xs uppercase tracking-[0.18em] hover:border-accent hover:text-accent"
     >
       Explore Resources
+      <span aria-hidden="true">→</span>
     </Link>
   </div>
 );
@@ -189,8 +192,8 @@ const BookmarksSection = ({
   section: string;
   bookmarks: Resource[];
 }) => (
-  <section id={toSectionId(section)} className="space-y-6">
-    <h2 className="text-2xl font-bold tracking-tight">{section}</h2>
+  <section id={toSectionId(section)} className="pt-12 md:pt-16">
+    <GroupHeading section={section} count={bookmarks.length} />
     <ResourceGrid resources={bookmarks} />
   </section>
 );
@@ -212,7 +215,7 @@ export function BookmarksView() {
   );
 
   return (
-    <div className="container mx-auto md:mt-20 mt-8 py-12 space-y-12">
+    <div className="container pt-10 pb-8 md:pt-16">
       <BookmarksHeader
         query={deferredQuery}
         filtering={filtering}
@@ -224,7 +227,7 @@ export function BookmarksView() {
       {displayedBookmarks.length === 0 ? (
         <EmptyState filtering={filtering} />
       ) : (
-        <div className="space-y-16">
+        <div>
           {groupedBookmarks.map(([section, sectionBookmarks]) => (
             <BookmarksSection
               key={section}

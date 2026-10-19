@@ -131,3 +131,35 @@ describe('opening and closing', () => {
     expect(panelTitle()).toBeInTheDocument();
   });
 });
+
+describe('the selected state', () => {
+  // Selection shows as an inverted chip, so it has to reach assistive
+  // technology some other way than by colour.
+  it('marks a chosen tag as pressed, and unmarks it again', async () => {
+    const user = await renderPanel();
+    const free = () => screen.getByRole('button', { name: /^free$/ });
+
+    expect(free()).toHaveAttribute('aria-pressed', 'false');
+    await user.click(free());
+    expect(free()).toHaveAttribute('aria-pressed', 'true');
+    await user.click(free());
+    expect(free()).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('marks tags outside the featured few too', async () => {
+    const user = await renderPanel();
+    const featured = [
+      'ai',
+      'interview-prep',
+      'free',
+      'beginner-friendly',
+      'trending',
+    ];
+    const tag = ALL_TAGS.find((tag) => !featured.includes(tag))!;
+    const button = () =>
+      screen.getByRole('button', { name: tag.replaceAll('-', ' ') });
+
+    await user.click(button());
+    expect(button()).toHaveAttribute('aria-pressed', 'true');
+  });
+});

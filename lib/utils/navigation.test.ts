@@ -5,6 +5,7 @@ import { SECTIONS } from '@/constants/sections';
 import {
   DEFAULT_NAV_ITEMS,
   sectionNavItems,
+  sectionNumber,
   toSectionId,
   toSlug,
 } from './navigation';
@@ -110,5 +111,20 @@ describe('nav items for a result set', () => {
 
   it('ignores a section title that is not in the dataset', () => {
     expect(sectionNavItems([resultIn('Other')])).toEqual([]);
+  });
+});
+
+describe('section numbers', () => {
+  it('numbers a section by its place in the dataset, in two digits', () => {
+    expect(sectionNumber(SECTIONS[0].title)).toBe('01');
+    expect(sectionNumber(SECTIONS[SECTIONS.length - 1].title)).toBe(
+      String(SECTIONS.length).padStart(2, '0')
+    );
+  });
+
+  it('gives a title the dataset no longer has no number', () => {
+    // A bookmark can outlive its section's name, and groupBySection still
+    // renders it, under the old title.
+    expect(sectionNumber('Uncategorized')).toBe('');
   });
 });

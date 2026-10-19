@@ -1,11 +1,16 @@
-// The landing page: a preview grid of every section, each linking through to
-// its own page. Section copy, order and links all come from SECTIONS.
+// The landing page: the intro, then a preview of every section, each linking
+// through to its own page. Section copy, order and links all come from
+// SECTIONS.
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { HeroBanner } from '@/components/ui/hero-banner';
 import { SECTIONS } from '@/constants/sections';
 import type { Section } from '@/lib/types';
-import { cn } from '@/lib/utils';
-import { toSectionId, toSlug } from '@/lib/utils/navigation';
+import {
+  sectionNumber,
+  toSectionId,
+  toSlug,
+} from '@/lib/utils/navigation';
 import { SectionPreviewGrid } from '@/components/section-preview-grid';
 import { SearchWrapper } from '@/components/search-wrapper';
 
@@ -32,46 +37,45 @@ const ResourceSection = ({ section }: { section: Section }) => {
     <section
       id={sectionId}
       aria-labelledby={headingId}
-      className="container mx-auto py-12 space-y-8"
+      className="relative pt-16 md:pt-24"
     >
       <a
         href={`#${skipLinkId}`}
-        className="sr-only focus:not-sr-only focus:absolute focus:bg-background focus:text-foreground focus:p-4 focus:border focus:border-accent-neon focus:z-50 rounded-md"
+        className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-foreground focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:uppercase focus:tracking-widest focus:text-background"
       >
         Skip to {viewAllText}
       </a>
-      <div className="flex flex-col space-y-2">
-        <h2
-          id={headingId}
-          className="text-3xl font-bold tracking-tighter"
-        >
-          {title}
-        </h2>
-        <p className="text-muted-foreground">{description}</p>
+      <div className="grid gap-x-10 gap-y-4 border-b border-foreground pb-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+        <div>
+          <p className="eyebrow text-accent">
+            No. {sectionNumber(title)}
+          </p>
+          <h2
+            id={headingId}
+            className="mt-3 font-serif text-4xl leading-none tracking-tight md:text-6xl"
+          >
+            {title}
+          </h2>
+          <p className="mt-4 max-w-2xl text-muted-foreground">
+            {description}
+          </p>
+        </div>
+        <p className="eyebrow text-muted-foreground">
+          {section.links.length} resources
+        </p>
       </div>
       <SectionPreviewGrid slug={href.slice(1)} />
-      <div className="flex justify-center" id={skipLinkId}>
+      <div className="flex justify-end pt-6" id={skipLinkId}>
         <Link
           href={href}
-          className={cn(
-            'inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background ring-offset-background disabled:pointer-events-none disabled:opacity-50 border hover:bg-accent/10 h-10 px-4 py-2 rounded-full',
-            'border-accent-neon text-accent-neon focus-visible:ring-accent-neon hover:text-accent-neon/80',
-          )}
+          className="group inline-flex items-center gap-2 border-b border-foreground pb-1 font-mono text-xs uppercase tracking-[0.18em] hover:border-accent hover:text-accent"
           aria-label={`View all ${title}`}
         >
           {viewAllText}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-6 h-6"
+          <ArrowRight
+            className="h-4 w-4 transition-[translate] duration-200 group-hover:translate-x-1"
             aria-hidden="true"
-          >
-            <path d="M5 12h14"></path>
-            <path d="m12 5 7 7-7 7"></path>
-          </svg>
+          />
         </Link>
       </div>
     </section>
@@ -81,10 +85,16 @@ const ResourceSection = ({ section }: { section: Section }) => {
 export default function Home() {
   return (
     <SearchWrapper>
-      <div className="flex flex-col w-full space-y-24 px-4 md:px-6">
+      <div className="container pb-8">
         <HeroBanner
-          title="Your Essential Web Dev Links, Simplified"
-          description="Access a curated collection of must-have resources and quick links, designed to keep everything you need right at your fingertips."
+          title={
+            <>
+              The web developer&rsquo;s
+              <br />
+              <em className="text-accent">field guide.</em>
+            </>
+          }
+          description="A hand-picked index of the courses, tools, frameworks, communities and newsletters worth your time, kept in one place."
         />
 
         {SECTIONS.map((section) => (

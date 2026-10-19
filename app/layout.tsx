@@ -2,22 +2,35 @@
 // blocking script that settles the theme before the first paint.
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { IBM_Plex_Mono, Instrument_Serif, Inter } from 'next/font/google';
 import Footer from '@/components/ui/footer';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
 import { SearchProvider } from '@/contexts/search-context';
 import LayoutWrapper from '@/components/ui/layout-wrapper';
 import './globals.css';
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+// The display face: the headline, page and section titles, resource names.
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+});
+// The labels: section numbers, counts, tags and keyboard hints.
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-mono',
+});
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'hsl(0 0% 100%)' },
+    { media: '(prefers-color-scheme: light)', color: 'hsl(43 35% 92%)' },
     {
       media: '(prefers-color-scheme: dark)',
-      color: 'hsl(222 47% 11%)',
+      color: 'hsl(40 7% 8%)',
     },
   ],
 };
@@ -109,7 +122,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} font-sans bg-background text-foreground min-h-screen overflow-x-hidden`}
+        className={`${inter.variable} ${instrumentSerif.variable} ${plexMono.variable} font-sans bg-background text-foreground min-h-screen overflow-x-hidden`}
       >
         <BookmarksProvider>
           <SearchProvider>
