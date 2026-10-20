@@ -31,7 +31,9 @@ export default memo(function ResourceGrid({
         </p>
       )}
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Container queries: beside the sidebar the panel is narrower than
+          the window, so viewport breakpoints would crowd the columns. */}
+      <div className="grid grid-cols-1 gap-4 @xl:grid-cols-2 @4xl:grid-cols-3">
         {resources.map((resource) => (
           <ResourceCard key={resource.id} resource={resource} />
         ))}

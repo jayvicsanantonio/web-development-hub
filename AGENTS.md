@@ -69,10 +69,10 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
 ### Component Organization
 - `/components/ui/` holds the building blocks and the site chrome: the shadcn
   primitives, resource cards and grids, the search box and filter panel, the
-  footer, and the navigation (its desktop and mobile renderers in
-  `navigation/`)
+  top bar, the footer, the brand mark, and the navigation (the desktop sidebar
+  and the mobile bar in `navigation/`)
 - `/components/` root holds the bodies routes render: `category-page`,
-  `search-wrapper` and `section-preview-grid`
+  `search-wrapper`, `section-tiles` and `section-preview-grid`
 - shadcn/ui supplies the primitives in `/components/ui/` (the text input
   today); add or update them with the shadcn CLI, which reads
   `components.json`
@@ -84,12 +84,15 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
   open state only, so focus and inertness are tested in `e2e/`
 - Tailwind CSS for styling with CSS custom properties for theming
 - The root layout provides `BookmarksProvider` and `SearchProvider`;
-  `LayoutWrapper` mounts the keyboard shortcuts and the navigation chrome
-  around every page. `VerticalNavigation` chooses the side rail's sections
-  from the list the current page renders, and renders the one tag filter
-  panel for both layouts; the desktop search bar and the mobile bar each have
-  a `FilterButton` that only opens it. The mobile menu always links every
-  section page
+  `LayoutWrapper` is the app shell around every page: the keyboard shortcuts,
+  the fixed sidebar (the mobile bar below `md`), and the main panel holding
+  `TopBar` (the desktop search box and filter toggle), the page and the footer
+  the root layout passes in. `VerticalNavigation` chooses the sidebar's "On
+  this page" sections from the list the current page renders, and renders the
+  one tag filter panel for both layouts; the top bar and the mobile bar each
+  have a `FilterButton` that only opens it. The sidebar and the mobile menu
+  always link every section page. The pages in `SEARCHLESS_ROUTES` get no
+  search or filter
 - `SearchWrapper` swaps the home page's content for grouped results while a
   query or a tag is active
 
@@ -144,7 +147,8 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
   installed set has fails the build and names the icon; browse the sets at
   https://icon-sets.iconify.design. The dev server builds the bundle once at
   start, so after adding a new icon name mid-session run `pnpm icons`
-- Import `Icon` from `@/lib/icons`, which registers the bundle. The default
+- Import `Icon` from `@/lib/icons`, which registers the bundle. It is a client
+  module, so a server component can render an icon too. The default
   `@iconify/react` build fetches from Iconify's API, and ESLint rejects it
 - Using an icon set that is not installed yet means adding its
   `@iconify-json/<prefix>` package
@@ -153,13 +157,21 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
 - Tailwind CSS 4.x, configured CSS-first: design tokens and theme layers live
   in `app/globals.css`, with CSS variables for theming. Style with Tailwind
   utilities and the shadcn tokens; avoid inline styles unless necessary
+- The palette is neutral greys with one indigo accent, `primary`. `canvas` is
+  the frame the sidebar sits on and `background` the main panel the page is
+  drawn in
+- Inside the main panel, lay out with container queries (`@xl:`, `@4xl:`):
+  `<main>` is the `@container`, and beside the sidebar the panel is narrower
+  than the window, so viewport breakpoints misjudge it. The `container`
+  utility is the content column, capped at the panel's width, not the
+  window's
 - Markup a page repeats hundreds of times gets one `@utility` in
   `app/globals.css` rather than a long class list per element; the resource
   card's `tag-chip` is the example
 - Leave layer promotion to the browser: no `transform-gpu` or `will-change` on
   elements that are not animating, and name the properties a transition
   covers on anything rendered once per resource
-- Font: Inter, self-hosted through `next/font`; monospace falls back to the
+- Font: Geist, self-hosted through `next/font`; monospace falls back to the
   system stack. A font loaded in the root layout is preloaded on every page,
   so add one only together with markup that renders in it
 - Responsive design with mobile-first approach

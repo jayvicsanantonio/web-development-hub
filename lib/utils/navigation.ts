@@ -24,6 +24,9 @@ export function toSectionId(title: string): string {
   return `section-${toSlug(title)}`;
 }
 
+/** The pages that list no resources, so offer no search or tag filter. */
+export const SEARCHLESS_ROUTES = ['/privacy-policy', '/terms-of-service'];
+
 export const DEFAULT_NAV_ITEMS: NavigationItem[] = SECTIONS.map(
   (section) => ({
     id: toSectionId(section.title),

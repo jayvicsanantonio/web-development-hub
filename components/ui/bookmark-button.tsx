@@ -2,7 +2,7 @@
 'use client';
 
 import React from 'react';
-import { Bookmark, BookmarkCheck } from 'lucide-react';
+import { Bookmark } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useBookmarks } from '@/contexts/bookmarks-context';
 
@@ -40,8 +40,10 @@ export function BookmarkButton({
     <button
       onClick={handleToggleBookmark}
       className={cn(
-        'group relative flex items-center justify-center rounded-full p-1 transition-colors',
-        'hover:bg-background-secondary ',
+        'cursor-pointer relative flex h-8 w-8 items-center justify-center rounded-md',
+        isBookmarked
+          ? 'text-primary hover:bg-primary/10'
+          : 'text-muted-foreground hover:bg-accent hover:text-foreground',
         className
       )}
       aria-label={
@@ -50,11 +52,10 @@ export function BookmarkButton({
           : `Add ${title} to bookmarks`
       }
     >
-      {isBookmarked ? (
-        <BookmarkCheck className="text-accent-neon h-5 w-5" />
-      ) : (
-        <Bookmark className="text-muted-foreground group-hover:text-foreground h-5 w-5" />
-      )}
+      <Bookmark
+        className={cn('h-4 w-4', isBookmarked && 'fill-current')}
+        aria-hidden="true"
+      />
       <span className="sr-only">
         {isBookmarked ? 'Remove from bookmarks' : 'Add to bookmarks'}
       </span>

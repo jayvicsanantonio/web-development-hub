@@ -246,7 +246,7 @@ test.describe('rendering cost', () => {
     await page.goto('/developer-tools');
     await expect(page.locator('main article').first()).toHaveCSS(
       'transition-property',
-      'box-shadow, scale'
+      'box-shadow, translate'
     );
   });
 });
@@ -401,9 +401,16 @@ test.describe('navigation', () => {
     // page the highlight no longer followed the scroll.
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto('/');
-    await page.locator(`main a[href="${SECTIONS[0].href}"]`).click();
+    // The section's tile and its preview's View All both link there.
+    await page
+      .locator(`main a[href="${SECTIONS[0].href}"]`)
+      .first()
+      .click();
     await page.waitForURL((url) => url.pathname === SECTIONS[0].href);
-    await page.getByRole('link', { name: /^Return to home page/ }).click();
+    await page
+      .getByRole('navigation', { name: 'Site navigation' })
+      .getByRole('link', { name: 'Home', exact: true })
+      .click();
     await page.waitForURL((url) => url.pathname === '/');
 
     const section = SECTIONS[1];
@@ -431,8 +438,9 @@ test.describe('navigation', () => {
   }) => {
     // A section counted as in view only once 40% of it was inside the
     // middle 60% of the viewport, which one taller than 1.5 viewports can
-    // never reach, so the highlight never moved to it.
-    await page.setViewportSize({ width: 1280, height: 480 });
+    // never reach, so the highlight never moved to it. Narrow enough that the
+    // preview is one column of cards, and so that tall.
+    await page.setViewportSize({ width: 800, height: 480 });
     await page.goto('/');
 
     const section = SECTIONS[1];
@@ -518,6 +526,65 @@ test.describe('navigation', () => {
         })
       ).toHaveAttribute('aria-current', 'page');
     }
+  });
+});
+
+test.describe('the sidebar', () => {
+  test('reaches every section page and marks the one being viewed', async ({
+    page,
+  }) => {
+    // Until the sidebar listed them, the desktop layout reached a section
+    // page only through the home page's View All links.
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/');
+    const nav = page.getByRole('navigation', { name: 'Site navigation' });
+
+    for (const section of SECTIONS) {
+      const link = nav.getByRole('link', {
+        name: `${section.title} ${section.links.length} resources`,
+      });
+      await link.click();
+      await page.waitForURL((url) => url.pathname === section.href);
+      await expect(
+        page.getByRole('heading', { level: 1, name: section.title })
+      ).toBeVisible();
+      await expect(link).toHaveAttribute('aria-current', 'page');
+    }
+  });
+
+  test('counts the saved resources', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.addInitScript(
+      ({ key, ids }) => localStorage.setItem(key, JSON.stringify(ids)),
+      {
+        key: STORAGE_KEY,
+        ids: SECTIONS.map((section) => section.links[0].id),
+      }
+    );
+    await page.goto('/');
+
+    await expect(
+      page
+        .getByRole('navigation', { name: 'Site navigation' })
+        .getByRole('link', { name: /^Bookmarks/ })
+    ).toHaveAccessibleName(`Bookmarks ${SECTIONS.length} saved`);
+  });
+});
+
+test.describe('the home page tiles', () => {
+  test('open the section page they name', async ({ page }) => {
+    await page.goto('/');
+    const section = SECTIONS[2];
+
+    await page
+      .getByRole('list', { name: 'Sections' })
+      .getByRole('link', { name: section.title, exact: true })
+      .click();
+
+    await page.waitForURL((url) => url.pathname === section.href);
+    await expect(
+      page.getByRole('heading', { level: 1, name: section.title })
+    ).toBeVisible();
   });
 });
 

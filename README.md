@@ -9,7 +9,7 @@ served by Cloudflare Workers, with no server runtime and no database.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/section-dark.png">
-  <img src="docs/images/section-light.png" alt="The Learning Resources page: a search box and tag filter above a grid of resource cards, each with an icon, a description, tags and a bookmark button">
+  <img src="docs/images/section-light.png" alt="The Learning Resources page: a sidebar listing every section beside a search box, a tag filter and a grid of resource cards, each with an icon, its site, a description, tags and a bookmark button">
 </picture>
 
 ## Using the Site

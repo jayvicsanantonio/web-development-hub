@@ -1,12 +1,15 @@
-// The landing page: a preview grid of every section, each linking through to
-// its own page. Section copy, order and links all come from SECTIONS.
+// The landing page: the introduction, a tile for every section, then a preview
+// of each section linking through to its own page. Section copy, order and
+// links all come from SECTIONS.
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { HeroBanner } from '@/components/ui/hero-banner';
 import { SECTIONS } from '@/constants/sections';
 import type { Section } from '@/lib/types';
-import { cn } from '@/lib/utils';
+import { Icon } from '@/lib/icons';
 import { toSectionId, toSlug } from '@/lib/utils/navigation';
 import { SectionPreviewGrid } from '@/components/section-preview-grid';
+import { SectionTiles } from '@/components/section-tiles';
 import { SearchWrapper } from '@/components/search-wrapper';
 
 // Homepage-only call-to-action copy. The section's own title, description,
@@ -20,60 +23,52 @@ const VIEW_ALL_TEXT: Record<string, string> = {
 };
 
 const ResourceSection = ({ section }: { section: Section }) => {
-  const { title, description, href } = section;
+  const { title, description, href, icon } = section;
   const viewAllText = VIEW_ALL_TEXT[title] ?? `View all ${title}`;
 
   const formattedTitle = toSlug(title);
   const sectionId = toSectionId(title);
   const headingId = `heading-${formattedTitle}`;
-  const skipLinkId = `skip-${formattedTitle}`;
 
+  // The View All link comes before the cards, so a keyboard user reaches it
+  // without tabbing through the preview first.
   return (
     <section
       id={sectionId}
       aria-labelledby={headingId}
-      className="container mx-auto py-12 space-y-8"
+      className="container scroll-mt-20 py-8 md:scroll-mt-16"
     >
-      <a
-        href={`#${skipLinkId}`}
-        className="sr-only focus:not-sr-only focus:absolute focus:bg-background focus:text-foreground focus:p-4 focus:border focus:border-accent-neon focus:z-50 rounded-md"
-      >
-        Skip to {viewAllText}
-      </a>
-      <div className="flex flex-col space-y-2">
-        <h2
-          id={headingId}
-          className="text-3xl font-bold tracking-tighter"
-        >
-          {title}
-        </h2>
-        <p className="text-muted-foreground">{description}</p>
-      </div>
-      <SectionPreviewGrid slug={href.slice(1)} />
-      <div className="flex justify-center" id={skipLinkId}>
+      <div className="mb-5 flex flex-col gap-3 @lg:flex-row @lg:items-end @lg:justify-between">
+        <div className="flex items-start gap-3">
+          <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary">
+            <Icon
+              icon={icon}
+              className="h-[18px] w-[18px]"
+              aria-hidden="true"
+            />
+          </span>
+          <div>
+            <h2
+              id={headingId}
+              className="text-xl font-semibold tracking-tight"
+            >
+              {title}
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              {description}
+            </p>
+          </div>
+        </div>
         <Link
           href={href}
-          className={cn(
-            'inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background ring-offset-background disabled:pointer-events-none disabled:opacity-50 border hover:bg-accent/10 h-10 px-4 py-2 rounded-full',
-            'border-accent-neon text-accent-neon focus-visible:ring-accent-neon hover:text-accent-neon/80',
-          )}
+          className="inline-flex h-8 shrink-0 items-center gap-1 self-start rounded-lg px-3 text-sm font-medium text-primary hover:bg-primary/10 @lg:self-auto"
           aria-label={`View all ${title}`}
         >
           {viewAllText}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-6 h-6"
-            aria-hidden="true"
-          >
-            <path d="M5 12h14"></path>
-            <path d="m12 5 7 7-7 7"></path>
-          </svg>
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </Link>
       </div>
+      <SectionPreviewGrid slug={href.slice(1)} />
     </section>
   );
 };
@@ -81,11 +76,24 @@ const ResourceSection = ({ section }: { section: Section }) => {
 export default function Home() {
   return (
     <SearchWrapper>
-      <div className="flex flex-col w-full space-y-24 px-4 md:px-6">
+      <div className="flex w-full flex-col pb-10">
         <HeroBanner
           title="Your Essential Web Dev Links, Simplified"
           description="Access a curated collection of must-have resources and quick links, designed to keep everything you need right at your fingertips."
         />
+
+        <section
+          aria-labelledby="heading-browse"
+          className="container pt-8 pb-6"
+        >
+          <h2
+            id="heading-browse"
+            className="mb-3 text-sm font-medium text-muted-foreground"
+          >
+            Browse by section
+          </h2>
+          <SectionTiles />
+        </section>
 
         {SECTIONS.map((section) => (
           <ResourceSection key={section.title} section={section} />

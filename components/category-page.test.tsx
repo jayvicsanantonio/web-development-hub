@@ -70,6 +70,13 @@ describe('heading', () => {
       screen.getByText(section.description)
     ).toBeInTheDocument();
   });
+
+  it('says how many resources the section holds', () => {
+    renderPage();
+    expect(
+      screen.getByText(`${section.links.length} resources`)
+    ).toBeInTheDocument();
+  });
 });
 
 describe('listing', () => {

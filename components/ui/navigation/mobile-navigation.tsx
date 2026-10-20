@@ -12,6 +12,10 @@ import { SearchInput } from '@/components/ui/search-input';
 import { FilterButton } from '@/components/ui/filter-button';
 import { Icon } from '@/lib/icons';
 import { cn } from '@/lib/utils';
+import { BrandMark } from '@/components/ui/brand-mark';
+
+const iconButtonClassName =
+  'inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground';
 
 /** One row of the mobile menu: the page's icon and title, as a link. */
 function MenuLink({
@@ -38,10 +42,10 @@ function MenuLink({
       onClick={onClick}
       onKeyDown={onKeyDown}
       className={cn(
-        'flex w-full items-center gap-3 p-3 rounded-md transition-all duration-200  focus:ring-2 focus:ring-accent-neon',
+        'flex h-11 w-full items-center gap-3 rounded-lg px-3 text-[15px]',
         isActive
-          ? 'bg-background-muted/50 border-l-2 border-accent-neon text-accent-neon font-medium'
-          : 'hover:bg-background-muted/30 border-l-2 border-transparent'
+          ? 'bg-accent text-foreground font-medium'
+          : 'text-muted-foreground hover:bg-accent hover:text-foreground'
       )}
       aria-current={isActive ? 'page' : undefined}
     >
@@ -49,15 +53,11 @@ function MenuLink({
         icon={iconName}
         className={cn(
           'h-5 w-5',
-          isActive
-            ? 'text-foreground opacity-90'
-            : 'text-foreground opacity-70'
+          isActive ? 'text-primary' : 'text-muted-foreground'
         )}
         aria-hidden="true"
       />
-      <span className={cn(isActive ? 'font-medium' : 'font-normal')}>
-        {title}
-      </span>
+      <span>{title}</span>
     </Link>
   );
 }
@@ -110,77 +110,68 @@ export function MobileNavigation({
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 bg-background md:hidden">
+      <header className="fixed top-0 left-0 right-0 z-50 flex h-16 items-center justify-between gap-2 border-b border-border bg-background/90 px-4 backdrop-blur md:hidden">
         <Link
           href="/"
-          className="text-foreground font-bold text-xl  focus:ring-2 focus:ring-accent-neon focus:rounded-md"
+          className="flex min-w-0 items-center gap-2 rounded-md text-[15px] font-semibold tracking-tight text-foreground"
         >
-          Web Development Hub
+          <BrandMark />
+          <span className="truncate">Web Dev Hub</span>
         </Link>
-        <div className="flex gap-2">
+        <div className="flex shrink-0 items-center gap-1">
           {!hideSearch && (
             <>
               <button
                 onClick={() => setIsSearchOpen((open) => !open)}
-                className="p-2 rounded-full transition-colors  cursor-pointer"
+                className={cn(
+                  iconButtonClassName,
+                  isSearchOpen && 'bg-accent text-foreground'
+                )}
                 aria-expanded={isSearchOpen}
                 aria-label="Search resources"
               >
-                <Search
-                  className="h-5 w-5 text-foreground"
-                  aria-hidden="true"
-                />
+                <Search className="h-5 w-5" aria-hidden="true" />
               </button>
               <FilterButton />
             </>
           )}
           <Link
             href="/bookmarks"
-            className="p-2 rounded-full transition-colors  flex items-center justify-center"
+            className={cn(
+              iconButtonClassName,
+              pathname === '/bookmarks' && 'text-primary'
+            )}
             aria-label="View bookmarks"
+            aria-current={pathname === '/bookmarks' ? 'page' : undefined}
           >
-            <BookmarkIcon
-              className={cn(
-                'h-5 w-5',
-                pathname === '/bookmarks'
-                  ? 'text-accent-neon'
-                  : 'text-foreground'
-              )}
-              aria-hidden="true"
-            />
+            <BookmarkIcon className="h-5 w-5" aria-hidden="true" />
           </Link>
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full transition-colors  cursor-pointer"
+            className={iconButtonClassName}
             aria-label="Switch between light and dark mode"
           >
-            <Sun
-              className="hidden dark:block h-5 w-5 text-foreground"
-              aria-hidden="true"
-            />
-            <Moon
-              className="block dark:hidden h-5 w-5 text-foreground"
-              aria-hidden="true"
-            />
+            <Sun className="hidden dark:block h-5 w-5" aria-hidden="true" />
+            <Moon className="block dark:hidden h-5 w-5" aria-hidden="true" />
           </button>
           <button
             onClick={() => setIsMobileMenuOpen((open) => !open)}
-            className="p-2 rounded-full transition-colors  cursor-pointer"
+            className={cn(
+              iconButtonClassName,
+              isMobileMenuOpen && 'bg-accent text-foreground'
+            )}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
             aria-label="Main menu"
           >
-            <Menu
-              className="h-5 w-5 text-foreground"
-              aria-hidden="true"
-            />
+            <Menu className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
       </header>
 
       {!hideSearch && isSearchOpen && (
         <div
-          className="fixed top-16 left-0 right-0 z-50 p-4 bg-background md:hidden"
+          className="fixed top-16 left-0 right-0 z-50 border-b border-border bg-background p-3 shadow-lg md:hidden"
           id="mobile-search"
           role="search"
         >
@@ -198,14 +189,14 @@ export function MobileNavigation({
 
       <div
         id="mobile-menu"
-        className={`fixed top-16 left-0 right-0 z-40 bg-background p-4 shadow-lg md:hidden transform transition-transform duration-300 ${
+        className={`fixed top-16 left-0 right-0 bottom-0 z-40 overflow-y-auto bg-background p-3 md:hidden transition-transform duration-300 ${
           isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
         role="navigation"
         inert={!isMobileMenuOpen}
       >
         <nav aria-label="Site sections">
-          <ul className="flex flex-col gap-4 list-none m-0 p-0 min-h-[calc(100vh-8rem)]">
+          <ul className="flex flex-col gap-1 list-none m-0 p-0">
             <li>
               <MenuLink
                 title="Home"

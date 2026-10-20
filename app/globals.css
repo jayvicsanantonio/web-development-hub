@@ -26,6 +26,7 @@
   --color-ring: hsl(var(--ring));
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
+  --color-canvas: hsl(var(--canvas));
 
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
@@ -48,13 +49,6 @@
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
 
-  --color-accent-neon: hsl(var(--accent-neon));
-  --color-accent-purple: hsl(var(--accent-purple));
-
-  --color-background-secondary: hsl(215 28% 17%);
-  --color-background-muted: hsl(210 38% 15%);
-  --color-background-primary: hsl(222 47% 14%);
-
   --radius-lg: 0.75rem;
   --radius-md: 0.5rem;
   --radius-sm: 0.25rem;
@@ -73,28 +67,17 @@
   }
 }
 
+/* The content column of every page. Its width is the main panel's, not the
+   viewport's: beside the sidebar the panel is narrower than the window, so
+   the breakpoints a viewport-sized container steps through would overflow. */
 @utility container {
   margin-inline: auto;
-  padding-inline: 2rem;
-
-  @media (width >= 640px) {
-    max-width: 640px;
-  }
+  width: 100%;
+  max-width: 76rem;
+  padding-inline: 1rem;
 
   @media (width >= 768px) {
-    max-width: 768px;
-  }
-
-  @media (width >= 1024px) {
-    max-width: 1024px;
-  }
-
-  @media (width >= 1280px) {
-    max-width: 1280px;
-  }
-
-  @media (width >= 1400px) {
-    max-width: 1400px;
+    padding-inline: 2rem;
   }
 }
 
@@ -102,76 +85,73 @@
    renders hundreds of these, and the list repeated on each would be a third of
    the page's HTML. */
 @utility tag-chip {
-  @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium;
-  @apply transition-colors duration-200 ease-in-out;
-  @apply border bg-secondary/5 text-secondary border-secondary/30 hover:bg-secondary/10;
-  @apply dark:bg-secondary/30 dark:text-secondary-foreground dark:border-secondary/95 dark:hover:bg-secondary/80;
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium;
+  @apply border border-border bg-secondary text-secondary-foreground;
 }
 
 @layer base {
+  /* Neutral greys with one indigo accent. The canvas is the frame the
+     sidebar sits on; the background is the panel the page is drawn in. */
   :root {
+    --canvas: 240 5% 96%;
     --background: 0 0% 100%;
-    --foreground: 0 0% 10%;
+    --foreground: 240 10% 4%;
 
-    --card: 0 0% 98%;
-    --card-foreground: 0 0% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 4%;
 
-    --popover: 0 0% 98%;
-    --popover-foreground: 0 0% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 4%;
 
-    --primary: 150 100% 40%;
+    --primary: 243 75% 59%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 280 60% 50%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 5% 26%;
 
-    --muted: 0 0% 95%;
-    --muted-foreground: 0 0% 20%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 42%;
 
-    --accent: 150 100% 50%; /* Improved neon green */
-    --accent-foreground: 0 0% 100%;
+    --accent: 240 5% 93%;
+    --accent-foreground: 240 10% 4%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --accent-neon: 150 85% 35%; /* Improved neon green for light mode */
-    --accent-purple: 280 90% 45%; /* Improved neon purple for light mode */
-
-    --border: 0 0% 80%;
-    --input: 0 0% 80%;
-    --ring: 150 100% 40%;
+    --border: 240 6% 90%;
+    --input: 240 6% 88%;
+    --ring: 243 75% 59%;
   }
 
   .dark {
-    --background: 222 47% 11%;
-    --foreground: 0 0% 98%;
+    --canvas: 240 7% 5%;
+    --background: 240 6% 8%;
+    --foreground: 240 5% 96%;
 
-    --card: 222 47% 14%;
-    --card-foreground: 0 0% 98%;
+    --card: 240 6% 10%;
+    --card-foreground: 240 5% 96%;
 
-    --popover: 222 47% 14%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 240 6% 10%;
+    --popover-foreground: 240 5% 96%;
 
-    --primary: 150 100% 50%;
-    --primary-foreground: 222 47% 11%;
+    --primary: 234 89% 74%;
+    --primary-foreground: 240 10% 6%;
 
-    --secondary: 274.32 94% 21%;
-    --secondary-foreground: 271.08 100% 85%;
-    --muted: 215 28% 22%;
-    --muted-foreground: 0 0% 80%;
+    --secondary: 240 5% 14%;
+    --secondary-foreground: 240 5% 82%;
 
-    --accent: 150 100% 50%;
-    --accent-foreground: 222 47% 11%;
+    --muted: 240 5% 14%;
+    --muted-foreground: 240 5% 65%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --accent: 240 5% 15%;
+    --accent-foreground: 240 5% 96%;
 
-    --accent-neon: 150 100% 50%; /* Keep original neon green for dark mode */
-    --accent-purple: 280 100% 60%; /* Keep original neon purple for dark mode */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 215 28% 35%;
-    --input: 215 28% 25%;
-    --ring: 150 100% 50%;
+    --border: 240 4% 17%;
+    --input: 240 4% 21%;
+    --ring: 234 89% 74%;
   }
 
   * {
@@ -186,6 +166,10 @@
   :focus-visible {
     outline: 2px solid var(--color-ring);
     outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: hsl(var(--primary) / 0.2);
   }
 
   /* A modal dialog makes the page behind it inert but leaves it scrollable,

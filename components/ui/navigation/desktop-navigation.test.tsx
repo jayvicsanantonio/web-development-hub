@@ -1,11 +1,14 @@
-// Covers the roving focus the side nav advertises through #nav-description.
-// It was driven by `.desktop-nav-button:nth-of-type(n)`, which counts by
-// element type within each parent — every button is its <li>'s only child, so
-// only :nth-of-type(1) ever matched and ArrowDown/End moved nothing.
+// Covers the desktop sidebar: the links to every page, with the counts beside
+// them, and the roving focus its in-page list advertises through
+// #nav-description. That focus was driven by
+// `.desktop-nav-button:nth-of-type(n)`, which counts by element type within
+// each parent — every button is its <li>'s only child, so only
+// :nth-of-type(1) ever matched and ArrowDown/End moved nothing.
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DesktopNavigation } from './desktop-navigation';
+import { SECTIONS } from '@/constants/sections';
 import type { NavigationItem } from '@/lib/utils/navigation';
 
 const NAV_ITEMS: NavigationItem[] = [
@@ -22,8 +25,8 @@ function renderNav(props: Partial<
       <DesktopNavigation
         navItems={NAV_ITEMS}
         activeSection="section-one"
-        isHomeActive
-        isBookmarksActive={false}
+        pathname="/"
+        bookmarkCount={0}
         {...props}
       />
       {NAV_ITEMS.map((item) => (
@@ -36,6 +39,66 @@ function renderNav(props: Partial<
 const sectionButton = (title: string) =>
   screen.getByRole('button', { name: `Navigate to ${title} section` });
 
+const siteNav = () =>
+  screen.getByRole('navigation', { name: 'Site navigation' });
+
+describe('site links', () => {
+  it('links home and to the bookmarks page', () => {
+    renderNav();
+
+    expect(
+      within(siteNav()).getByRole('link', { name: 'Home' })
+    ).toHaveAttribute('href', '/');
+    expect(
+      within(siteNav()).getByRole('link', { name: /^Bookmarks/ })
+    ).toHaveAttribute('href', '/bookmarks');
+  });
+
+  it('links every section page, saying how many resources it holds', () => {
+    renderNav();
+
+    for (const section of SECTIONS) {
+      expect(
+        within(siteNav()).getByRole('link', {
+          name: `${section.title} ${section.links.length} resources`,
+        })
+      ).toHaveAttribute('href', section.href);
+    }
+  });
+
+  it('marks the page being viewed as the current one', () => {
+    renderNav({ pathname: SECTIONS[2].href });
+
+    expect(
+      within(siteNav()).getByRole('link', {
+        name: new RegExp(`^${SECTIONS[2].title}`),
+      })
+    ).toHaveAttribute('aria-current', 'page');
+    expect(
+      within(siteNav()).getByRole('link', { name: 'Home' })
+    ).not.toHaveAttribute('aria-current');
+  });
+
+  it('counts the saved resources once there are any', () => {
+    const { rerender } = renderNav();
+    expect(
+      within(siteNav()).getByRole('link', { name: /^Bookmarks/ })
+    ).toHaveAccessibleName('Bookmarks');
+
+    rerender(
+      <DesktopNavigation
+        navItems={NAV_ITEMS}
+        activeSection="section-one"
+        pathname="/"
+        bookmarkCount={3}
+      />
+    );
+    expect(
+      within(siteNav()).getByRole('link', { name: /^Bookmarks/ })
+    ).toHaveAccessibleName('Bookmarks 3 saved');
+  });
+});
+
 describe('section list', () => {
   it('renders one button per nav item', () => {
     renderNav();
@@ -45,10 +108,15 @@ describe('section list', () => {
   });
 
   it('hides the section list off the home and bookmarks pages', () => {
-    renderNav({ isHomeActive: false, isBookmarksActive: false });
+    renderNav({ pathname: SECTIONS[0].href });
     expect(
       screen.queryByRole('button', { name: /Navigate to One/ })
     ).not.toBeInTheDocument();
+  });
+
+  it('shows the section list on the bookmarks page', () => {
+    renderNav({ pathname: '/bookmarks' });
+    expect(sectionButton('One')).toBeInTheDocument();
   });
 });
 

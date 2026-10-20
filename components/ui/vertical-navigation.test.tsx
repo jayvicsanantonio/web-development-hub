@@ -12,6 +12,7 @@ vi.mock('next/navigation', () => ({
 }));
 
 import VerticalNavigation from './vertical-navigation';
+import { TopBar } from './top-bar';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
 import { SearchProvider } from '@/contexts/search-context';
 import { STORAGE_KEY } from '@/lib/bookmarks-store';
@@ -23,7 +24,15 @@ const wrapper = ({ children }: { children: ReactNode }) => (
   </BookmarksProvider>
 );
 
-const renderNav = () => render(<VerticalNavigation />, { wrapper });
+// The search box the visitor types into is the top bar's, beside the nav.
+const renderNav = () =>
+  render(
+    <>
+      <VerticalNavigation />
+      <TopBar />
+    </>,
+    { wrapper }
+  );
 
 const railSections = () =>
   within(

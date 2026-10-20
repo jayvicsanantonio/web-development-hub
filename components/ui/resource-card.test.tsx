@@ -45,6 +45,20 @@ describe('content', () => {
     ).toBeInTheDocument();
   });
 
+  it('names the site the link leads to, without www', () => {
+    renderCard();
+    expect(
+      screen.getByText('developer.mozilla.org')
+    ).toBeInTheDocument();
+
+    renderCard({
+      ...RESOURCE,
+      id: 'css-tricks',
+      href: 'https://www.css-tricks.com/guides/',
+    });
+    expect(screen.getByText('css-tricks.com')).toBeInTheDocument();
+  });
+
   it('labels the card with its own heading', () => {
     renderCard();
     const card = screen.getByRole('article');

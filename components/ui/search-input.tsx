@@ -7,6 +7,7 @@ import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useSearch } from '@/contexts/search-context';
 import { useIsMac } from '@/lib/hooks/use-is-mac';
+import { ALL_RESOURCES } from '@/constants/sections';
 import { FilterButton } from './filter-button';
 
 interface SearchInputProps {
@@ -48,27 +49,26 @@ export function SearchInput({
   };
 
   return (
-    <form onSubmit={handleSearchSubmit}>
+    <form
+      onSubmit={handleSearchSubmit}
+      className={isMobile ? undefined : 'w-full max-w-xl'}
+    >
       <div
         className={`${
-          isMobile ? 'relative' : 'flex items-center gap-3'
+          isMobile ? 'relative' : 'flex items-center gap-2'
         }`}
       >
         <div className="relative flex-1">
-          {!isMobile && (
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground opacity-70 z-10 pointer-events-none" />
-          )}
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground z-10 pointer-events-none" />
           <Input
             ref={inputRef}
             type="search"
-            placeholder="Find resources..."
+            placeholder={`Search ${ALL_RESOURCES.length} resources…`}
             value={searchQuery}
             onChange={handleSearchChange}
             className={`${
-              isMobile
-                ? 'w-full pr-10'
-                : 'w-64 h-10 pl-9 pr-16 backdrop-blur-md rounded-full shadow-md border-border/20 transition-all duration-300 dark:hover:bg-background-primary/90'
-            } [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none`}
+              isMobile ? 'h-10 pr-3' : 'h-9 pr-16'
+            } w-full pl-9 rounded-lg border-transparent bg-muted shadow-none hover:border-border focus-visible:border-ring focus-visible:bg-background focus-visible:ring-2 focus-visible:ring-ring/20 [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none`}
             aria-label="Search resources"
             autoComplete="off"
             onKeyDown={handleKeyDown}
@@ -83,9 +83,7 @@ export function SearchInput({
                   inputRef.current?.focus();
                 }
               }}
-              className={`absolute right-3 top-1/2 transform -translate-y-1/2 ${
-                searchQuery ? 'h-5 w-8' : 'h-5 w-10'
-              } rounded-md bg-muted border border-border/50 flex items-center justify-center text-[10px] font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all cursor-pointer px-1 tracking-tight leading-none`}
+              className="absolute right-2 top-1/2 -translate-y-1/2 h-5 rounded border border-border bg-background px-1.5 flex items-center justify-center text-[10px] font-medium text-muted-foreground hover:text-foreground cursor-pointer leading-none"
               aria-label={
                 searchQuery
                   ? 'Clear search (press ESC)'

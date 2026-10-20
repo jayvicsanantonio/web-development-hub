@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 
 export default function TermsOfServicePage() {
   return (
-    <div className="container mx-auto py-12 px-4 md:px-6 max-w-4xl">
+    <div className="mx-auto w-full max-w-4xl px-4 py-10 md:px-8 md:py-12">
       <div className="space-y-8">
         <div className="space-y-4">
-          <h1 className="text-4xl font-bold tracking-tight">
+          <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
             Terms of Service
           </h1>
           <p className="text-muted-foreground text-lg">
@@ -24,8 +24,8 @@ export default function TermsOfServicePage() {
         </div>
 
         <div className="max-w-none space-y-8">
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Agreement to Terms
             </h2>
             <p className="text-muted-foreground leading-relaxed">
@@ -37,8 +37,8 @@ export default function TermsOfServicePage() {
             </p>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Description of Service
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
@@ -65,13 +65,13 @@ export default function TermsOfServicePage() {
             </ul>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Acceptable Use
             </h2>
             <div className="space-y-4">
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">
+                <h3 className="text-base font-semibold text-foreground mb-2">
                   You may use our Service to:
                 </h3>
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
@@ -92,7 +92,7 @@ export default function TermsOfServicePage() {
                 </ul>
               </div>
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">
+                <h3 className="text-base font-semibold text-foreground mb-2">
                   You may not use our Service to:
                 </h3>
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
@@ -118,13 +118,13 @@ export default function TermsOfServicePage() {
             </div>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Intellectual Property Rights
             </h2>
             <div className="space-y-4">
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">
+                <h3 className="text-base font-semibold text-foreground mb-2">
                   Our Content
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -136,7 +136,7 @@ export default function TermsOfServicePage() {
                 </p>
               </div>
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">
+                <h3 className="text-base font-semibold text-foreground mb-2">
                   Third-Party Content
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -148,7 +148,7 @@ export default function TermsOfServicePage() {
                 </p>
               </div>
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">
+                <h3 className="text-base font-semibold text-foreground mb-2">
                   User Contributions
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -161,15 +161,15 @@ export default function TermsOfServicePage() {
             </div>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Privacy and Data
             </h2>
             <p className="text-muted-foreground leading-relaxed">
               Your privacy is important to us. Please review our{' '}
               <Link
                 href="/privacy-policy"
-                className="text-accent-neon hover:text-accent-neon/80"
+                className="text-primary underline-offset-4 hover:underline"
               >
                 Privacy Policy
               </Link>
@@ -179,13 +179,13 @@ export default function TermsOfServicePage() {
             </p>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Disclaimers and Limitation of Liability
             </h2>
             <div className="space-y-4">
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">
+                <h3 className="text-base font-semibold text-foreground mb-2">
                   Service Disclaimer
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -196,7 +196,7 @@ export default function TermsOfServicePage() {
                 </p>
               </div>
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">
+                <h3 className="text-base font-semibold text-foreground mb-2">
                   Content Disclaimer
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -208,7 +208,7 @@ export default function TermsOfServicePage() {
                 </p>
               </div>
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">
+                <h3 className="text-base font-semibold text-foreground mb-2">
                   Limitation of Liability
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -222,8 +222,8 @@ export default function TermsOfServicePage() {
             </div>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Third-Party Links and Services
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
@@ -250,8 +250,8 @@ export default function TermsOfServicePage() {
             </ul>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Termination
             </h2>
             <p className="text-muted-foreground leading-relaxed">
@@ -263,8 +263,8 @@ export default function TermsOfServicePage() {
             </p>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Changes to Terms
             </h2>
             <p className="text-muted-foreground leading-relaxed">
@@ -276,8 +276,8 @@ export default function TermsOfServicePage() {
             </p>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Governing Law
             </h2>
             <p className="text-muted-foreground leading-relaxed">
@@ -290,8 +290,8 @@ export default function TermsOfServicePage() {
             </p>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Severability
             </h2>
             <p className="text-muted-foreground leading-relaxed">
@@ -304,8 +304,8 @@ export default function TermsOfServicePage() {
             </p>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Contact Information
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
@@ -320,7 +320,7 @@ export default function TermsOfServicePage() {
                 <strong>Website:</strong>{' '}
                 <Link
                   href="/"
-                  className="text-accent-neon hover:text-accent-neon/80"
+                  className="text-primary underline-offset-4 hover:underline"
                 >
                   Web Development Hub
                 </Link>

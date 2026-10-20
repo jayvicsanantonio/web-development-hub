@@ -1,40 +1,48 @@
-// The full-screen banner that opens the landing page: a tagline, the headline
-// and its description, and a cue to scroll on to the sections below.
+// The introduction that opens the landing page: a tagline, the headline and
+// its description, and the size of the catalogue, counted from the dataset.
+import {
+  ALL_RESOURCES,
+  ALL_TAGS,
+  SECTIONS,
+} from '@/constants/sections';
+
 interface HeroBannerProps {
   title: string;
   description: string;
 }
 
+const STATS = [
+  { value: ALL_RESOURCES.length, label: 'resources' },
+  { value: SECTIONS.length, label: 'sections' },
+  { value: ALL_TAGS.length, label: 'tags' },
+];
+
 export function HeroBanner({ title, description }: HeroBannerProps) {
   return (
-    <div className="min-h-[100vh] w-full">
-      <section className="container mx-auto h-screen flex flex-col items-center justify-center text-center space-y-6 px-4">
-        <div className="inline-block rounded-full bg-accent-neon/10 px-4 py-1.5 text-sm font-medium text-accent-neon mb-4">
-          Web Development Hub
-        </div>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter max-w-3xl">
-          {title}
-        </h1>
-        <p className="text-lg md:text-xl text-muted-foreground max-w-[700px] mt-4">
-          {description}
-        </p>
-        <div className="mt-8">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="opacity-50 animate-pulse"
-          >
-            <path d="m6 9 6 6 6-6"></path>
-          </svg>
-        </div>
-      </section>
-    </div>
+    <header className="container pt-10 pb-2 md:pt-14">
+      <p className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary px-3 py-1 text-xs font-medium text-muted-foreground">
+        <span
+          className="h-1.5 w-1.5 rounded-full bg-primary"
+          aria-hidden="true"
+        />
+        Web Development Hub
+      </p>
+      <h1 className="mt-5 max-w-3xl text-3xl font-semibold tracking-tight text-balance md:text-4xl lg:text-5xl">
+        {title}
+      </h1>
+      <p className="mt-4 max-w-2xl text-base text-muted-foreground md:text-lg">
+        {description}
+      </p>
+      <p className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
+        {STATS.map(({ value, label }) => (
+          <span key={label}>
+            <strong className="font-semibold tabular-nums text-foreground">
+              {value}
+            </strong>{' '}
+            {label}
+          </span>
+        ))}
+      </p>
+    </header>
   );
 }

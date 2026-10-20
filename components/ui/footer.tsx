@@ -4,8 +4,8 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="container mx-auto py-8 border-t border-border">
-      <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+    <footer className="border-t border-border">
+      <div className="container flex flex-col items-center justify-between gap-3 py-6 md:flex-row">
         <p className="text-sm text-muted-foreground">
           © {new Date().getFullYear()} Web Development Hub. All rights
           reserved.

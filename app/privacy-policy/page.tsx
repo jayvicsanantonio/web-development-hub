@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="container mx-auto py-12 px-4 md:px-6 max-w-4xl">
+    <div className="mx-auto w-full max-w-4xl px-4 py-10 md:px-8 md:py-12">
       <div className="space-y-8">
         <div className="space-y-4">
-          <h1 className="text-4xl font-bold tracking-tight">
+          <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
             Privacy Policy
           </h1>
           <p className="text-muted-foreground text-lg">
@@ -24,8 +24,8 @@ export default function PrivacyPolicyPage() {
         </div>
 
         <div className="max-w-none space-y-8">
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Introduction
             </h2>
             <p className="text-muted-foreground leading-relaxed">
@@ -38,13 +38,13 @@ export default function PrivacyPolicyPage() {
             </p>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Information We Collect
             </h2>
             <div className="space-y-4">
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">
+                <h3 className="text-base font-semibold text-foreground mb-2">
                   Information You Provide Directly
                 </h3>
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
@@ -55,7 +55,7 @@ export default function PrivacyPolicyPage() {
                 </ul>
               </div>
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">
+                <h3 className="text-base font-semibold text-foreground mb-2">
                   Privacy-First Web Analytics (via Cloudflare)
                 </h3>
                 <p className="text-muted-foreground leading-relaxed mb-3">
@@ -95,7 +95,7 @@ export default function PrivacyPolicyPage() {
                 </ul>
               </div>
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">
+                <h3 className="text-base font-semibold text-foreground mb-2">
                   Cloudflare Infrastructure Data
                 </h3>
                 <p className="text-muted-foreground leading-relaxed mb-3">
@@ -131,13 +131,13 @@ export default function PrivacyPolicyPage() {
             </div>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               How We Use Your Information
             </h2>
             <div className="space-y-4">
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">
+                <h3 className="text-base font-semibold text-foreground mb-2">
                   Communications
                 </h3>
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
@@ -148,7 +148,7 @@ export default function PrivacyPolicyPage() {
                 </ul>
               </div>
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">
+                <h3 className="text-base font-semibold text-foreground mb-2">
                   Privacy-First Analytics
                 </h3>
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
@@ -171,7 +171,7 @@ export default function PrivacyPolicyPage() {
                 </ul>
               </div>
               <div>
-                <h3 className="text-xl font-medium text-accent-purple mb-2">
+                <h3 className="text-base font-semibold text-foreground mb-2">
                   Legal Compliance
                 </h3>
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground leading-relaxed">
@@ -186,8 +186,8 @@ export default function PrivacyPolicyPage() {
             </div>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Information Sharing and Disclosure
             </h2>
             <div className="space-y-4">
@@ -222,8 +222,8 @@ export default function PrivacyPolicyPage() {
             </div>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Data Security
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
@@ -240,8 +240,8 @@ export default function PrivacyPolicyPage() {
             </ul>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Your Privacy Rights
             </h2>
             <div className="space-y-4">
@@ -278,8 +278,8 @@ export default function PrivacyPolicyPage() {
             </div>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Cookies and Tracking
             </h2>
             <div className="space-y-4">
@@ -315,8 +315,8 @@ export default function PrivacyPolicyPage() {
             </div>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Third-Party Links
             </h2>
             <p className="text-muted-foreground leading-relaxed">
@@ -328,8 +328,8 @@ export default function PrivacyPolicyPage() {
             </p>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Changes to This Policy
             </h2>
             <p className="text-muted-foreground leading-relaxed">
@@ -341,8 +341,8 @@ export default function PrivacyPolicyPage() {
             </p>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
-            <h2 className="text-2xl font-semibold text-accent-neon mb-4">
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-xl font-semibold text-foreground mb-4">
               Contact Us
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
@@ -354,7 +354,7 @@ export default function PrivacyPolicyPage() {
                 <strong>Website:</strong>{' '}
                 <Link
                   href="/"
-                  className="text-accent-neon hover:text-accent-neon/80"
+                  className="text-primary underline-offset-4 hover:underline"
                 >
                   Web Development Hub
                 </Link>

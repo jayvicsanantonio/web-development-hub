@@ -10,6 +10,7 @@ import { X, Star } from 'lucide-react';
 import { Icon } from '@/lib/icons';
 import { ALL_TAGS } from '@/constants/sections';
 import { getTagIconName } from '@/lib/utils/tag-icons';
+import { cn } from '@/lib/utils';
 
 const PRIORITY_TAGS = [
   'ai',
@@ -80,137 +81,118 @@ export function TagFilterPanel() {
 
   if (!isOpen) return null;
 
+  const chipClassName = (isSelected: boolean) =>
+    cn(
+      'inline-flex cursor-pointer items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs font-medium',
+      isSelected
+        ? 'border-primary/40 bg-primary/10 text-primary'
+        : 'border-border bg-background text-muted-foreground hover:bg-accent hover:text-foreground',
+    );
+
+  // Centred over the main panel on desktop, whose centre sits half the
+  // sidebar's width right of the window's.
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center md:inset-auto md:top-20 md:left-1/2 md:-translate-x-1/2">
+    <div className="fixed inset-0 z-50 flex items-start justify-center bg-[rgb(0_0_0/0.4)] p-3 md:inset-auto md:top-[4.5rem] md:left-[calc(50%+8rem)] md:w-[min(44rem,calc(100vw-19rem))] md:-translate-x-1/2 md:bg-transparent md:p-0">
       <div
         ref={panelRef}
         className="
-          w-full max-h-[90vh] md:max-h-[75vh] overflow-y-auto
-          md:w-auto md:min-w-[80vw] lg:min-w-[70vw] xl:min-w-[60vw]
-          bg-card/90 backdrop-blur
-          border border-border/20 rounded-2xl
-          shadow-lg
-          p-4 md:p-6
+          flex w-full max-h-[85vh] md:max-h-[75vh] flex-col overflow-hidden
+          bg-popover text-popover-foreground
+          border border-border rounded-xl
+          shadow-2xl
           animate-scale-in
         "
       >
-        <div className="flex items-center justify-between mb-4 md:mb-6">
-          <h2 className="text-lg md:text-xl font-semibold text-foreground">
+        <div className="flex items-center justify-between border-b border-border px-4 py-3">
+          <h2 className="text-sm font-semibold text-foreground">
             Filter by Tags
           </h2>
           <button
             onClick={onClose}
             className="
-              p-1.5 md:p-2 rounded-lg hover:bg-muted/60
-              transition-colors duration-200
-              text-muted-foreground hover:text-foreground
+              cursor-pointer rounded-md p-1.5 text-muted-foreground
+              hover:bg-accent hover:text-foreground
             "
             aria-label="Close filter panel"
           >
-            <X className="h-4 w-4 md:h-5 md:w-5" />
+            <X className="h-4 w-4" />
           </button>
         </div>
 
-        {selectedTags.length > 0 && (
-          <div className="mb-4 md:mb-5">
-            <div className="flex items-center justify-between mb-1.5 md:mb-2">
-              <span className="text-xs md:text-sm font-medium text-foreground">
-                Active Filters ({selectedTags.length})
-              </span>
-              <button
-                onClick={clearFilters}
-                className="
-                  px-1.5 md:px-2 py-0.5 md:py-1 text-xs rounded-md
-                  text-muted-foreground hover:text-foreground
-                  hover:bg-muted/60 transition-colors
-                  cursor-pointer
-                "
-              >
-                Clear All
-              </button>
-            </div>
-            <div className="flex flex-wrap gap-1 md:gap-1.5">
-              {selectedTags.map((tag) => (
-                <span
-                  key={tag}
+        <div className="flex-1 space-y-5 overflow-y-auto p-4">
+          {selectedTags.length > 0 && (
+            <div>
+              <div className="mb-2 flex items-center justify-between">
+                <span className="text-xs font-medium text-muted-foreground">
+                  Active Filters ({selectedTags.length})
+                </span>
+                <button
+                  onClick={clearFilters}
                   className="
-                    inline-flex items-center gap-0.5 md:gap-1 px-1.5 md:px-2 py-0.5 md:py-1
-                    bg-accent-neon/5 text-accent-neon text-[10px] md:text-xs rounded-md
-                    border border-accent-neon/20
+                    cursor-pointer rounded-md px-2 py-1 text-xs font-medium
+                    text-muted-foreground hover:bg-accent hover:text-foreground
                   "
                 >
-                  {getTagIcon(tag)}
-                  {tagLabel(tag)}
-                  <button
-                    onClick={() => toggleTag(tag)}
+                  Clear All
+                </button>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {selectedTags.map((tag) => (
+                  <span
+                    key={tag}
                     className="
-                      ml-0.5 hover:bg-accent-neon/20 rounded-full p-0.5
-                      transition-colors duration-200
+                      inline-flex items-center gap-1 rounded-md border border-primary/40
+                      bg-primary/10 py-0.5 pl-2 pr-1 text-xs font-medium text-primary
                     "
-                    aria-label={`Remove ${tag} filter`}
                   >
-                    <X className="h-2.5 w-2.5" />
-                  </button>
-                </span>
-              ))}
+                    {getTagIcon(tag)}
+                    {tagLabel(tag)}
+                    <button
+                      onClick={() => toggleTag(tag)}
+                      className="cursor-pointer rounded p-0.5 hover:bg-primary/20"
+                      aria-label={`Remove ${tag} filter`}
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        <div className="space-y-4 md:space-y-6">
           <div>
-            <div className="flex items-center gap-1.5 md:gap-2 mb-2 md:mb-4">
-              <Star className="h-3.5 w-3.5 md:h-4 md:w-4 text-accent-purple" />
-              <span className="text-sm md:text-base font-semibold text-foreground">
+            <div className="mb-2 flex items-center gap-1.5">
+              <Star className="h-3.5 w-3.5 text-primary" />
+              <span className="text-xs font-medium text-muted-foreground">
                 Featured Tags
               </span>
             </div>
-            <div className="flex flex-wrap gap-1.5 md:gap-2">
-              {PRIORITY_TAGS.map((tag) => {
-                const isSelected = isTagSelected(tag);
-                return (
-                  <button
-                    key={tag}
-                    onClick={() => toggleTag(tag)}
-                    className={`
-                      inline-flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1 md:py-1.5 rounded-full text-[10px] md:text-xs font-medium
-                      transition duration-200 border hover:scale-105
-                      ${
-                        isSelected
-                          ? 'bg-accent-neon/20 text-accent-neon border-accent-neon/40 ring-1 md:ring-2 ring-accent-neon/30 shadow-md md:shadow-lg'
-                          : 'bg-muted/40 text-foreground/80 border-border/40 hover:bg-muted/60 hover:border-border/60 hover:shadow-md'
-                      }
-                    `}
-                  >
-                    {getTagIcon(tag)}
-                    <span>{tagLabel(tag)}</span>
-                  </button>
-                );
-              })}
+            <div className="flex flex-wrap gap-1.5">
+              {PRIORITY_TAGS.map((tag) => (
+                <button
+                  key={tag}
+                  onClick={() => toggleTag(tag)}
+                  className={chipClassName(isTagSelected(tag))}
+                >
+                  {getTagIcon(tag)}
+                  <span>{tagLabel(tag)}</span>
+                </button>
+              ))}
             </div>
           </div>
 
           <div>
-            <span className="text-sm md:text-base font-semibold text-foreground mb-2 md:mb-4 block">
+            <span className="mb-2 block text-xs font-medium text-muted-foreground">
               All Tags
             </span>
-            <div className="flex flex-wrap gap-1.5 md:gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {ALL_TAGS.filter(
                 (tag) => !PRIORITY_TAGS.includes(tag)
               ).map((tag) => (
                 <button
                   key={tag}
                   onClick={() => toggleTag(tag)}
-                  className={`
-                    inline-flex items-center px-2 md:px-2.5 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-medium border
-                    transition duration-200 hover:scale-105
-                     focus:ring-1 focus:ring-accent-neon/50
-                    ${
-                      isTagSelected(tag)
-                        ? 'bg-accent-neon/20 text-accent-neon border-accent-neon/40 ring-1 ring-accent-neon/30 shadow-md'
-                        : 'bg-muted/40 text-foreground/70 border-border/40 hover:bg-muted/60 hover:border-border/60 hover:shadow-sm'
-                    }
-                  `}
+                  className={chipClassName(isTagSelected(tag))}
                 >
                   {tagLabel(tag)}
                 </button>
@@ -219,7 +201,7 @@ export function TagFilterPanel() {
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-[10px] md:text-xs text-muted-foreground pt-2 border-t border-border/20">
+        <div className="flex items-center justify-between border-t border-border bg-muted/50 px-4 py-2.5 text-xs text-muted-foreground">
           <span>Click tags to add or remove filters</span>
           <span>
             {selectedTags.length} of {ALL_TAGS.length} tags selected
