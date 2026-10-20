@@ -1,59 +1,76 @@
-// The fixed side rail: home, bookmarks, the sections of the current page, and
-// the theme toggle. Arrow keys rove focus through the section buttons.
+// The section index down the left from lg: the sections of the current page,
+// or every section page elsewhere, then the global keyboard shortcuts. Arrow
+// keys rove focus through the section buttons.
 'use client';
 
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { BookmarkIcon, HomeIcon, Moon, Sun } from 'lucide-react';
-import { toggleTheme } from '@/lib/theme';
+import { SECTIONS } from '@/constants/sections';
 import {
   scrollToSection,
+  toSlug,
   type NavigationItem as NavigationItemType,
 } from '@/lib/utils/navigation';
 import { useRef } from 'react';
 import { useIsMac } from '@/lib/hooks/use-is-mac';
 
+const entryClassName = (isActive: boolean) =>
+  cn(
+    'flex w-full cursor-pointer items-center gap-2 px-2 py-1.5 text-left text-sm',
+    isActive
+      ? 'bg-muted font-semibold text-accent'
+      : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground',
+  );
+
 /**
- * The label beside a rail button, shown on hover or keyboard focus. It keys on
- * :focus-visible rather than any focus, so a mouse click, which leaves focus
- * on the button, does not keep the label up after the pointer moves away.
+ * An entry drawn as a directory in a tree listing. Both spans are hidden from
+ * assistive technology: a button is named by its aria-label, a link by the
+ * section title beside them.
  */
-function NavTooltip({
-  label,
-  shortcut,
-  offsetClassName = 'right-12',
-  shortcutClassName = 'w-10',
-  ariaHidden,
+function EntryLabel({
+  title,
+  isLast,
 }: {
-  label: string;
-  shortcut?: string;
-  offsetClassName?: string;
-  shortcutClassName?: string;
-  ariaHidden?: boolean;
+  title: string;
+  isLast: boolean;
 }) {
   return (
-    <div
-      className={cn(
-        'absolute top-1/2 transform -translate-y-1/2 transition-opacity duration-200 whitespace-nowrap pointer-events-none',
-        offsetClassName,
-        'opacity-0 group-hover:opacity-100 group-has-[:focus-visible]:opacity-100',
-      )}
-      role="tooltip"
-      aria-hidden={ariaHidden}
-    >
-      <div className="bg-popover/90 backdrop-blur-[20px] px-3 py-2 rounded-md text-sm font-medium text-popover-foreground flex items-center gap-2 border border-border shadow-md">
-        {label}
-        {shortcut && (
-          <div
-            className={cn(
-              'h-5 rounded-md bg-muted border border-border/50 flex items-center justify-center text-[10px] font-medium text-muted-foreground px-1 tracking-tight leading-none',
-              shortcutClassName,
-            )}
-          >
-            {shortcut}
+    <>
+      <span aria-hidden="true" className="text-muted-foreground/60">
+        {isLast ? '└─' : '├─'}
+      </span>
+      <span aria-hidden="true" className="truncate">
+        {toSlug(title)}/
+      </span>
+    </>
+  );
+}
+
+/** The shortcuts useKeyboardShortcuts binds, for the index's footer. */
+function ShortcutList({ isMac }: { isMac: boolean }) {
+  const mod = isMac ? '⌘' : 'Ctrl+';
+  const shortcuts = [
+    { keys: '/', action: 'search' },
+    { keys: `${mod}F`, action: 'filter tags' },
+    { keys: `${mod}B`, action: 'bookmarks' },
+    { keys: `${mod}H`, action: 'home' },
+    { keys: isMac ? '⌘⇧L' : 'Ctrl+⇧L', action: 'theme' },
+    { keys: 'Esc', action: 'clear search' },
+  ];
+
+  return (
+    <div className="border-t border-border px-5 py-5">
+      <p className="text-xs text-muted-foreground">{'// keys'}</p>
+      <dl className="mt-3 grid grid-cols-[auto_1fr] items-center gap-x-4 gap-y-2 text-xs">
+        {shortcuts.map(({ keys, action }) => (
+          <div key={action} className="contents">
+            <dt>
+              <kbd className="kbd">{keys}</kbd>
+            </dt>
+            <dd className="text-muted-foreground">{action}</dd>
           </div>
-        )}
-      </div>
+        ))}
+      </dl>
     </div>
   );
 }
@@ -64,6 +81,8 @@ interface DesktopNavigationProps {
   activeSection: string;
   isHomeActive: boolean;
   isBookmarksActive: boolean;
+  /** The page being viewed, to mark its entry among the section pages. */
+  pathname: string;
 }
 
 export function DesktopNavigation({
@@ -71,6 +90,7 @@ export function DesktopNavigation({
   activeSection,
   isHomeActive,
   isBookmarksActive,
+  pathname,
 }: DesktopNavigationProps) {
   const isMac = useIsMac();
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -79,156 +99,105 @@ export function DesktopNavigation({
     itemRefs.current[index]?.focus();
   };
 
+  // The home and bookmarks pages scroll between the sections they render;
+  // every other page links the section pages instead.
+  const listsPageSections = isHomeActive || isBookmarksActive;
+
   return (
     <nav
       aria-label="Page sections navigation"
-      className="fixed right-10 top-1/2 transform -translate-y-1/2 z-30 hidden md:flex p-3 bg-background-primary/1 backdrop-blur rounded-2xl shadow-md border border-border/20 transition-all duration-300"
+      className="fixed bottom-0 left-0 top-14 z-30 hidden w-72 flex-col border-r border-border bg-background lg:flex"
     >
       <span id="nav-description" className="sr-only">
         Use up and down arrow keys to navigate between sections
       </span>
-      <ul className="list-none m-0 p-0 flex flex-col items-center gap-8">
-        <li className="relative group">
-          <Link
-            href="/"
-            className="flex items-center justify-center w-10 h-10 transition-all duration-300"
-            aria-label={`Return to home page (${
-              isMac ? '⌘H' : 'Ctrl+H'
-            })`}
-            aria-current={isHomeActive ? 'page' : undefined}
-          >
-            <HomeIcon
-              className={cn(
-                'h-5 w-5',
-                isHomeActive
-                  ? 'text-accent-neon opacity-100 stroke-2'
-                  : 'text-foreground opacity-75 group-hover:opacity-100',
-              )}
-            />
-          </Link>
-          <NavTooltip
-            label="Home"
-            shortcut={isMac ? '⌘H' : 'Ctrl+H'}
-          />
-        </li>
-        <li className="relative group">
-          <Link
-            href="/bookmarks"
-            className="flex items-center justify-center w-10 h-10 transition-all duration-300"
-            aria-label={`Navigate to bookmarks (${
-              isMac ? '⌘B' : 'Ctrl+B'
-            })`}
-            aria-current={isBookmarksActive ? 'page' : undefined}
-          >
-            <BookmarkIcon
-              className={cn(
-                'h-5 w-5',
-                isBookmarksActive
-                  ? 'text-accent-neon opacity-100 stroke-2'
-                  : 'text-foreground opacity-75 group-hover:opacity-100',
-              )}
-            />
-          </Link>
-          <NavTooltip
-            label="Bookmarks"
-            shortcut={isMac ? '⌘B' : 'Ctrl+B'}
-          />
-        </li>
+      <div className="flex-1 overflow-y-auto px-3 py-6">
+        <p className="px-2 text-xs text-muted-foreground">
+          {listsPageSections ? '// on this page' : '// sections'}
+        </p>
+        <p className="mt-3 px-2 text-sm text-foreground">
+          ~/webdevhub
+        </p>
+        <ul className="m-0 mt-1 list-none p-0">
+          {listsPageSections &&
+            navItems.map((item, index) => (
+              <li key={item.id}>
+                <button
+                  ref={(el) => {
+                    itemRefs.current[index] = el;
+                  }}
+                  onClick={() => scrollToSection(item.id)}
+                  className={entryClassName(
+                    activeSection === item.id,
+                  )}
+                  aria-label={`Navigate to ${item.title} section`}
+                  aria-current={
+                    activeSection === item.id ? 'page' : undefined
+                  }
+                  aria-describedby="nav-description"
+                  onKeyDown={(e) => {
+                    // Indexed refs rather than a selector: every button is the
+                    // only element in its <li>, so :nth-of-type(n) matched them
+                    // all at n=1 and nothing at all beyond it.
+                    switch (e.key) {
+                      case 'ArrowUp':
+                        e.preventDefault();
+                        focusItem(Math.max(0, index - 1));
+                        break;
+                      case 'ArrowDown':
+                        e.preventDefault();
+                        focusItem(
+                          Math.min(navItems.length - 1, index + 1),
+                        );
+                        break;
+                      case 'Home':
+                        e.preventDefault();
+                        focusItem(0);
+                        break;
+                      case 'End':
+                        e.preventDefault();
+                        focusItem(navItems.length - 1);
+                        break;
+                    }
+                  }}
+                >
+                  <EntryLabel
+                    title={item.title}
+                    isLast={index === navItems.length - 1}
+                  />
+                </button>
+              </li>
+            ))}
 
-        {(isHomeActive || isBookmarksActive) &&
-          navItems.length > 0 && (
-            <li className="w-full">
-              <div
-                className="h-px w-6 bg-border/50 mx-auto"
-                aria-hidden="true"
-              ></div>
+          {listsPageSections && navItems.length === 0 && (
+            <li className="px-2 py-1.5 text-sm text-muted-foreground">
+              └─ (empty)
             </li>
           )}
 
-        {(isHomeActive || isBookmarksActive) &&
-          navItems.map((item, index) => (
-            <li key={item.id} className="relative group">
-              <button
-                ref={(el) => {
-                  itemRefs.current[index] = el;
-                }}
-                onClick={() => scrollToSection(item.id)}
-                className={cn(
-                  'cursor-pointer w-3 h-3 rounded-full transition-all duration-300  focus:ring-2 focus:ring-accent-neon focus:ring-offset-2',
-                  activeSection === item.id
-                    ? 'bg-foreground shadow-sm ring-2 ring-foreground/20'
-                    : 'bg-foreground/40 hover:bg-foreground/60 hover:scale-110',
-                )}
-                aria-label={`Navigate to ${item.title} section`}
-                aria-current={
-                  activeSection === item.id ? 'page' : undefined
-                }
-                aria-describedby="nav-description"
-                onKeyDown={(e) => {
-                  // Indexed refs rather than a selector: every button is the
-                  // only element in its <li>, so :nth-of-type(n) matched them
-                  // all at n=1 and nothing at all beyond it.
-                  switch (e.key) {
-                    case 'ArrowUp':
-                      e.preventDefault();
-                      focusItem(Math.max(0, index - 1));
-                      break;
-                    case 'ArrowDown':
-                      e.preventDefault();
-                      focusItem(
-                        Math.min(navItems.length - 1, index + 1),
-                      );
-                      break;
-                    case 'Home':
-                      e.preventDefault();
-                      focusItem(0);
-                      break;
-                    case 'End':
-                      e.preventDefault();
-                      focusItem(navItems.length - 1);
-                      break;
+          {!listsPageSections &&
+            SECTIONS.map((section, index) => (
+              <li key={section.href}>
+                <Link
+                  href={section.href}
+                  className={entryClassName(
+                    pathname === section.href,
+                  )}
+                  aria-current={
+                    pathname === section.href ? 'page' : undefined
                   }
-                }}
-              />
-              <NavTooltip
-                label={item.title}
-                offsetClassName="right-14"
-                ariaHidden={activeSection !== item.id}
-              />
-            </li>
-          ))}
-
-        <li className="w-full">
-          <div
-            className="h-px w-6 bg-border/50 mx-auto"
-            aria-hidden="true"
-          ></div>
-        </li>
-
-        <li className="relative group">
-          <button
-            onClick={toggleTheme}
-            className="cursor-pointer flex items-center justify-center w-10 h-10 transition-all duration-300"
-            aria-label={`Switch between light and dark mode (${
-              isMac ? '⌘⇧L' : 'Ctrl+Shift+L'
-            })`}
-          >
-            <Sun
-              className="hidden dark:block h-5 w-5 text-foreground opacity-75 group-hover:opacity-100"
-              aria-hidden="true"
-            />
-            <Moon
-              className="block dark:hidden h-5 w-5 text-foreground opacity-75 group-hover:opacity-100"
-              aria-hidden="true"
-            />
-          </button>
-          <NavTooltip
-            label="Toggle Theme"
-            shortcut={isMac ? '⌘⇧L' : 'Ctrl+⇧L'}
-            shortcutClassName="w-12"
-          />
-        </li>
-      </ul>
+                >
+                  <EntryLabel
+                    title={section.title}
+                    isLast={index === SECTIONS.length - 1}
+                  />
+                  <span className="sr-only">{section.title}</span>
+                </Link>
+              </li>
+            ))}
+        </ul>
+      </div>
+      <ShortcutList isMac={isMac} />
     </nav>
   );
 }

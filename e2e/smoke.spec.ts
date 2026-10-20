@@ -196,12 +196,13 @@ test.describe('rendering cost', () => {
 
     await expect(chip).toHaveCSS('align-items', 'center');
     await expect(chip).toHaveCSS('font-size', '12px');
-    await expect(chip).toHaveCSS('padding-left', '10px');
-    await expect(chip).toHaveCSS('border-top-width', '1px');
-    await expect(chip).not.toHaveCSS(
-      'background-color',
-      'rgba(0, 0, 0, 0)'
-    );
+    await expect(chip).toHaveCSS('white-space', 'nowrap');
+    // The flag's dashes come from the utility, not from the markup.
+    expect(
+      await chip.evaluate(
+        (element) => getComputedStyle(element, '::before').content
+      )
+    ).toContain('--');
   });
 
   test('forces no element onto a layer of its own', async ({ page }) => {
@@ -240,13 +241,15 @@ test.describe('rendering cost', () => {
       .toEqual([]);
   });
 
-  test('a card animates its lift, not its colours', async ({ page }) => {
-    // A transition on every property would fade the colours of a whole
-    // section page of cards at once whenever the theme is toggled.
+  test('a row highlights without animating its colours', async ({
+    page,
+  }) => {
+    // A transition on its colours would fade a whole section page of rows
+    // at once whenever the theme is toggled.
     await page.goto('/developer-tools');
     await expect(page.locator('main article').first()).toHaveCSS(
-      'transition-property',
-      'box-shadow, scale'
+      'transition-duration',
+      '0s'
     );
   });
 });
@@ -401,7 +404,8 @@ test.describe('navigation', () => {
     // page the highlight no longer followed the scroll.
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto('/');
-    await page.locator(`main a[href="${SECTIONS[0].href}"]`).click();
+    // The hero lists the section pages and the preview links through too.
+    await page.locator(`main a[href="${SECTIONS[0].href}"]`).first().click();
     await page.waitForURL((url) => url.pathname === SECTIONS[0].href);
     await page.getByRole('link', { name: /^Return to home page/ }).click();
     await page.waitForURL((url) => url.pathname === '/');

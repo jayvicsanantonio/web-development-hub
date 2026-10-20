@@ -68,9 +68,9 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
 
 ### Component Organization
 - `/components/ui/` holds the building blocks and the site chrome: the shadcn
-  primitives, resource cards and grids, the search box and filter panel, the
-  footer, and the navigation (its desktop and mobile renderers in
-  `navigation/`)
+  primitives, resource rows and the lists of them, the search box and filter
+  panel, the footer, and the navigation (the desktop header, the section
+  index and the mobile bar in `navigation/`)
 - `/components/` root holds the bodies routes render: `category-page`,
   `search-wrapper` and `section-preview-grid`
 - shadcn/ui supplies the primitives in `/components/ui/` (the text input
@@ -85,10 +85,13 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
 - Tailwind CSS for styling with CSS custom properties for theming
 - The root layout provides `BookmarksProvider` and `SearchProvider`;
   `LayoutWrapper` mounts the keyboard shortcuts and the navigation chrome
-  around every page. `VerticalNavigation` chooses the side rail's sections
-  from the list the current page renders, and renders the one tag filter
-  panel for both layouts; the desktop search bar and the mobile bar each have
-  a `FilterButton` that only opens it. The mobile menu always links every
+  around every page. The chrome is fixed: a header across the top from md
+  and, from lg, a section index down the left, so the body's padding in
+  `app/layout.tsx` keeps every page clear of both. `VerticalNavigation`
+  chooses the index's sections from the list the current page renders (other
+  pages list every section page instead), and renders the one tag filter
+  panel for both layouts; the desktop header and the mobile bar each have a
+  `FilterButton` that only opens it. The mobile menu always links every
   section page
 - `SearchWrapper` swaps the home page's content for grouped results while a
   query or a tag is active
@@ -155,13 +158,17 @@ Run `pnpm lint`, `pnpm typecheck` and `pnpm test` before every pull request.
   utilities and the shadcn tokens; avoid inline styles unless necessary
 - Markup a page repeats hundreds of times gets one `@utility` in
   `app/globals.css` rather than a long class list per element; the resource
-  card's `tag-chip` is the example
+  row's `resource-row` and `tag-chip` are the examples
+- The look is a terminal: one monospace face, near-square corners, borders
+  rather than shadows, an amber accent and a green prompt (`text-prompt`).
+  Scenery such as a `$ ls` line is `aria-hidden`, and a resource row
+  highlights instantly rather than transitioning its colours
 - Leave layer promotion to the browser: no `transform-gpu` or `will-change` on
   elements that are not animating, and name the properties a transition
   covers on anything rendered once per resource
-- Font: Inter, self-hosted through `next/font`; monospace falls back to the
-  system stack. A font loaded in the root layout is preloaded on every page,
-  so add one only together with markup that renders in it
+- Font: JetBrains Mono, self-hosted through `next/font`, for all text. A font
+  loaded in the root layout is preloaded on every page, so add one only
+  together with markup that renders in it
 - Responsive design with mobile-first approach
 
 ### Performance

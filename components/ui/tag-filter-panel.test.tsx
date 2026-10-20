@@ -71,6 +71,20 @@ describe('the tags on offer', () => {
       screen.getByText(`0 of ${ALL_TAGS.length} tags selected`)
     ).toBeInTheDocument();
   });
+
+  it('reports whether each tag is selected', async () => {
+    const user = await renderPanel();
+
+    expect(
+      screen.getByRole('button', { name: /^free$/ })
+    ).toHaveAttribute('aria-pressed', 'false');
+
+    await user.click(screen.getByRole('button', { name: /^free$/ }));
+
+    expect(
+      screen.getByRole('button', { name: /^free$/ })
+    ).toHaveAttribute('aria-pressed', 'true');
+  });
 });
 
 describe('opening and closing', () => {

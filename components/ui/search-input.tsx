@@ -3,7 +3,6 @@
 'use client';
 
 import { useRef } from 'react';
-import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useSearch } from '@/contexts/search-context';
 import { useIsMac } from '@/lib/hooks/use-is-mac';
@@ -48,27 +47,29 @@ export function SearchInput({
   };
 
   return (
-    <form onSubmit={handleSearchSubmit}>
+    <form onSubmit={handleSearchSubmit} className="w-full max-w-xl">
       <div
         className={`${
-          isMobile ? 'relative' : 'flex items-center gap-3'
+          isMobile ? 'relative' : 'flex items-center gap-2'
         }`}
       >
         <div className="relative flex-1">
-          {!isMobile && (
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground opacity-70 z-10 pointer-events-none" />
-          )}
+          {/* A shell prompt in place of a magnifier. */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 text-sm font-bold text-prompt"
+          >
+            $
+          </span>
           <Input
             ref={inputRef}
             type="search"
-            placeholder="Find resources..."
+            placeholder="search resources…"
             value={searchQuery}
             onChange={handleSearchChange}
             className={`${
-              isMobile
-                ? 'w-full pr-10'
-                : 'w-64 h-10 pl-9 pr-16 backdrop-blur-md rounded-full shadow-md border-border/20 transition-all duration-300 dark:hover:bg-background-primary/90'
-            } [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none`}
+              isMobile ? 'h-10 w-full pl-7 pr-3' : 'h-9 w-full pl-7 pr-16'
+            } rounded-none border-border bg-muted/50 shadow-none placeholder:text-muted-foreground/70 [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none`}
             aria-label="Search resources"
             autoComplete="off"
             onKeyDown={handleKeyDown}
@@ -83,9 +84,7 @@ export function SearchInput({
                   inputRef.current?.focus();
                 }
               }}
-              className={`absolute right-3 top-1/2 transform -translate-y-1/2 ${
-                searchQuery ? 'h-5 w-8' : 'h-5 w-10'
-              } rounded-md bg-muted border border-border/50 flex items-center justify-center text-[10px] font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all cursor-pointer px-1 tracking-tight leading-none`}
+              className="kbd absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer hover:border-accent hover:text-accent"
               aria-label={
                 searchQuery
                   ? 'Clear search (press ESC)'

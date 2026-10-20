@@ -20,7 +20,7 @@ export default function LayoutWrapper({
       <div className="relative flex flex-col flex-1">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:p-2 focus:bg-accent focus:text-accent-foreground focus:z-50"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:p-2 focus:bg-accent focus:text-accent-foreground focus:z-[60]"
         >
           Skip to main content
         </a>

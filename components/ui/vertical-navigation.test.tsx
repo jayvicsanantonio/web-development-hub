@@ -1,6 +1,6 @@
-// Covers what the nav lists for the page being viewed: the side rail follows
-// the sections the page actually renders, and the mobile menu always links
-// every section page.
+// Covers what the nav lists for the page being viewed: the section index
+// follows the sections the page actually renders, and the mobile menu always
+// links every section page.
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -25,7 +25,7 @@ const wrapper = ({ children }: { children: ReactNode }) => (
 
 const renderNav = () => render(<VerticalNavigation />, { wrapper });
 
-const railSections = () =>
+const indexSections = () =>
   within(
     screen.getByRole('navigation', { name: 'Page sections navigation' })
   )
@@ -56,7 +56,7 @@ beforeEach(() => {
   return () => vi.unstubAllGlobals();
 });
 
-describe('the side rail on the bookmarks page', () => {
+describe('the section index on the bookmarks page', () => {
   // One saved resource in each of the first two sections.
   const SAVED = [SECTIONS[0].links[0], SECTIONS[1].links[0]];
 
@@ -71,7 +71,7 @@ describe('the side rail on the bookmarks page', () => {
   it('lists the sections the visitor saved into', () => {
     renderNav();
 
-    expect(railSections()).toEqual([
+    expect(indexSections()).toEqual([
       SECTIONS[0].title,
       SECTIONS[1].title,
     ]);
@@ -86,7 +86,7 @@ describe('the side rail on the bookmarks page', () => {
 
     await searchFor(unsaved.title);
 
-    expect(railSections()).toEqual([]);
+    expect(indexSections()).toEqual([]);
   });
 });
 

@@ -40,14 +40,9 @@ const ClearAllButton = ({ onConfirm }: { onConfirm: () => void }) => {
         type="button"
         onClick={() => dialogRef.current?.showModal()}
         className="
-          cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-md 
-          border border-border/50 
-          text-muted-foreground hover:text-foreground 
-          bg-background hover:bg-muted/50 
-          transition-all duration-200 ease-in-out
-          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
-          hover:border-border/80
-          shadow-sm hover:shadow-md
+          cursor-pointer inline-flex h-9 shrink-0 items-center gap-2 px-3
+          border border-border text-sm
+          text-muted-foreground hover:text-destructive hover:border-destructive
           disabled:pointer-events-none disabled:opacity-50
         "
         aria-label="Clear all bookmarks"
@@ -81,10 +76,14 @@ const ClearAllButton = ({ onConfirm }: { onConfirm: () => void }) => {
         role="alertdialog"
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
-        className="m-auto w-full max-w-lg border bg-background p-6 text-foreground shadow-lg backdrop:bg-[rgb(0_0_0/0.8)] sm:rounded-lg"
+        className="m-auto w-full max-w-lg border border-border bg-popover p-6 text-popover-foreground shadow-2xl backdrop:bg-[rgb(0_0_0/0.8)]"
       >
-        <div className="grid gap-4">
-          <div className="flex flex-col space-y-2 text-center sm:text-left">
+        <div className="grid gap-5">
+          <div className="flex flex-col space-y-3">
+            <p aria-hidden="true" className="text-xs text-muted-foreground">
+              <span className="mr-2 font-bold text-prompt">$</span>
+              rm ~/bookmarks/*
+            </p>
             <h2 id={titleId} className="text-lg font-semibold">
               Clear All Bookmarks
             </h2>
@@ -96,11 +95,11 @@ const ClearAllButton = ({ onConfirm }: { onConfirm: () => void }) => {
               action cannot be undone.
             </p>
           </div>
-          <div className="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
+          <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
             <button
               type="button"
               onClick={close}
-              className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent-neon dark:hover:text-primary-foreground hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+              className="inline-flex h-10 cursor-pointer items-center justify-center border border-border px-4 text-sm font-medium hover:border-foreground/40 hover:bg-muted"
             >
               Cancel
             </button>
@@ -110,7 +109,7 @@ const ClearAllButton = ({ onConfirm }: { onConfirm: () => void }) => {
                 close();
                 onConfirm();
               }}
-              className="inline-flex h-10 items-center justify-center rounded-md bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground ring-offset-background transition-colors hover:bg-destructive/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+              className="inline-flex h-10 cursor-pointer items-center justify-center bg-destructive px-4 text-sm font-medium text-destructive-foreground hover:bg-destructive/90"
             >
               Clear All
             </button>
@@ -151,9 +150,13 @@ const BookmarksHeader = ({
   };
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex flex-wrap items-end justify-between gap-6">
       <div>
-        <h1 className="text-4xl font-bold tracking-tight mb-2">
+        <p aria-hidden="true" className="text-xs text-muted-foreground">
+          <span className="mr-2 font-bold text-prompt">$</span>
+          ls ~/bookmarks
+        </p>
+        <h1 className="mt-5 text-3xl md:text-4xl font-bold tracking-tighter mb-3">
           My Bookmarks
         </h1>
         <p className="text-muted-foreground">{getDescription()}</p>
@@ -167,17 +170,21 @@ const BookmarksHeader = ({
 };
 
 const EmptyState = ({ filtering }: { filtering: boolean }) => (
-  <div className="py-12 text-center">
-    <p className="text-lg mb-6">
+  <div className="border border-dashed border-border px-6 py-14 text-center">
+    <p aria-hidden="true" className="mb-3 text-xs text-muted-foreground">
+      (empty)
+    </p>
+    <p className="mb-6 text-sm text-muted-foreground">
       {filtering
         ? "Try adjusting your search terms to find what you're looking for."
         : 'Bookmark resources to add them to your bookmarks list.'}
     </p>
     <Link
       href="/"
-      className="inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background ring-offset-background disabled:pointer-events-none disabled:opacity-50 border hover:bg-accent/10 h-10 px-4 py-2 rounded-full border-accent-neon text-accent-neon focus-visible:ring-accent-neon hover:text-accent-neon/80"
+      className="inline-flex h-10 items-center gap-3 border border-accent px-4 text-sm font-medium text-accent hover:bg-accent hover:text-accent-foreground"
     >
       Explore Resources
+      <span aria-hidden="true">→</span>
     </Link>
   </div>
 );
@@ -189,8 +196,8 @@ const BookmarksSection = ({
   section: string;
   bookmarks: Resource[];
 }) => (
-  <section id={toSectionId(section)} className="space-y-6">
-    <h2 className="text-2xl font-bold tracking-tight">{section}</h2>
+  <section id={toSectionId(section)} className="space-y-4 scroll-mt-20">
+    <h2 className="text-xl font-bold tracking-tight">{section}</h2>
     <ResourceGrid resources={bookmarks} />
   </section>
 );
@@ -212,7 +219,7 @@ export function BookmarksView() {
   );
 
   return (
-    <div className="container mx-auto md:mt-20 mt-8 py-12 space-y-12">
+    <div className="container py-12 md:py-16 space-y-12">
       <BookmarksHeader
         query={deferredQuery}
         filtering={filtering}
