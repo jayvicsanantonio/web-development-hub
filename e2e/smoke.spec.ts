@@ -41,6 +41,9 @@ test.describe('the deployed static export', () => {
   test('serves 404.html for an unknown path', async ({ page }) => {
     const response = await page.goto('/no-such-page');
     expect(response?.status()).toBe(404);
+    await expect(
+      page.getByRole('heading', { level: 1, name: 'Not in the index.' })
+    ).toBeVisible();
   });
 
   test('applies the security headers from public/_headers', async ({
