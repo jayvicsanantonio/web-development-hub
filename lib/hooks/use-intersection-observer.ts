@@ -27,6 +27,40 @@ export const useIntersectionObserver = (sectionIds: string[]) => {
     // from it. This remembers every section in view across callbacks.
     const intersecting = new Set<string>();
 
+    // Chooses among the sections in view the one nearest the middle.
+    const chooseActiveSection = () => {
+      const visibleSections = [...intersecting].filter((id) =>
+        id.startsWith('section-')
+      );
+
+      if (visibleSections.length > 0) {
+        const viewportCenter = window.innerHeight / 2;
+        let closestSection = visibleSections[0];
+        let minDistance = Infinity;
+
+        visibleSections.forEach((sectionId) => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            // Zero for the section the middle runs through, however tall,
+            // so a short neighbour's nearer centre cannot outrank it.
+            const distance = Math.max(
+              rect.top - viewportCenter,
+              viewportCenter - rect.bottom,
+              0
+            );
+
+            if (distance < minDistance) {
+              minDistance = distance;
+              closestSection = sectionId;
+            }
+          }
+        });
+
+        setActiveSection(closestSection);
+      }
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -37,36 +71,7 @@ export const useIntersectionObserver = (sectionIds: string[]) => {
           }
         });
 
-        const visibleSections = [...intersecting].filter((id) =>
-          id.startsWith('section-')
-        );
-
-        if (visibleSections.length > 0) {
-          const viewportCenter = window.innerHeight / 2;
-          let closestSection = visibleSections[0];
-          let minDistance = Infinity;
-
-          visibleSections.forEach((sectionId) => {
-            const element = document.getElementById(sectionId);
-            if (element) {
-              const rect = element.getBoundingClientRect();
-              // Zero for the section the middle runs through, however tall,
-              // so a short neighbour's nearer centre cannot outrank it.
-              const distance = Math.max(
-                rect.top - viewportCenter,
-                viewportCenter - rect.bottom,
-                0
-              );
-
-              if (distance < minDistance) {
-                minDistance = distance;
-                closestSection = sectionId;
-              }
-            }
-          });
-
-          setActiveSection(closestSection);
-        }
+        chooseActiveSection();
       },
       { rootMargin: ROOT_MARGIN, threshold: 0 }
     );
@@ -78,7 +83,17 @@ export const useIntersectionObserver = (sectionIds: string[]) => {
       }
     });
 
-    return () => observer.disconnect();
+    // Short sections can all sit inside the band at once, and a scroll that
+    // moves the middle from one to the next then changes no intersection, so
+    // the observer never calls back. Choosing again on scroll follows it.
+    window.addEventListener('scroll', chooseActiveSection, {
+      passive: true,
+    });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', chooseActiveSection);
+    };
   }, [sectionIds, pathname]);
 
   return activeSection;

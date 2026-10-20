@@ -195,6 +195,35 @@ describe('the active section', () => {
     expect(screen.getByRole('status')).toHaveTextContent('section-two');
   });
 
+  it('follows a scroll that moves no section into or out of view', () => {
+    // Short sections can all sit inside the band at once, so a scroll that
+    // moves the middle from one to the next changes no intersection, and the
+    // observer never calls back.
+    render(<Layout ids={IDS} page="/" />);
+    place('section-one', 250, 450);
+    place('section-two', 500, 700);
+    report({ 'section-one': true, 'section-two': true });
+    expect(screen.getByRole('status')).toHaveTextContent('section-one');
+
+    // Scrolled 150px: the middle is in two now, and both are still in view.
+    place('section-one', 100, 300);
+    place('section-two', 350, 550);
+    act(() => {
+      window.dispatchEvent(new Event('scroll'));
+    });
+
+    expect(screen.getByRole('status')).toHaveTextContent('section-two');
+  });
+
+  it('stops following the scroll once it unmounts', () => {
+    const removed = vi.spyOn(window, 'removeEventListener');
+    const { unmount } = render(<Layout ids={IDS} page="/" />);
+
+    unmount();
+
+    expect(removed).toHaveBeenCalledWith('scroll', expect.any(Function));
+  });
+
   it('prefers the section the middle falls in, however tall', () => {
     render(<Layout ids={IDS} page="/" />);
     // One's centre is 650px from the middle and two's only 190px, but the
