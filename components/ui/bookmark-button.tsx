@@ -40,8 +40,8 @@ export function BookmarkButton({
     <button
       onClick={handleToggleBookmark}
       className={cn(
-        'group relative flex items-center justify-center rounded-full p-1 transition-colors',
-        'hover:bg-background-secondary ',
+        'group relative flex h-8 w-8 cursor-pointer items-center justify-center',
+        'hover:bg-muted',
         className
       )}
       aria-label={
@@ -51,9 +51,9 @@ export function BookmarkButton({
       }
     >
       {isBookmarked ? (
-        <BookmarkCheck className="text-accent-neon h-5 w-5" />
+        <BookmarkCheck className="text-accent h-4 w-4" />
       ) : (
-        <Bookmark className="text-muted-foreground group-hover:text-foreground h-5 w-5" />
+        <Bookmark className="text-muted-foreground group-hover:text-foreground h-4 w-4" />
       )}
       <span className="sr-only">
         {isBookmarked ? 'Remove from bookmarks' : 'Add to bookmarks'}

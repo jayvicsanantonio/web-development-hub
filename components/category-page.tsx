@@ -21,13 +21,21 @@ export function CategoryPage({ slug }: { slug: string }) {
   );
 
   return (
-    <div className="container mx-auto md:mt-20 mt-8 py-12 px-4 md:px-6 flex flex-col gap-10">
-      <div className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight">
+    <div className="container py-12 md:py-16 flex flex-col gap-8">
+      <div>
+        <p aria-hidden="true" className="text-xs text-muted-foreground">
+          <span className="mr-2 font-bold text-prompt">$</span>
+          {`cd ~/${slug} && ls`}
+        </p>
+        <h1 className="mt-5 text-3xl md:text-4xl font-bold tracking-tighter">
           {section.title}
         </h1>
-        <p className="text-muted-foreground max-w-[700px]">
+        <p className="mt-3 text-muted-foreground max-w-2xl">
           {section.description}
+        </p>
+        <p className="mt-4 text-xs text-muted-foreground">
+          <span className="text-accent">{section.links.length}</span>{' '}
+          entries
         </p>
       </div>
 

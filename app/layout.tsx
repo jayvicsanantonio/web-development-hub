@@ -2,22 +2,25 @@
 // blocking script that settles the theme before the first paint.
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { JetBrains_Mono } from 'next/font/google';
 import Footer from '@/components/ui/footer';
 import { BookmarksProvider } from '@/contexts/bookmarks-context';
 import { SearchProvider } from '@/contexts/search-context';
 import LayoutWrapper from '@/components/ui/layout-wrapper';
 import './globals.css';
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const mono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+});
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'hsl(0 0% 100%)' },
+    { media: '(prefers-color-scheme: light)', color: 'hsl(45 38% 94%)' },
     {
       media: '(prefers-color-scheme: dark)',
-      color: 'hsl(222 47% 11%)',
+      color: 'hsl(60 8% 5%)',
     },
   ],
 };
@@ -108,8 +111,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }}
         />
       </head>
+      {/* The header is fixed above every page and, from lg, the section
+          index beside it, so the body's padding keeps content clear of both. */}
       <body
-        className={`${inter.variable} font-sans bg-background text-foreground min-h-screen overflow-x-hidden`}
+        className={`${mono.variable} font-mono bg-background text-foreground min-h-screen overflow-x-hidden pt-14 lg:pl-72`}
       >
         <BookmarksProvider>
           <SearchProvider>

@@ -1,4 +1,4 @@
-// A responsive grid of resource cards, with a count above it while the list is
+// A bordered list of resource rows, with a count above it while the list is
 // being filtered.
 'use client';
 
@@ -25,13 +25,18 @@ export default memo(function ResourceGrid({
 }: ResourceGridProps) {
   return (
     <>
+      {/* The prompt sits beside the count rather than inside it, so the
+          count's own text is the summary alone. */}
       {filtering && (
-        <p className="text-sm text-muted-foreground">
-          {resultSummary(resources.length, query)}
-        </p>
+        <div className="flex gap-2 text-sm text-muted-foreground">
+          <span aria-hidden="true" className="text-prompt">
+            &gt;
+          </span>
+          <p>{resultSummary(resources.length, query)}</p>
+        </div>
       )}
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="divide-y divide-border border border-border">
         {resources.map((resource) => (
           <ResourceCard key={resource.id} resource={resource} />
         ))}

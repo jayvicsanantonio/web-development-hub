@@ -13,6 +13,10 @@ import { FilterButton } from '@/components/ui/filter-button';
 import { Icon } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 
+// The square, borderless icon button every control in the bar is drawn as.
+const ICON_BUTTON =
+  'flex h-9 w-9 cursor-pointer items-center justify-center text-muted-foreground hover:bg-muted hover:text-foreground';
+
 /** One row of the mobile menu: the page's icon and title, as a link. */
 function MenuLink({
   title,
@@ -38,26 +42,19 @@ function MenuLink({
       onClick={onClick}
       onKeyDown={onKeyDown}
       className={cn(
-        'flex w-full items-center gap-3 p-3 rounded-md transition-all duration-200  focus:ring-2 focus:ring-accent-neon',
+        'flex w-full items-center gap-3 border-l-2 px-3 py-3 text-sm',
         isActive
-          ? 'bg-background-muted/50 border-l-2 border-accent-neon text-accent-neon font-medium'
-          : 'hover:bg-background-muted/30 border-l-2 border-transparent'
+          ? 'border-accent bg-muted text-accent font-medium'
+          : 'border-transparent text-muted-foreground hover:bg-muted/60 hover:text-foreground'
       )}
       aria-current={isActive ? 'page' : undefined}
     >
       <Icon
         icon={iconName}
-        className={cn(
-          'h-5 w-5',
-          isActive
-            ? 'text-foreground opacity-90'
-            : 'text-foreground opacity-70'
-        )}
+        className="h-4 w-4"
         aria-hidden="true"
       />
-      <span className={cn(isActive ? 'font-medium' : 'font-normal')}>
-        {title}
-      </span>
+      <span>{title}</span>
     </Link>
   );
 }
@@ -110,77 +107,78 @@ export function MobileNavigation({
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 bg-background md:hidden">
+      <header className="fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between border-b border-border bg-background pl-4 pr-2 md:hidden">
         <Link
           href="/"
-          className="text-foreground font-bold text-xl  focus:ring-2 focus:ring-accent-neon focus:rounded-md"
+          className="flex items-center gap-2.5 text-sm font-bold tracking-tight"
         >
-          Web Development Hub
+          <span
+            aria-hidden="true"
+            className="bg-accent px-1 text-accent-foreground"
+          >
+            &gt;_
+          </span>
+          webdevhub
         </Link>
-        <div className="flex gap-2">
+        <div className="flex items-center">
           {!hideSearch && (
             <>
               <button
                 onClick={() => setIsSearchOpen((open) => !open)}
-                className="p-2 rounded-full transition-colors  cursor-pointer"
+                className={cn(
+                  ICON_BUTTON,
+                  isSearchOpen && 'text-accent'
+                )}
                 aria-expanded={isSearchOpen}
                 aria-label="Search resources"
               >
-                <Search
-                  className="h-5 w-5 text-foreground"
-                  aria-hidden="true"
-                />
+                <Search className="h-4 w-4" aria-hidden="true" />
               </button>
               <FilterButton />
             </>
           )}
           <Link
             href="/bookmarks"
-            className="p-2 rounded-full transition-colors  flex items-center justify-center"
+            className={cn(
+              ICON_BUTTON,
+              pathname === '/bookmarks' && 'text-accent'
+            )}
             aria-label="View bookmarks"
           >
-            <BookmarkIcon
-              className={cn(
-                'h-5 w-5',
-                pathname === '/bookmarks'
-                  ? 'text-accent-neon'
-                  : 'text-foreground'
-              )}
-              aria-hidden="true"
-            />
+            <BookmarkIcon className="h-4 w-4" aria-hidden="true" />
           </Link>
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full transition-colors  cursor-pointer"
+            className={ICON_BUTTON}
             aria-label="Switch between light and dark mode"
           >
             <Sun
-              className="hidden dark:block h-5 w-5 text-foreground"
+              className="hidden dark:block h-4 w-4"
               aria-hidden="true"
             />
             <Moon
-              className="block dark:hidden h-5 w-5 text-foreground"
+              className="block dark:hidden h-4 w-4"
               aria-hidden="true"
             />
           </button>
           <button
             onClick={() => setIsMobileMenuOpen((open) => !open)}
-            className="p-2 rounded-full transition-colors  cursor-pointer"
+            className={cn(
+              ICON_BUTTON,
+              isMobileMenuOpen && 'text-accent'
+            )}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
             aria-label="Main menu"
           >
-            <Menu
-              className="h-5 w-5 text-foreground"
-              aria-hidden="true"
-            />
+            <Menu className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
       </header>
 
       {!hideSearch && isSearchOpen && (
         <div
-          className="fixed top-16 left-0 right-0 z-50 p-4 bg-background md:hidden"
+          className="fixed top-14 left-0 right-0 z-50 border-b border-border bg-background p-4 md:hidden"
           id="mobile-search"
           role="search"
         >
@@ -198,14 +196,20 @@ export function MobileNavigation({
 
       <div
         id="mobile-menu"
-        className={`fixed top-16 left-0 right-0 z-40 bg-background p-4 shadow-lg md:hidden transform transition-transform duration-300 ${
+        className={`fixed inset-x-0 top-14 bottom-0 z-40 overflow-y-auto bg-background p-4 md:hidden transition-[translate] duration-200 ${
           isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
         role="navigation"
         inert={!isMobileMenuOpen}
       >
         <nav aria-label="Site sections">
-          <ul className="flex flex-col gap-4 list-none m-0 p-0 min-h-[calc(100vh-8rem)]">
+          <p
+            aria-hidden="true"
+            className="px-3 pb-2 text-xs text-muted-foreground"
+          >
+            {'// ~/webdevhub'}
+          </p>
+          <ul className="flex flex-col gap-1 list-none m-0 p-0">
             <li>
               <MenuLink
                 title="Home"

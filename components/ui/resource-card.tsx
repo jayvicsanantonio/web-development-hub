@@ -1,11 +1,10 @@
-// One resource as a card: its icon, linked title, description and tags, with
-// a bookmark toggle. Every resource grid on the site is built from these.
+// One resource as a row: its icon and linked title, its description and tags,
+// and a bookmark toggle. Every resource list on the site is built from these.
 'use client';
 
 import React from 'react';
 import { Icon } from '@/lib/icons';
 import { BookmarkButton } from '@/components/ui/bookmark-button';
-import { getTagIconName } from '@/lib/utils/tag-icons';
 import type { ResourceLink } from '@/lib/types';
 
 type ResourceCardProps = {
@@ -19,71 +18,63 @@ export default function ResourceCard({
 
   return (
     <article
-      className="relative flex flex-col h-full rounded-lg transition-[box-shadow,scale] bg-card border border-border hover:shadow-lg hover:scale-[1.01]"
+      className="resource-row"
       id={resourceId}
       aria-labelledby={`title-${resourceId}`}
     >
-      <div className="flex items-center justify-between p-6 border-b border-border">
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <Icon
-              icon={resource.icon}
-              className="h-8 w-8"
-              aria-hidden="true"
-            />
-          </div>
-          <h3
-            id={`title-${resourceId}`}
-            className="text-lg font-semibold"
-          >
-            {/* The ::after overlay makes the whole card clickable while the
-                link itself stays inside the heading, so the bookmark button is
-                a sibling rather than a button nested in an anchor. */}
-            <a
-              href={resource.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="after:absolute after:inset-0 after:rounded-lg focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-[var(--color-ring)]"
-            >
-              {resource.title}
-            </a>
-          </h3>
-        </div>
-        <BookmarkButton
-          resourceId={resource.id}
-          title={resource.title}
-          className="relative z-10"
+      <div className="flex min-w-0 items-start gap-3">
+        <Icon
+          icon={resource.icon}
+          className="mt-0.5 h-5 w-5 shrink-0"
+          aria-hidden="true"
         />
+        <h3
+          id={`title-${resourceId}`}
+          className="min-w-0 break-words text-[0.95rem] font-semibold"
+        >
+          {/* The ::after overlay makes the whole row clickable while the
+              link itself stays inside the heading, so the bookmark button is
+              a sibling rather than a button nested in an anchor. */}
+          <a
+            href={resource.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-accent after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:-outline-offset-2 focus-visible:after:outline-[var(--color-ring)]"
+          >
+            {resource.title}
+          </a>
+        </h3>
+        <span
+          aria-hidden="true"
+          className="mt-0.5 text-xs text-muted-foreground"
+        >
+          ↗
+        </span>
       </div>
-      <div className="p-6 flex-grow space-y-4">
-        <p className="text-muted-foreground">
+      <div className="col-span-2 min-w-0 md:col-span-1">
+        <p className="text-sm leading-relaxed text-muted-foreground">
           {resource.description}
         </p>
 
         {resource.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 pt-2">
-            {resource.tags.map((tag) => {
-              const tagIcon = getTagIconName(tag);
-              return (
-                <span
-                  key={`${resourceId}-tag-${tag}`}
-                  className="tag-chip"
-                  title={`Filter by ${tag}`}
-                >
-                  {tagIcon && (
-                    <Icon
-                      icon={tagIcon}
-                      className="w-3 h-3 mr-1.5"
-                      aria-hidden="true"
-                    />
-                  )}
-                  {tag.replaceAll('-', ' ')}
-                </span>
-              );
-            })}
+          <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+            {resource.tags.map((tag) => (
+              <span
+                key={`${resourceId}-tag-${tag}`}
+                className="tag-chip"
+                title={`Filter by ${tag}`}
+              >
+                {tag.replaceAll('-', ' ')}
+              </span>
+            ))}
           </div>
         )}
       </div>
+      <BookmarkButton
+        resourceId={resource.id}
+        title={resource.title}
+        className="relative z-10 -my-1"
+      />
     </article>
   );
 }

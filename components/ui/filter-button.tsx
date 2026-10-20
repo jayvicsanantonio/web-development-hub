@@ -6,6 +6,7 @@
 import { Filter, X } from 'lucide-react';
 import { useSearch } from '@/contexts/search-context';
 import { useIsMac } from '@/lib/hooks/use-is-mac';
+import { cn } from '@/lib/utils';
 
 export function FilterButton() {
   const {
@@ -20,52 +21,39 @@ export function FilterButton() {
   const hasFilters = selectedTags.length > 0;
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center gap-1">
       <button
         onClick={toggleFilterPanel}
-        className={`
-          relative cursor-pointer h-10 px-3 rounded-full 
-          backdrop-blur flex items-center gap-2
-          md:border 
-          md:shadow-md transition-all duration-300 
-          ${
-            isFilterPanelOpen
-              ? 'border-accent-neon'
-              : 'border-border/20'
-          }
-        `}
+        className={cn(
+          'flex h-9 cursor-pointer items-center gap-2 px-2.5 text-sm md:border',
+          isFilterPanelOpen
+            ? 'text-accent md:border-accent'
+            : 'text-muted-foreground hover:text-foreground md:border-border md:hover:border-foreground/40',
+        )}
         aria-label={`Filter resources${
           hasFilters ? ` (${selectedTags.length} active)` : ''
         }`}
         aria-expanded={isFilterPanelOpen}
       >
-        <Filter className="h-4 w-4 text-foreground" />
-        <div className="hidden md:flex h-5 w-10 rounded-md bg-muted border border-border/50 items-center justify-center text-[10px] font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all px-1 tracking-tight leading-none">
-          {isMac ? '⌘F' : 'Ctrl+F'}
-        </div>
-
-        {hasFilters && isFilterPanelOpen && (
-          <div className="absolute -top-1 -right-1 h-4 w-4 bg-destructive rounded-full flex items-center justify-center animate-scale-in">
-            <span className="text-xs font-medium text-destructive-foreground">
-              {selectedTags.length}
-            </span>
-          </div>
+        <Filter className="h-4 w-4" aria-hidden="true" />
+        <span className="hidden md:inline">tags</span>
+        {hasFilters && (
+          <span className="bg-accent px-1.5 text-xs leading-5 text-accent-foreground">
+            {selectedTags.length}
+          </span>
         )}
+        <kbd className="kbd hidden md:inline-flex">
+          {isMac ? '⌘F' : 'Ctrl+F'}
+        </kbd>
       </button>
 
       {hasFilters && !isFilterPanelOpen && (
         <button
           onClick={clearFilters}
-          className="
-            absolute -top-1 -right-1 h-4 w-4 cursor-pointer
-            bg-destructive hover:bg-destructive/90
-            rounded-full flex items-center justify-center
-            transition-colors duration-200
-            animate-scale-in
-          "
+          className="flex h-9 w-9 cursor-pointer items-center justify-center text-muted-foreground hover:text-destructive md:border md:border-border md:hover:border-destructive"
           aria-label="Clear all filters"
         >
-          <X className="h-4 w-4 md:h-3 md:w-3 text-destructive-foreground" />
+          <X className="h-4 w-4" aria-hidden="true" />
         </button>
       )}
     </div>

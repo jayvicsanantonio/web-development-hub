@@ -1,11 +1,14 @@
-// Covers the roving focus the side nav advertises through #nav-description.
-// It was driven by `.desktop-nav-button:nth-of-type(n)`, which counts by
-// element type within each parent — every button is its <li>'s only child, so
-// only :nth-of-type(1) ever matched and ArrowDown/End moved nothing.
+// Covers the section index: the roving focus it advertises through
+// #nav-description, the section pages it links from every other page, and its
+// list of shortcuts. The roving focus was driven by
+// `.desktop-nav-button:nth-of-type(n)`, which counts by element type within
+// each parent — every button is its <li>'s only child, so only
+// :nth-of-type(1) ever matched and ArrowDown/End moved nothing.
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DesktopNavigation } from './desktop-navigation';
+import { SECTIONS } from '@/constants/sections';
 import type { NavigationItem } from '@/lib/utils/navigation';
 
 const NAV_ITEMS: NavigationItem[] = [
@@ -24,6 +27,7 @@ function renderNav(props: Partial<
         activeSection="section-one"
         isHomeActive
         isBookmarksActive={false}
+        pathname="/"
         {...props}
       />
       {NAV_ITEMS.map((item) => (
@@ -121,5 +125,50 @@ describe('activation', () => {
       'page'
     );
     expect(sectionButton('One')).not.toHaveAttribute('aria-current');
+  });
+});
+
+describe('off the home and bookmarks pages', () => {
+  const offHome = {
+    isHomeActive: false,
+    isBookmarksActive: false,
+    pathname: SECTIONS[1].href,
+  };
+
+  it('links every section page instead', () => {
+    renderNav(offHome);
+    for (const section of SECTIONS) {
+      expect(
+        screen.getByRole('link', { name: section.title })
+      ).toHaveAttribute('href', section.href);
+    }
+  });
+
+  it('marks the section page being viewed', () => {
+    renderNav(offHome);
+    expect(
+      screen.getByRole('link', { name: SECTIONS[1].title })
+    ).toHaveAttribute('aria-current', 'page');
+    expect(
+      screen.getByRole('link', { name: SECTIONS[0].title })
+    ).not.toHaveAttribute('aria-current');
+  });
+});
+
+describe('the shortcut list', () => {
+  it('names what each global shortcut does', () => {
+    renderNav();
+    const nav = screen.getByRole('navigation', {
+      name: 'Page sections navigation',
+    });
+    for (const action of [
+      'search',
+      'filter tags',
+      'bookmarks',
+      'home',
+      'theme',
+    ]) {
+      expect(within(nav).getByText(action)).toBeInTheDocument();
+    }
   });
 });

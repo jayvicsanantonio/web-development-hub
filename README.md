@@ -9,7 +9,7 @@ served by Cloudflare Workers, with no server runtime and no database.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/section-dark.png">
-  <img src="docs/images/section-light.png" alt="The Learning Resources page: a search box and tag filter above a grid of resource cards, each with an icon, a description, tags and a bookmark button">
+  <img src="docs/images/section-light.png" alt="The Learning Resources page in a terminal style: a header with a prompt-style search box and tag filter, a section index down the left, and a list of resource rows, each with an icon, a description, tags written as command-line flags and a bookmark button">
 </picture>
 
 ## Using the Site
@@ -86,7 +86,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 | --- | --- |
 | `constants/sections.ts` | Every section and resource: all the data the site has |
 | `app/` | The routes: home, a page per section, bookmarks and the legal pages |
-| `components/` | What the routes render; `components/ui/` holds the cards, search, filter panel and navigation |
+| `components/` | What the routes render; `components/ui/` holds the resource rows, search, filter panel and navigation |
 | `contexts/` | The bookmarks and search state |
 | `hooks/` | The keyboard shortcuts |
 | `lib/` | Shared types, the bookmarks store, the theme, icons and utilities |
